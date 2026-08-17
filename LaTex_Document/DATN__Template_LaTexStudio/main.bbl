@@ -1,0 +1,263 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global/global}
+    \entry{tapchi}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=03c16eed1d3a7bddefa209e8380d457b}{%
+           family={Nguyễn},
+           familyi={N\bibinitperiod},
+           given={Văn\bibnamedelima A},
+           giveni={V\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=e4f95f5c6adc0208e6839df94f5e6d70}{%
+           family={Trần},
+           familyi={T\bibinitperiod},
+           given={Thị\bibnamedelima B},
+           giveni={T\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+      }
+      \strng{namehash}{d9d44bf3974accad4ea282f738c09030}
+      \strng{fullhash}{d9d44bf3974accad4ea282f738c09030}
+      \strng{fullhashraw}{d9d44bf3974accad4ea282f738c09030}
+      \strng{bibnamehash}{d9d44bf3974accad4ea282f738c09030}
+      \strng{authorbibnamehash}{d9d44bf3974accad4ea282f738c09030}
+      \strng{authornamehash}{d9d44bf3974accad4ea282f738c09030}
+      \strng{authorfullhash}{d9d44bf3974accad4ea282f738c09030}
+      \strng{authorfullhashraw}{d9d44bf3974accad4ea282f738c09030}
+      \field{extraname}{1}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Tạp chí Kinh tế và Dự báo}
+      \field{month}{3}
+      \field{number}{2}
+      \field{title}{Phân tích tác động của chuyển đổi số đến kinh tế Việt Nam}
+      \field{urlday}{1}
+      \field{urlmonth}{5}
+      \field{urlyear}{2024}
+      \field{volume}{15}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \field{pages}{45\bibrangedash 52}
+      \range{pages}{8}
+      \verb{urlraw}
+      \verb https://example.com/bai-bao
+      \endverb
+      \verb{url}
+      \verb https://example.com/bai-bao
+      \endverb
+    \endentry
+    \entry{chuong}{incollection}{}{}
+      \name{author}{1}{}{%
+        {{hash=03c16eed1d3a7bddefa209e8380d457b}{%
+           family={Nguyễn},
+           familyi={N\bibinitperiod},
+           given={Văn\bibnamedelima A},
+           giveni={V\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \name{editor}{1}{}{%
+        {{hash=5421dffc93c7b1f33f3d8657f9886cd6}{%
+           family={Trần},
+           familyi={T\bibinitperiod},
+           given={Văn\bibnamedelima B},
+           giveni={V\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Hà Nội}%
+      }
+      \list{publisher}{1}{%
+        {NXB Đại học Quốc gia}%
+      }
+      \strng{namehash}{03c16eed1d3a7bddefa209e8380d457b}
+      \strng{fullhash}{03c16eed1d3a7bddefa209e8380d457b}
+      \strng{fullhashraw}{03c16eed1d3a7bddefa209e8380d457b}
+      \strng{bibnamehash}{03c16eed1d3a7bddefa209e8380d457b}
+      \strng{authorbibnamehash}{03c16eed1d3a7bddefa209e8380d457b}
+      \strng{authornamehash}{03c16eed1d3a7bddefa209e8380d457b}
+      \strng{authorfullhash}{03c16eed1d3a7bddefa209e8380d457b}
+      \strng{authorfullhashraw}{03c16eed1d3a7bddefa209e8380d457b}
+      \strng{editorbibnamehash}{5421dffc93c7b1f33f3d8657f9886cd6}
+      \strng{editornamehash}{5421dffc93c7b1f33f3d8657f9886cd6}
+      \strng{editorfullhash}{5421dffc93c7b1f33f3d8657f9886cd6}
+      \strng{editorfullhashraw}{5421dffc93c7b1f33f3d8657f9886cd6}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Toán ứng dụng trong Kinh tế}
+      \field{chapter}{1}
+      \field{title}{Phân tích mô hình hồi quy tuyến tính}
+      \field{year}{2024}
+      \field{pages}{15\bibrangedash 40}
+      \range{pages}{26}
+    \endentry
+    \entry{giaotrinh}{book}{}{}
+      \name{author}{2}{}{%
+        {{hash=03c16eed1d3a7bddefa209e8380d457b}{%
+           family={Nguyễn},
+           familyi={N\bibinitperiod},
+           given={Văn\bibnamedelima A},
+           giveni={V\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=e4f95f5c6adc0208e6839df94f5e6d70}{%
+           family={Trần},
+           familyi={T\bibinitperiod},
+           given={Thị\bibnamedelima B},
+           giveni={T\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Hà Nội}%
+      }
+      \list{publisher}{1}{%
+        {NXB Đại học Quốc gia Hà Nội}%
+      }
+      \strng{namehash}{d9d44bf3974accad4ea282f738c09030}
+      \strng{fullhash}{d9d44bf3974accad4ea282f738c09030}
+      \strng{fullhashraw}{d9d44bf3974accad4ea282f738c09030}
+      \strng{bibnamehash}{d9d44bf3974accad4ea282f738c09030}
+      \strng{authorbibnamehash}{d9d44bf3974accad4ea282f738c09030}
+      \strng{authornamehash}{d9d44bf3974accad4ea282f738c09030}
+      \strng{authorfullhash}{d9d44bf3974accad4ea282f738c09030}
+      \strng{authorfullhashraw}{d9d44bf3974accad4ea282f738c09030}
+      \field{extraname}{2}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{2}
+      \field{isbn}{978-604-342-575-8}
+      \field{title}{Giáo trình Kinh tế lượng nâng cao}
+      \field{year}{2024}
+    \endentry
+    \entry{luanvan}{thesis}{}{}
+      \name{author}{1}{}{%
+        {{hash=a56d7f78218b1acbc7a60524c16aabf7}{%
+           family={Phạm},
+           familyi={P\bibinitperiod},
+           given={Văn\bibnamedelima C},
+           giveni={V\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {Trường Đại học Kinh tế Quốc dân}%
+      }
+      \list{location}{1}{%
+        {Hà Nội}%
+      }
+      \strng{namehash}{a56d7f78218b1acbc7a60524c16aabf7}
+      \strng{fullhash}{a56d7f78218b1acbc7a60524c16aabf7}
+      \strng{fullhashraw}{a56d7f78218b1acbc7a60524c16aabf7}
+      \strng{bibnamehash}{a56d7f78218b1acbc7a60524c16aabf7}
+      \strng{authorbibnamehash}{a56d7f78218b1acbc7a60524c16aabf7}
+      \strng{authornamehash}{a56d7f78218b1acbc7a60524c16aabf7}
+      \strng{authorfullhash}{a56d7f78218b1acbc7a60524c16aabf7}
+      \strng{authorfullhashraw}{a56d7f78218b1acbc7a60524c16aabf7}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Nghiên cứu giải pháp ứng dụng AI trong dự báo kinh tế số}
+      \field{type}{Luận văn Thạc sĩ}
+      \field{year}{2024}
+    \endentry
+    \entry{hoithao}{inproceedings}{}{}
+      \name{author}{2}{}{%
+        {{hash=bfa70dcc2ed0404f54eccafd7fe17b6c}{%
+           family={Lê},
+           familyi={L\bibinitperiod},
+           given={Văn\bibnamedelima D},
+           giveni={V\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+        {{hash=a16e7f8098acd6d9cfccb0aa0947561d}{%
+           family={Trần},
+           familyi={T\bibinitperiod},
+           given={Thị\bibnamedelima E},
+           giveni={T\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+      }
+      \name{editor}{1}{}{%
+        {{hash=9c395e3898eebf80630e4103ac14fc1b}{%
+           family={Nguyễn},
+           familyi={N\bibinitperiod},
+           given={Văn\bibnamedelima B},
+           giveni={V\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Đà Nẵng, Việt Nam}%
+      }
+      \list{publisher}{1}{%
+        {NXB Khoa học và Kỹ thuật}%
+      }
+      \strng{namehash}{58336dfd91c8ecb213cc31118c4b0e09}
+      \strng{fullhash}{58336dfd91c8ecb213cc31118c4b0e09}
+      \strng{fullhashraw}{58336dfd91c8ecb213cc31118c4b0e09}
+      \strng{bibnamehash}{58336dfd91c8ecb213cc31118c4b0e09}
+      \strng{authorbibnamehash}{58336dfd91c8ecb213cc31118c4b0e09}
+      \strng{authornamehash}{58336dfd91c8ecb213cc31118c4b0e09}
+      \strng{authorfullhash}{58336dfd91c8ecb213cc31118c4b0e09}
+      \strng{authorfullhashraw}{58336dfd91c8ecb213cc31118c4b0e09}
+      \strng{editorbibnamehash}{9c395e3898eebf80630e4103ac14fc1b}
+      \strng{editornamehash}{9c395e3898eebf80630e4103ac14fc1b}
+      \strng{editorfullhash}{9c395e3898eebf80630e4103ac14fc1b}
+      \strng{editorfullhashraw}{9c395e3898eebf80630e4103ac14fc1b}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Kỷ yếu Hội thảo Khoa học Quốc gia về Công nghệ thông tin (ICT-2024)}
+      \field{month}{6}
+      \field{note}{Công nghệ số}
+      \field{title}{Ứng dụng học máy trong phân tích dữ liệu chuỗi thời gian}
+      \field{volume}{1}
+      \field{year}{2024}
+      \field{pages}{120\bibrangedash 135}
+      \range{pages}{16}
+    \endentry
+    \entry{internet}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=6f479f6ce587ddb1ba70cb7d30dae18b}{%
+           family={{UNICEF Việt Nam}},
+           familyi={U\bibinitperiod}}}%
+      }
+      \strng{namehash}{6f479f6ce587ddb1ba70cb7d30dae18b}
+      \strng{fullhash}{6f479f6ce587ddb1ba70cb7d30dae18b}
+      \strng{fullhashraw}{6f479f6ce587ddb1ba70cb7d30dae18b}
+      \strng{bibnamehash}{6f479f6ce587ddb1ba70cb7d30dae18b}
+      \strng{authorbibnamehash}{6f479f6ce587ddb1ba70cb7d30dae18b}
+      \strng{authornamehash}{6f479f6ce587ddb1ba70cb7d30dae18b}
+      \strng{authorfullhash}{6f479f6ce587ddb1ba70cb7d30dae18b}
+      \strng{authorfullhashraw}{6f479f6ce587ddb1ba70cb7d30dae18b}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Tác động của biến đổi khí hậu đối với trẻ em tại khu vực miền Trung}
+      \field{urlday}{1}
+      \field{urlmonth}{5}
+      \field{urlyear}{2024}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.unicef.org/vietnam/vi/bao-cao/tac-dong-cua-bien-doi-khi-hau
+      \endverb
+      \verb{url}
+      \verb https://www.unicef.org/vietnam/vi/bao-cao/tac-dong-cua-bien-doi-khi-hau
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

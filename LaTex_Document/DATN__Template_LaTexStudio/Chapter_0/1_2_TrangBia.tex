@@ -1,0 +1,96 @@
+% =========================================================================
+% ĐỊNH NGHĨA KHUNG VÀ THIẾT KẾ TRANG BÌA CHUNG (GOM GỌN ĐỂ TÁI SỬ DỤNG)
+% =========================================================================
+\newcommand{\TitleFont}{\fontsize{22pt}{28pt}\selectfont\bfseries}
+\newcommand{\SubTitleFont}{\fontsize{14pt}{16pt}\selectfont}
+\newcommand{\InTrangBia}[1]{
+
+% =========================================================
+% VẼ KHUNG TRANG BẰNG eso-pic (NHẸ HƠN TIKZ)
+% =========================================================
+\AddToShipoutPictureBG*{
+    \AtPageLowerLeft{
+
+       % Khung ngoài
+\put(75,55){
+    \framebox(460,730){}
+}
+
+% Khung trong
+\put(78,58){
+    \framebox(454,724){}
+}
+    }
+}
+
+\begin{titlepage}
+\begin{center}
+    \vspace*{-0.2cm}
+    \SubTitleFont TRƯỜNG ĐẠI HỌC KỸ THUẬT - CÔNG NGHỆ CẦN THƠ \\[0.2cm]
+
+    \textbf{KHOA CÔNG NGHỆ THÔNG TIN} \\[0.2cm]
+
+    \rule{6cm}{0.7pt}
+
+    \vspace{2.5cm}
+
+    \includegraphics[width=0.25\textwidth]{Chapter_0/logo.png}
+
+    \vspace{2.5cm}
+
+    \textbf{\fontsize{16pt}{20pt}\selectfont
+    ĐỒ ÁN TỐT NGHIỆP ĐẠI HỌC} \\[0.3cm]
+
+    \textbf{\fontsize{14pt}{16pt}\selectfont
+    NGÀNH: ....................................}
+
+    \vspace{2cm}
+
+    \begin{minipage}{0.85\textwidth}
+        \centering
+        {\TitleFont
+        TÊN ĐỀ TÀI ĐỒ ÁN TỐT NGHIỆP}
+    \end{minipage}
+
+    \vspace{1.5cm}
+
+    % Nội dung thay đổi
+    #1
+
+    \vfill
+
+    \textbf{\SubTitleFont
+    Cần Thơ, Năm 2026}
+
+\end{center}
+
+\end{titlepage}
+}
+% =========================================================================
+% VẬN HÀNH XUẤT RA 2 TRANG BÌA
+% =========================================================================
+
+% 1. XUẤT TRANG BÌA CHÍNH (BÌA CỨNG IN NGOÀI)
+\InTrangBia{
+
+         \textbf{\fontsize{14pt}{16pt}\selectfont HỌ VÀ TÊN SINH VIÊN}
+
+}
+
+% 2. XUẤT TRANG BÌA PHỤ (BÌA LÓT GIẤY TRẮNG BÊN TRONG) - ĐÃ SỬA LỖI NGẮT DÒNG HỘP
+\InTrangBia{
+    \nopagebreak
+    \hspace*{0.06\textwidth} % Đẩy toàn bộ khối này cách lề trái thêm một chút
+    \begin{minipage}[t]{0.42\textwidth}
+        \flushleft
+        \fontsize{14pt}{18pt}\selectfont Cán bộ hướng dẫn:\\
+        \textbf{TS. NGUYỄN VĂN ABC}
+    \end{minipage}\hfill
+    \begin{minipage}[t]{0.42\textwidth}
+        \flushleft
+        \fontsize{14pt}{18pt}\selectfont Sinh viên thực hiện:\\
+        \textbf{NGUYỄN VĂN A}\\
+        \textbf{MSSV: 12345678}
+   \end{minipage}
+
+}

@@ -1,0 +1,402 @@
+% TEMPLATE ĐỒ ÁN TỐT NGHIỆP TỐI ƯU HÓA - KHOA CÔNG NGHỆ THÔNG TIN
+% =========================================================================
+\documentclass[12pt,english,vietnamese]{report}
+\usepackage[utf8]{vietnam}    % Nhận diện ký tự Tiếng Việt UTF-8
+\usepackage[T5]{fontenc}      % Sử dụng fontencoding T5 chuyên dụng cho Tiếng Việt
+
+%\usepackage[english,vietnamese]{babel}
+% BẮT BUỘC PHẢI BỌC BẰNG CẶP LỆNH NÀY:
+%\shorthandoff*{"}
+\usepackage{mathptmx}
+\usepackage{amsmath}
+%\usepackage[autopunct=false, threshold=0]{csquotes}
+%\DeclareQuoteAlias{english}{vietnamese}
+%========================================================================
+% Tài liệu tham khảo
+%\usepackage[style=numeric,citestyle=ieee,language=english,sorting=none,backend=biber]{biblatex}
+%\addbibresource{ref.bib}
+% \makeatletter
+% \def\blx@warn@csquotes#1{} % Lệnh này sẽ ép biblatex im lặng, không cảnh báo thiếu csquotes
+% \makeatother
+
+%\addbibresource{ref.bib}
+% \DefineBibliographyStrings{english}{%
+%   page              = {tr\.},
+%   pages             = {tr\.},
+%   and               = {và},
+%   editor            = {chủ biên},
+%   editors           = {chủ biên},
+%   in                = {trong},
+% }
+%===========================================================================
+%\usepackage[noamssymbols]{newtxmath}
+% Giờ thì bạn nạp amsfonts và amssymb thoải mái ở đây mà không bao giờ sợ bị trùng lặp hay xung đột nữa
+
+\usepackage[a4paper, left=3cm, right=2cm, top=2cm, bottom=2cm, headheight=1cm, footskip=1cm]{geometry}
+
+\usepackage{setspace}
+\usepackage{longtable}
+\usepackage{makecell}
+\usepackage{enumitem}
+\usepackage{adjustbox}
+\usepackage{etoolbox}
+\usepackage{acro}
+%\usepackage{tikz}
+\usepackage{eso-pic}
+\usepackage{graphicx}
+%\usepackage{fontspec}
+%\setmainfont{TeX Gyre Termes} % Font chuẩn thay thế Times New Roman trên Overleaf
+
+\makeatletter
+\let\Bbbk\undefined
+\let\ams@Bbbk\undefined
+\makeatother
+
+%Từ viết tắt
+
+\input{Chapter_0/8_DanhMucKyHieu}
+% --- GÓI TIẾNG VIỆT (NẾU CẦN) ---
+% 1. Khai báo gói lệnh quản lý từ viết tắt
+% 1. Khai báo gói lệnh quản lý từ viết tắt (Đặt ở Preamble)
+\usepackage{booktabs}
+% Viết tắt
+
+% Thiết lập kích thước chữ và thụt đầu dòng chuẩn
+% Thiết lập kích thước chữ chuẩn không gây vòng lặp trang
+\renewcommand{\normalsize}{\fontsize{13pt}{16pt}\selectfont}
+\normalsize
+%\renewcommand{\labelenumi}{\alph{enumi}.}
+% --- CẤU HÌNH TIKZ CHUẨN, KHÔNG DÙNG EXTERNAL (TRÁNH LỖI TIMEOUT) ---
+
+
+% Khấu trừ/Xóa bỏ hoàn toàn mọi dòng có chữ externalize tại đây
+
+
+% ------------------- ĐỒ HỌA & BIỂU ĐỒ (TỐI ƯU HÓA TỐC ĐỘ BIÊN DỊCH) -------------------
+%\usetikzlibrary{patterns, calc, arrows.meta}
+%\usepackage{pgfplots}
+%\pgfplotsset{compat=1.18} % Xác định phiên bản cố định để tránh Overleaf quét lại thư viện mặc định
+
+% GIẢI PHÁP SỬA TIME OUT CHO ĐỒ THỊ:
+% Tự động biên dịch đồ thị TikZ/Pgfplots thành file ảnh độc lập sau lần chạy đầu, tránh vẽ lại từ đầu
+%\usepgfplotslibrary{external}
+%\tikzexternalize[prefix=figures-compiled/]
+
+\usepackage{float}
+
+% ------------------- HÌNH ẢNH & HÌNH PHỤ -------------------
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+\usepackage{caption}
+\usepackage{subcaption}
+
+% ------------------- ĐỊNH DẠNG BẢNG BIỂU -------------------
+\usepackage{pdflscape}
+\usepackage{multirow}
+
+% --- ĐỊNH NGHĨA FONT CHO CAPTION (AN TOÀN, KHÔNG XUNG ĐỘT) ---
+\DeclareCaptionFont{myLabelFont}{\bfseries\fontsize{13pt}{15.6pt}\selectfont}
+\DeclareCaptionFont{myTextFont}{\itshape\fontsize{11pt}{13.2pt}\selectfont}
+
+% Cấu hình cho Bảng (Table)
+\captionsetup[table]{
+    labelfont=myLabelFont,
+    textfont=myTextFont,
+    labelsep=colon,
+    justification=centering,
+    singlelinecheck=false,
+    position=above
+}
+
+% Cấu hình cho Hình (Figure)
+\captionsetup[figure]{
+    labelfont=myLabelFont,
+    textfont=myTextFont,
+    labelsep=colon,
+    justification=centering,
+    position=below
+}
+
+\makeatletter
+\g@addto@macro\@floatboxreset\centering
+\makeatother
+
+% ------------------- TOÁN HỌC CAO CẤP -------------------
+%\usepackage{mathtools}
+
+%\usepackage{amsfonts}
+%\usepackage{amssymb}
+\DeclareMathOperator*{\argmax}{argmax}
+
+% ------------------- ĐỊNH DẠNG HEADER - FOOTER -------------------
+% Định dạng đánh số trang
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{} % Xóa sạch cấu hình mặc định
+
+% 1. Cấu hình số trang lên ĐẦU cho các trang nội dung thông thường
+\fancyhead[C]{\fontsize{12pt}{14pt}\selectfont \thepage}
+\renewcommand{\headrulewidth}{0pt}
+
+% 2. ÉP số trang lên ĐẦU cho các trang bắt đầu Chương (\chapter)
+\fancypagestyle{plain}{
+    \fancyhf{} % Xóa số trang ở cuối của mặc định plain
+    \fancyhead[C]{\fontsize{12pt}{14pt}\selectfont \thepage} % Đưa số trang lên giữa - trên
+    \renewcommand{\headrulewidth}{0pt}
+}
+
+% Đè cấu hình này lên trang đầu của chương (\chapter) và trang Tài liệu tham khảo
+\usepackage{indentfirst}
+\setlength{\parindent}{1cm}
+\setlength{\parskip}{6pt}
+%\renewcommand{\baselinestretch}{1.2}
+\setstretch{1.2}
+
+% ------------------- ĐỊNH DẠNG TIÊU ĐỀ MỤC (SECTIONS) -------------------
+\usepackage{titlesec}
+\usepackage{textcase}
+\setcounter{secnumdepth}{3}
+
+\titlespacing*{\section}{0pt}{6pt}{6pt}
+\titleformat*{\section}{\fontsize{13pt}{16pt}\selectfont \bfseries \MakeUppercase}
+
+\titlespacing*{\subsection}{0pt}{6pt}{6pt}
+\titleformat*{\subsection}{\fontsize{13pt}{16pt}\selectfont \bfseries}
+
+\titlespacing*{\subsubsection}{0pt}{6pt}{6pt}
+\titleformat*{\subsubsection}{\fontsize{13pt}{16pt}\selectfont \bfseries \itshape}
+
+% ------------------- ĐỊNH DẠNG TIÊU ĐỀ CHƯƠNG (CHAPTERS) -------------------
+\titlespacing*{\chapter}{0pt}{-26pt}{40pt}
+
+  \titleformat{\chapter}[block]
+  {\fontsize{14pt}{18pt}\selectfont\bfseries\filcenter}
+  {\MakeTextUppercase{\chaptertitlename\ \thechapter: }}{0pt}
+  {\MakeTextUppercase}
+% ------------------- TÙY CHỈNH HÌNH THỨC MỤC LỤC -------------------
+\usepackage{tocloft}
+% Tùy chỉnh kiểu định dạng của mục lục (Đã tách vspace ra ngoài an toàn)
+\setlength{\cftbeforetoctitleskip}{-40pt}
+\renewcommand{\cfttoctitlefont}{\hfill\fontsize{16pt}{19.2pt}\selectfont\bfseries\MakeUppercase}
+\renewcommand{\cftaftertoctitle}{\hfill}
+
+% Danh sách bảng
+% -------------- LIST OF TABLES -----------
+\setlength{\cftbeforelottitleskip}{-40pt}
+\renewcommand{\cftlottitlefont}{\hfill\fontsize{16pt}{19.2pt}\selectfont\bfseries\MakeUppercase}
+\renewcommand{\cftafterlottitle}{\hfill}
+
+% --- CẤU HÌNH DANH MỤC BẢNG (LOẠI BỎ LỖI ENCODING T1) ---
+\renewcommand{\cfttabpresnum}{Bảng }
+\newlength{\lotdocit}
+\settowidth{\lotdocit}{\textbf{\detokenize{Bảng} 9.9}}
+\addtolength{\cfttabnumwidth}{\lotdocit}
+\renewcommand{\cfttabaftersnum}{:}
+% Danh sách hình
+% Tùy chỉnh kiểu định dạng của danh sách hình
+\setlength{\cftbeforeloftitleskip}{-40pt}
+\renewcommand{\cftloftitlefont}{\hfill\fontsize{16pt}{19.2pt}\selectfont\bfseries\MakeUppercase}
+\renewcommand{\cftafterloftitle}{\hfill}
+
+
+\renewcommand{\cftfigpresnum}{Hình }
+\newlength{\lofdocit}
+\settowidth{\lofdocit}{\bfseries Hình }
+\addtolength{\cftfignumwidth}{\lofdocit}
+
+\newlength{\mylen}
+\settowidth{\mylen}{\bfseries{\detokenize{CHƯƠNG} 1:}}
+\addtolength{\cftchapnumwidth}{\mylen}
+\renewcommand{\cftchappresnum}{CHƯƠNG }
+\renewcommand{\cftchapaftersnum}{:}
+
+% ------------------- TRÌNH BÀY SOURCE CODE & THUẬT TOÁN -------------------
+\usepackage{listings}
+\lstset{
+  frame=tb,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+%\usepackage[ruled,vlined]{algorithm2e}
+\usepackage[ruled,vlined,algo2e]{algorithm2e}
+%========================================================================
+% Tài liệu tham khảo
+
+\usepackage[style=numeric,citestyle=ieee,language=english,sorting=none,backend=biber]{biblatex}
+\addbibresource{ref.bib}
+\newbibmacro*{note+date}{}
+
+\DefineBibliographyStrings{english}{
+  pages = {tr.}, page = {tr.},
+  in    = {trong}, volume = {tập}, number = {số}
+}
+
+\DeclareNameAlias{default}{family-given}
+\renewcommand*{\revsdnamepunct}{\space}
+\renewcommand*{\multinamedelim}{\space và\space}
+\renewcommand*{\finalnamedelim}{\space và\space}
+\renewcommand*{\newunitpunct}{\addcomma\space}
+
+\renewcommand*{\finentrypunct}{\addperiod}
+\AtEveryBibitem{\renewcommand*{\finentrypunct}{\addperiod}}
+
+\DeclareFieldFormat{isbn}{}
+\DeclareFieldFormat{issn}{}
+
+\DeclareFieldFormat{edition}{tái bản lần #1}
+\DeclareFieldFormat[article,inproceedings,incollection,online,misc]{title}{#1}
+\DeclareFieldFormat[book,thesis]{title}{\textit{#1}}
+\DeclareFieldFormat{booktitle}{\textit{#1}}
+\DeclareFieldFormat{journaltitle}{\textit{#1}}
+
+
+
+% --- BỔ SUNG: Xóa triệt để tên editor trong bộ nhớ đệm đối với loại hình hội thảo ---
+\AtEveryBibitem{%
+  \ifentrytype{inproceedings}{%
+    \clearname{editor}%
+  }{}%
+}
+% --- SỬA LỖI NGHÊN: Loại bỏ hoàn toàn \nocite{} gây vòng lặp vô hạn ---
+\renewbibmacro*{author}{%
+  \ifentrytype{incollection}{%
+    \ifnameundef{editor}{}{%
+      \printnames{editor}\space\mkbibparens{chủ biên}\addcomma\space
+      \clearname{editor}%
+    }%
+  }{}%
+  % Kiểm tra an toàn bảo vệ cấu trúc biên dịch
+  \ifnameundef{author}%
+    {\ifnameundef{editor}{}{\printnames{editor}}}% ĐÃ BỎ \nocite{} Ở ĐÂY
+    {\printnames{author}}%
+  \setunit{\addspace}%
+  \setunit{\addspace}%
+  % In năm an toàn, kiểm tra xem trường year có tồn tại không trước khi in
+  \iffieldundef{year}{}{%
+    \printtext[parens]{\thefield{year}}%
+    \clearfield{year}%
+    \clearfield{month}%
+  }%
+}
+
+\renewbibmacro*{publisher+location+date}{%
+  \printlist{publisher}%
+  \setunit*{\addcomma\space}%
+  \printlist{location}%
+  \setunit*{\addcomma\space}%
+  \printfield{year}%
+  \nopunct}
+
+\renewbibmacro*{url+urldate}{%
+  \setunit{\addcomma\space}%
+  \usebibmacro{url}%
+  \setunit{\addcomma\space}%
+  \usebibmacro{urldate}}
+
+\DeclareFieldFormat[article]{volume}{tập #1}
+\DeclareFieldFormat[article]{number}{\mkbibparens{#1}}
+
+\renewbibmacro*{journal+issuetitle}{%
+  \usebibmacro{journal}%
+  \setunit*{\addcomma\space}%
+  \printfield{volume}%
+  \setunit*{\addspace}%
+  \printfield{number}%
+  \setunit*{\addcomma\space}%
+  \usebibmacro{note+date}%
+  \newunit}
+
+
+\DeclareFieldFormat{url}{Website: \url{#1}}
+\DeclareFieldFormat{urldate}{Truy cập ngày: \thefield{urlday}/\thefield{urlmonth}/\thefield{urlyear}}
+\renewbibmacro*{in:}{\printtext{trong}\space}
+
+\makeatletter
+\def\blx@warn@csquotes#1{} % Ép hệ thống im lặng, không cảnh báo csquotes nữa
+\makeatother
+
+\DefineBibliographyStrings{english}{%
+  page              = {tr.},
+  pages             = {tr.},
+  and               = {và},
+  editor            = {chủ biên},
+  editors           = {chủ biên},
+  in                = {trong},
+}
+%===========================================================================
+% ------------------- LIÊN KẾT & ĐIỀU HƯỚNG PDF -------------------
+\usepackage[hidelinks,unicode]{hyperref}
+\hypersetup{
+    colorlinks=false,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+% =========================================================================
+% BẮT ĐẦU NỘI DUNG TÀI LIỆU
+% =========================================================================
+%\makeatletter
+%\let\ps@plain\ps@fancy
+%\makeatother
+
+\begin{document}
+\pagestyle{plain}
+%------------------- PHẦN TRƯỚC VĂN BẢN -----------------------
+\input{Chapter_0/Chapter0_main}
+\newpage
+%------------------- NỘI DUNG CHÍNH ĐỒ ÁN -----------------------
+\pagenumbering{arabic}
+\input{LoiMoDau/LoiMoDau_main}
+\newpage
+
+\input{Chapter_1/Chuong1_main}
+\newpage
+
+\input{Chapter_2/Chuong2_main}
+\newpage
+
+\input{Chapter_3/Chuong3_main}
+\newpage
+
+\input{Chapter_4/Chuong4_main}
+
+%tài liệu: \cite{tapchi} \cite{chuong} \cite{giaotrinh} \cite{luanvan} %\cite{hoithao} \cite{internet}
+% -------------------TÀI LIỆU THAM KHẢO -----------------
+% % --- BỌC KHỐI ĐỂ ĐỊNH DẠNG CỠ CHỮ AN TOÀN ---
+% \begingroup
+%   \fontsize{13}{16}\selectfont   % Định dạng cỡ chữ 13pt, dòng 16pt cho riêng phần này
+%   \vspace*{-40pt}                % Đẩy tiêu đề dịch lên trên 40pt một cách độc lập
+
+%   % Gọi lệnh in với tiêu đề thuần túy (Không chèn lệnh font vào đây nữa)
+% % %\printbibliography[title={TÀI LIỆU THAM KHẢO}]
+% \endgroup
+% \newpage
+% ------------------- TÀI LIỆU THAM KHẢO -----------------
+\newpage
+\addcontentsline{toc}{chapter}{TÀI LIỆU THAM KHẢO}
+
+{\centering\bfseries\fontsize{14pt}{18pt}\selectfont TÀI LIỆU THAM KHẢO\par}
+\vspace{30pt}
+
+\begingroup
+\fontsize{13pt}{16pt}\selectfont
+\printbibliography[heading=none]
+\endgroup
+\newpage
+%------------------- PHẦN PHỤ LỤC ĐÍNH KÈM -----------------------
+\renewcommand{\thepage}{A-\arabic{page}}
+\setcounter{page}{1}
+\pagenumbering{roman}
+\input{Appendix/PhuLuc_main}
+
+
+\end{document}
