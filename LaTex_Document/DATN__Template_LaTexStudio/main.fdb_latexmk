@@ -1,12 +1,12 @@
 # Fdb version 4
-["biber main"] 1786943612.84171 "main.bcf" "main.bbl" "main" 1786943973.63128 0
-  "main.bcf" 1786943973 108113 a906a12ad64f36ca4b131b8a80bf2897 "pdflatex"
+["biber main"] 0 "main.bcf" "main.bbl" "main" 1786944586.5706 -1
+  "main.bcf" 1786944586 108113 a906a12ad64f36ca4b131b8a80bf2897 "pdflatex"
   "ref.bib" 1780103978 2779 3e400f3e4056fe84785d8658bfe8a5b0 ""
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1786943970.72207 "c:/xampp/htdocs/DoAn1CongThanhDucThinh/LaTex_Document/DATN__Template_LaTexStudio/main.tex" "main.pdf" "main" 1786943973.63193 0
+["pdflatex"] 1786944583.63889 "c:/xampp/htdocs/DoAn1CongThanhDucThinh/LaTex_Document/DATN__Template_LaTexStudio/main.tex" "main.pdf" "main" 1786944586.57145 0
   "Appendix/Images_phuluc/chungnhan.jpg" 1780103978 74106 9c2635cd76f432a2d36f0cac4cb6dbc7 ""
   "Appendix/Images_phuluc/giaodientrangquanlytintuc.jpg" 1780103978 60762 e1165ea13ff02ecb6a80dd9f84660762 ""
   "Appendix/Images_phuluc/nckh.jpg" 1780103978 127753 52edf346c9c7bf2065ce07acba591ee3 ""
@@ -161,7 +161,7 @@
   "C:/Users/mrcow/AppData/Local/Programs/MiKTeX/tex/latex/vntex/vncaps.tex" 1368738347 3273 a55ebdb07413d2fea580f210e3c0b252 ""
   "C:/Users/mrcow/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1729265222 55384 b454dec21c2d9f45ec0b793f0995b992 ""
   "C:/Users/mrcow/AppData/Local/Programs/MiKTeX/tex/latex/xkeyval/xkeyval.sty" 1656236919 4937 4ce600ce9bd4ec84d0250eb6892fcf4f ""
-  "Chapter_0/1_2_TrangBia.tex" 1786943776 2563 a9558e3333b56e8e38e7190df7581c91 ""
+  "Chapter_0/1_2_TrangBia.tex" 1786944583 2561 523dee3e5932a1788c704ad660b741c8 ""
   "Chapter_0/3_XacNhanHoiDong.tex" 1780103978 1530 bb763cfefbeee20e5185643ab496d02c ""
   "Chapter_0/4_LoiCamDoan.tex" 1780103978 1230 700fde650e3f82ddb2c6c2b7c0efc2d7 ""
   "Chapter_0/5_LoiCamOn.tex" 1780103978 726 939413dd49b739ed41087d1ce254afa7 ""
@@ -177,14 +177,14 @@
   "Chapter_4/Chuong4_main.tex" 1780103978 1266 b5bced7cdecc6622cd4e20b1b4a2e24e ""
   "LoiMoDau/LoiMoDau_main.tex" 1780103978 2564 39807fc54442d4a6657eb078a177268d ""
   "c:/xampp/htdocs/DoAn1CongThanhDucThinh/LaTex_Document/DATN__Template_LaTexStudio/main.tex" 1786943969 13435 409c2bde10a6ebac987c9006c210b658 ""
-  "main.aux" 1786943973 8095 59e6458223a501256839e1be749c834b "pdflatex"
+  "main.aux" 1786944586 8095 59e6458223a501256839e1be749c834b "pdflatex"
   "main.bbl" 1786943705 10867 f0f20e93905bc80fc024d9287e574359 "biber main"
-  "main.lof" 1786943973 348 c1c55e984546d042577cfa53717b2885 "pdflatex"
-  "main.lot" 1786943973 306 3b9528879b5eb646611b4d9012913734 "pdflatex"
-  "main.out" 1786943973 1066 4e31c3be35a24d850bed0ac02b12137f "pdflatex"
-  "main.run.xml" 1786943973 2331 6dd40e10a7fefe0f3013cd08d1366fd3 "pdflatex"
+  "main.lof" 1786944586 348 c1c55e984546d042577cfa53717b2885 "pdflatex"
+  "main.lot" 1786944586 306 3b9528879b5eb646611b4d9012913734 "pdflatex"
+  "main.out" 1786944586 1066 4e31c3be35a24d850bed0ac02b12137f "pdflatex"
+  "main.run.xml" 1786944586 2331 6dd40e10a7fefe0f3013cd08d1366fd3 "pdflatex"
   "main.tex" 1786943969 13435 409c2bde10a6ebac987c9006c210b658 ""
-  "main.toc" 1786943973 3281 e9e935b7cdbd7398c64587d46cdc34b4 "pdflatex"
+  "main.toc" 1786944586 3281 e9e935b7cdbd7398c64587d46cdc34b4 "pdflatex"
   (generated)
   "main.aux"
   "main.bcf"
