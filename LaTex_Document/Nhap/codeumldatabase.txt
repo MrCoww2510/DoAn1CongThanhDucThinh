@@ -1,0 +1,147 @@
+@startuml
+title DATABASE T&T COMPUTER
+
+hide methods
+hide stereotypes
+
+skinparam linetype ortho
+skinparam entity {
+    BackgroundColor White
+    BorderColor Black
+}
+
+entity "NguoiDung" as ND {
+    * MaND : VARCHAR(20) <<PK>>
+    --
+    HoTen : NVARCHAR(100)
+    SDT : VARCHAR(15)
+    Email : VARCHAR(100)
+}
+
+entity "TaiKhoan" as TK {
+    * MaTK : VARCHAR(20) <<PK>>
+    --
+    MaND : VARCHAR(20) <<FK>>
+    TenDangNhap : VARCHAR(50) <<UNIQUE>>
+    MatKhau : VARCHAR(255)
+    VaiTro : VARCHAR(20)
+    TrangThai : VARCHAR(30)
+}
+
+entity "DanhMuc" as DM {
+    * MaDM : VARCHAR(20) <<PK>>
+    --
+    TenDM : NVARCHAR(100) <<UNIQUE>>
+}
+
+entity "SanPham" as SP {
+    * MaSP : VARCHAR(20) <<PK>>
+    --
+    MaDM : VARCHAR(20) <<FK>>
+    TenSP : NVARCHAR(200)
+    GiaBan : DECIMAL(18,2)
+    SoLuongTon : INT
+}
+
+entity "ChiTietSanPham" as CTSP {
+    * MaCTSP : VARCHAR(20) <<PK>>
+    --
+    MaSP : VARCHAR(20) <<FK, UNIQUE>>
+    LoaiSP : NVARCHAR(100)
+    ThongSoKT : NVARCHAR(MAX)
+    ThuongHieu : NVARCHAR(100)
+    HinhAnh : NVARCHAR(500)
+    MoTa : NVARCHAR(MAX)
+    TrangThai : NVARCHAR(50)
+}
+
+entity "GioHang" as GH {
+    * MaGH : VARCHAR(20) <<PK>>
+    --
+    MaND : VARCHAR(20) <<FK, UNIQUE>>
+    TongTien : DECIMAL(18,2)
+}
+
+entity "ChiTietGioHang" as CTGH {
+    * MaCTGH : VARCHAR(20) <<PK>>
+    --
+    MaGH : VARCHAR(20) <<FK>>
+    MaSP : VARCHAR(20) <<FK>>
+    SoLuong : INT
+}
+
+entity "DonHang" as DH {
+    * MaDH : VARCHAR(20) <<PK>>
+    --
+    MaND : VARCHAR(20) <<FK>>
+    MaNV : VARCHAR(20) <<FK>>
+    TenNguoiNhan : NVARCHAR(100)
+    DiaChiGiao : NVARCHAR(255)
+    SDTNhan : VARCHAR(15)
+    TongTien : DECIMAL(18,2)
+    PhuongThucTT : VARCHAR(20)
+    TrangThaiDH : NVARCHAR(50)
+    TrangThaiTT : NVARCHAR(50)
+    NgayTao : DATETIME
+}
+
+entity "ChiTietDonHang" as CTDH {
+    * MaCTDH : VARCHAR(20) <<PK>>
+    --
+    MaDH : VARCHAR(20) <<FK>>
+    MaSP : VARCHAR(20) <<FK>>
+    SoLuong : INT
+    DonGia : DECIMAL(18,2)
+}
+
+entity "GiaoDichThanhToan" as GDTT {
+    * MaGD : VARCHAR(50) <<PK>>
+    --
+    MaDH : VARCHAR(20) <<FK>>
+    SoTien : DECIMAL(18,2)
+    TrangThai : VARCHAR(30)
+    ThoiGianGiaoDich : DATETIME
+}
+
+entity "LichSuKho" as LSK {
+    * MaLS : VARCHAR(20) <<PK>>
+    --
+    MaSP : VARCHAR(20) <<FK>>
+    SoLuongThayDoi : INT
+    LoaiThaoTac : VARCHAR(30)
+    MaND : VARCHAR(20) <<FK>>
+    ThoiGian : DATETIME
+}
+
+
+' =========================
+' QUAN HỆ
+' =========================
+
+ND ||--|| TK : "sở hữu"
+
+DM ||--o{ SP : "phân loại"
+
+SP ||--|| CTSP : "có thông tin"
+
+ND ||--|| GH : "có"
+
+GH ||--o{ CTGH : "chứa"
+
+SP ||--o{ CTGH : "được thêm vào"
+
+ND ||--o{ DH : "đặt"
+
+ND ||--o{ DH : "xử lý\n(MaNV)"
+
+DH ||--o{ CTDH : "gồm"
+
+SP ||--o{ CTDH : "được đặt"
+
+DH ||--o{ GDTT : "có giao dịch"
+
+SP ||--o{ LSK : "ghi nhận"
+
+ND ||--o{ LSK : "thực hiện"
+
+@enduml

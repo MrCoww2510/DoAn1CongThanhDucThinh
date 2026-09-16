@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex 2026.8.17)  16 SEP 2026 17:02
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex 2026.8.17)  16 SEP 2026 17:25
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -440,22 +440,23 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 75.
  [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [12] [13] [14] [15] [16] [17]
-<UseCase.png, id=231, 1071.00125pt x 805.0075pt>
+<UseCase.png, id=231, 1071.00125pt x 734.745pt>
 File: UseCase.png Graphic file (type png)
 <use UseCase.png>
 Package pdftex.def Info: UseCase.png  used on input line 923.
-(pdftex.def)             Requested size: 452.9679pt x 340.47154pt.
-<class.png, id=233, 1040.88875pt x 1448.41125pt>
+(pdftex.def)             Requested size: 452.9679pt x 310.75456pt.
+ [18 <./UseCase.png>]
+<class.png, id=239, 1161.33875pt x 814.04124pt>
 File: class.png Graphic file (type png)
 <use class.png>
 Package pdftex.def Info: class.png  used on input line 943.
-(pdftex.def)             Requested size: 452.9679pt x 630.29694pt.
- [18 <./UseCase.png>] [19 <./class.png>]
-<database.png, id=247, 1025.8325pt x 691.58376pt>
+(pdftex.def)             Requested size: 452.9679pt x 317.51207pt.
+ [19 <./class.png>]
+<database.png, id=247, 1348.03625pt x 699.61375pt>
 File: database.png Graphic file (type png)
 <use database.png>
 Package pdftex.def Info: database.png  used on input line 963.
-(pdftex.def)             Requested size: 452.9679pt x 305.37416pt.
+(pdftex.def)             Requested size: 452.9679pt x 235.07928pt.
  [20 <./database.png>] (BanMoi.aux)
  ***********
 LaTeX2e <2026-06-01>
@@ -473,7 +474,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  74i,7n,79p,691b,719s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\mrcow\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk><C:/Users/mrcow/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/mrcow/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnbx12.pfb><C:/Users/mrcow/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnr12.pfb><C:/Users/mrcow/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnr17.pfb>
-Output written on BanMoi.pdf (20 pages, 277404 bytes).
+Output written on BanMoi.pdf (20 pages, 280986 bytes).
 PDF statistics:
  310 PDF objects out of 1000 (max. 8388607)
  152 named destinations out of 1000 (max. 500000)

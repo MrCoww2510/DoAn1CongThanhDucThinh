@@ -28,17 +28,29 @@ CREATE TABLE TaiKhoan (
     TenDangNhap VARCHAR(50) NOT NULL UNIQUE,
     MatKhau VARCHAR(255) NOT NULL,
     VaiTro VARCHAR(20) NOT NULL,
-    TrangThai VARCHAR(20) NOT NULL DEFAULT 'HoatDong',
+    TrangThai VARCHAR(30) NOT NULL DEFAULT 'HoatDong',
 
     CONSTRAINT FK_TaiKhoan_NguoiDung
         FOREIGN KEY (MaND)
         REFERENCES NguoiDung(MaND),
 
     CONSTRAINT CK_TaiKhoan_VaiTro
-        CHECK (VaiTro IN ('KhachHang', 'NhanVien', 'QuanTriVien')),
+        CHECK (
+            VaiTro IN (
+                'KhachHang',
+                'NhanVien',
+                'QuanTriVien'
+            )
+        ),
 
     CONSTRAINT CK_TaiKhoan_TrangThai
-        CHECK (TrangThai IN ('HoatDong', 'Khoa'))
+        CHECK (
+            TrangThai IN (
+                'HoatDong',
+                'VoHieuHoa',
+                'KhongConHoatDong'
+            )
+        )
 );
 GO
 
@@ -88,12 +100,13 @@ CREATE TABLE ChiTietSanPham (
     LoaiSP NVARCHAR(100),
     ThongSoKT NVARCHAR(MAX),
     ThuongHieu NVARCHAR(100),
+    HinhAnh NVARCHAR(500),
+    MoTa NVARCHAR(MAX),
     TrangThai NVARCHAR(50),
 
     CONSTRAINT FK_ChiTietSanPham_SanPham
         FOREIGN KEY (MaSP)
         REFERENCES SanPham(MaSP)
-        ON DELETE CASCADE
 );
 GO
 
@@ -159,9 +172,11 @@ CREATE TABLE DonHang (
     SDTNhan VARCHAR(15) NOT NULL,
 
     TongTien DECIMAL(18,2) NOT NULL,
+
     PhuongThucTT VARCHAR(20) NOT NULL,
     TrangThaiDH NVARCHAR(50) NOT NULL,
     TrangThaiTT NVARCHAR(50) NOT NULL,
+
     NgayTao DATETIME NOT NULL DEFAULT GETDATE(),
 
     CONSTRAINT FK_DonHang_KhachHang
@@ -176,7 +191,12 @@ CREATE TABLE DonHang (
         CHECK (TongTien >= 0),
 
     CONSTRAINT CK_DonHang_PhuongThucTT
-        CHECK (PhuongThucTT IN ('COD', 'Online')),
+        CHECK (
+            PhuongThucTT IN (
+                'COD',
+                'Online'
+            )
+        ),
 
     CONSTRAINT CK_DonHang_TrangThaiDH
         CHECK (
@@ -208,7 +228,6 @@ CREATE TABLE ChiTietDonHang (
     MaCTDH VARCHAR(20) PRIMARY KEY,
     MaDH VARCHAR(20) NOT NULL,
     MaSP VARCHAR(20) NOT NULL,
-
     SoLuong INT NOT NULL,
     DonGia DECIMAL(18,2) NOT NULL,
 
@@ -236,7 +255,7 @@ GO
 
 CREATE TABLE GiaoDichThanhToan (
     MaGD VARCHAR(50) PRIMARY KEY,
-    MaDH VARCHAR(20) NOT NULL UNIQUE,
+    MaDH VARCHAR(20) NOT NULL,
     SoTien DECIMAL(18,2) NOT NULL,
     TrangThai VARCHAR(30) NOT NULL,
     ThoiGianGiaoDich DATETIME NULL,
@@ -254,6 +273,38 @@ CREATE TABLE GiaoDichThanhToan (
                 'ThanhCong',
                 'ThatBai',
                 'DangXuLy'
+            )
+        )
+);
+GO
+
+
+-- =========================================
+-- 11. LỊCH SỬ KHO
+-- =========================================
+
+CREATE TABLE LichSuKho (
+    MaLS VARCHAR(20) PRIMARY KEY,
+    MaSP VARCHAR(20) NOT NULL,
+    SoLuongThayDoi INT NOT NULL,
+    LoaiThaoTac VARCHAR(30) NOT NULL,
+    MaND VARCHAR(20) NOT NULL,
+    ThoiGian DATETIME NOT NULL DEFAULT GETDATE(),
+
+    CONSTRAINT FK_LichSuKho_SanPham
+        FOREIGN KEY (MaSP)
+        REFERENCES SanPham(MaSP),
+
+    CONSTRAINT FK_LichSuKho_NguoiDung
+        FOREIGN KEY (MaND)
+        REFERENCES NguoiDung(MaND),
+
+    CONSTRAINT CK_LichSuKho_LoaiThaoTac
+        CHECK (
+            LoaiThaoTac IN (
+                'NhapKho',
+                'DieuChinh',
+                'XuatKho'
             )
         )
 );

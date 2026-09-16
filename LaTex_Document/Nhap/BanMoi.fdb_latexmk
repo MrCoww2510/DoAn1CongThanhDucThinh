@@ -1,8 +1,8 @@
 # Fdb version 4
-["pdflatex"] 1789552962.30144 "c:/xampp/htdocs/DoAn1CongThanhDucThinh/LaTex_Document/Nhap/BanMoi.tex" "BanMoi.pdf" "BanMoi" 1789552963.40036 0
-  "BanMoi.aux" 1789552963 1887 bebe9137b96c602dd4a168e1ba221615 "pdflatex"
-  "BanMoi.out" 1789552963 1531 041d21e9b5f7ceb537fee3399fbdf72d "pdflatex"
-  "BanMoi.tex" 1789552960 45453 cfa4dc18cf6a951714d5c15e01a00e79 ""
+["pdflatex"] 1789554347.60166 "c:/xampp/htdocs/DoAn1CongThanhDucThinh/LaTex_Document/Nhap/BanMoi.tex" "BanMoi.pdf" "BanMoi" 1789554348.94882 0
+  "BanMoi.aux" 1789554348 1887 5e6255cd90e006e19eba4c10df306936 "pdflatex"
+  "BanMoi.out" 1789554348 1531 041d21e9b5f7ceb537fee3399fbdf72d "pdflatex"
+  "BanMoi.tex" 1789554346 45469 eda1395cfe97b1b2f125768b9b06ffff ""
   "C:/Users/mrcow/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1787493113 89969 e95579120a3aa0ebc21d2737ca2ba701 ""
   "C:/Users/mrcow/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1200.pk" 1787493117 14064 c12fd3f9419f136eea414ea5a25f658f ""
   "C:/Users/mrcow/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1786943504 13367606 28e39da2ca1ede0d4f280736531173f7 ""
@@ -72,10 +72,10 @@
   "C:/Users/mrcow/AppData/Local/Programs/MiKTeX/tex/latex/vntex/t5enc.dfu" 1368738347 13949 387dd4fa58aea5f873839c93430fffed ""
   "C:/Users/mrcow/AppData/Local/Programs/MiKTeX/tex/latex/vntex/vietnam.sty" 1368738347 2477 91784aa2c9213f74609391e3cae65a13 ""
   "C:/Users/mrcow/AppData/Local/Programs/MiKTeX/tex/latex/vntex/vncaps.tex" 1368738347 3273 a55ebdb07413d2fea580f210e3c0b252 ""
-  "UseCase.png" 1789339191 200342 5a7458305cd1eef15da929b5edf180db ""
-  "c:/xampp/htdocs/DoAn1CongThanhDucThinh/LaTex_Document/Nhap/BanMoi.tex" 1789552960 45453 cfa4dc18cf6a951714d5c15e01a00e79 ""
-  "class.png" 1789333210 59099 839aab6d3eaec3506b45e8c6cee3c8ea ""
-  "database.png" 1789333169 42112 999f456bf91a098133393e4bf08d0e52 ""
+  "UseCase.png" 1789554320 168305 ecda2ef40bd01bb51ad12589d6671a4b ""
+  "c:/xampp/htdocs/DoAn1CongThanhDucThinh/LaTex_Document/Nhap/BanMoi.tex" 1789554346 45469 eda1395cfe97b1b2f125768b9b06ffff ""
+  "class.png" 1789553979 51200 32ce4c0568704a09e8f0b76fdcea5abb ""
+  "database.png" 1789553751 49795 629f49561a849d39b7f3cff16d0651b1 ""
   (generated)
   "BanMoi.aux"
   "BanMoi.log"

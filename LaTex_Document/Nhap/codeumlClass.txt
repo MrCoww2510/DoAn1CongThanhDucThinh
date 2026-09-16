@@ -1,0 +1,186 @@
+@startuml
+title CLASS DIAGRAM - T&T COMPUTER
+
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+
+' =========================
+' NGUOI DUNG - TAI KHOAN
+' =========================
+
+class NguoiDung {
+    - MaND : String
+    - HoTen : String
+    - SDT : String
+    - Email : String
+
+    + xemThongTin() : void
+    + capNhatThongTin() : void
+}
+
+class TaiKhoan {
+    - MaTK : String
+    - MaND : String
+    - TenDangNhap : String
+    - MatKhau : String
+    - VaiTro : String
+    - TrangThai : String
+
+    + dangNhap() : boolean
+    + dangXuat() : void
+    + doiMatKhau() : boolean
+}
+
+NguoiDung "1" -- "0..1" TaiKhoan : sở hữu
+
+
+' =========================
+' DANH MUC - SAN PHAM
+' =========================
+
+class DanhMuc {
+    - MaDM : String
+    - TenDM : String
+
+    + themDanhMuc() : void
+    + suaDanhMuc() : void
+    + xoaDanhMuc() : boolean
+}
+
+class SanPham {
+    - MaSP : String
+    - MaDM : String
+    - TenSP : String
+    - GiaBan : Decimal
+    - SoLuongTon : int
+
+    + themSanPham() : void
+    + suaSanPham() : void
+    + capNhatTrangThai() : void
+}
+
+class ChiTietSanPham {
+    - MaCTSP : String
+    - MaSP : String
+    - LoaiSP : String
+    - ThongSoKT : String
+    - ThuongHieu : String
+    - HinhAnh : String
+    - MoTa : String
+    - TrangThai : String
+
+    + xemChiTiet() : void
+}
+
+DanhMuc "1" -- "0..*" SanPham : phân loại
+SanPham "1" -- "1" ChiTietSanPham : có thông tin
+
+
+' =========================
+' GIO HANG
+' =========================
+
+class GioHang {
+    - MaGH : String
+    - MaND : String
+    - TongTien : Decimal
+
+    + themSanPham() : void
+    + capNhatSoLuong() : void
+    + xoaSanPham() : void
+    + tinhTongTien() : Decimal
+}
+
+class ChiTietGioHang {
+    - MaCTGH : String
+    - MaGH : String
+    - MaSP : String
+    - SoLuong : int
+
+    + capNhatSoLuong() : void
+    + xoa() : void
+}
+
+NguoiDung "1" -- "0..1" GioHang : sở hữu
+GioHang "1" *-- "0..*" ChiTietGioHang : chứa
+SanPham "1" -- "0..*" ChiTietGioHang : được thêm vào
+
+
+' =========================
+' DON HANG
+' =========================
+
+class DonHang {
+    - MaDH : String
+    - MaND : String
+    - MaNV : String
+    - TenNguoiNhan : String
+    - DiaChiGiao : String
+    - SDTNhan : String
+    - TongTien : Decimal
+    - PhuongThucTT : String
+    - TrangThaiDH : String
+    - TrangThaiTT : String
+    - NgayTao : DateTime
+
+    + taoDonHang() : void
+    + xemChiTiet() : void
+    + huyDonHang() : boolean
+    + capNhatTrangThai() : void
+}
+
+class ChiTietDonHang {
+    - MaCTDH : String
+    - MaDH : String
+    - MaSP : String
+    - SoLuong : int
+    - DonGia : Decimal
+
+    + tinhThanhTien() : Decimal
+}
+
+NguoiDung "1" -- "0..*" DonHang : đặt hàng
+NguoiDung "0..1" -- "0..*" DonHang : xử lý
+DonHang "1" *-- "1..*" ChiTietDonHang : gồm
+SanPham "1" -- "0..*" ChiTietDonHang : được đặt
+
+
+' =========================
+' THANH TOAN
+' =========================
+
+class GiaoDichThanhToan {
+    - MaGD : String
+    - MaDH : String
+    - SoTien : Decimal
+    - TrangThai : String
+    - ThoiGianGiaoDich : DateTime
+
+    + taoGiaoDich() : void
+    + xuLyThanhToan() : boolean
+    + capNhatTrangThai() : void
+}
+
+DonHang "1" -- "0..*" GiaoDichThanhToan : có giao dịch
+
+
+' =========================
+' LICH SU KHO
+' =========================
+
+class LichSuKho {
+    - MaLS : String
+    - MaSP : String
+    - SoLuongThayDoi : int
+    - LoaiThaoTac : String
+    - MaND : String
+    - ThoiGian : DateTime
+
+    + ghiNhanThayDoi() : void
+}
+
+SanPham "1" -- "0..*" LichSuKho : có lịch sử
+NguoiDung "1" -- "0..*" LichSuKho : thực hiện
+
+
+@enduml
