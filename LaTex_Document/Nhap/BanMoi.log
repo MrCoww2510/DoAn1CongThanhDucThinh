@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex 2026.8.17)  16 SEP 2026 17:25
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex 2026.8.17)  26 SEP 2026 03:25
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -346,45 +346,64 @@ Package: enumitem 2025/02/06 v3.11 Customized lists
 \enit@inbox=\box55
 \enit@count@id=\count300
 \enitdp@description=\count301
+) (C:\Users\mrcow\AppData\Local\Programs\MiKTeX\tex/latex/tools\tabularx.sty
+Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
+ (C:\Users\mrcow\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
+Package: array 2026/02/24 v2.7b Tabular extension package (FMi)
+\col@sep=\dimen166
+\ar@mcellbox=\box56
+\extrarowheight=\dimen167
+\NC@list=\toks24
+\extratabsurround=\skip53
+\backup@length=\skip54
+\ar@cellbox=\box57
+)
+\TX@col@width=\dimen168
+\TX@old@table=\dimen169
+\TX@old@col=\dimen170
+\TX@target=\dimen171
+\TX@delta=\dimen172
+\TX@cols=\count302
+\TX@ftn=\toks25
 ) (C:\Users\mrcow\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2026-07-20 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count302
+\l__color_backend_stack_int=\count303
 ) (BanMoi.aux)
 \openout1 = `BanMoi.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for T5/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for T5/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
  (C:\Users\mrcow\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count303
-\scratchdimen=\dimen166
-\scratchbox=\box56
-\nofMPsegments=\count304
-\nofMParguments=\count305
-\everyMPshowfont=\toks24
-\MPscratchCnt=\count306
-\MPscratchDim=\dimen167
-\MPnumerator=\count307
-\makeMPintoPDFobject=\count308
-\everyMPtoPDFconversion=\toks25
+\scratchcounter=\count304
+\scratchdimen=\dimen173
+\scratchbox=\box58
+\nofMPsegments=\count305
+\nofMParguments=\count306
+\everyMPshowfont=\toks26
+\MPscratchCnt=\count307
+\MPscratchDim=\dimen174
+\MPnumerator=\count308
+\makeMPintoPDFobject=\count309
+\everyMPtoPDFconversion=\toks27
 ) (C:\Users\mrcow\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
@@ -425,7 +444,7 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring OFF on input line 23.
+Package hyperref Info: Link coloring OFF on input line 24.
 (BanMoi.out) (BanMoi.out)
 \@outlinefile=\write3
 \openout3 = `BanMoi.out'.
@@ -434,49 +453,49 @@ Package hyperref Info: Link coloring OFF on input line 23.
 
 {C:/Users/mrcow/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 75.
+(Font)              <12> on input line 76.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 75.
+(Font)              <8> on input line 76.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 75.
- [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [12] [13] [14] [15] [16] [17]
-<UseCase.png, id=231, 1071.00125pt x 734.745pt>
+(Font)              <6> on input line 76.
+ [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [12] [13] [14] [15] [16] [17] [18]
+<UseCase.png, id=299, 1071.00125pt x 734.745pt>
 File: UseCase.png Graphic file (type png)
 <use UseCase.png>
-Package pdftex.def Info: UseCase.png  used on input line 923.
+Package pdftex.def Info: UseCase.png  used on input line 944.
 (pdftex.def)             Requested size: 452.9679pt x 310.75456pt.
- [18 <./UseCase.png>]
-<class.png, id=239, 1161.33875pt x 814.04124pt>
+ [19 <./UseCase.png>]
+<class.png, id=308, 1161.33875pt x 814.04124pt>
 File: class.png Graphic file (type png)
 <use class.png>
-Package pdftex.def Info: class.png  used on input line 943.
+Package pdftex.def Info: class.png  used on input line 964.
 (pdftex.def)             Requested size: 452.9679pt x 317.51207pt.
- [19 <./class.png>]
-<database.png, id=247, 1348.03625pt x 699.61375pt>
+ [20 <./class.png>]
+<database.png, id=315, 1348.03625pt x 699.61375pt>
 File: database.png Graphic file (type png)
 <use database.png>
-Package pdftex.def Info: database.png  used on input line 963.
+Package pdftex.def Info: database.png  used on input line 984.
 (pdftex.def)             Requested size: 452.9679pt x 235.07928pt.
- [20 <./database.png>] (BanMoi.aux)
+ [21 <./database.png>] (BanMoi.aux)
  ***********
 LaTeX2e <2026-06-01>
 L3 programming layer <2026-07-20>
  ***********
 Package rerunfilecheck Info: File `BanMoi.out' has not changed.
-(rerunfilecheck)             Checksum: 041D21E9B5F7CEB537FEE3399FBDF72D;1531.
+(rerunfilecheck)             Checksum: B7A59E23D56172DCCC1BC2A540FDD5A2;5660.
  ) 
 Here is how much of TeX's memory you used:
- 10272 strings out of 467501
- 159052 string characters out of 5408550
- 589414 words of memory out of 5000000
- 39262 multiletter control sequences out of 15000+600000
+ 10430 strings out of 467501
+ 161656 string characters out of 5408550
+ 589289 words of memory out of 5000000
+ 39412 multiletter control sequences out of 15000+600000
  638610 words of font info for 58 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 74i,7n,79p,691b,719s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 74i,6n,79p,688b,829s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\mrcow\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk><C:/Users/mrcow/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/mrcow/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnbx12.pfb><C:/Users/mrcow/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnr12.pfb><C:/Users/mrcow/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnr17.pfb>
-Output written on BanMoi.pdf (20 pages, 280986 bytes).
+Output written on BanMoi.pdf (21 pages, 292314 bytes).
 PDF statistics:
- 310 PDF objects out of 1000 (max. 8388607)
- 152 named destinations out of 1000 (max. 500000)
- 80 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 378 PDF objects out of 1000 (max. 8388607)
+ 154 named destinations out of 1000 (max. 500000)
+ 248 words of extra memory for PDF output out of 10000 (max. 10000000)
 

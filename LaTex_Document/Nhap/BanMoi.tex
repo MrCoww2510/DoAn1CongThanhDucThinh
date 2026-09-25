@@ -5,6 +5,7 @@
 \usepackage{geometry}
 \usepackage{hyperref}
 \usepackage{enumitem}
+\usepackage{tabularx}
 \geometry{
     a4paper,
     margin=1in
@@ -33,7 +34,7 @@ Phạm vi của hệ thống tập trung vào các chức năng cốt lõi, phù
 
 \begin{itemize}
 
- \item \textbf{Khách vãng lai:} Là người truy cập website nhưng chưa được xác thực đăng nhập vào hệ thống. Khách vãng lai có thể đã có hoặc chưa có tài khoản. Actor này có thể đăng ký, đăng nhập, xem, tìm kiếm và lọc sản phẩm.
+ \item \textbf{Khách vãng lai:} Là người truy cập website nhưng chưa được xác thực đăng nhập vào hệ thống. Khách vãng lai có thể đã có hoặc chưa có tài khoản. Actor này chỉ có quyền đăng ký, đăng nhập, xem, tìm kiếm và lọc sản phẩm. Nếu muốn thực hiện thao tác với giỏ hàng hoặc mua hàng, hệ thống sẽ yêu cầu Khách vãng lai phải đăng nhập để chuyển thành Khách hàng.
 
  \item \textbf{Khách hàng:} Là người đã có tài khoản và đăng nhập vào hệ thống. Khách hàng có thể xem sản phẩm, quản lý giỏ hàng, đặt hàng, thanh toán, theo dõi và hủy đơn hàng theo điều kiện cho phép, đồng thời quản lý thông tin tài khoản.
 
@@ -67,46 +68,53 @@ Phạm vi của hệ thống tập trung vào các chức năng cốt lõi, phù
 
 \section{QUY TRÌNH NGHIỆP VỤ CHUNG}
 
-\subsection*{Quy trình xử lý đơn hàng}
+\subsection{Quy trình xử lý đơn hàng}
 
 Quy trình xử lý đơn hàng trong hệ thống được xác định như sau:
 
 \begin{center}
-Chờ xác nhận $\rightarrow$ Đang chuẩn bị hàng $\rightarrow$ Đang giao hàng $\rightarrow$ Hoàn thành
+Chờ xác nhận $\rightarrow$ Đang chuẩn bị hàng $\rightarrow$ Đang giao hàng $\rightarrow$ Hoàn thành / Giao hàng thất bại
 \end{center}
 
-Ngoài luồng xử lý chính, đơn hàng có thể chuyển từ trạng thái \textbf{Chờ xác nhận} sang \textbf{Đã hủy} khi khách hàng thực hiện hủy đơn theo điều kiện cho phép.
+Ngoài luồng xử lý chính, đơn hàng có thể chuyển từ trạng thái \textbf{Chờ xác nhận} sang \textbf{Đã hủy} khi khách hàng thực hiện hủy đơn theo điều kiện cho phép, hoặc hệ thống tự động hủy do thanh toán không thành công hoặc quá thời gian thanh toán quy định.
+\subsection{Quy tắc chuyển trạng thái đơn hàng}
 
-\subsection*{Quy tắc chuyển trạng thái đơn hàng}
 \begin{itemize}
-    \item \textbf{Chờ xác nhận $\rightarrow$ Đang chuẩn bị hàng:} Nhân viên hoặc Quản trị viên xác nhận đơn hàng sau khi kiểm tra thông tin và tồn kho hợp lệ.
-    \item \textbf{Chờ xác nhận $\rightarrow$ Đã hủy:} Khách hàng được phép hủy đơn khi đơn hàng chưa được xác nhận.
-    \item \textbf{Đang chuẩn bị hàng $\rightarrow$ Đang giao hàng:} Đơn hàng đã được chuẩn bị và chuyển sang quá trình giao hàng.
-    \item \textbf{Đang giao hàng $\rightarrow$ Hoàn thành:} Đơn hàng hoàn tất quá trình giao hàng.
-    \item Không cho phép chuyển trạng thái tùy ý; trạng thái mới phải phù hợp với quy trình xử lý đơn hàng.
-    \item Đơn hàng đã ở trạng thái \textbf{Đã hủy} hoặc \textbf{Hoàn thành} không được chuyển sang trạng thái xử lý khác.
+\item \textbf{Chờ xác nhận $\rightarrow$ Đang chuẩn bị hàng:} Nhân viên hoặc Quản trị viên xác nhận đơn hàng sau khi kiểm tra thông tin hợp lệ.
+
+\item \textbf{Chờ xác nhận $\rightarrow$ Đã hủy:} Khách hàng được phép hủy đơn khi đơn hàng chưa được xác nhận; hệ thống tự động hủy đơn khi giao dịch thanh toán không thành công hoặc quá thời gian thanh toán quy định.
+
+\item \textbf{Đang chuẩn bị hàng $\rightarrow$ Đang giao hàng:} Đơn hàng đã được chuẩn bị và chuyển sang quá trình giao hàng.
+
+\item \textbf{Đang giao hàng $\rightarrow$ Hoàn thành:} Đơn hàng hoàn tất quá trình giao hàng thành công.
+
+\item \textbf{Đang giao hàng $\rightarrow$ Giao hàng thất bại:} Giao hàng không thành công, chẳng hạn khách hàng từ chối nhận hàng hoặc shipper không thể liên lạc; đơn hàng được xử lý hoàn về kho.
+
+\item Không cho phép chuyển trạng thái tùy ý; trạng thái mới phải phù hợp với quy trình xử lý đơn hàng.
+
+\item Đơn hàng đã ở trạng thái \textbf{Đã hủy}, \textbf{Giao hàng thất bại} hoặc \textbf{Hoàn thành} không được chuyển sang trạng thái xử lý khác.
 \end{itemize}
 
-\subsection*{Quy tắc hủy đơn hàng}
+\subsection{Quy tắc hủy đơn hàng}
 \begin{itemize}
     \item Khách hàng chỉ được phép hủy đơn khi đơn hàng đang ở trạng thái \textbf{Chờ xác nhận}.
     \item Khách hàng không được phép tự hủy đơn khi đơn hàng đang ở trạng thái \textbf{Đang chuẩn bị hàng}, \textbf{Đang giao hàng} hoặc \textbf{Hoàn thành}.
     \item Đơn hàng đã ở trạng thái \textbf{Đã hủy} không thể thực hiện thao tác hủy lại.
 \end{itemize}
 
-\subsection*{Quy tắc quản lý tồn kho}
+\subsection{Quy tắc quản lý tồn kho}
+
 \begin{itemize}
-    \item Khi khách hàng đặt hàng, hệ thống tạo đơn hàng nhưng chưa trừ số lượng tồn kho.
-    \item Khi Nhân viên hoặc Quản trị viên xác nhận đơn hàng, hệ thống phải kiểm tra lại số lượng tồn kho tại thời điểm xác nhận.
-    \item Chỉ khi số lượng tồn kho đáp ứng đủ số lượng sản phẩm trong đơn, hệ thống mới cho phép xác nhận đơn và cập nhật số lượng tồn kho.
-    \item Nếu số lượng tồn kho không đủ, hệ thống không cho phép xác nhận đơn hàng và thông báo cho người xử lý.
-    \item Trong trường hợp nhiều đơn hàng cùng yêu cầu một sản phẩm nhưng số lượng tồn kho không đủ để đáp ứng tất cả, đơn hàng được xác nhận hợp lệ trước sẽ được cập nhật tồn kho trước; các đơn hàng xác nhận sau phải được kiểm tra lại tồn kho.
-    \item Hệ thống không cho phép số lượng tồn kho nhỏ hơn 0.
-    \item Khi khách hàng hủy đơn ở trạng thái \textbf{Chờ xác nhận}, hệ thống không cần hoàn lại tồn kho vì tồn kho chưa được trừ.
-    \item Việc kiểm tra và cập nhật tồn kho khi xác nhận đơn phải bảo đảm không phát sinh tình trạng nhiều đơn hàng cùng sử dụng một số lượng tồn kho.
+\item Khi khách hàng đặt hàng thành công (tạo đơn hàng), hệ thống sẽ ngay lập tức \textbf{tạm trừ (giữ chỗ)} số lượng tồn kho của các sản phẩm tương ứng.
+\item Không cho phép tạo đơn hàng nếu số lượng tồn kho hiện tại không đủ đáp ứng số lượng trong giỏ hàng.
+\item Nếu đơn hàng chuyển sang trạng thái \textbf{Đã hủy} (do khách hàng hủy hoặc hệ thống tự động hủy do quá hạn thanh toán), hệ thống sẽ tự động \textbf{cộng trả lại} số lượng tồn kho đã tạm trừ.
+\item Nếu đơn hàng chuyển sang trạng thái \textbf{Giao hàng thất bại}, hệ thống sẽ \textbf{cộng trả lại} số lượng tồn kho sau khi xác nhận hàng hoàn về kho.
+\item Việc kiểm tra và tạm trừ tồn kho ngay tại thời điểm khách hàng đặt hàng giúp tránh tình trạng nhiều khách hàng cùng đặt một sản phẩm trong khi số lượng tồn kho có hạn.
+\item Hệ thống không cho phép số lượng tồn kho nhỏ hơn 0.
 \end{itemize}
 
-\subsection*{Quy tắc thanh toán}
+
+\subsection{Quy tắc thanh toán}
 
 Hệ thống hỗ trợ hai phương thức thanh toán cơ bản:
 
@@ -123,7 +131,7 @@ Trạng thái thanh toán gồm:
     \item \textbf{Đã thanh toán:} Đơn hàng đã ghi nhận thanh toán thành công.
 \end{itemize}
 
-\subsection*{Quy tắc xử lý thanh toán trực tuyến thất bại}
+\subsection{Quy tắc xử lý thanh toán trực tuyến thất bại}
 
 \begin{itemize}
     \item Nếu giao dịch trực tuyến thất bại hoặc bị khách hàng hủy, hệ thống giữ trạng thái thanh toán là \textbf{Chưa thanh toán} và thông báo kết quả cho khách hàng.
@@ -143,7 +151,7 @@ Trạng thái thanh toán gồm:
 
 % ==================================================
 
-\subsection*{UC01. Đăng ký}
+\subsection{UC01. Đăng ký}
 
 \begin{itemize}
     \item \textbf{Actor:} Khách vãng lai.
@@ -177,7 +185,7 @@ Trạng thái thanh toán gồm:
 
 % ==================================================
 
-\subsection*{UC02. Đăng nhập}
+\subsection{UC02. Đăng nhập}
 
 \begin{itemize}
     \item \textbf{Actor:} Khách vãng lai.
@@ -214,7 +222,7 @@ Trạng thái thanh toán gồm:
 
 % ==================================================
 
-\subsection*{UC03. Xem, tìm kiếm và lọc sản phẩm}
+\subsection{UC03. Xem, tìm kiếm và lọc sản phẩm}
 
 \begin{itemize}
 
@@ -278,7 +286,7 @@ Trạng thái thanh toán gồm:
 
 % ==================================================
 
-\subsection*{UC04. Quản lý giỏ hàng}
+\subsection{UC04. Quản lý giỏ hàng}
 
 \begin{itemize}
 
@@ -286,49 +294,45 @@ Trạng thái thanh toán gồm:
 
  \item \textbf{Mục tiêu:} Cho phép khách hàng quản lý các sản phẩm dự định mua.
 
- \item \textbf{Mô tả:} Use Case này cho phép khách hàng thêm sản phẩm vào giỏ hàng, thay đổi số lượng hoặc xóa sản phẩm không còn nhu cầu mua. Giỏ hàng được quản lý theo tài khoản của khách hàng nên người dùng phải đăng nhập để hệ thống xác định chính xác giỏ hàng thuộc tài khoản nào. Hệ thống kiểm tra tình trạng sản phẩm và cập nhật thông tin giỏ hàng tương ứng với các thao tác của khách hàng.
+ \item \textbf{Mô tả:} Use Case này cho phép khách hàng thêm sản phẩm vào giỏ hàng, thay đổi số lượng hoặc xóa sản phẩm không còn nhu cầu mua. Giỏ hàng được quản lý cố định theo tài khoản của khách hàng, bảo đảm dữ liệu giỏ hàng không bị mất khi khách hàng đăng xuất và đăng nhập lại.
 
  \item \textbf{Điều kiện trước:}
     \begin{itemize}
-        \item Khách hàng đã đăng nhập.
-        \item Giỏ hàng thuộc tài khoản của khách hàng đang đăng nhập.
+        \item Người dùng \textbf{bắt buộc phải đăng nhập} (Actor là Khách hàng).
+        \item Sản phẩm muốn thêm phải đang ở trạng thái kinh doanh và còn tồn kho.
     \end{itemize}
 
  \item \textbf{Luồng chính:}
 
  \begin{enumerate}
-
-  \item Khách hàng chọn sản phẩm.
-
-  \item Khách hàng thêm sản phẩm vào giỏ hàng.
-
-  \item Hệ thống cập nhật giỏ hàng.
-
+  \item Khách hàng chọn sản phẩm và chọn chức năng thêm vào giỏ.
+  \item Hệ thống kiểm tra số lượng tồn kho.
+  \item Hệ thống cập nhật sản phẩm và số lượng vào giỏ hàng của tài khoản.
+  \item Khách hàng truy cập giỏ hàng để xem danh sách.
   \item Khách hàng có thể thay đổi số lượng hoặc xóa sản phẩm.
-
-  \item Hệ thống cập nhật lại thông tin và tổng tiền của giỏ hàng.
-
+  \item Hệ thống cập nhật lại thông tin và tính toán tổng tiền của giỏ hàng.
  \end{enumerate}
 
- \item \textbf{Luồng thay thế / Ngoại lệ:} Nếu sản phẩm ngừng kinh doanh hoặc không còn hàng, hệ thống không cho phép thêm sản phẩm vào giỏ hàng.
+ \item \textbf{Luồng thay thế / Ngoại lệ:}
+    \begin{itemize}
+        \item Nếu người dùng chưa đăng nhập (Khách vãng lai) nhấn nút "Thêm vào giỏ" hoặc cố tình truy cập link giỏ hàng, hệ thống chặn thao tác và chuyển hướng người dùng sang trang Đăng nhập (UC02).
+        \item Nếu số lượng khách hàng yêu cầu thêm vượt quá số lượng tồn kho hiện hành, hệ thống thông báo lỗi và không thêm vào giỏ.
+        \item Nếu sản phẩm đã ngừng kinh doanh, hệ thống từ chối thêm.
+    \end{itemize}
 
- \item \textbf{Điều kiện sau:} Giỏ hàng được cập nhật theo thao tác của khách hàng.
+ \item \textbf{Điều kiện sau:} Giỏ hàng của tài khoản được cập nhật dữ liệu vào cơ sở dữ liệu.
 
  \item \textbf{Quy tắc nghiệp vụ:}
-
  \begin{itemize}
-
-  \item Số lượng sản phẩm trong giỏ phải lớn hơn 0.
-
+  \item Số lượng sản phẩm trong giỏ phải lớn hơn 0 và không vượt quá tồn kho.
   \item Không cho phép thêm sản phẩm ngừng kinh doanh vào giỏ hàng.
-
  \end{itemize}
 
 \end{itemize}
 
 % ==================================================
 
-\subsection*{UC05. Đặt hàng}
+\subsection{UC05. Đặt hàng}
 
 \begin{itemize}
 
@@ -356,6 +360,8 @@ Trạng thái thanh toán gồm:
 
   \item Hệ thống kiểm tra thông tin.
 
+  \item Hệ thống kiểm tra lại số lượng tồn kho tại thời điểm đặt hàng.
+
   \item Khách hàng xác nhận đặt hàng.
 
   \item Hệ thống tạo đơn hàng với trạng thái Chờ xác nhận.
@@ -367,28 +373,20 @@ Trạng thái thanh toán gồm:
  \item \textbf{Điều kiện sau:} Đơn hàng được tạo với trạng thái \textbf{Chờ xác nhận}.
 
  \item \textbf{Quy tắc nghiệp vụ:}
+\begin{itemize}
 
- \begin{itemize}
-
-  \item Nếu thông tin nhận hàng không hợp lệ, hệ thống thông báo và yêu cầu khách hàng điều chỉnh.
-
-  \item Nếu giỏ hàng không còn sản phẩm hợp lệ, hệ thống thông báo và yêu cầu khách hàng cập nhật lại giỏ hàng.
-
-  \item Nếu sản phẩm trong giỏ đã ngừng kinh doanh hoặc không còn khả dụng, hệ thống không cho phép tạo đơn hàng và yêu cầu khách hàng cập nhật lại giỏ hàng.
-
-  \item Không tạo đơn hàng khi giỏ hàng trống.
-
-  \item Việc đặt hàng và thanh toán là hai nghiệp vụ riêng biệt.
-
-  \item Đặt hàng không làm giảm số lượng tồn kho ngay lập tức.
-
- \end{itemize}
+\item Nếu thông tin nhận hàng không hợp lệ, hệ thống thông báo và yêu cầu khách hàng điều chỉnh.
+\item Nếu giỏ hàng không còn sản phẩm hợp lệ, hệ thống yêu cầu cập nhật lại giỏ hàng.
+\item Không tạo đơn hàng khi giỏ hàng trống.
+\item Việc đặt hàng và thanh toán là hai nghiệp vụ riêng biệt.
+\item \textbf{Hệ thống tự động tạm trừ (giữ chỗ) số lượng tồn kho ngay khi đơn hàng được tạo thành công.}
+\end{itemize}
 
 \end{itemize}
 
 % ==================================================
 
-\subsection*{UC06. Thanh toán}
+\subsection{UC06. Thanh toán}
 
 \begin{itemize}
 
@@ -452,7 +450,7 @@ Trạng thái thanh toán gồm:
 
 % ==================================================
 
-\subsection*{UC07. Theo dõi và hủy đơn hàng}
+\subsection{UC07. Theo dõi và hủy đơn hàng}
 
 \begin{itemize}
 
@@ -526,7 +524,7 @@ Trạng thái thanh toán gồm:
 
 % ==================================================
 
-\subsection*{UC08. Quản lý tài khoản}
+\subsection{UC08. Quản lý tài khoản}
 
 \begin{itemize}
 
@@ -562,71 +560,97 @@ Trạng thái thanh toán gồm:
 
 % ==================================================
 
-\subsection*{UC09. Quản lý đơn hàng}
+\subsection{UC09. Quản lý đơn hàng}
 
 \begin{itemize}
-    \item \textbf{Actor:} Nhân viên, Quản trị viên.
-    \item \textbf{Mục tiêu:} Theo dõi và xử lý các đơn hàng trong hệ thống.
-    \item \textbf{Mô tả:} Use Case này cho phép Nhân viên và Quản trị viên xem danh sách, kiểm tra thông tin và xử lý đơn hàng theo quyền được cấp. Khi đơn hàng ở trạng thái \textbf{Chờ xác nhận}, người xử lý kiểm tra thông tin và tồn kho trước khi xác nhận đơn. Sau khi xác nhận thành công, hệ thống cập nhật số lượng tồn kho và chuyển đơn hàng sang trạng thái \textbf{Đang chuẩn bị hàng}. Đơn hàng tiếp tục được cập nhật theo quy trình xử lý cho đến khi hoàn thành.
-    \item \textbf{Phân quyền:}
+
+\item \textbf{Actor:} Nhân viên, Quản trị viên.
+
+\item \textbf{Mục tiêu:} Theo dõi và xử lý các đơn hàng trong hệ thống.
+
+\item \textbf{Mô tả:} Use Case này cho phép Nhân viên và Quản trị viên xem danh sách, kiểm tra thông tin và xử lý đơn hàng theo quyền được cấp. Khi đơn hàng ở trạng thái \textbf{Chờ xác nhận}, người xử lý kiểm tra thông tin đơn hàng và tồn kho trước khi xác nhận. Sau khi xác nhận thành công, đơn hàng chuyển sang trạng thái \textbf{Đang chuẩn bị hàng}. Đơn hàng tiếp tục được cập nhật theo quy trình xử lý cho đến khi \textbf{Hoàn thành} hoặc \textbf{Giao hàng thất bại}.
+
+\item \textbf{Phân quyền:}
+\begin{itemize}
+\item \textbf{Nhân viên:} Được xem danh sách, xem chi tiết, kiểm tra tồn kho, xác nhận đơn hàng và cập nhật trạng thái đơn hàng trong phạm vi quyền được cấp.
+\item \textbf{Quản trị viên:} Được xem và quản lý toàn bộ đơn hàng, bao gồm xem chi tiết, kiểm tra tồn kho, xác nhận đơn hàng và cập nhật trạng thái đơn hàng.
+\end{itemize}
+\end{itemize}
+\begin{itemize}
+
+\item \textbf{Điều kiện trước:} Nhân viên hoặc Quản trị viên đã đăng nhập và có quyền xử lý đơn hàng.
+
+\item \textbf{Luồng chính:}
+\begin{enumerate}
+
+    \item Người dùng truy cập danh sách đơn hàng.
+
+    \item Hệ thống kiểm tra quyền và hiển thị các đơn hàng theo phạm vi quyền.
+
+    \item Người dùng chọn một đơn hàng để xem chi tiết.
+
+    \item Hệ thống hiển thị thông tin đơn hàng, trạng thái xử lý và trạng thái thanh toán.
+
+    \item Nếu đơn hàng đang ở trạng thái \textbf{Chờ xác nhận}, người dùng kiểm tra thông tin đơn hàng và số lượng tồn kho.
+
+    \item Hệ thống kiểm tra lại trạng thái đơn hàng và số lượng tồn kho tại thời điểm xác nhận.
+
+    \item Nếu thông tin hợp lệ và tồn kho đáp ứng đủ, người dùng xác nhận đơn hàng.
+
+    \item Hệ thống chuyển đơn hàng sang trạng thái \textbf{Đang chuẩn bị hàng}.
+
+    \item Người dùng cập nhật trạng thái đơn hàng theo quy trình xử lý:
+    \begin{itemize}
+        \item \textbf{Đang chuẩn bị hàng} $\rightarrow$ \textbf{Đang giao hàng};
+        \item \textbf{Đang giao hàng} $\rightarrow$ \textbf{Hoàn thành}; hoặc
+        \item \textbf{Đang giao hàng} $\rightarrow$ \textbf{Giao hàng thất bại}.
+    \end{itemize}
+
+    \item Hệ thống lưu các thay đổi trạng thái và thực hiện các xử lý liên quan theo quy tắc nghiệp vụ.
+
+\end{enumerate}
+
+\item \textbf{Luồng thay thế / Ngoại lệ:}
+
+\begin{itemize}
+
+    \item Nếu người dùng không có quyền thực hiện thao tác, hệ thống từ chối thao tác.
+
+    \item Nếu sản phẩm không đủ tồn kho tại thời điểm xác nhận, hệ thống không cho phép xác nhận đơn hàng và thông báo cho người xử lý.
+
+    \item Nếu đơn hàng đã được xử lý bởi người dùng khác trước đó, hệ thống kiểm tra lại trạng thái đơn hàng và tồn kho trước khi tiếp tục thao tác.
+
+    \item Nếu trạng thái hiện tại không cho phép chuyển sang trạng thái tiếp theo, hệ thống từ chối cập nhật.
+
+    \item Nếu đơn hàng chuyển sang trạng thái \textbf{Giao hàng thất bại}, hệ thống chỉ cộng trả lại số lượng tồn kho sau khi xác nhận hàng hoàn về kho.
+
 \end{itemize}
 
-\begin{center}
-\begin{tabular}{|p{7cm}|c|c|}
-\hline
-\textbf{Thao tác} & \textbf{Nhân viên} & \textbf{Quản trị viên} \\
-\hline
-Xem danh sách đơn hàng & Có & Có \\
-\hline
-Xem chi tiết đơn hàng & Có & Có \\
-\hline
-Kiểm tra tồn kho khi xử lý đơn & Có & Có \\
-\hline
-Xác nhận đơn hàng & Có & Có \\
-\hline
-Cập nhật trạng thái xử lý đơn & Có & Có \\
-\hline
-Quản lý toàn bộ đơn hàng & Không & Có \\
-\hline
-\end{tabular}
-\end{center}
+\item \textbf{Điều kiện sau:} Thông tin và trạng thái đơn hàng được cập nhật theo thao tác hợp lệ. Đơn hàng được chuyển sang trạng thái phù hợp với quy trình xử lý; số lượng tồn kho được xử lý theo các quy tắc quản lý tồn kho của hệ thống.
+
+\item \textbf{Quy tắc nghiệp vụ:}
 
 \begin{itemize}
-    \item \textbf{Điều kiện trước:} Nhân viên hoặc Quản trị viên đã đăng nhập và có quyền xử lý đơn hàng.
-    \item \textbf{Luồng chính:}
-    \begin{enumerate}
-        \item Người dùng truy cập danh sách đơn hàng.
-        \item Hệ thống kiểm tra quyền và hiển thị các đơn hàng theo phạm vi quyền.
-        \item Người dùng chọn một đơn hàng để xem chi tiết.
-        \item Người dùng kiểm tra thông tin đơn hàng.
-        \item Nếu đơn hàng đang ở trạng thái Chờ xác nhận, người dùng kiểm tra số lượng tồn kho.
-        \item Hệ thống kiểm tra lại số lượng tồn kho tại thời điểm xác nhận.
-        \item Người dùng xác nhận đơn hàng.
-        \item Hệ thống cập nhật số lượng tồn kho tương ứng.
-        \item Hệ thống chuyển đơn hàng sang trạng thái Đang chuẩn bị hàng.
-        \item Người dùng tiếp tục cập nhật trạng thái đơn hàng theo quy trình xử lý.
-        \item Hệ thống lưu các thay đổi.
-    \end{enumerate}
-    \item \textbf{Luồng thay thế / Ngoại lệ:}
-    \begin{itemize}
-        \item Nếu người dùng không có quyền thực hiện thao tác, hệ thống từ chối thao tác.
-        \item Nếu sản phẩm không đủ tồn kho tại thời điểm xác nhận, hệ thống không cho phép xác nhận đơn.
-        \item Nếu đơn hàng đã được xử lý bởi người dùng khác trước đó, hệ thống kiểm tra lại trạng thái và tồn kho trước khi tiếp tục thao tác.
-        \item Nếu trạng thái hiện tại không cho phép chuyển sang trạng thái tiếp theo, hệ thống từ chối cập nhật.
-    \end{itemize}
-    \item \textbf{Điều kiện sau:} Thông tin và trạng thái đơn hàng được cập nhật theo thao tác hợp lệ; nếu đơn được xác nhận thành công, số lượng tồn kho được cập nhật tương ứng.
-    \item \textbf{Quy tắc nghiệp vụ:}
-    \begin{itemize}
-        \item Nhân viên chỉ được thực hiện các thao tác trong phạm vi quyền được cấp.
-        \item Quản trị viên có quyền theo dõi và quản lý toàn bộ đơn hàng.
-        \item Số lượng tồn kho chỉ được cập nhật khi đơn hàng được xác nhận thành công và tồn kho đủ.
-        \item Trạng thái đơn hàng phải tuân theo quy trình đã xác định.
-    \end{itemize}
+
+    \item Nhân viên chỉ được thực hiện các thao tác trong phạm vi quyền được cấp.
+
+    \item Quản trị viên có quyền theo dõi và quản lý toàn bộ đơn hàng.
+
+    \item Tồn kho phải được kiểm tra lại tại thời điểm xác nhận đơn hàng để bảo đảm số lượng tồn kho không bị âm.
+
+    \item Việc xác nhận đơn hàng không thực hiện trừ tồn kho lần thứ hai nếu số lượng tồn kho đã được tạm trừ (giữ chỗ) tại thời điểm tạo đơn hàng.
+
+    \item Trạng thái đơn hàng phải tuân theo quy trình đã xác định và không được chuyển trạng thái tùy ý.
+
+    \item Đơn hàng ở trạng thái \textbf{Đã hủy}, \textbf{Giao hàng thất bại} hoặc \textbf{Hoàn thành} không được chuyển sang trạng thái xử lý khác.
+
+\end{itemize}
+
 \end{itemize}
 
 % ==================================================
 
-\subsection*{UC10. Kiểm tra tồn kho}
+\subsection{UC10. Kiểm tra tồn kho}
 
 \begin{itemize}
 
@@ -662,7 +686,7 @@ Quản lý toàn bộ đơn hàng & Không & Có \\
 
 % ==================================================
 
-\subsection*{UC11. Quản lý sản phẩm}
+\subsection{UC11. Quản lý sản phẩm}
 
 \begin{itemize}
 
@@ -712,7 +736,7 @@ Quản lý toàn bộ đơn hàng & Không & Có \\
 
 % ==================================================
 
-\subsection*{UC12. Quản lý danh mục}
+\subsection{UC12. Quản lý danh mục}
 
 \begin{itemize}
 
@@ -744,23 +768,20 @@ Quản lý toàn bộ đơn hàng & Không & Có \\
 
  \item \textbf{Điều kiện sau:} Danh mục được cập nhật.
 
- \item \textbf{Quy tắc nghiệp vụ:}
+\item \textbf{Quy tắc nghiệp vụ:}
+\begin{itemize}
+\item Không được tạo danh mục trùng lặp.
+\item Hệ thống hỗ trợ hai trạng thái cho danh mục: \textbf{Đang kinh doanh} và \textbf{Ngừng kinh doanh}.
+\item Nếu muốn ngừng hiển thị một danh mục đang có sản phẩm liên kết, Quản trị viên phải chuyển trạng thái danh mục sang \textbf{Ngừng kinh doanh} thay vì xóa vật lý.
+\item Chỉ cho phép xóa vật lý (xóa cứng) danh mục khi danh mục đó không có bất kỳ sản phẩm nào liên kết.
+\end{itemize}
 
- \begin{itemize}
-
-  \item Không được tạo danh mục trùng lặp.
-
-  \item Không được xóa danh mục đang có sản phẩm liên kết.
-        \item Nếu muốn xóa danh mục đang có sản phẩm liên kết, Quản trị viên phải chuyển các sản phẩm đó sang danh mục khác trước.
-        \item Danh mục chỉ được xóa khi không còn sản phẩm liên kết.
-
- \end{itemize}
 
 \end{itemize}
 
 % ==================================================
 
-\subsection*{UC13. Quản lý người dùng}
+\subsection{UC13. Quản lý người dùng}
 
 \begin{itemize}
 
@@ -814,7 +835,7 @@ Quản lý toàn bộ đơn hàng & Không & Có \\
 
 % ==================================================
 
-\subsection*{UC14. Quản lý kho}
+\subsection{UC14. Quản lý kho}
 
 \begin{itemize}
 
@@ -866,7 +887,7 @@ Quản lý toàn bộ đơn hàng & Không & Có \\
 
 % ==================================================
 
-\subsection*{UC15. Xem thống kê}
+\subsection{UC15. Xem thống kê}
 
 \begin{itemize}
 
