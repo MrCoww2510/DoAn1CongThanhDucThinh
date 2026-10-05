@@ -1,26 +1,46 @@
-CREATE DATABASE TTComputer;
-GO
+-- ============================================================
+-- TTComputer - MySQL / phpMyAdmin
+-- Chuyển từ cú pháp SQL Server sang MySQL
+-- ============================================================
+
+CREATE DATABASE IF NOT EXISTS TTComputer
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_unicode_ci;
 
 USE TTComputer;
-GO
+
+SET FOREIGN_KEY_CHECKS = 0;
+
+DROP TABLE IF EXISTS GiaoDichThanhToan;
+DROP TABLE IF EXISTS LichSuKho;
+DROP TABLE IF EXISTS ChiTietDonHang;
+DROP TABLE IF EXISTS DonHang;
+DROP TABLE IF EXISTS ChiTietGioHang;
+DROP TABLE IF EXISTS GioHang;
+DROP TABLE IF EXISTS ChiTietSanPham;
+DROP TABLE IF EXISTS SanPham;
+DROP TABLE IF EXISTS DanhMuc;
+DROP TABLE IF EXISTS TaiKhoan;
+DROP TABLE IF EXISTS NguoiDung;
+
+SET FOREIGN_KEY_CHECKS = 1;
 
 
--- =========================================
+-- ============================================================
 -- 1. NGƯỜI DÙNG
--- =========================================
+-- ============================================================
 
 CREATE TABLE NguoiDung (
     MaND VARCHAR(20) PRIMARY KEY,
-    HoTen NVARCHAR(100) NOT NULL,
+    HoTen VARCHAR(100) NOT NULL,
     SDT VARCHAR(15),
     Email VARCHAR(100)
-);
-GO
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
--- =========================================
+-- ============================================================
 -- 2. TÀI KHOẢN
--- =========================================
+-- ============================================================
 
 CREATE TABLE TaiKhoan (
     MaTK VARCHAR(20) PRIMARY KEY,
@@ -51,29 +71,27 @@ CREATE TABLE TaiKhoan (
                 'KhongConHoatDong'
             )
         )
-);
-GO
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
--- =========================================
+-- ============================================================
 -- 3. DANH MỤC
--- =========================================
+-- ============================================================
 
 CREATE TABLE DanhMuc (
     MaDM VARCHAR(20) PRIMARY KEY,
-    TenDM NVARCHAR(100) NOT NULL UNIQUE
-);
-GO
+    TenDM VARCHAR(100) NOT NULL UNIQUE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
--- =========================================
+-- ============================================================
 -- 4. SẢN PHẨM
--- =========================================
+-- ============================================================
 
 CREATE TABLE SanPham (
     MaSP VARCHAR(20) PRIMARY KEY,
     MaDM VARCHAR(20) NOT NULL,
-    TenSP NVARCHAR(200) NOT NULL,
+    TenSP VARCHAR(200) NOT NULL,
     GiaBan DECIMAL(18,2) NOT NULL,
     SoLuongTon INT NOT NULL DEFAULT 0,
 
@@ -86,34 +104,32 @@ CREATE TABLE SanPham (
 
     CONSTRAINT CK_SanPham_SoLuongTon
         CHECK (SoLuongTon >= 0)
-);
-GO
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
--- =========================================
+-- ============================================================
 -- 5. CHI TIẾT SẢN PHẨM
--- =========================================
+-- ============================================================
 
 CREATE TABLE ChiTietSanPham (
     MaCTSP VARCHAR(20) PRIMARY KEY,
     MaSP VARCHAR(20) NOT NULL UNIQUE,
-    LoaiSP NVARCHAR(100),
-    ThongSoKT NVARCHAR(MAX),
-    ThuongHieu NVARCHAR(100),
-    HinhAnh NVARCHAR(500),
-    MoTa NVARCHAR(MAX),
-    TrangThai NVARCHAR(50),
+    LoaiSP VARCHAR(100),
+    ThongSoKT TEXT,
+    ThuongHieu VARCHAR(100),
+    HinhAnh VARCHAR(500),
+    MoTa TEXT,
+    TrangThai VARCHAR(50),
 
     CONSTRAINT FK_ChiTietSanPham_SanPham
         FOREIGN KEY (MaSP)
         REFERENCES SanPham(MaSP)
-);
-GO
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
--- =========================================
+-- ============================================================
 -- 6. GIỎ HÀNG
--- =========================================
+-- ============================================================
 
 CREATE TABLE GioHang (
     MaGH VARCHAR(20) PRIMARY KEY,
@@ -126,13 +142,12 @@ CREATE TABLE GioHang (
 
     CONSTRAINT CK_GioHang_TongTien
         CHECK (TongTien >= 0)
-);
-GO
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
--- =========================================
+-- ============================================================
 -- 7. CHI TIẾT GIỎ HÀNG
--- =========================================
+-- ============================================================
 
 CREATE TABLE ChiTietGioHang (
     MaCTGH VARCHAR(20) PRIMARY KEY,
@@ -154,30 +169,25 @@ CREATE TABLE ChiTietGioHang (
 
     CONSTRAINT UQ_GioHang_SanPham
         UNIQUE (MaGH, MaSP)
-);
-GO
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
--- =========================================
+-- ============================================================
 -- 8. ĐƠN HÀNG
--- =========================================
+-- ============================================================
 
 CREATE TABLE DonHang (
     MaDH VARCHAR(20) PRIMARY KEY,
     MaND VARCHAR(20) NOT NULL,
     MaNV VARCHAR(20) NULL,
-
-    TenNguoiNhan NVARCHAR(100) NOT NULL,
-    DiaChiGiao NVARCHAR(255) NOT NULL,
+    TenNguoiNhan VARCHAR(100) NOT NULL,
+    DiaChiGiao VARCHAR(255) NOT NULL,
     SDTNhan VARCHAR(15) NOT NULL,
-
     TongTien DECIMAL(18,2) NOT NULL,
-
     PhuongThucTT VARCHAR(20) NOT NULL,
-    TrangThaiDH NVARCHAR(50) NOT NULL,
-    TrangThaiTT NVARCHAR(50) NOT NULL,
-
-    NgayTao DATETIME NOT NULL DEFAULT GETDATE(),
+    TrangThaiDH VARCHAR(50) NOT NULL,
+    TrangThaiTT VARCHAR(50) NOT NULL,
+    NgayTao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT FK_DonHang_KhachHang
         FOREIGN KEY (MaND)
@@ -201,28 +211,27 @@ CREATE TABLE DonHang (
     CONSTRAINT CK_DonHang_TrangThaiDH
         CHECK (
             TrangThaiDH IN (
-                N'Chờ xác nhận',
-                N'Đang chuẩn bị hàng',
-                N'Đang giao hàng',
-                N'Hoàn thành',
-                N'Đã hủy'
+                'Chờ xác nhận',
+                'Đang chuẩn bị hàng',
+                'Đang giao hàng',
+                'Hoàn thành',
+                'Đã hủy'
             )
         ),
 
     CONSTRAINT CK_DonHang_TrangThaiTT
         CHECK (
             TrangThaiTT IN (
-                N'Chưa thanh toán',
-                N'Đã thanh toán'
+                'Chưa thanh toán',
+                'Đã thanh toán'
             )
         )
-);
-GO
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
--- =========================================
+-- ============================================================
 -- 9. CHI TIẾT ĐƠN HÀNG
--- =========================================
+-- ============================================================
 
 CREATE TABLE ChiTietDonHang (
     MaCTDH VARCHAR(20) PRIMARY KEY,
@@ -245,13 +254,12 @@ CREATE TABLE ChiTietDonHang (
 
     CONSTRAINT CK_ChiTietDonHang_DonGia
         CHECK (DonGia >= 0)
-);
-GO
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
--- =========================================
+-- ============================================================
 -- 10. GIAO DỊCH THANH TOÁN
--- =========================================
+-- ============================================================
 
 CREATE TABLE GiaoDichThanhToan (
     MaGD VARCHAR(50) PRIMARY KEY,
@@ -275,13 +283,12 @@ CREATE TABLE GiaoDichThanhToan (
                 'DangXuLy'
             )
         )
-);
-GO
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
--- =========================================
+-- ============================================================
 -- 11. LỊCH SỬ KHO
--- =========================================
+-- ============================================================
 
 CREATE TABLE LichSuKho (
     MaLS VARCHAR(20) PRIMARY KEY,
@@ -289,7 +296,7 @@ CREATE TABLE LichSuKho (
     SoLuongThayDoi INT NOT NULL,
     LoaiThaoTac VARCHAR(30) NOT NULL,
     MaND VARCHAR(20) NOT NULL,
-    ThoiGian DATETIME NOT NULL DEFAULT GETDATE(),
+    ThoiGian DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT FK_LichSuKho_SanPham
         FOREIGN KEY (MaSP)
@@ -307,5 +314,4 @@ CREATE TABLE LichSuKho (
                 'XuatKho'
             )
         )
-);
-GO
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
