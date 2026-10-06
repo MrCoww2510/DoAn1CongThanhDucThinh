@@ -204,9 +204,3 @@ print("HOÀN TẤT")
 print("=" * 60)
 
 print(f"Đã đổi tên: {renamed} ảnh")
-print(f"Không tìm thấy: {len(not_found)} ảnh")
-
-if not_found:
-    print("\nCác ảnh không tìm thấy:")
-    for item in not_found:
-        print(" -", item)
