@@ -1,0 +1,34 @@
+## 1. Quy định Màu sắc
+*   Màu nền: Sử dụng nền trắng với mã màu #f8f8f8.
+*   Màu thanh menu: Sử dụng màu đỏ với mã màu #d32f2f.
+
+## 2. Cấu trúc Layout Trang chủ
+Bố cục trang chủ phải bao gồm các thành phần sau theo thứ tự:
+*   Header.
+*   Thanh menu (gồm Trang chủ, Giới thiệu, v.v.).
+*   Thanh sidebar (danh mục Laptop, v.v.).
+*   Khung banner (được bố trí nằm cạnh sidebar).
+*   Một số hình ảnh sản phẩm nổi bật.
+*   Footer.
+
+## 3. Chi tiết Thành phần Chức năng
+*   Header: 
+    *   Hiển thị Logo dự án.
+    *   Thanh tìm kiếm sản phẩm.
+    *   Icon đăng nhập (phải tích hợp thêm mục đăng ký cho người chưa có tài khoản).
+    *   Icon giỏ hàng (phải có số lượng đơn hàng hiển thị ở cạnh bên).
+*   Thanh Menu (Navigation): 
+    *   Trang chủ: Khi click vào sẽ thực hiện tải lại trang chủ.
+    *   Giới thiệu, Bảo hành & Tin công nghệ: Tham khảo giao diện và luồng hoạt động từ đồ án LTweb.
+    *   Tra cứu đơn hàng: Tham khảo luồng thiết kế từ f1.
+*   Sidebar & Banner: 
+    *   Sidebar: Chứa các loại sản phẩm đang bày bán; yêu cầu thêm hiệu ứng hover (di chuột vào) để hiện lên các danh mục chi tiết (Thương hiệu, Giá bán, v.v.).
+		-khi nhấn vào các sản phẩm thì hiện trang sản phẩm đó sẽ hiện trang bán sản phẩm đó gồm:
+			- Sidebar chứa bộ lọc (giá cả,...)
+			- Khung bày sản phẩm
+    *   Banner: Dành riêng để hiển thị các chương trình khuyến mãi.
+*   Footer:
+    *   Giới thiệu (About us).
+    *   Chính sách.
+    *   Hỗ trợ.
+    *   Liên hệ.
