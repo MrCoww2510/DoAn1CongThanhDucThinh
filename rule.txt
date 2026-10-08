@@ -11,24 +11,36 @@ Bố cục trang chủ phải bao gồm các thành phần sau theo thứ tự:
 *   Một số hình ảnh sản phẩm nổi bật.
 *   Footer.
 
-## 3. Chi tiết Thành phần Chức năng
-*   Header: 
-    *   Hiển thị Logo dự án.
-    *   Thanh tìm kiếm sản phẩm.
-    *   Icon đăng nhập (phải tích hợp thêm mục đăng ký cho người chưa có tài khoản).
-    *   Icon giỏ hàng (phải có số lượng đơn hàng hiển thị ở cạnh bên).
-*   Thanh Menu (Navigation): 
-    *   Trang chủ: Khi click vào sẽ thực hiện tải lại trang chủ.
-    *   Giới thiệu, Bảo hành & Tin công nghệ: Tham khảo giao diện và luồng hoạt động từ đồ án LTweb.
-    *   Tra cứu đơn hàng: Tham khảo luồng thiết kế từ f1.
-*   Sidebar & Banner: 
-    *   Sidebar: Chứa các loại sản phẩm đang bày bán; yêu cầu thêm hiệu ứng hover (di chuột vào) để hiện lên các danh mục chi tiết (Thương hiệu, Giá bán, v.v.).
+    Chi tiết Thành phần Chức năng
+	*   Header: 
+   		*   Hiển thị Logo dự án.
+    		*   Thanh tìm kiếm sản phẩm.
+    		*   Icon đăng nhập (phải tích hợp thêm mục đăng ký cho người chưa có tài khoản).
+    		*   Icon giỏ hàng (phải có số lượng đơn hàng hiển thị ở cạnh bên).
+	*   Thanh Menu (Navigation): 
+    		*   Trang chủ: Khi click vào sẽ thực hiện tải lại trang chủ.
+    		*   Giới thiệu, Bảo hành & Tin công nghệ: Tham khảo giao diện và luồng hoạt động từ đồ án LTweb.
+    		*   Tra cứu đơn hàng: Tham khảo luồng thiết kế từ f1.
+		*   Sidebar & Banner: 
+    	*   Sidebar: Chứa các loại sản phẩm đang bày bán; yêu cầu thêm hiệu ứng hover (di chuột vào) để hiện lên các danh mục chi tiết (Thương hiệu, Giá bán, v.v.).
 		-khi nhấn vào các sản phẩm thì hiện trang sản phẩm đó sẽ hiện trang bán sản phẩm đó gồm:
 			- Sidebar chứa bộ lọc (giá cả,...)
 			- Khung bày sản phẩm
-    *   Banner: Dành riêng để hiển thị các chương trình khuyến mãi.
-*   Footer:
-    *   Giới thiệu (About us).
-    *   Chính sách.
-    *   Hỗ trợ.
-    *   Liên hệ.
+    	*   Banner: Dành riêng để hiển thị các chương trình khuyến mãi.
+	*   Footer:
+    		*   Giới thiệu (About us).
+    		*   Chính sách.
+    		*   Hỗ trợ.
+    		*   Liên hệ.
+
+## 3. View Admin
+màu sidebar : #d32f2f dùng cho Logo
+              #2c3e50 cho phần còn lại
+Sau khi đăng nhập admin thì vẫn ở giao diện trang chủ, khi nhấn vào mục quản lý, thanh menu sẽ chuyển từ ngang sang dọc(sidebar) MƯỢT MÀ:)
+Sidebar gồm:
+	     - Quản lý đơn hàng: Gồm bộ lọc (thanh tìm kiếm mã đơn hàng, ô chọn ngày đặt, ô select trạng thái, nút Lọc kết quả). Danh sách các đơn hàng gồm: Mã ĐH, Ngày đặt, Khách hàng, Tổng tiền, Thanh toán, Trạng thái, Thao tác (Xác nhận, Xem, In phiếu)
+	     - Quản lý sản phẩm: Gồm nút "+ Thêm Sản phẩm mới", bộ lọc (thanh tìm kiếm tên SP, ô select danh mục, ô select thương hiệu). Danh sách SP gồm: Hình ảnh, Tên Sản phẩm, Danh mục, Giá bán, Trạng thái, Thao tác (Sửa, Khóa)
+	     - Quản lý Danh mục: Gồm nút "+ Thêm Danh mục mới". Danh sách danh mục gồm: ID, Tên Danh mục, Đường dẫn (Slug), Số lượng SP, Trạng thái hiển thị, Thao tác (Sửa, Xóa)
+	     - Quản lý kho: Gồm thanh tìm kiếm tên sản phẩm hoặc mã SP, nút "Tra cứu". Bảng kiểm tra & cập nhật tồn kho gồm: Mã SP, Tên Sản phẩm, Danh mục, Tồn kho hiện tại, Tình trạng (Sẵn sàng, Sắp hết, Hết hàng), Thao tác (Nhập kho)
+	     - Quản lý người dùng: Gồm nút "+ Tạo Tài khoản Nhân viên". Bộ lọc gồm (thanh tìm kiếm tên/email/sđt, ô select Tất cả Vai trò, ô select Trạng thái, nút Tìm kiếm). Danh sách người dùng & phân quyền gồm: ID, Họ và Tên, Email / Đăng nhập, Số điện thoại, Vai trò (Role), Trạng thái, Thao tác (Sửa, Phân quyền, Khóa, Xem, Mở khóa)
+	     - Báo cáo & thống kê: Gồm bộ lọc thời gian (Từ ngày, Đến ngày, nút Xem Báo Cáo, nút Xuất Excel). Các thẻ số liệu tổng quát (Tổng doanh thu, Đơn hoàn thành, Đơn đã hủy, Sản phẩm đã bán). Khu vực hiển thị Biểu đồ Doanh thu (Theo tháng) và bảng xếp hạng Top Sản Phẩm Bán Chạy (Tên SP, Đã bán)
