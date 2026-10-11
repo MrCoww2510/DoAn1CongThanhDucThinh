@@ -1,46 +1,678 @@
-## 1. Quy định Màu sắc
-*   Màu nền: Sử dụng nền trắng với mã màu #f8f8f8.
-*   Màu thanh menu: Sử dụng màu đỏ với mã màu #d32f2f.
+# PROMPT GỐC: XÂY DỰNG WEBSITE T&T COMPUTER THEO KIẾN TRÚC MVC
 
-## 2. Cấu trúc Layout Trang chủ
-Bố cục trang chủ phải bao gồm các thành phần sau theo thứ tự:
-*   Header.
-*   Thanh menu (gồm Trang chủ, Giới thiệu, v.v.).
-*   Thanh sidebar (danh mục Laptop, v.v.).
-*   Khung banner (được bố trí nằm cạnh sidebar).
-*   Một số hình ảnh sản phẩm nổi bật.
-*   Footer.
+## 1. Vai trò và mục tiêu
 
-    Chi tiết Thành phần Chức năng
-	*   Header: 
-   		*   Hiển thị Logo dự án.
-    		*   Thanh tìm kiếm sản phẩm.
-    		*   Icon đăng nhập (phải tích hợp thêm mục đăng ký cho người chưa có tài khoản).
-    		*   Icon giỏ hàng (phải có số lượng đơn hàng hiển thị ở cạnh bên).
-	*   Thanh Menu (Navigation): 
-    		*   Trang chủ: Khi click vào sẽ thực hiện tải lại trang chủ.
-    		*   Giới thiệu, Bảo hành & Tin công nghệ: Tham khảo giao diện và luồng hoạt động từ đồ án LTweb.
-    		*   Tra cứu đơn hàng: Tham khảo luồng thiết kế từ f1.
-		*   Sidebar & Banner: 
-    	*   Sidebar: Chứa các loại sản phẩm đang bày bán; yêu cầu thêm hiệu ứng hover (di chuột vào) để hiện lên các danh mục chi tiết (Thương hiệu, Giá bán, v.v.).
-		-khi nhấn vào các sản phẩm thì hiện trang sản phẩm đó sẽ hiện trang bán sản phẩm đó gồm:
-			- Sidebar chứa bộ lọc (giá cả,...)
-			- Khung bày sản phẩm
-    	*   Banner: Dành riêng để hiển thị các chương trình khuyến mãi.
-	*   Footer:
-    		*   Giới thiệu (About us).
-    		*   Chính sách.
-    		*   Hỗ trợ.
-    		*   Liên hệ.
+Bạn là lập trình viên Full-stack có kinh nghiệm xây dựng website thương mại điện tử bằng PHP thuần theo kiến trúc MVC.
 
-## 3. View Admin
-màu sidebar : #d32f2f dùng cho Logo
-              #2c3e50 cho phần còn lại
-Sau khi đăng nhập admin thì vẫn ở giao diện trang chủ, khi nhấn vào mục quản lý, thanh menu sẽ chuyển từ ngang sang dọc(sidebar) MƯỢT MÀ:)
-Sidebar gồm:
-	     - Quản lý đơn hàng: Gồm bộ lọc (thanh tìm kiếm mã đơn hàng, ô chọn ngày đặt, ô select trạng thái, nút Lọc kết quả). Danh sách các đơn hàng gồm: Mã ĐH, Ngày đặt, Khách hàng, Tổng tiền, Thanh toán, Trạng thái, Thao tác (Xác nhận, Xem, In phiếu)
-	     - Quản lý sản phẩm: Gồm nút "+ Thêm Sản phẩm mới", bộ lọc (thanh tìm kiếm tên SP, ô select danh mục, ô select thương hiệu). Danh sách SP gồm: Hình ảnh, Tên Sản phẩm, Danh mục, Giá bán, Trạng thái, Thao tác (Sửa, Khóa)
-	     - Quản lý Danh mục: Gồm nút "+ Thêm Danh mục mới". Danh sách danh mục gồm: ID, Tên Danh mục, Đường dẫn (Slug), Số lượng SP, Trạng thái hiển thị, Thao tác (Sửa, Xóa)
-	     - Quản lý kho: Gồm thanh tìm kiếm tên sản phẩm hoặc mã SP, nút "Tra cứu". Bảng kiểm tra & cập nhật tồn kho gồm: Mã SP, Tên Sản phẩm, Danh mục, Tồn kho hiện tại, Tình trạng (Sẵn sàng, Sắp hết, Hết hàng), Thao tác (Nhập kho)
-	     - Quản lý người dùng: Gồm nút "+ Tạo Tài khoản Nhân viên". Bộ lọc gồm (thanh tìm kiếm tên/email/sđt, ô select Tất cả Vai trò, ô select Trạng thái, nút Tìm kiếm). Danh sách người dùng & phân quyền gồm: ID, Họ và Tên, Email / Đăng nhập, Số điện thoại, Vai trò (Role), Trạng thái, Thao tác (Sửa, Phân quyền, Khóa, Xem, Mở khóa)
-	     - Báo cáo & thống kê: Gồm bộ lọc thời gian (Từ ngày, Đến ngày, nút Xem Báo Cáo, nút Xuất Excel). Các thẻ số liệu tổng quát (Tổng doanh thu, Đơn hoàn thành, Đơn đã hủy, Sản phẩm đã bán). Khu vực hiển thị Biểu đồ Doanh thu (Theo tháng) và bảng xếp hạng Top Sản Phẩm Bán Chạy (Tên SP, Đã bán)
+Hãy xây dựng website **T&T Computer**, đề tài: "Xây dựng website thương mại điện tử bán máy tính và linh kiện máy tính", phục vụ Đồ án 1 ngành Kỹ thuật phần mềm.
+
+Mục tiêu là tạo ra một website có giao diện hoàn chỉnh, chức năng thực tế, dữ liệu được lưu trữ trong MySQL, kiến trúc MVC rõ ràng, dễ bảo trì và phù hợp với quy mô đồ án sinh viên.
+
+### Nguyên tắc bắt buộc
+
+- Ưu tiên tính đúng đắn của nghiệp vụ và dữ liệu hơn hiệu ứng giao diện.
+- Tuân thủ tài liệu phân tích Use Case và database đã cung cấp.
+- Không tự ý bổ sung nghiệp vụ ngoài phạm vi.
+- Không tạo giao diện giả cho những chức năng được yêu cầu phải hoạt động thực tế.
+- Không tự ý viết lại toàn bộ dự án khi chỉ cần sửa một module.
+- Nếu yêu cầu giao diện mâu thuẫn với nghiệp vụ, database hoặc phân quyền, phải nêu rõ vấn đề và đề xuất phương án xử lý.
+- Không tự ý thay đổi cấu trúc database hoặc quy tắc nghiệp vụ đã chốt.
+
+---
+
+## 2. Công nghệ sử dụng
+
+- Backend: PHP thuần, tổ chức theo kiến trúc MVC.
+- Database: MySQL, sử dụng phpMyAdmin để quản lý.
+- Môi trường phát triển: XAMPP, Apache.
+- Frontend: HTML5, CSS3, JavaScript.
+- Kết nối database: PDO.
+- Giao diện: CSS thuần hoặc thư viện giao diện phù hợp khi thực sự cần thiết.
+- Sử dụng Git để quản lý phiên bản nếu dự án đã được khởi tạo repository.
+
+Không tự ý chuyển sang Laravel, Node.js, React hoặc framework khác nếu chưa được yêu cầu.
+
+Không yêu cầu sử dụng REST API hoặc kiến trúc SPA nếu chưa có nhu cầu cụ thể.
+
+---
+
+## 3. Quy chuẩn kiến trúc MVC
+
+### 3.1. Cấu trúc thư mục
+
+Tổ chức dự án theo cấu trúc tương đương sau:
+
+- `public/`
+  - `index.php`: Front Controller.
+  - `css/`: stylesheet.
+  - `js/`: JavaScript.
+  - `images/`: logo, banner và hình ảnh sản phẩm.
+- `app/`
+  - `Controllers/`: Controller của từng module.
+  - `Models/`: truy vấn và thao tác dữ liệu.
+  - `Views/`: các trang giao diện.
+  - `Core/`: Router, Controller cơ sở, Database, cơ chế render View.
+  - `Services/`: nghiệp vụ phức tạp hoặc cần tái sử dụng.
+  - `Middleware/`: xác thực và kiểm tra quyền truy cập.
+- `config/`: cấu hình ứng dụng và database.
+- `routes/`: khai báo các tuyến đường.
+- `storage/`: log và các dữ liệu nội bộ cần thiết.
+
+Có thể điều chỉnh chi tiết cấu trúc để phù hợp với dự án hiện tại nhưng phải giữ nguyên nguyên tắc phân tách trách nhiệm.
+
+Chỉ thư mục `public/` được phép truy cập trực tiếp từ trình duyệt. Cấu hình Apache để điều hướng request qua `public/index.php`.
+
+### 3.2. Trách nhiệm của từng thành phần
+
+**Model**
+- Truy vấn và thao tác dữ liệu MySQL.
+- Sử dụng PDO prepared statements.
+- Không chứa HTML trình bày giao diện.
+- Không xử lý trực tiếp request HTTP hoặc điều hướng trình duyệt.
+
+**View**
+- Hiển thị giao diện và dữ liệu do Controller truyền vào.
+- Tách layout, header, navigation, sidebar, footer và các thành phần dùng chung.
+- Không truy vấn database.
+- Escape dữ liệu động khi xuất ra HTML.
+
+**Controller**
+- Tiếp nhận yêu cầu từ Router.
+- Kiểm tra dữ liệu đầu vào ở mức phù hợp.
+- Gọi Model hoặc Service để xử lý nghiệp vụ.
+- Truyền dữ liệu sang View hoặc trả về kết quả điều hướng.
+- Không chứa toàn bộ nghiệp vụ hoặc các truy vấn SQL phức tạp.
+
+**Service**
+- Xử lý nghiệp vụ nhiều bước như tạo đơn hàng, giữ chỗ tồn kho, hủy đơn, cập nhật thanh toán và tổng hợp báo cáo.
+- Sử dụng transaction khi cần bảo đảm tính nhất quán của nhiều thao tác database.
+
+**Middleware**
+- Kiểm tra đăng nhập.
+- Kiểm tra vai trò và quyền truy cập.
+- Chặn request không hợp lệ trước khi Controller xử lý.
+
+Không nhồi toàn bộ website vào một file PHP. Không tạo thêm tầng kiến trúc nếu không có lợi ích rõ ràng.
+
+---
+
+## 4. Quy chuẩn màu sắc và thiết kế giao diện
+
+### 4.1. Giao diện khách hàng
+
+- Màu nền chính: `#f8f8f8`.
+- Màu thanh navigation: `#d32f2f`.
+- Chữ có độ tương phản tốt, dễ đọc.
+- Card sản phẩm có hình ảnh rõ ràng, tên sản phẩm, giá bán và trạng thái còn hàng.
+- Khoảng cách, căn lề, kích thước chữ và nút bấm phải nhất quán.
+- Giao diện responsive trên desktop, tablet và điện thoại.
+
+Không sử dụng quá nhiều màu nổi hoặc hiệu ứng không phục vụ trải nghiệm người dùng.
+
+### 4.2. Giao diện quản trị
+
+- Sidebar logo và khu vực nhận diện thương hiệu: `#d32f2f`.
+- Phần sidebar còn lại: `#2c3e50`.
+- Khu vực nội dung: nền sáng, bảng dữ liệu rõ ràng.
+- Trạng thái sử dụng nhãn màu nhất quán.
+- Nút thao tác nguy hiểm như khóa tài khoản, xóa hoặc hủy phải có xác nhận phù hợp.
+
+### 4.3. Quy chuẩn chuyển động
+
+- Hover có chuyển màu hoặc thay đổi trạng thái nhẹ.
+- Sidebar quản trị mở rộng, thu gọn hoặc chuyển đổi bố cục mượt mà.
+- Sử dụng CSS transition phù hợp, không lạm dụng animation.
+- Không để hiệu ứng làm chậm thao tác hoặc che khuất nội dung.
+- Hỗ trợ trạng thái focus cho bàn phím và tôn trọng tùy chọn giảm chuyển động của người dùng.
+
+---
+
+## 5. Quy chuẩn bố cục trang chủ
+
+Các thành phần được sắp xếp theo thứ tự:
+
+1. Header.
+2. Thanh navigation ngang.
+3. Khu vực sidebar danh mục và banner khuyến mãi nằm cạnh nhau.
+4. Các khu vực sản phẩm nổi bật.
+5. Footer.
+
+### 5.1. Header
+
+Bao gồm:
+
+- Logo T&T Computer.
+- Thanh tìm kiếm sản phẩm.
+- Khu vực tài khoản.
+- Biểu tượng giỏ hàng và số lượng sản phẩm trong giỏ.
+
+Hành vi:
+
+- Logo đưa người dùng về trang chủ.
+- Tìm kiếm gửi từ khóa đến chức năng tìm kiếm sản phẩm.
+- Khi chưa đăng nhập, hiển thị Đăng nhập và Đăng ký.
+- Khi đã đăng nhập, hiển thị thông tin tài khoản và chức năng liên quan đến vai trò.
+- Số lượng cạnh biểu tượng giỏ hàng biểu thị tổng số mặt hàng theo số lượng sản phẩm trong giỏ, không phải số đơn hàng đã đặt.
+- Khách vãng lai nhấn vào giỏ hàng phải được chuyển đến trang đăng nhập theo quy tắc nghiệp vụ.
+
+### 5.2. Thanh navigation
+
+Bao gồm:
+
+- Trang chủ.
+- Giới thiệu.
+- Bảo hành.
+- Tin công nghệ.
+- Tra cứu đơn hàng.
+
+Các mục phải có đường dẫn và hành vi rõ ràng.
+
+- Trang chủ tải trang chủ.
+- Giới thiệu hiển thị nội dung giới thiệu T&T Computer.
+- Bảo hành hiển thị chính sách bảo hành.
+- Tin công nghệ hiển thị danh sách bài viết hoặc nội dung đã được quản trị.
+- Tra cứu đơn hàng sử dụng luồng tra cứu phù hợp với chức năng thực tế của hệ thống.
+
+Không sao chép mã nguồn hoặc dữ liệu từ các dự án tham khảo. Chỉ tham khảo cách bố trí và luồng tương tác khi tài liệu đó được cung cấp.
+
+### 5.3. Sidebar danh mục và banner
+
+Sidebar danh mục hiển thị các nhóm sản phẩm đang kinh doanh, chẳng hạn Laptop, máy tính để bàn và linh kiện.
+
+- Danh mục lấy từ database.
+- Hover hoặc nhấn vào danh mục hiển thị menu con phù hợp.
+- Các lựa chọn thương hiệu và giá bán thuộc chức năng lọc sản phẩm.
+- Hỗ trợ cả thao tác chuột và thiết bị cảm ứng.
+
+Banner dành cho chương trình khuyến mãi, có thể chứa hình ảnh, nội dung và liên kết. Không tự tạo chức năng quản lý khuyến mãi nếu chưa được đưa vào phạm vi nghiệp vụ.
+
+### 5.4. Khu vực sản phẩm
+
+Hiển thị sản phẩm nổi bật hoặc danh sách sản phẩm phù hợp với dữ liệu thực tế.
+
+Mỗi thẻ sản phẩm gồm:
+
+- Hình ảnh.
+- Tên sản phẩm.
+- Giá bán.
+- Tình trạng tồn kho.
+- Liên kết xem chi tiết.
+
+Không hiển thị sản phẩm đã ngừng kinh doanh trong danh sách bán hàng thông thường. Sản phẩm hết hàng vẫn có thể xuất hiện nhưng phải thể hiện đúng trạng thái.
+
+### 5.5. Footer
+
+Bao gồm:
+
+- Giới thiệu.
+- Chính sách.
+- Hỗ trợ.
+- Liên hệ.
+
+Nội dung được tổ chức thống nhất và dễ truy cập.
+
+---
+
+## 6. Trang danh sách và chi tiết sản phẩm
+
+### 6.1. Danh sách sản phẩm
+
+Bố cục gồm sidebar bộ lọc và khu vực hiển thị sản phẩm.
+
+Hỗ trợ:
+
+- Tìm kiếm theo từ khóa.
+- Lọc theo danh mục.
+- Lọc theo khoảng giá.
+- Lọc theo thương hiệu.
+- Phân trang.
+- Hiển thị trạng thái không tìm thấy kết quả.
+- Giữ điều kiện lọc khi chuyển trang.
+
+Các điều kiện lọc phải có thể kết hợp với nhau và được xử lý từ dữ liệu database.
+
+### 6.2. Chi tiết sản phẩm
+
+Hiển thị:
+
+- Tên và hình ảnh sản phẩm.
+- Giá bán.
+- Mô tả.
+- Thông số kỹ thuật.
+- Thương hiệu.
+- Tình trạng kinh doanh.
+- Số lượng tồn kho phù hợp với dữ liệu thực tế.
+
+Nút thêm vào giỏ hàng chỉ cho phép thao tác khi sản phẩm hợp lệ và người dùng đã đăng nhập.
+
+Thông tin chi tiết lấy từ `SanPham` và `ChiTietSanPham` theo schema được cung cấp.
+
+---
+
+## 7. Quy chuẩn khu vực quản trị
+
+### 7.1. Nguyên tắc điều hướng
+
+Khi Quản trị viên đăng nhập thành công, mặc định vẫn có thể ở giao diện cửa hàng.
+
+Khi chọn mục Quản lý, điều hướng đến khu vực quản trị có sidebar dọc và vùng nội dung riêng.
+
+Sidebar cần chuyển động mượt mà nhưng không được làm ảnh hưởng đến chức năng điều hướng hoặc dữ liệu.
+
+Nhân viên chỉ được truy cập các chức năng được cấp quyền. Không hiển thị hoặc cho phép sử dụng các chức năng quản trị chỉ dành cho Quản trị viên.
+
+### 7.2. Quản lý đơn hàng
+
+Chức năng:
+
+- Tìm kiếm theo mã đơn hàng.
+- Lọc theo ngày đặt.
+- Lọc theo trạng thái.
+- Hiển thị danh sách đơn hàng.
+- Xem chi tiết.
+- Xác nhận đơn.
+- Cập nhật trạng thái theo quy trình.
+- In phiếu đơn hàng.
+
+Các cột chính:
+
+- Mã đơn hàng.
+- Ngày đặt.
+- Khách hàng.
+- Tổng tiền.
+- Trạng thái thanh toán.
+- Trạng thái đơn hàng.
+- Thao tác.
+
+Nhân viên và Quản trị viên chỉ được thực hiện các thao tác phù hợp với quyền đã được cấp.
+
+Không cho phép chuyển trạng thái đơn hàng tùy ý.
+
+### 7.3. Quản lý sản phẩm
+
+Chức năng:
+
+- Thêm sản phẩm mới.
+- Tìm kiếm theo tên hoặc mã sản phẩm.
+- Lọc theo danh mục.
+- Lọc theo thương hiệu.
+- Chỉnh sửa thông tin.
+- Chuyển trạng thái kinh doanh.
+
+Các cột:
+
+- Hình ảnh.
+- Tên sản phẩm.
+- Danh mục.
+- Giá bán.
+- Trạng thái.
+- Thao tác.
+
+Thông tin sản phẩm được quản lý qua `SanPham` và `ChiTietSanPham`.
+
+Không quản lý tồn kho trực tiếp trong chức năng này.
+
+Sản phẩm đã phát sinh trong đơn hàng không được xóa vật lý. Khi ngừng kinh doanh, phải cập nhật trạng thái phù hợp.
+
+### 7.4. Quản lý danh mục
+
+Chức năng:
+
+- Thêm danh mục.
+- Sửa danh mục.
+- Tìm kiếm danh mục.
+- Hiển thị số lượng sản phẩm liên quan.
+- Chuyển trạng thái kinh doanh.
+- Xóa danh mục khi thỏa mãn điều kiện.
+
+Các cột giao diện:
+
+- ID.
+- Tên danh mục.
+- Đường dẫn hoặc slug nếu được hỗ trợ.
+- Số lượng sản phẩm.
+- Trạng thái hiển thị.
+- Thao tác.
+
+Không tạo danh mục trùng lặp. Không xóa vật lý danh mục còn sản phẩm liên kết.
+
+### 7.5. Kiểm tra tồn kho dành cho nhân viên
+
+Chức năng:
+
+- Tìm kiếm theo mã hoặc tên sản phẩm.
+- Tra cứu số lượng tồn kho.
+- Hiển thị trạng thái còn hàng, sắp hết hoặc hết hàng.
+
+Nhân viên chỉ có quyền tra cứu tồn kho và không được trực tiếp thay đổi số lượng.
+
+### 7.6. Quản lý kho dành cho Quản trị viên
+
+Chức năng:
+
+- Tìm kiếm sản phẩm.
+- Xem số lượng tồn kho hiện tại.
+- Nhập kho.
+- Điều chỉnh số lượng khi cần thiết.
+- Hiển thị lịch sử thay đổi tồn kho.
+
+Các cột:
+
+- Mã sản phẩm.
+- Tên sản phẩm.
+- Danh mục.
+- Tồn kho hiện tại.
+- Tình trạng.
+- Thao tác.
+
+Mọi thay đổi phải ghi nhận tối thiểu sản phẩm, số lượng thay đổi, loại thao tác, người thực hiện và thời gian.
+
+Không cho phép tồn kho nhỏ hơn 0.
+
+### 7.7. Quản lý người dùng
+
+Chức năng:
+
+- Tìm kiếm theo họ tên, email, tên đăng nhập hoặc số điện thoại.
+- Lọc theo vai trò.
+- Lọc theo trạng thái.
+- Xem thông tin tài khoản.
+- Tạo tài khoản nhân viên.
+- Chỉnh sửa thông tin phù hợp.
+- Khóa và mở khóa tài khoản.
+- Phân quyền theo vai trò được hỗ trợ.
+
+Các cột:
+
+- ID.
+- Họ và tên.
+- Email hoặc tên đăng nhập.
+- Số điện thoại.
+- Vai trò.
+- Trạng thái.
+- Thao tác.
+
+Chỉ Quản trị viên được thực hiện chức năng quản trị người dùng.
+
+Không cho phép tự ý nâng quyền. Không cho phép thao tác làm mất quyền quản trị của tài khoản quản trị cuối cùng.
+
+Không xóa cứng tài khoản đã liên quan đến dữ liệu giao dịch.
+
+### 7.8. Báo cáo và thống kê
+
+Bộ lọc:
+
+- Từ ngày.
+- Đến ngày.
+- Xem báo cáo.
+- Xuất Excel.
+
+Các thẻ thống kê:
+
+- Tổng doanh thu.
+- Số đơn hoàn thành.
+- Số đơn đã hủy.
+- Số lượng sản phẩm đã bán.
+
+Các khu vực dữ liệu:
+
+- Biểu đồ doanh thu theo tháng.
+- Bảng xếp hạng sản phẩm bán chạy.
+
+Quy tắc:
+
+- Chỉ sử dụng dữ liệu thực tế trong database.
+- Doanh thu chỉ tính từ các đơn hàng ở trạng thái Hoàn thành theo tài liệu Use Case.
+- Không tính đơn hàng Đã hủy, Chờ xác nhận, Đang chuẩn bị hàng hoặc Đang giao hàng vào doanh thu thực tế.
+- Khoảng thời gian không hợp lệ phải được từ chối.
+- Không có dữ liệu phải hiển thị trạng thái rỗng phù hợp.
+- Xuất Excel phải lấy từ tập dữ liệu và bộ lọc tương ứng với báo cáo đang xem.
+
+---
+
+## 8. Quy tắc nghiệp vụ bắt buộc
+
+### 8.1. Actor và phân quyền
+
+Hệ thống có năm Actor:
+
+1. Khách vãng lai.
+2. Khách hàng.
+3. Nhân viên.
+4. Quản trị viên.
+5. Cổng thanh toán.
+
+Khách vãng lai được đăng ký, đăng nhập, xem, tìm kiếm và lọc sản phẩm.
+
+Khách hàng được quản lý giỏ hàng, đặt hàng, thanh toán, theo dõi và hủy đơn theo điều kiện cho phép, đồng thời quản lý tài khoản của mình.
+
+Nhân viên được xử lý đơn hàng theo quyền được cấp và tra cứu tồn kho.
+
+Quản trị viên được quản lý đơn hàng, sản phẩm, danh mục, người dùng, kho và thống kê.
+
+Cổng thanh toán là hệ thống bên ngoài. Không giả lập giao dịch thành công trong môi trường thật.
+
+### 8.2. Đăng ký và đăng nhập
+
+- Kiểm tra dữ liệu bắt buộc.
+- Kiểm tra tính duy nhất của thông tin định danh.
+- Mật khẩu lưu bằng `password_hash()` và xác minh bằng `password_verify()`.
+- Chỉ tài khoản Hoạt động mới được đăng nhập.
+- Tài khoản Bị vô hiệu hóa hoặc Không còn hoạt động không được đăng nhập.
+- Thực hiện session regeneration sau khi đăng nhập thành công.
+- Phân quyền phải được kiểm tra ở phía server.
+
+### 8.3. Giỏ hàng và đặt hàng
+
+- Giỏ hàng gắn với tài khoản khách hàng.
+- Số lượng sản phẩm phải lớn hơn 0.
+- Không thêm sản phẩm ngừng kinh doanh vào giỏ.
+- Không cho phép đặt hàng khi giỏ hàng trống.
+- Kiểm tra lại tồn kho tại thời điểm đặt hàng.
+- Tạo đơn hàng và chi tiết đơn hàng trong transaction.
+- Lưu đơn hàng với trạng thái ban đầu Chờ xác nhận.
+- Lưu giá bán tại thời điểm đặt hàng vào chi tiết đơn hàng.
+- Giữ chỗ tồn kho ngay khi đơn hàng được tạo thành công.
+- Không trừ tồn kho lần thứ hai khi nhân viên xác nhận đơn hàng.
+
+### 8.4. Trạng thái đơn hàng
+
+Quy trình chính:
+
+Chờ xác nhận → Đang chuẩn bị hàng → Đang giao hàng → Hoàn thành.
+
+Ngoài ra, đơn hàng có thể chuyển sang Đã hủy khi đáp ứng điều kiện hủy hoặc tự động hủy theo quy tắc thanh toán được triển khai.
+
+Trạng thái Giao hàng thất bại phải được xử lý theo tài liệu nghiệp vụ nếu schema được điều chỉnh tương ứng.
+
+Quy tắc:
+
+- Chỉ cho phép các chuyển trạng thái đã được xác định.
+- Khách hàng chỉ được hủy đơn ở trạng thái Chờ xác nhận.
+- Đơn đã Hoàn thành hoặc Đã hủy không thể quay lại luồng xử lý thông thường.
+- Khi giao hàng thất bại, chỉ hoàn kho sau khi xác nhận hàng đã về kho.
+- Phải kiểm tra lại trạng thái hiện tại trước khi cập nhật để tránh xử lý trùng.
+
+### 8.5. Thanh toán
+
+Hỗ trợ:
+
+- Thanh toán khi nhận hàng (COD).
+- Thanh toán trực tuyến qua Cổng thanh toán nếu tích hợp khả dụng.
+
+Trạng thái thanh toán:
+
+- Chưa thanh toán.
+- Đã thanh toán.
+
+Quy tắc:
+
+- Đơn COD mới tạo có trạng thái Chưa thanh toán.
+- Chỉ cập nhật thành Đã thanh toán khi xác nhận được việc thanh toán thành công theo quy tắc của phương thức thanh toán.
+- Giao dịch trực tuyến thất bại không được ghi nhận là thành công.
+- Không cho thanh toán lại đơn đã thanh toán hoặc đã hủy.
+- Đơn chưa thanh toán còn hiệu lực có thể được phép thử thanh toán lại.
+- Không tự ý chuyển phương thức từ trực tuyến sang COD nếu chưa có chức năng và quy tắc hỗ trợ.
+
+### 8.6. Quản lý kho
+
+- Số lượng tồn kho không được âm.
+- Khi tạo đơn hàng thành công, giữ chỗ số lượng tương ứng.
+- Khi đơn chuyển sang Đã hủy, hoàn lại số lượng đã giữ chỗ.
+- Khi giao hàng thất bại, hoàn kho sau khi xác nhận hàng hoàn về.
+- Mọi thay đổi tồn kho phải được ghi nhận vào lịch sử kho.
+- Nhân viên không được trực tiếp điều chỉnh tồn kho.
+- Các thao tác cập nhật kho phải bảo đảm tính nhất quán dữ liệu và tránh cập nhật trùng.
+
+### 8.7. Sản phẩm và danh mục
+
+- Sản phẩm có trạng thái kinh doanh phù hợp.
+- Sản phẩm ngừng kinh doanh không hiển thị trong danh sách bán hàng thông thường.
+- Sản phẩm đã phát sinh trong đơn hàng không được xóa vật lý.
+- Danh mục không được trùng lặp.
+- Danh mục còn sản phẩm liên kết không được xóa vật lý.
+- Thông tin tồn kho không được cập nhật trong chức năng quản lý sản phẩm.
+
+---
+
+## 9. Quy chuẩn database
+
+Sử dụng file `database.sql` được cung cấp làm nguồn schema ban đầu.
+
+Các bảng hiện có:
+
+- `NguoiDung`
+- `TaiKhoan`
+- `DanhMuc`
+- `SanPham`
+- `ChiTietSanPham`
+- `GioHang`
+- `ChiTietGioHang`
+- `DonHang`
+- `ChiTietDonHang`
+- `GiaoDichThanhToan`
+- `LichSuKho`
+
+Quy tắc:
+
+- Giữ nguyên tên bảng, tên cột, khóa chính và khóa ngoại hiện có nếu chưa được phê duyệt thay đổi.
+- Không tự ý tạo bảng thay thế chỉ vì muốn tổ chức MVC theo cách khác.
+- Đối chiếu tất cả truy vấn với schema thực tế.
+- Không sử dụng cột chưa tồn tại.
+- Không giả định các bảng có trường Email, Slug, Ngày cập nhật hoặc Trạng thái nếu schema chưa có.
+- Khi giao diện cần dữ liệu chưa có trong schema, phải chỉ rõ trường hoặc quan hệ còn thiếu.
+- Đề xuất SQL migration cụ thể và nêu lý do trước khi thay đổi schema.
+- Không tự ý xóa dữ liệu hoặc viết lại toàn bộ database để giải quyết lỗi giao diện.
+
+### Các điểm phải đối chiếu trước khi triển khai
+
+1. Bảng `DonHang` chưa có trạng thái `Giao hàng thất bại` trong ràng buộc `CHECK`, dù nghiệp vụ có trạng thái này.
+2. Bảng `DanhMuc` hiện chưa có trường slug và trạng thái hiển thị riêng.
+3. Bảng `ChiTietSanPham` có thương hiệu và trạng thái, chưa có bảng thương hiệu riêng.
+4. Bảng `NguoiDung` chưa có trường Email bắt buộc hoặc duy nhất, trong khi giao diện quản lý người dùng có yêu cầu tìm kiếm email.
+5. Cần xác định ngưỡng để phân loại tồn kho Sẵn sàng, Sắp hết và Hết hàng.
+6. Cần xác định cách xử lý thời hạn thanh toán và tự động hủy đơn, vì đây là nghiệp vụ có ảnh hưởng trực tiếp đến tồn kho.
+7. Cần xác định cách xác minh giao dịch thanh toán trực tuyến bằng dữ liệu đáng tin cậy từ cổng thanh toán.
+
+Không âm thầm bỏ qua các điểm này. Hãy báo cáo vấn đề, đề xuất thay đổi tối thiểu và chờ xác nhận trước khi sửa schema.
+
+---
+
+## 10. Quy chuẩn bảo mật và xử lý lỗi
+
+- Dùng PDO prepared statements.
+- Escape dữ liệu khi hiển thị HTML.
+- Validate dữ liệu phía server.
+- Dùng CSRF token cho thao tác thay đổi dữ liệu phù hợp.
+- Kiểm tra quyền truy cập tại server trên từng request cần bảo vệ.
+- Không để người dùng sửa ID trên URL để xem đơn hàng hoặc tài khoản của người khác.
+- Không để thông tin kết nối database trong thư mục công khai.
+- Sử dụng transaction cho nghiệp vụ nhiều bước cần tính nguyên tử.
+- Kiểm soát thao tác lặp để tránh trừ kho hoặc ghi nhận thanh toán hai lần.
+- Không hiển thị stack trace hoặc thông tin nhạy cảm cho người dùng cuối.
+- Ghi log lỗi cần thiết để phục vụ gỡ lỗi.
+
+Mọi chức năng phải xử lý tối thiểu các trường hợp: thành công, dữ liệu không hợp lệ, không tìm thấy dữ liệu, không đủ quyền và lỗi hệ thống.
+
+---
+
+## 11. Quy trình triển khai
+
+Không code toàn bộ hệ thống trong một lần.
+
+Thực hiện lần lượt:
+
+**Giai đoạn 1: Khảo sát dự án**
+- Đọc toàn bộ source code hiện có.
+- Đọc database.sql và tài liệu Use Case.
+- Xác định các chức năng đã có, còn thiếu và đang lỗi.
+- Báo cáo các điểm mâu thuẫn giữa tài liệu, schema và source code.
+
+**Giai đoạn 2: Thiết kế kiến trúc**
+- Đề xuất cấu trúc thư mục MVC.
+- Xác định Router, Controller, Model, Service và View.
+- Lập bảng ánh xạ chức năng sang các thành phần MVC.
+- Xác định route, quyền truy cập và các phụ thuộc giữa module.
+
+**Giai đoạn 3: Xây dựng nền tảng**
+- Kết nối database.
+- Thiết lập Router và Front Controller.
+- Xây dựng cơ chế render View.
+- Tạo layout khách hàng và layout quản trị.
+- Kiểm tra đường dẫn, session và xử lý lỗi.
+
+**Giai đoạn 4: Triển khai chức năng**
+- Danh sách, tìm kiếm, lọc và chi tiết sản phẩm.
+- Đăng ký, đăng nhập và quản lý tài khoản.
+- Giỏ hàng.
+- Đặt hàng và thanh toán.
+- Theo dõi và xử lý đơn hàng.
+- Quản lý sản phẩm và danh mục.
+- Kiểm tra tồn kho và quản lý kho.
+- Quản lý người dùng.
+- Báo cáo và thống kê.
+
+**Giai đoạn 5: Kiểm thử**
+- Kiểm thử luồng thành công và ngoại lệ.
+- Kiểm thử phân quyền.
+- Kiểm thử các quy tắc trạng thái đơn hàng.
+- Kiểm thử tính nhất quán tồn kho.
+- Kiểm thử giao dịch thanh toán.
+- Kiểm thử giao diện responsive và các liên kết.
+
+**Giai đoạn 6: Hoàn thiện**
+- Sửa lỗi.
+- Dọn code.
+- Hoàn thiện giao diện.
+- Viết hướng dẫn cài đặt XAMPP, import database và chạy website.
+- Ghi rõ các chức năng đã hoàn thành và những phần chưa được tích hợp.
+
+---
+
+## 12. Tiêu chí nghiệm thu
+
+Một module chỉ được xem là hoàn thành khi:
+
+- Giao diện đáp ứng yêu cầu.
+- Có route hoạt động.
+- Có xử lý đúng theo MVC.
+- Đọc hoặc ghi dữ liệu thực tế khi chức năng yêu cầu.
+- Đáp ứng quy tắc nghiệp vụ.
+- Kiểm tra quyền truy cập phía server.
+- Xử lý các trường hợp lỗi chính.
+- Không làm hỏng chức năng đã hoàn thành trước đó.
+- Có hướng dẫn kiểm thử và kết quả mong đợi.
+
+Sau mỗi giai đoạn, báo cáo:
+
+1. Các file được tạo mới.
+2. Các file được sửa.
+3. Chức năng đã hoàn thành.
+4. Các thay đổi database nếu được phê duyệt.
+5. Các trường hợp đã kiểm thử.
+6. Các lỗi hoặc hạn chế còn tồn tại.
+7. Hướng dẫn chạy thử.
+
+Không tuyên bố đã kiểm thử thành công nếu chưa thực sự chạy và xác minh.
+
+**Yêu cầu bắt đầu:** Hãy thực hiện Giai đoạn 1 trước. Đọc tài liệu, database và source code hiện có, sau đó báo cáo hiện trạng và các mâu thuẫn. Chưa tự ý code toàn bộ website hoặc sửa database ở bước đầu.
