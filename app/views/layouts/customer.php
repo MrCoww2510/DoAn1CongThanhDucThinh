@@ -1,5 +1,5 @@
 <?php
-$appConfig = require BASE_PATH . '/config/app.php';
+$appConfig = require BASE_PATH.'/config/app.php';
 $baseUrl = rtrim($appConfig['base_url'] ?? '', '/');
 ?>
 <!doctype html>
@@ -7,30 +7,30 @@ $baseUrl = rtrim($appConfig['base_url'] ?? '', '/');
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?= htmlspecialchars(($pageTitle ?? 'T&T Computer') . ' | T&T Computer', ENT_QUOTES, 'UTF-8') ?></title>
-    <link rel="stylesheet" href="<?= htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8') ?>/css/base.css">
-    <link rel="stylesheet" href="<?= htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8') ?>/css/auth.css">
-    <link rel="stylesheet" href="<?= htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8') ?>/css/header.css">
-    <link rel="stylesheet" href="<?= htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8') ?>/css/products.css">
-    <script src="<?= htmlspecialchars($baseUrl ?? '', ENT_QUOTES, 'UTF-8') ?>/js/nav.js"></script>
+    <title><?php echo htmlspecialchars(($pageTitle ?? 'T&T Computer').' | T&T Computer', ENT_QUOTES, 'UTF-8'); ?></title>
+    <link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/base.css">
+    <link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/auth.css">
+    <link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/header.css">
+    <link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/products.css">
+    <script src="<?php echo htmlspecialchars($baseUrl ?? '', ENT_QUOTES, 'UTF-8'); ?>/js/nav.js"></script>
 </head>
 <body>
 
 <header class="site-header">
     <div class="container header-inner">
         <a class="brand"
-           href="<?= htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8') ?>/">
+           href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/">
             T&amp;T <span>COMPUTER</span>
         </a>
 
         <p class="header-note">Máy tính &amp; linh kiện máy tính</p>
 
         <div class="header-account">
-            <?php if (isset($_SESSION['user'])): ?>
+            <?php if (isset($_SESSION['user'])) { ?>
                 <!-- Chỉ hiện khi đã đăng nhập -->
                 <span>
                     Xin chào,
-                    <?= htmlspecialchars(
+                    <?php echo htmlspecialchars(
                         (string) (
                             $_SESSION['user']['HoTen']
                             ?? $_SESSION['user']['TenDangNhap']
@@ -38,20 +38,20 @@ $baseUrl = rtrim($appConfig['base_url'] ?? '', '/');
                         ),
                         ENT_QUOTES,
                         'UTF-8'
-                    ) ?>
+                    ); ?>
                 </span>
 
                 <form method="post"
-                    action="<?= htmlspecialchars($baseUrl . '/logout', ENT_QUOTES, 'UTF-8') ?>">
+                    action="<?php echo htmlspecialchars($baseUrl.'/logout', ENT_QUOTES, 'UTF-8'); ?>">
                     <input type="hidden" name="_csrf"
-                        value="<?= htmlspecialchars($_SESSION['_csrf'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
+                        value="<?php echo htmlspecialchars($_SESSION['_csrf'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
                     <button type="submit">Đăng xuất</button>
                 </form>
-            <?php else: ?>
+            <?php } else { ?>
                 <!-- Chưa đăng nhập -->
-                <a href="<?= htmlspecialchars($baseUrl . '/login', ENT_QUOTES, 'UTF-8') ?>">Đăng nhập</a>
-                <a href="<?= htmlspecialchars($baseUrl . '/register', ENT_QUOTES, 'UTF-8') ?>">Đăng ký</a>
-            <?php endif; ?>
+                <a href="<?php echo htmlspecialchars($baseUrl.'/login', ENT_QUOTES, 'UTF-8'); ?>">Đăng nhập</a>
+                <a href="<?php echo htmlspecialchars($baseUrl.'/register', ENT_QUOTES, 'UTF-8'); ?>">Đăng ký</a>
+            <?php } ?>
         </div>
     </div>
 </header>
@@ -66,16 +66,16 @@ $baseUrl = rtrim($appConfig['base_url'] ?? '', '/');
 
             <!-- Danh sách menu -->
             <div class="nav-inner" id="mainMenu">
-                <a href="<?= htmlspecialchars($baseUrl . '/', ENT_QUOTES, 'UTF-8') ?>">Trang chủ</a>
-                <a href="<?= htmlspecialchars($baseUrl . '/products', ENT_QUOTES, 'UTF-8') ?>">Sản phẩm</a>
-                <a href="<?= htmlspecialchars($baseUrl . '/cart', ENT_QUOTES, 'UTF-8') ?>">Giỏ hàng</a>
-                <a href="<?= htmlspecialchars($baseUrl . '/orders', ENT_QUOTES, 'UTF-8') ?>">Theo dõi đơn hàng</a>
+                <a href="<?php echo htmlspecialchars($baseUrl.'/', ENT_QUOTES, 'UTF-8'); ?>">Trang chủ</a>
+                <a href="<?php echo htmlspecialchars($baseUrl.'/products', ENT_QUOTES, 'UTF-8'); ?>">Sản phẩm</a>
+                <a href="<?php echo htmlspecialchars($baseUrl.'/cart', ENT_QUOTES, 'UTF-8'); ?>">Giỏ hàng</a>
+                <a href="<?php echo htmlspecialchars($baseUrl.'/orders', ENT_QUOTES, 'UTF-8'); ?>">Theo dõi đơn hàng</a>
             </div>
         </div>
     </nav>
 
     <main class="container main-content">
-        <?= $content ?>
+        <?php echo $content; ?>
     </main>
 
     <footer class="site-footer">
@@ -130,7 +130,7 @@ $baseUrl = rtrim($appConfig['base_url'] ?? '', '/');
         <!-- Thanh bản quyền dưới cùng -->
         <div class="footer-bottom">
             <div class="container">
-                <p>&copy; <?= date('Y') ?> T&amp;T Computer. Đồ án thương mại điện tử - Nội dung và chức năng đang được triển khai.</p>
+                <p>&copy; <?php echo date('Y'); ?> T&amp;T Computer. Đồ án thương mại điện tử - Nội dung và chức năng đang được triển khai.</p>
             </div>
         </div>
     </footer>

@@ -7,30 +7,30 @@
             Đăng nhập để tiếp tục mua sắm và quản lý đơn hàng.
         </p>
 
-        <?php if (!empty($_SESSION['_register_success'])): ?>
+        <?php if (!empty($_SESSION['_register_success'])) { ?>
             <div class="auth-success">
                 Đăng ký thành công. Hãy đăng nhập bằng tài khoản vừa tạo.
             </div>
             <?php unset($_SESSION['_register_success']); ?>
-        <?php endif; ?>
+        <?php } ?>
 
-        <?php if ($error !== ''): ?>
+        <?php if ($error !== '') { ?>
             <div class="auth-error">
-                <?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?>
+                <?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?>
             </div>
-        <?php endif; ?>
+        <?php } ?>
 
         <form method="post"
-              action="<?= htmlspecialchars($baseUrl . '/login', ENT_QUOTES, 'UTF-8') ?>"
+              action="<?php echo htmlspecialchars($baseUrl.'/login', ENT_QUOTES, 'UTF-8'); ?>"
               class="auth-form">
 
             <input type="hidden" name="_csrf"
-                   value="<?= htmlspecialchars($csrfToken, ENT_QUOTES, 'UTF-8') ?>">
+                   value="<?php echo htmlspecialchars($csrfToken, ENT_QUOTES, 'UTF-8'); ?>">
 
             <label for="identity">Tên đăng nhập hoặc email</label>
             <input id="identity" name="identity" type="text"
                    autocomplete="username" required
-                   value="<?= htmlspecialchars($identity, ENT_QUOTES, 'UTF-8') ?>"
+                   value="<?php echo htmlspecialchars($identity, ENT_QUOTES, 'UTF-8'); ?>"
                    placeholder="Nhập tên đăng nhập hoặc email">
 
             <label for="password">Mật khẩu</label>
@@ -43,7 +43,7 @@
 
         <p class="auth-footer">
             Chưa có tài khoản?
-            <a href="<?= htmlspecialchars($baseUrl . '/register', ENT_QUOTES, 'UTF-8') ?>">
+            <a href="<?php echo htmlspecialchars($baseUrl.'/register', ENT_QUOTES, 'UTF-8'); ?>">
                 Đăng ký ngay
             </a>
         </p>

@@ -7,7 +7,7 @@
     </p>
 
     <a class="primary-link"
-       href="<?= htmlspecialchars($baseUrl . '/products', ENT_QUOTES, 'UTF-8') ?>">
+       href="<?php echo htmlspecialchars($baseUrl.'/products', ENT_QUOTES, 'UTF-8'); ?>">
         Khám phá sản phẩm
     </a>
 </section>
@@ -19,20 +19,20 @@
             <h2>Sản phẩm nổi bật</h2>
         </div>
 
-        <a href="<?= htmlspecialchars($baseUrl . '/products', ENT_QUOTES, 'UTF-8') ?>">
+        <a href="<?php echo htmlspecialchars($baseUrl.'/products', ENT_QUOTES, 'UTF-8'); ?>">
             Xem tất cả
         </a>
     </div>
 
-    <?php if ($products === []): ?>
+    <?php if ($products === []) { ?>
         <div class="empty-state">
             <p>Chưa có sản phẩm để hiển thị. Hãy kiểm tra dữ liệu trong database.</p>
         </div>
-    <?php else: ?>
+    <?php } else { ?>
         <div class="product-grid">
-            <?php foreach ($products as $product): ?>
-                <?php require BASE_PATH . '/app/Views/products/_card.php'; ?>
-            <?php endforeach; ?>
+            <?php foreach ($products as $product) { ?>
+                <?php require BASE_PATH.'/app/Views/products/_card.php'; ?>
+            <?php } ?>
         </div>
-    <?php endif; ?>
+    <?php } ?>
 </section>

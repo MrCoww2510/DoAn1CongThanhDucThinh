@@ -15,18 +15,16 @@ $csrf = htmlspecialchars(
     'UTF-8'
 );
 
-$formatMoney = static fn ($amount): string =>
-    number_format((float) $amount, 0, ',', '.') . ' ₫';
+$formatMoney = static fn ($amount): string => number_format((float) $amount, 0, ',', '.').' ₫';
 
-$escape = static fn ($value): string =>
-    htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
+$escape = static fn ($value): string => htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
 
 /*
 |--------------------------------------------------------------------------
 | Cấu hình ứng dụng
 |--------------------------------------------------------------------------
 */
-$appConfig = require BASE_PATH . '/config/app.php';
+$appConfig = require BASE_PATH.'/config/app.php';
 
 $baseUrl = rtrim(
     (string) ($appConfig['base_url'] ?? ''),
@@ -38,7 +36,7 @@ $baseUrlEscaped = $escape($baseUrl);
 
 <link
     rel="stylesheet"
-    href="<?= $baseUrlEscaped ?>/css/cart.css"
+    href="<?php echo $baseUrlEscaped; ?>/css/cart.css"
 >
 
 <section class="cart-page">
@@ -52,22 +50,22 @@ $baseUrlEscaped = $escape($baseUrl);
 
         <a
             class="cart-continue"
-            href="<?= $baseUrlEscaped ?>/products"
+            href="<?php echo $baseUrlEscaped; ?>/products"
         >
             ← Tiếp tục mua sắm
         </a>
     </div>
 
     <!-- Thông báo -->
-    <?php if (!empty($flash)): ?>
-        <div class="cart-alert <?= ($flash['type'] ?? '') === 'error'
+    <?php if (!empty($flash)) { ?>
+        <div class="cart-alert <?php echo ($flash['type'] ?? '') === 'error'
             ? 'cart-alert-error'
-            : 'cart-alert-success' ?>">
-            <?= $escape($flash['message'] ?? '') ?>
+            : 'cart-alert-success'; ?>">
+            <?php echo $escape($flash['message'] ?? ''); ?>
         </div>
-    <?php endif; ?>
+    <?php } ?>
 
-    <?php if (empty($items)): ?>
+    <?php if (empty($items)) { ?>
 
         <!-- Giỏ hàng trống -->
         <div class="cart-empty">
@@ -79,13 +77,13 @@ $baseUrlEscaped = $escape($baseUrl);
 
             <a
                 class="cart-primary-btn"
-                href="<?= $baseUrlEscaped ?>/products"
+                href="<?php echo $baseUrlEscaped; ?>/products"
             >
                 Khám phá sản phẩm
             </a>
         </div>
 
-    <?php else: ?>
+    <?php } else { ?>
 
         <div class="cart-layout">
 
@@ -97,13 +95,13 @@ $baseUrlEscaped = $escape($baseUrl);
 
                     <form
                         method="POST"
-                        action="<?= $baseUrlEscaped ?>/cart/clear"
+                        action="<?php echo $baseUrlEscaped; ?>/cart/clear"
                         onsubmit="return confirm('Bạn có chắc muốn xóa toàn bộ giỏ hàng?');"
                     >
                         <input
                             type="hidden"
                             name="_csrf"
-                            value="<?= $csrf ?>"
+                            value="<?php echo $csrf; ?>"
                         >
 
                         <button
@@ -115,7 +113,7 @@ $baseUrlEscaped = $escape($baseUrl);
                     </form>
                 </div>
 
-                <?php foreach ($items as $item): ?>
+                <?php foreach ($items as $item) { ?>
                     <?php
                     /*
                     |--------------------------------------------------------------------------
@@ -142,14 +140,14 @@ $baseUrlEscaped = $escape($baseUrl);
                             $imageSrc = $image;
                         } elseif (str_starts_with($image, '/images/')) {
                             // Ví dụ: /images/products/SP001.jpg
-                            $imageSrc = $baseUrl . $image;
+                            $imageSrc = $baseUrl.$image;
                         } elseif (str_starts_with($image, 'public/')) {
                             // Ví dụ: public/images/products/SP001.jpg
-                            $imageSrc = $baseUrl . '/' . substr($image, 7);
+                            $imageSrc = $baseUrl.'/'.substr($image, 7);
                         } else {
                             // Ví dụ: images/products/SP001.jpg
-                            $imageSrc = $baseUrl . '/'
-                                . ltrim($image, '/');
+                            $imageSrc = $baseUrl.'/'
+                                .ltrim($image, '/');
                         }
                     }
 
@@ -165,7 +163,7 @@ $baseUrlEscaped = $escape($baseUrl);
                     // Tránh giá trị max nhỏ hơn min của input
                     $maxQuantity = max(1, $soLuongTon);
 
-                    $quantityId = 'quantity-' . preg_replace(
+                    $quantityId = 'quantity-'.preg_replace(
                         '/[^a-zA-Z0-9_-]/',
                         '_',
                         $maSP
@@ -176,62 +174,62 @@ $baseUrlEscaped = $escape($baseUrl);
 
                         <!-- Ảnh sản phẩm -->
                         <div class="cart-product-image">
-                            <?php if ($imageSrc !== ''): ?>
+                            <?php if ($imageSrc !== '') { ?>
                                 <img
-                                    src="<?= $escape($imageSrc) ?>"
-                                    alt="<?= $escape($tenSP) ?>"
+                                    src="<?php echo $escape($imageSrc); ?>"
+                                    alt="<?php echo $escape($tenSP); ?>"
                                     loading="lazy"
                                 >
-                            <?php else: ?>
+                            <?php } else { ?>
                                 <span>PC</span>
-                            <?php endif; ?>
+                            <?php } ?>
                         </div>
 
                         <!-- Thông tin sản phẩm -->
                         <div class="cart-product-info">
 
                             <h3>
-                                <?= $escape($tenSP) ?>
+                                <?php echo $escape($tenSP); ?>
                             </h3>
 
                             <p class="cart-product-code">
                                 Mã sản phẩm:
-                                <?= $escape($maSP) ?>
+                                <?php echo $escape($maSP); ?>
                             </p>
 
                             <p class="cart-unit-price">
-                                <?= $formatMoney($giaBan) ?>
+                                <?php echo $formatMoney($giaBan); ?>
                             </p>
 
                             <!-- Cập nhật số lượng -->
                             <form
                                 method="POST"
-                                action="<?= $baseUrlEscaped ?>/cart/update"
+                                action="<?php echo $baseUrlEscaped; ?>/cart/update"
                                 class="cart-quantity-form"
                             >
                                 <input
                                     type="hidden"
                                     name="_csrf"
-                                    value="<?= $csrf ?>"
+                                    value="<?php echo $csrf; ?>"
                                 >
 
                                 <input
                                     type="hidden"
                                     name="maSP"
-                                    value="<?= $escape($maSP) ?>"
+                                    value="<?php echo $escape($maSP); ?>"
                                 >
 
-                                <label for="<?= $escape($quantityId) ?>">
+                                <label for="<?php echo $escape($quantityId); ?>">
                                     Số lượng
                                 </label>
 
                                 <input
-                                    id="<?= $escape($quantityId) ?>"
+                                    id="<?php echo $escape($quantityId); ?>"
                                     type="number"
                                     name="quantity"
                                     min="1"
-                                    max="<?= $maxQuantity ?>"
-                                    value="<?= $soLuong ?>"
+                                    max="<?php echo $maxQuantity; ?>"
+                                    value="<?php echo $soLuong; ?>"
                                     required
                                 >
 
@@ -244,7 +242,7 @@ $baseUrlEscaped = $escape($baseUrl);
                             </form>
 
                             <p class="cart-stock">
-                                Còn <?= $soLuongTon ?> sản phẩm
+                                Còn <?php echo $soLuongTon; ?> sản phẩm
                             </p>
 
                         </div>
@@ -253,24 +251,24 @@ $baseUrlEscaped = $escape($baseUrl);
                         <div class="cart-product-end">
 
                             <strong>
-                                <?= $formatMoney($thanhTien) ?>
+                                <?php echo $formatMoney($thanhTien); ?>
                             </strong>
 
                             <form
                                 method="POST"
-                                action="<?= $baseUrlEscaped ?>/cart/remove"
+                                action="<?php echo $baseUrlEscaped; ?>/cart/remove"
                                 onsubmit="return confirm('Xóa sản phẩm này khỏi giỏ hàng?');"
                             >
                                 <input
                                     type="hidden"
                                     name="_csrf"
-                                    value="<?= $csrf ?>"
+                                    value="<?php echo $csrf; ?>"
                                 >
 
                                 <input
                                     type="hidden"
                                     name="maSP"
-                                    value="<?= $escape($maSP) ?>"
+                                    value="<?php echo $escape($maSP); ?>"
                                 >
 
                                 <button
@@ -285,7 +283,7 @@ $baseUrlEscaped = $escape($baseUrl);
 
                     </article>
 
-                <?php endforeach; ?>
+                <?php } ?>
 
             </div>
 
@@ -296,12 +294,12 @@ $baseUrlEscaped = $escape($baseUrl);
 
                 <div class="cart-summary-row">
                     <span>Số loại sản phẩm</span>
-                    <strong><?= count($items) ?></strong>
+                    <strong><?php echo count($items); ?></strong>
                 </div>
 
                 <div class="cart-summary-row">
                     <span>Tạm tính</span>
-                    <strong><?= $formatMoney($total) ?></strong>
+                    <strong><?php echo $formatMoney($total); ?></strong>
                 </div>
 
                 <div class="cart-summary-row">
@@ -311,7 +309,7 @@ $baseUrlEscaped = $escape($baseUrl);
 
                 <div class="cart-summary-total">
                     <span>Tổng tiền sản phẩm</span>
-                    <strong><?= $formatMoney($total) ?></strong>
+                    <strong><?php echo $formatMoney($total); ?></strong>
                 </div>
 
                 <button
@@ -330,6 +328,6 @@ $baseUrlEscaped = $escape($baseUrl);
 
         </div>
 
-    <?php endif; ?>
+    <?php } ?>
 
 </section>

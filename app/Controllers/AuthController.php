@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controllers;
@@ -140,10 +141,10 @@ final class AuthController extends Controller
 
                         $this->redirect('login');
                     } catch (\PDOException $exception) {
-                        error_log('[Register] ' . $exception->getMessage());
+                        error_log('[Register] '.$exception->getMessage());
                         $error = 'Không thể tạo tài khoản. Hãy kiểm tra dữ liệu hoặc thử lại.';
                     } catch (\Throwable $exception) {
-                        error_log('[Register] ' . $exception->getMessage());
+                        error_log('[Register] '.$exception->getMessage());
                         $error = 'Đã xảy ra lỗi khi đăng ký. Vui lòng thử lại.';
                     }
                 }
@@ -161,57 +162,54 @@ final class AuthController extends Controller
         ]);
     }
 
+    public function logout(): void
+    {
+        // Chỉ chấp nhận POST
+        if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
+            http_response_code(405);
+            exit('Phương thức không được hỗ trợ.');
+        }
 
-
-	public function logout(): void
-	{
-		// Chỉ chấp nhận POST
-		if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
-			http_response_code(405);
-			exit('Phương thức không được hỗ trợ.');
-		}
-
-		// Chỉ coi là đã đăng nhập khi session có thông tin tài khoản hợp lệ.
+        // Chỉ coi là đã đăng nhập khi session có thông tin tài khoản hợp lệ.
         if (
-            !isset($_SESSION['user']) ||
-            !is_array($_SESSION['user']) ||
-            empty($_SESSION['user']['MaTK'])
+            !isset($_SESSION['user'])
+            || !is_array($_SESSION['user'])
+            || empty($_SESSION['user']['MaTK'])
         ) {
             unset($_SESSION['user']);
 
-            $config = require BASE_PATH . '/config/app.php';
+            $config = require BASE_PATH.'/config/app.php';
             $baseUrl = rtrim($config['base_url'] ?? '', '/');
 
-            header('Location: ' . $baseUrl . '/login');
+            header('Location: '.$baseUrl.'/login');
             exit;
         }
 
-		// Kiểm tra CSRF khi đang đăng nhập
-		$csrf = (string) ($_POST['_csrf'] ?? '');
-		$sessionCsrf = (string) ($_SESSION['_csrf'] ?? '');
+        // Kiểm tra CSRF khi đang đăng nhập
+        $csrf = (string) ($_POST['_csrf'] ?? '');
+        $sessionCsrf = (string) ($_SESSION['_csrf'] ?? '');
 
-		if (
-			$csrf === '' ||
-			$sessionCsrf === '' ||
-			!hash_equals($sessionCsrf, $csrf)
-		) {
-			http_response_code(403);
-			exit('Phiên không hợp lệ. Hãy tải lại trang rồi thử lại.');
-		}
+        if (
+            $csrf === ''
+            || $sessionCsrf === ''
+            || !hash_equals($sessionCsrf, $csrf)
+        ) {
+            http_response_code(403);
+            exit('Phiên không hợp lệ. Hãy tải lại trang rồi thử lại.');
+        }
 
-		// Xóa thông tin đăng nhập
-		unset($_SESSION['user']);
+        // Xóa thông tin đăng nhập
+        unset($_SESSION['user']);
 
-		// Tạo token mới cho session hiện tại
-		$_SESSION['_csrf'] = bin2hex(random_bytes(32));
+        // Tạo token mới cho session hiện tại
+        $_SESSION['_csrf'] = bin2hex(random_bytes(32));
 
-		$config = require BASE_PATH . '/config/app.php';
-		$baseUrl = rtrim($config['base_url'] ?? '', '/');
+        $config = require BASE_PATH.'/config/app.php';
+        $baseUrl = rtrim($config['base_url'] ?? '', '/');
 
-		header('Location: ' . $baseUrl . '/');
-		exit;
-	}
-
+        header('Location: '.$baseUrl.'/');
+        exit;
+    }
 
     private function redirectByRole(string $role): never
     {

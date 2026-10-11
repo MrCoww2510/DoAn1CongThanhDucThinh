@@ -1,11 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controllers;
 
 use App\Core\Controller;
 use App\Models\Cart;
-use RuntimeException;
 
 final class CartController extends Controller
 {
@@ -97,10 +97,10 @@ final class CartController extends Controller
                 $quantity
             );
             $this->flash('Đã thêm sản phẩm vào giỏ hàng.');
-        } catch (RuntimeException $e) {
+        } catch (\RuntimeException $e) {
             $this->flash($e->getMessage(), 'error');
         } catch (\Throwable $e) {
-            error_log('[Cart add] ' . $e->getMessage());
+            error_log('[Cart add] '.$e->getMessage());
             $this->flash('Không thể thêm sản phẩm. Vui lòng thử lại.', 'error');
         }
 
@@ -131,10 +131,10 @@ final class CartController extends Controller
                 $quantity
             );
             $this->flash('Đã cập nhật giỏ hàng.');
-        } catch (RuntimeException $e) {
+        } catch (\RuntimeException $e) {
             $this->flash($e->getMessage(), 'error');
         } catch (\Throwable $e) {
-            error_log('[Cart update] ' . $e->getMessage());
+            error_log('[Cart update] '.$e->getMessage());
             $this->flash('Không thể cập nhật giỏ hàng.', 'error');
         }
 
@@ -158,7 +158,7 @@ final class CartController extends Controller
             (new Cart())->removeItem((string) $user['MaND'], $maSP);
             $this->flash('Đã xóa sản phẩm khỏi giỏ hàng.');
         } catch (\Throwable $e) {
-            error_log('[Cart remove] ' . $e->getMessage());
+            error_log('[Cart remove] '.$e->getMessage());
             $this->flash('Không thể xóa sản phẩm.', 'error');
         }
 
@@ -175,7 +175,7 @@ final class CartController extends Controller
             (new Cart())->clear((string) $user['MaND']);
             $this->flash('Đã xóa toàn bộ giỏ hàng.');
         } catch (\Throwable $e) {
-            error_log('[Cart clear] ' . $e->getMessage());
+            error_log('[Cart clear] '.$e->getMessage());
             $this->flash('Không thể làm trống giỏ hàng.', 'error');
         }
 

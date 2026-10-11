@@ -7,87 +7,86 @@ if ($image !== '') {
     } elseif (str_starts_with($image, '/DoAn1CongThanhDucThinh/public/')) {
         // Đường dẫn đã có tiền tố dự án.
     } elseif (str_starts_with($image, '/images/')) {
-        $image = $baseUrl . $image;
+        $image = $baseUrl.$image;
     } elseif (str_starts_with($image, 'public/')) {
-        $image = $baseUrl . '/' . substr($image, 7);
+        $image = $baseUrl.'/'.substr($image, 7);
     } else {
-        $image = $baseUrl . '/' . ltrim($image, '/');
+        $image = $baseUrl.'/'.ltrim($image, '/');
     }
 }
 
 $stock = (int) ($product['SoLuongTon'] ?? 0);
 $csrfToken = $_SESSION['_csrf'] ?? '';
 
-$productUrl = $baseUrl . '/product?id=' . rawurlencode(
+$productUrl = $baseUrl.'/product?id='.rawurlencode(
     (string) $product['MaSP']
 );
 
-$cartUrl = $baseUrl . '/cart/add';
-$buyNowUrl = $baseUrl . '/cart/buy-now';
+$cartUrl = $baseUrl.'/cart/add';
+$buyNowUrl = $baseUrl.'/cart/buy-now';
 
-$e = static fn ($value): string =>
-    htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
+$e = static fn ($value): string => htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
 ?>
 
 <article class="product-card">
-    <a class="product-image" href="<?= $e($productUrl) ?>">
-        <?php if ($image !== ''): ?>
+    <a class="product-image" href="<?php echo $e($productUrl); ?>">
+        <?php if ($image !== '') { ?>
             <img
-                src="<?= $e($image) ?>"
-                alt="<?= $e($product['TenSP']) ?>"
+                src="<?php echo $e($image); ?>"
+                alt="<?php echo $e($product['TenSP']); ?>"
                 loading="lazy"
             >
-        <?php else: ?>
+        <?php } else { ?>
             <span class="image-placeholder">Chưa có hình ảnh</span>
-        <?php endif; ?>
+        <?php } ?>
     </a>
 
     <div class="product-card-body">
         <p class="product-category">
-            <?= $e($product['TenDM'] ?? '') ?>
+            <?php echo $e($product['TenDM'] ?? ''); ?>
         </p>
 
         <h3>
-            <a href="<?= $e($productUrl) ?>">
-                <?= $e($product['TenSP'] ?? '') ?>
+            <a href="<?php echo $e($productUrl); ?>">
+                <?php echo $e($product['TenSP'] ?? ''); ?>
             </a>
         </h3>
 
         <p class="product-price">
-            <?= number_format((float) $product['GiaBan'], 0, ',', '.') ?> ₫
+            <?php echo number_format((float) $product['GiaBan'], 0, ',', '.'); ?> ₫
         </p>
 
         <p class="product-stock">
-            <?php if ($stock > 0): ?>
-                Còn hàng: <?= $stock ?>
-            <?php else: ?>
+            <?php if ($stock > 0) { ?>
+                Còn hàng: <?php echo $stock; ?>
+            <?php } else { ?>
                 Tạm hết hàng
-            <?php endif; ?>
+            <?php } ?>
         </p>
 
-        <a class="product-detail-link" href="<?= $e($productUrl) ?>">
+        <a class="product-detail-link" href="<?php echo $e($productUrl); ?>">
             Xem chi tiết
         </a>
 
         <div class="product-btn">
-            <?php if ($stock > 0): ?>
+            <?php if ($stock > 0) { ?>
 
                 <!-- Thêm vào giỏ hàng -->
                 <form
-                    action="<?= $e($cartUrl) ?>"
+                    action="<?php echo $e($cartUrl); ?>"
                     method="POST"
                     class="form-add-cart"
                 >
                     <input
                         type="hidden"
                         name="_csrf"
-                        value="<?= $e($csrfToken) ?>"
+                        value="<?php echo $e($csrfToken); ?>"
                     >
 
                     <input
                         type="hidden"
                         name="maSP"
-                        value="<?= $e($product['MaSP']) ?>"
+                        value="<?php echo $e($product['MaSP']); ?>"
                     >
 
                     <input
@@ -107,20 +106,20 @@ $e = static fn ($value): string =>
 
                 <!-- Mua ngay: cần triển khai route riêng -->
                 <form
-                    action="<?= $e($buyNowUrl) ?>"
+                    action="<?php echo $e($buyNowUrl); ?>"
                     method="POST"
                     class="detail-cart-form"
                 >
                     <input
                         type="hidden"
                         name="_csrf"
-                        value="<?= $e($csrfToken) ?>"
+                        value="<?php echo $e($csrfToken); ?>"
                     >
 
                     <input
                         type="hidden"
                         name="maSP"
-                        value="<?= $e($product['MaSP']) ?>"
+                        value="<?php echo $e($product['MaSP']); ?>"
                     >
 
                     <input
@@ -134,7 +133,7 @@ $e = static fn ($value): string =>
                     </button>
                 </form>
 
-            <?php else: ?>
+            <?php } else { ?>
 
                 <button
                     type="button"
@@ -144,7 +143,7 @@ $e = static fn ($value): string =>
                     Hết hàng
                 </button>
 
-            <?php endif; ?>
+            <?php } ?>
         </div>
     </div>
 </article>
