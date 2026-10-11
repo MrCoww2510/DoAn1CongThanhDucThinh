@@ -48,5 +48,22 @@ set_exception_handler(static function (Throwable $exception) use ($appConfig): v
 });
 
 $router = new Router();
+
 require BASE_PATH . '/routes/web.php';
-$router->dispatch($_SERVER['REQUEST_METHOD'] ?? 'GET', $_SERVER['REQUEST_URI'] ?? '/');
+
+$requestUri = $_SERVER['REQUEST_URI'] ?? '/';
+$requestPath = parse_url($requestUri, PHP_URL_PATH) ?: '/';
+
+// Loại bỏ tiền tố thư mục dự án khi chạy trên XAMPP.
+$basePath = '/DoAn1CongThanhDucThinh/public';
+
+if ($requestPath === $basePath) {
+    $requestPath = '/';
+} elseif (str_starts_with($requestPath, $basePath . '/')) {
+    $requestPath = substr($requestPath, strlen($basePath));
+}
+
+$router->dispatch(
+    $_SERVER['REQUEST_METHOD'] ?? 'GET',
+    $requestPath
+);

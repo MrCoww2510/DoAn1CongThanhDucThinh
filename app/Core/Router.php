@@ -48,7 +48,11 @@ final class Router
 
         $app = require dirname(__DIR__, 2) . '/config/app.php';
         $baseUrl = rtrim((string) ($app['base_url'] ?? ''), '/');
-        if ($baseUrl !== '' && str_starts_with($path, $baseUrl)) {
+
+        if (
+            $baseUrl !== ''
+            && ($path === $baseUrl || str_starts_with($path, $baseUrl . '/'))
+        ) {
             $path = substr($path, strlen($baseUrl)) ?: '/';
         }
 
@@ -81,5 +85,5 @@ final class Router
         require dirname(__DIR__) . '/Views/errors/404.php';
     }
 
-    private function __construct() {}
+    public function __construct() {}
 }

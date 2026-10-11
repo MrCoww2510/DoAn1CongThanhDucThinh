@@ -1,19 +1,38 @@
+
 <section class="hero">
     <p class="eyebrow">T&amp;T COMPUTER</p>
-    <h1>Nền tảng mua sắm máy tính và linh kiện</h1>
+    <h1>Nâng cấp góc máy, nâng tầm trải nghiệm</h1>
     <p class="hero-description">
-        Khung giao diện MVC đã được khởi tạo. Các sản phẩm sẽ được kết nối với dữ liệu MySQL ở module tiếp theo.
+        Khám phá các sản phẩm máy tính và linh kiện phù hợp với nhu cầu của bạn.
     </p>
-    <a class="primary-link" href="/products">Khám phá sản phẩm</a>
+
+    <a class="primary-link"
+       href="<?= htmlspecialchars($baseUrl . '/products', ENT_QUOTES, 'UTF-8') ?>">
+        Khám phá sản phẩm
+    </a>
 </section>
 
-<section class="status-panel" aria-labelledby="status-title">
-    <h2 id="status-title">Nền tảng website</h2>
-    <ul>
-        <li>Front Controller: <code>public/index.php</code></li>
-        <li>Điều hướng: Router tập trung tại <code>routes/web.php</code></li>
-        <li>Giao diện: View tách khỏi Controller</li>
-        <li>Kết nối database: PDO, khởi tạo khi được sử dụng</li>
-    </ul>
-    <p class="muted">Đây mới là trang khung; chưa hiển thị sản phẩm giả hoặc giả lập giao dịch.</p>
+<section class="section-block">
+    <div class="section-heading">
+        <div>
+            <p class="eyebrow">GỢI Ý CHO BẠN</p>
+            <h2>Sản phẩm nổi bật</h2>
+        </div>
+
+        <a href="<?= htmlspecialchars($baseUrl . '/products', ENT_QUOTES, 'UTF-8') ?>">
+            Xem tất cả
+        </a>
+    </div>
+
+    <?php if ($products === []): ?>
+        <div class="empty-state">
+            <p>Chưa có sản phẩm để hiển thị. Hãy kiểm tra dữ liệu trong database.</p>
+        </div>
+    <?php else: ?>
+        <div class="product-grid">
+            <?php foreach ($products as $product): ?>
+                <?php require BASE_PATH . '/app/Views/products/_card.php'; ?>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
 </section>

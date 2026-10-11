@@ -20,6 +20,9 @@ final class View
             throw new RuntimeException('Không tìm thấy layout: ' . $layout);
         }
 
+        $appConfig = require dirname(__DIR__, 2) . '/config/app.php';
+        $baseUrl = rtrim((string) ($appConfig['base_url'] ?? ''), '/');
+
         extract($data, EXTR_SKIP);
 
         ob_start();

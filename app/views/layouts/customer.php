@@ -1,10 +1,14 @@
+<?php
+$appConfig = require BASE_PATH . '/config/app.php';
+$baseUrl = rtrim($appConfig['base_url'] ?? '', '/');
+?>
 <!doctype html>
 <html lang="vi">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= htmlspecialchars(($pageTitle ?? 'T&T Computer') . ' | T&T Computer', ENT_QUOTES, 'UTF-8') ?></title>
-    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="<?= htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8') ?>/css/main.css">
 </head>
 <body>
     <header class="site-header">
@@ -16,11 +20,8 @@
 
     <nav class="main-nav" aria-label="Điều hướng chính">
         <div class="container nav-inner">
-            <a href="/">Trang chủ</a>
-            <a href="/products">Sản phẩm</a>
-            <a href="/about">Giới thiệu</a>
-            <a href="/warranty">Bảo hành</a>
-            <a href="/news">Tin công nghệ</a>
+            <a href="<?= htmlspecialchars($baseUrl . '/', ENT_QUOTES, 'UTF-8') ?>">Trang chủ</a>
+            <a href="<?= htmlspecialchars($baseUrl . '/products', ENT_QUOTES, 'UTF-8') ?>">Sản phẩm</a>
         </div>
     </nav>
 

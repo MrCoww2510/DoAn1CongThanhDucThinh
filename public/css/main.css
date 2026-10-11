@@ -1,45 +1,474 @@
 :root {
-    --brand-red: #d32f2f;
-    --text: #222;
-    --muted: #667085;
-    --page-bg: #f8f8f8;
-    --surface: #fff;
-    --border: #e5e7eb;
-    font-family: Arial, Helvetica, sans-serif;
-    color: var(--text);
-    background: var(--page-bg);
+	--brand-red: #d32f2f;
+	--text: #222;
+	--muted: #667085;
+	--page-bg: #f8f8f8;
+	--surface: #fff;
+	--border: #e5e7eb;
+	font-family: Arial, Helvetica, sans-serif;
+	color: var(--text);
+	background: var(--page-bg);
 }
-* { box-sizing: border-box; }
-body { margin: 0; line-height: 1.6; }
-a { color: inherit; }
-.container { width: min(1120px, calc(100% - 32px)); margin-inline: auto; }
-.site-header { background: var(--surface); border-bottom: 1px solid var(--border); }
-.header-inner { min-height: 86px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-.brand { color: var(--brand-red); font-size: 1.7rem; font-weight: 800; text-decoration: none; letter-spacing: .02em; }
-.brand span { color: #263238; }
-.header-note, .muted { color: var(--muted); }
-.main-nav { background: var(--brand-red); color: white; }
-.nav-inner { display: flex; flex-wrap: wrap; gap: 8px 28px; min-height: 48px; align-items: center; }
-.nav-inner a { text-decoration: none; padding: 10px 0; }
-.nav-inner a:hover, .nav-inner a:focus-visible { text-decoration: underline; }
-.main-content { min-height: 60vh; padding-block: 32px 48px; }
-.hero { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: clamp(24px, 5vw, 56px); }
-.eyebrow { color: var(--brand-red); font-weight: 700; letter-spacing: .12em; font-size: .8rem; }
-h1 { line-height: 1.2; font-size: clamp(2rem, 5vw, 3rem); max-width: 780px; margin-block: 12px 16px; }
-.hero-description { max-width: 680px; color: var(--muted); }
-.primary-link { display: inline-block; background: var(--brand-red); color: white; text-decoration: none; border-radius: 8px; padding: 11px 18px; font-weight: 700; margin-top: 12px; }
-.primary-link:hover, .primary-link:focus-visible { background: #b71c1c; }
-.status-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-top: 24px; }
-.status-panel h2 { margin-top: 0; }
-code { background: #f1f3f5; border-radius: 4px; padding: 2px 5px; }
-.site-footer { background: #263238; color: white; padding: 24px 0; }
-.site-footer .muted { color: #d0d5dd; }
-.error-page { padding-block: 72px; }
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	line-height: 1.6;
+}
+
+a {
+	color: inherit;
+}
+
+.container {
+	width: min(1120px, calc(100% - 32px));
+	margin-inline: auto;
+}
+
+.site-header {
+	background: var(--surface);
+	border-bottom: 1px solid var(--border);
+}
+
+.header-inner {
+	min-height: 86px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 20px;
+}
+
+.brand {
+	color: var(--brand-red);
+	font-size: 1.7rem;
+	font-weight: 800;
+	text-decoration: none;
+	letter-spacing: 0.02em;
+}
+
+.brand span {
+	color: #263238;
+}
+
+.header-note,
+.muted {
+	color: var(--muted);
+}
+
+.main-nav {
+	background: var(--brand-red);
+	color: white;
+}
+
+.nav-inner {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px 28px;
+	min-height: 48px;
+	align-items: center;
+}
+
+.nav-inner a {
+	text-decoration: none;
+	padding: 10px 0;
+}
+
+.nav-inner a:hover,
+.nav-inner a:focus-visible {
+	text-decoration: underline;
+}
+
+.main-content {
+	min-height: 60vh;
+	padding-block: 32px 48px;
+}
+
+.hero {
+	background: var(--surface);
+	border: 1px solid var(--border);
+	border-radius: 16px;
+	padding: clamp(24px, 5vw, 56px);
+}
+
+.eyebrow {
+	color: var(--brand-red);
+	font-weight: 700;
+	letter-spacing: 0.12em;
+	font-size: 0.8rem;
+}
+
+h1 {
+	line-height: 1.2;
+	font-size: clamp(2rem, 5vw, 3rem);
+	max-width: 780px;
+	margin-block: 12px 16px;
+}
+
+.hero-description {
+	max-width: 680px;
+	color: var(--muted);
+}
+
+.primary-link {
+	display: inline-block;
+	background: var(--brand-red);
+	color: white;
+	text-decoration: none;
+	border-radius: 8px;
+	padding: 11px 18px;
+	font-weight: 700;
+	margin-top: 12px;
+}
+
+.primary-link:hover,
+.primary-link:focus-visible {
+	background: #b71c1c;
+}
+
+.status-panel {
+	background: var(--surface);
+	border: 1px solid var(--border);
+	border-radius: 12px;
+	padding: 24px;
+	margin-top: 24px;
+}
+
+.status-panel h2 {
+	margin-top: 0;
+}
+
+code {
+	background: #f1f3f5;
+	border-radius: 4px;
+	padding: 2px 5px;
+}
+
+.site-footer {
+	background: #263238;
+	color: white;
+	padding: 24px 0;
+}
+
+.site-footer .muted {
+	color: #d0d5dd;
+}
+
+.error-page {
+	padding-block: 72px;
+}
+
+/* ========= */
+
+/* ===== FIX GIAO DIEN SAN PHAM T&T COMPUTER ===== */
+
+.section-block {
+	width: 100%;
+	margin: 32px auto;
+}
+
+.section-heading {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 16px;
+	margin-bottom: 20px;
+}
+
+.product-grid {
+	display: grid !important;
+	grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+	gap: 20px;
+	width: 100%;
+	align-items: stretch;
+}
+
+.product-card {
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+	overflow: hidden;
+	background: #fff;
+	border: 1px solid #e5e7eb;
+	border-radius: 12px;
+}
+
+.product-image {
+	display: flex;
+	width: 100%;
+	height: 210px;
+	box-sizing: border-box;
+	align-items: center;
+	justify-content: center;
+	padding: 16px;
+	background: #fff;
+}
+
+.product-image img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.product-card-body {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	padding: 16px;
+}
+
+.product-card h3 {
+	min-height: 2.8em;
+	margin: 8px 0;
+	font-size: 16px;
+	line-height: 1.4;
+}
+
+.product-card h3 a {
+	color: #202938;
+	text-decoration: none;
+}
+
+.product-price {
+	color: #dc2626;
+	font-size: 18px;
+	font-weight: 700;
+}
+
+.product-stock {
+	color: #64748b;
+	font-size: 13px;
+}
+
+.product-detail-link {
+	display: block;
+	margin-top: auto;
+	padding: 10px;
+	border: 1px solid #dc2626;
+	border-radius: 6px;
+	color: #dc2626;
+	text-align: center;
+	text-decoration: none;
+}
+
+.product-detail-link:hover {
+	background: #dc2626;
+	color: #fff;
+}
+
+@media (max-width: 900px) {
+	.product-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+	}
+}
+
+@media (max-width: 520px) {
+	.product-grid {
+		grid-template-columns: 1fr !important;
+	}
+}
+
+/* ========= */
+
 @media (max-width: 640px) {
-    .header-inner { align-items: flex-start; flex-direction: column; justify-content: center; padding-block: 16px; gap: 4px; }
-    .header-note { margin: 0; }
-    .nav-inner { gap: 4px 18px; }
+	.header-inner {
+		align-items: flex-start;
+		flex-direction: column;
+		justify-content: center;
+		padding-block: 16px;
+		gap: 4px;
+	}
+
+	.header-note {
+		margin: 0;
+	}
+
+	.nav-inner {
+		gap: 4px 18px;
+	}
 }
 @media (prefers-reduced-motion: no-preference) {
-    a { transition: color .15s ease, background-color .15s ease; }
+	a {
+		transition:
+			color 0.15s ease,
+			background-color 0.15s ease;
+	}
+}
+
+/* ========================================
+   TRANG DANH SÁCH SẢN PHẨM - T&T COMPUTER
+======================================== */
+
+.page-heading {
+	margin: 24px 0;
+}
+
+.page-heading .eyebrow {
+	color: #dc2626;
+	font-size: 12px;
+	font-weight: 700;
+	letter-spacing: 1.5px;
+	margin-bottom: 8px;
+}
+
+.page-heading h1 {
+	color: #172033;
+	font-size: 30px;
+	margin: 0 0 10px;
+}
+
+.page-heading > p:last-child {
+	color: #64748b;
+	font-size: 15px;
+	line-height: 1.7;
+}
+
+/* Khung tìm kiếm và lọc */
+
+.product-filter {
+	display: grid;
+	grid-template-columns: minmax(200px, 1fr) minmax(200px, 260px) auto auto;
+	align-items: center;
+	gap: 12px;
+	padding: 20px;
+	margin: 24px 0;
+	background: #fff;
+	border: 1px solid #e2e8f0;
+	border-radius: 12px;
+	box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+}
+
+.product-filter input,
+.product-filter select {
+	display: block;
+	width: 100%;
+	min-width: 0;
+	height: 44px;
+	box-sizing: border-box;
+	padding: 0 13px;
+	border: 1px solid #cbd5e1;
+	border-radius: 7px;
+	background: #fff;
+	color: #1e293b;
+	font: inherit;
+	font-size: 14px;
+	outline: none;
+	transition:
+		border-color 0.2s,
+		box-shadow 0.2s;
+}
+
+.product-filter input:focus,
+.product-filter select:focus {
+	border-color: #dc2626;
+	box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+.product-filter input::placeholder {
+	color: #94a3b8;
+}
+
+.product-filter select {
+	cursor: pointer;
+}
+
+.product-filter .primary-button {
+	height: 44px;
+	padding: 0 22px;
+	border: 1px solid #dc2626;
+	border-radius: 7px;
+	background: #dc2626;
+	color: #fff;
+	font: inherit;
+	font-size: 14px;
+	font-weight: 700;
+	white-space: nowrap;
+	cursor: pointer;
+	transition:
+		background 0.2s,
+		transform 0.2s;
+}
+
+.product-filter .primary-button:hover {
+	background: #b91c1c;
+	transform: translateY(-1px);
+}
+
+.product-filter .reset-link {
+	display: inline-flex;
+	height: 42px;
+	align-items: center;
+	justify-content: center;
+	padding: 0 8px;
+	color: #64748b;
+	font-size: 14px;
+	text-decoration: none;
+	white-space: nowrap;
+}
+
+.product-filter .reset-link:hover {
+	color: #dc2626;
+}
+
+/* Số lượng kết quả */
+
+.result-count {
+	margin: 22px 0 16px;
+	color: #64748b;
+	font-size: 14px;
+}
+
+/* Trạng thái không có sản phẩm */
+
+.empty-state {
+	padding: 48px 20px;
+	border: 1px dashed #cbd5e1;
+	border-radius: 12px;
+	background: #fff;
+	text-align: center;
+}
+
+.empty-state h2 {
+	margin: 0 0 10px;
+	color: #1e293b;
+	font-size: 22px;
+}
+
+.empty-state p {
+	color: #64748b;
+	line-height: 1.7;
+}
+
+/* Responsive */
+
+@media (max-width: 1000px) {
+	.product-filter {
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+	}
+
+	.product-filter .primary-button,
+	.product-filter .reset-link {
+		width: 100%;
+		box-sizing: border-box;
+	}
+}
+
+@media (max-width: 520px) {
+	.page-heading h1 {
+		font-size: 25px;
+	}
+
+	.product-filter {
+		grid-template-columns: minmax(0, 1fr);
+		padding: 14px;
+		gap: 10px;
+	}
+
+	.product-filter input,
+	.product-filter select,
+	.product-filter .primary-button {
+		width: 100%;
+	}
 }
