@@ -35,6 +35,7 @@
 
 .nav-inner {
 	display: flex;
+	justify-content: center;
 	flex-wrap: wrap;
 	gap: 8px 28px;
 	min-height: 48px;

@@ -1,4 +1,3 @@
-
 <?php
 $image = trim((string) ($product['HinhAnh'] ?? ''));
 
@@ -15,18 +14,27 @@ if ($image !== '') {
         $image = $baseUrl . '/' . ltrim($image, '/');
     }
 }
+
+$stock = (int) ($product['SoLuongTon'] ?? 0);
+$csrfToken = $_SESSION['_csrf'] ?? '';
+
+$productUrl = $baseUrl . '/product?id=' . rawurlencode(
+    (string) $product['MaSP']
+);
+
+$cartUrl = $baseUrl . '/cart/add';
+$buyNowUrl = $baseUrl . '/cart/buy-now';
+
+$e = static fn ($value): string =>
+    htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
 ?>
 
 <article class="product-card">
-    <a class="product-image" href="<?= htmlspecialchars(
-        $baseUrl . '/product?id=' . rawurlencode($product['MaSP']),
-        ENT_QUOTES,
-        'UTF-8'
-    ) ?>">
+    <a class="product-image" href="<?= $e($productUrl) ?>">
         <?php if ($image !== ''): ?>
             <img
-                src="<?= htmlspecialchars($image, ENT_QUOTES, 'UTF-8') ?>"
-                alt="<?= htmlspecialchars($product['TenSP'], ENT_QUOTES, 'UTF-8') ?>"
+                src="<?= $e($image) ?>"
+                alt="<?= $e($product['TenSP']) ?>"
                 loading="lazy"
             >
         <?php else: ?>
@@ -36,16 +44,12 @@ if ($image !== '') {
 
     <div class="product-card-body">
         <p class="product-category">
-            <?= htmlspecialchars($product['TenDM'], ENT_QUOTES, 'UTF-8') ?>
+            <?= $e($product['TenDM'] ?? '') ?>
         </p>
 
         <h3>
-            <a href="<?= htmlspecialchars(
-                $baseUrl . '/product?id=' . rawurlencode($product['MaSP']),
-                ENT_QUOTES,
-                'UTF-8'
-            ) ?>">
-                <?= htmlspecialchars($product['TenSP'], ENT_QUOTES, 'UTF-8') ?>
+            <a href="<?= $e($productUrl) ?>">
+                <?= $e($product['TenSP'] ?? '') ?>
             </a>
         </h3>
 
@@ -54,46 +58,92 @@ if ($image !== '') {
         </p>
 
         <p class="product-stock">
-            <?php if ((int) $product['SoLuongTon'] > 0): ?>
-                Còn hàng: <?= (int) $product['SoLuongTon'] ?>
+            <?php if ($stock > 0): ?>
+                Còn hàng: <?= $stock ?>
             <?php else: ?>
                 Tạm hết hàng
             <?php endif; ?>
         </p>
 
-        <a class="product-detail-link"
-           href="<?= htmlspecialchars(
-               $baseUrl . '/product?id=' . rawurlencode($product['MaSP']),
-               ENT_QUOTES,
-               'UTF-8'
-           ) ?>">
+        <a class="product-detail-link" href="<?= $e($productUrl) ?>">
             Xem chi tiết
         </a>
-        <!-- Nhóm nút hành động: Thêm vào giỏ & Mua ngay -->
-        <div class="product-actions">
-            <?php if ((int) $product['SoLuongTon'] > 0): ?>
 
-                <!-- Form Thêm vào giỏ -->
-                <form action="<?= htmlspecialchars($baseUrl . '/cart/add', ENT_QUOTES, 'UTF-8') ?>" method="POST" class="form-add-cart">
-                    <input type="hidden" name="product_id" value="<?= htmlspecialchars($product['MaSP'], ENT_QUOTES, 'UTF-8') ?>">
-                    <input type="hidden" name="quantity" value="1">
-                    <button type="submit" class="btn-add-cart" title="Thêm vào giỏ">
+        <div class="product-btn">
+            <?php if ($stock > 0): ?>
+
+                <!-- Thêm vào giỏ hàng -->
+                <form
+                    action="<?= $e($cartUrl) ?>"
+                    method="POST"
+                    class="form-add-cart"
+                >
+                    <input
+                        type="hidden"
+                        name="_csrf"
+                        value="<?= $e($csrfToken) ?>"
+                    >
+
+                    <input
+                        type="hidden"
+                        name="maSP"
+                        value="<?= $e($product['MaSP']) ?>"
+                    >
+
+                    <input
+                        type="hidden"
+                        name="quantity"
+                        value="1"
+                    >
+
+                    <button
+                        type="submit"
+                        class="btn-add-cart"
+                        title="Thêm vào giỏ hàng"
+                    >
                         🛒 Thêm
                     </button>
                 </form>
 
-                <!-- Form Mua ngay -->
-                <form action="<?= htmlspecialchars($baseUrl . '/cart/buy-now', ENT_QUOTES, 'UTF-8') ?>" method="POST" class="form-buy-now">
-                    <input type="hidden" name="product_id" value="<?= htmlspecialchars($product['MaSP'], ENT_QUOTES, 'UTF-8') ?>">
-                    <input type="hidden" name="quantity" value="1">
-                    <button type="submit" class="btn-buy-now">Mua ngay</button>
+                <!-- Mua ngay: cần triển khai route riêng -->
+                <form
+                    action="<?= $e($buyNowUrl) ?>"
+                    method="POST"
+                    class="detail-cart-form"
+                >
+                    <input
+                        type="hidden"
+                        name="_csrf"
+                        value="<?= $e($csrfToken) ?>"
+                    >
+
+                    <input
+                        type="hidden"
+                        name="maSP"
+                        value="<?= $e($product['MaSP']) ?>"
+                    >
+
+                    <input
+                        type="hidden"
+                        name="quantity"
+                        value="1"
+                    >
+
+                    <button type="submit" class="detail-add-cart">
+                        Mua ngay
+                    </button>
                 </form>
 
             <?php else: ?>
-                <!-- Giao diện nút khi hết hàng -->
-                <button type="button" class="btn-add-cart" disabled style="width: 100%; cursor: not-allowed; opacity: 0.5;">
+
+                <button
+                    type="button"
+                    class="btn-add-cart"
+                    disabled
+                >
                     Hết hàng
                 </button>
+
             <?php endif; ?>
         </div>
     </div>

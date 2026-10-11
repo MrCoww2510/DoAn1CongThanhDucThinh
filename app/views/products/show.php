@@ -62,6 +62,54 @@ if ($image !== '') {
                 : 'Tạm hết hàng' ?>
         </p>
 
+        <?php
+        $stock = (int) ($product['SoLuongTon'] ?? 0);
+        $csrfToken = $_SESSION['_csrf'] ?? '';
+        ?>
+
+        <div class="detail-cart">
+            <?php if ($stock > 0): ?>
+                <form
+                    method="POST"
+                    action="<?= htmlspecialchars($baseUrl . '/cart/add', ENT_QUOTES, 'UTF-8') ?>"
+                    class="detail-cart-form"
+                >
+                    <input
+                        type="hidden"
+                        name="_csrf"
+                        value="<?= htmlspecialchars($csrfToken, ENT_QUOTES, 'UTF-8') ?>"
+                    >
+
+                    <input
+                        type="hidden"
+                        name="maSP"
+                        value="<?= htmlspecialchars($product['MaSP'], ENT_QUOTES, 'UTF-8') ?>"
+                    >
+
+                    <div class="detail-quantity">
+                        <label for="cart-quantity">Số lượng</label>
+                        <input
+                            id="cart-quantity"
+                            type="number"
+                            name="quantity"
+                            min="1"
+                            max="<?= $stock ?>"
+                            value="1"
+                            required
+                        >
+                    </div>
+
+                    <button type="submit" class="detail-add-cart">
+                        Thêm vào giỏ hàng
+                    </button>
+                </form>
+            <?php else: ?>
+                <button type="button" class="detail-add-cart" disabled>
+                    Sản phẩm tạm hết hàng
+                </button>
+            <?php endif; ?>
+        </div>
+
         <div class="detail-description">
             <h2>Mô tả sản phẩm</h2>
             <p><?= nl2br(htmlspecialchars(
