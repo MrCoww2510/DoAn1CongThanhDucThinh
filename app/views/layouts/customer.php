@@ -60,6 +60,8 @@ $baseUrl = rtrim($appConfig['base_url'] ?? '', '/');
         <div class="container nav-inner">
             <a href="<?= htmlspecialchars($baseUrl . '/', ENT_QUOTES, 'UTF-8') ?>">Trang chủ</a>
             <a href="<?= htmlspecialchars($baseUrl . '/products', ENT_QUOTES, 'UTF-8') ?>">Sản phẩm</a>
+            <a href="<?= htmlspecialchars($baseUrl . '/cart', ENT_QUOTES, 'UTF-8') ?>">Giỏ hàng</a>
+            <a href="<?= htmlspecialchars($baseUrl . '/orders', ENT_QUOTES, 'UTF-8') ?>">Theo dõi đơn hàng</a>
         </div>
     </nav>
 
