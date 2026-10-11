@@ -69,5 +69,32 @@ if ($image !== '') {
            ) ?>">
             Xem chi tiết
         </a>
+        <!-- Nhóm nút hành động: Thêm vào giỏ & Mua ngay -->
+        <div class="product-actions">
+            <?php if ((int) $product['SoLuongTon'] > 0): ?>
+
+                <!-- Form Thêm vào giỏ -->
+                <form action="<?= htmlspecialchars($baseUrl . '/cart/add', ENT_QUOTES, 'UTF-8') ?>" method="POST" class="form-add-cart">
+                    <input type="hidden" name="product_id" value="<?= htmlspecialchars($product['MaSP'], ENT_QUOTES, 'UTF-8') ?>">
+                    <input type="hidden" name="quantity" value="1">
+                    <button type="submit" class="btn-add-cart" title="Thêm vào giỏ">
+                        🛒 Thêm
+                    </button>
+                </form>
+
+                <!-- Form Mua ngay -->
+                <form action="<?= htmlspecialchars($baseUrl . '/cart/buy-now', ENT_QUOTES, 'UTF-8') ?>" method="POST" class="form-buy-now">
+                    <input type="hidden" name="product_id" value="<?= htmlspecialchars($product['MaSP'], ENT_QUOTES, 'UTF-8') ?>">
+                    <input type="hidden" name="quantity" value="1">
+                    <button type="submit" class="btn-buy-now">Mua ngay</button>
+                </form>
+
+            <?php else: ?>
+                <!-- Giao diện nút khi hết hàng -->
+                <button type="button" class="btn-add-cart" disabled style="width: 100%; cursor: not-allowed; opacity: 0.5;">
+                    Hết hàng
+                </button>
+            <?php endif; ?>
+        </div>
     </div>
 </article>

@@ -12,6 +12,7 @@ $baseUrl = rtrim($appConfig['base_url'] ?? '', '/');
     <link rel="stylesheet" href="<?= htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8') ?>/css/auth.css">
     <link rel="stylesheet" href="<?= htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8') ?>/css/header.css">
     <link rel="stylesheet" href="<?= htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8') ?>/css/products.css">
+    <script src="<?= htmlspecialchars($baseUrl ?? '', ENT_QUOTES, 'UTF-8') ?>/js/nav.js"></script>
 </head>
 <body>
 
@@ -57,11 +58,19 @@ $baseUrl = rtrim($appConfig['base_url'] ?? '', '/');
 
 
     <nav class="main-nav" aria-label="Điều hướng chính">
-        <div class="container nav-inner">
-            <a href="<?= htmlspecialchars($baseUrl . '/', ENT_QUOTES, 'UTF-8') ?>">Trang chủ</a>
-            <a href="<?= htmlspecialchars($baseUrl . '/products', ENT_QUOTES, 'UTF-8') ?>">Sản phẩm</a>
-            <a href="<?= htmlspecialchars($baseUrl . '/cart', ENT_QUOTES, 'UTF-8') ?>">Giỏ hàng</a>
-            <a href="<?= htmlspecialchars($baseUrl . '/orders', ENT_QUOTES, 'UTF-8') ?>">Theo dõi đơn hàng</a>
+        <div class="container nav-container">
+            <!-- Nút Hamburger (Chỉ hiện trên điện thoại) -->
+            <button type="button" class="mobile-menu-toggle" aria-label="Mở menu">
+                &#9776; <!-- Mã HTML của biểu tượng ☰ -->
+            </button>
+
+            <!-- Danh sách menu -->
+            <div class="nav-inner" id="mainMenu">
+                <a href="<?= htmlspecialchars($baseUrl . '/', ENT_QUOTES, 'UTF-8') ?>">Trang chủ</a>
+                <a href="<?= htmlspecialchars($baseUrl . '/products', ENT_QUOTES, 'UTF-8') ?>">Sản phẩm</a>
+                <a href="<?= htmlspecialchars($baseUrl . '/cart', ENT_QUOTES, 'UTF-8') ?>">Giỏ hàng</a>
+                <a href="<?= htmlspecialchars($baseUrl . '/orders', ENT_QUOTES, 'UTF-8') ?>">Theo dõi đơn hàng</a>
+            </div>
         </div>
     </nav>
 

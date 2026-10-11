@@ -253,3 +253,69 @@
 		margin-bottom: 32px;
 	}
 }
+
+/* Container bọc ngoài menu để dễ định vị trên mobile */
+.nav-container {
+	display: flex;
+	flex-direction: column;
+}
+
+/* Ẩn nút hamburger trên PC mặc định */
+.mobile-menu-toggle {
+	display: none;
+	background: transparent;
+	border: none;
+	color: white;
+	font-size: 24px;
+	cursor: pointer;
+	padding: 10px 0;
+	text-align: left;
+	width: fit-content;
+}
+
+/* CSS cho menu trên PC (Đã có sẵn, mình giữ nguyên và tinh chỉnh tí) */
+.nav-inner {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px 28px;
+	min-height: 48px;
+	align-items: center;
+}
+
+/* --------------------------------------
+   RESPONSIVE CHO ĐIỆN THOẠI (Dưới 768px)
+--------------------------------------- */
+@media (max-width: 768px) {
+	/* Hiện nút ☰ */
+	.mobile-menu-toggle {
+		display: block;
+	}
+
+	/* Ẩn menu ngang và chuyển thành menu dọc */
+	.nav-inner {
+		display: none; /* Ẩn đi mặc định */
+		flex-direction: column;
+		align-items: flex-start;
+		width: 100%;
+		padding-bottom: 16px;
+		gap: 0;
+	}
+
+	/* Lớp (class) 'active' sẽ được JS thêm vào khi click nút ☰ */
+	.nav-inner.active {
+		display: flex;
+	}
+
+	/* Làm đẹp các link khi nằm dọc trên mobile */
+	.nav-inner a {
+		display: block;
+		width: 100%;
+		padding: 12px 0;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Dòng kẻ mờ ngăn cách */
+	}
+
+	/* Bỏ viền cho link cuối cùng */
+	.nav-inner a:last-child {
+		border-bottom: none;
+	}
+}
