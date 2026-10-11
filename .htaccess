@@ -1,0 +1,6 @@
+# Chặn truy cập web trực tiếp vào các thư mục nội bộ.
+Options -Indexes
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^(app|config|routes|storage)(/|$) - [F,L,NC]
+</IfModule>
