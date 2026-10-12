@@ -1,10 +1,3 @@
-
-<section class="page-heading">
-    <p class="eyebrow">T&T COMPUTER</p>
-    <h1>Sản phẩm</h1>
-    <p>Tìm kiếm và khám phá các sản phẩm máy tính, linh kiện.</p>
-</section>
-
 <form class="product-filter" method="get"
       action="<?php echo htmlspecialchars($baseUrl.'/products', ENT_QUOTES, 'UTF-8'); ?>">
 

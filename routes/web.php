@@ -1,13 +1,16 @@
 <?php
+
 declare(strict_types=1);
 
-use App\Core\Router;
-use App\Controllers\HomeController;
-use App\Controllers\ProductController;
+use App\Controllers\AboutController;
 use App\Controllers\AuthController;
 use App\Controllers\CartController;
 use App\Controllers\CheckoutController;
-/** @var Router $router */
+use App\Controllers\HomeController;
+use App\Controllers\ProductController;
+use App\Core\Router;
+
+/* @var Router $router */
 
 $router->get('/', [HomeController::class, 'index']);
 
@@ -33,3 +36,5 @@ $router->post('/cart/clear', [CartController::class, 'clear']);
 $router->get('/checkout', [CheckoutController::class, 'index']);
 $router->post('/checkout', [CheckoutController::class, 'placeOrder']);
 $router->get('/checkout/success', [CheckoutController::class, 'success']);
+
+$router->get('/about', [AboutController::class, 'index']);
