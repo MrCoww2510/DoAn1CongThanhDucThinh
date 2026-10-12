@@ -130,11 +130,11 @@ final class CartController extends Controller
                 $maSP,
                 $quantity
             );
-        } catch (RuntimeException $exception) {
-            $this->flash($exception->getMessage(), 'error');
+        } catch (\RuntimeException $e) {
+            $this->flash($e->getMessage(), 'error');
             $this->redirect('cart');
-        } catch (\Throwable $exception) {
-            error_log('[Cart buy now] '.$exception->getMessage());
+        } catch (\Throwable $e) {
+            error_log('[Cart buy now] '.$e->getMessage());
             $this->flash('Không thể thêm sản phẩm. Vui lòng thử lại.', 'error');
             $this->redirect('cart');
         }
