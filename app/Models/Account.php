@@ -1,10 +1,10 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Models;
 
 use App\Core\Database;
-use PDO;
 
 final class Account
 {
@@ -71,8 +71,8 @@ final class Account
         try {
             $pdo->beginTransaction();
 
-            $userId = 'ND' . bin2hex(random_bytes(9));
-            $accountId = 'TK' . bin2hex(random_bytes(9));
+            $userId = 'ND'.bin2hex(random_bytes(9));
+            $accountId = 'TK'.bin2hex(random_bytes(9));
 
             $stmt = $pdo->prepare(
                 'INSERT INTO NguoiDung (MaND, HoTen, SDT, Email)

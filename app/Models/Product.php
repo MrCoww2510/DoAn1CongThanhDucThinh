@@ -1,10 +1,10 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Models;
 
 use App\Core\Database;
-use PDO;
 
 final class Product
 {
@@ -13,7 +13,7 @@ final class Product
         $limit = max(1, min($limit, 24));
 
         $sql = $this->baseQuery()
-            . ' ORDER BY sp.MaSP DESC LIMIT ' . $limit;
+            .' ORDER BY sp.MaSP DESC LIMIT '.$limit;
 
         return Database::connection()
             ->query($sql)
@@ -28,7 +28,7 @@ final class Product
 
         if ($keyword !== '') {
             $conditions[] = 'sp.TenSP LIKE :keyword';
-            $params['keyword'] = '%' . $keyword . '%';
+            $params['keyword'] = '%'.$keyword.'%';
         }
 
         if ($categoryId !== '') {
@@ -37,7 +37,7 @@ final class Product
         }
 
         if ($conditions !== []) {
-            $sql .= ' WHERE ' . implode(' AND ', $conditions);
+            $sql .= ' WHERE '.implode(' AND ', $conditions);
         }
 
         $sql .= ' ORDER BY sp.TenSP ASC';
@@ -62,7 +62,7 @@ final class Product
     public function findById(string $id): ?array
     {
         $sql = $this->baseQuery()
-            . ' WHERE sp.MaSP = :id LIMIT 1';
+            .' WHERE sp.MaSP = :id LIMIT 1';
 
         $stmt = Database::connection()->prepare($sql);
         $stmt->execute(['id' => $id]);

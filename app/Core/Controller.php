@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Core;
@@ -12,9 +13,9 @@ abstract class Controller
 
     protected function redirect(string $path, int $statusCode = 302): never
     {
-        $app = require dirname(__DIR__, 2) . '/config/app.php';
+        $app = require dirname(__DIR__, 2).'/config/app.php';
         $baseUrl = rtrim((string) ($app['base_url'] ?? ''), '/');
-        header('Location: ' . $baseUrl . '/' . ltrim($path, '/'), true, $statusCode);
+        header('Location: '.$baseUrl.'/'.ltrim($path, '/'), true, $statusCode);
         exit;
     }
 }

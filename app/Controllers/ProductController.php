@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controllers;
@@ -30,6 +31,7 @@ final class ProductController extends Controller
 
         if ($id === '') {
             $this->notFound();
+
             return;
         }
 
@@ -37,6 +39,7 @@ final class ProductController extends Controller
 
         if ($product === null) {
             $this->notFound();
+
             return;
         }
 

@@ -1,15 +1,14 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Models;
 
 use App\Core\Database;
-use PDO;
-use RuntimeException;
 
 final class Cart
 {
-    private PDO $db;
+    private \PDO $db;
 
     public function __construct()
     {
@@ -32,7 +31,7 @@ final class Cart
             return (string) $maGH;
         }
 
-        $maGH = 'GH' . strtoupper(bin2hex(random_bytes(8)));
+        $maGH = 'GH'.strtoupper(bin2hex(random_bytes(8)));
 
         $stmt = $this->db->prepare(
             'INSERT INTO GioHang (MaGH, MaND, TongTien)
@@ -120,7 +119,7 @@ final class Cart
         int $quantity
     ): void {
         if ($quantity < 1) {
-            throw new RuntimeException('Số lượng phải lớn hơn 0.');
+            throw new \RuntimeException('Số lượng phải lớn hơn 0.');
         }
 
         $this->db->beginTransaction();
@@ -147,7 +146,7 @@ final class Cart
             $product = $stmt->fetch();
 
             if (!$product) {
-                throw new RuntimeException('Sản phẩm không tồn tại.');
+                throw new \RuntimeException('Sản phẩm không tồn tại.');
             }
 
             // Nếu trạng thái được nhập và không phải trạng thái bán,
@@ -162,9 +161,7 @@ final class Cart
                     true
                 )
             ) {
-                throw new RuntimeException(
-                    'Sản phẩm hiện không được phép bán.'
-                );
+                throw new \RuntimeException('Sản phẩm hiện không được phép bán.');
             }
 
             $stmt = $this->db->prepare(
@@ -183,9 +180,7 @@ final class Cart
                 + $quantity;
 
             if ($newQuantity > (int) $product['SoLuongTon']) {
-                throw new RuntimeException(
-                    'Số lượng yêu cầu vượt quá số lượng tồn kho.'
-                );
+                throw new \RuntimeException('Số lượng yêu cầu vượt quá số lượng tồn kho.');
             }
 
             if ($current !== false) {
@@ -200,7 +195,7 @@ final class Cart
                     'maSP' => $maSP,
                 ]);
             } else {
-                $maCTGH = 'CTGH' . strtoupper(bin2hex(random_bytes(6)));
+                $maCTGH = 'CTGH'.strtoupper(bin2hex(random_bytes(6)));
 
                 $stmt = $this->db->prepare(
                     'INSERT INTO ChiTietGioHang
@@ -285,7 +280,7 @@ final class Cart
         int $quantity
     ): void {
         if ($quantity < 1) {
-            throw new RuntimeException('Số lượng phải lớn hơn 0.');
+            throw new \RuntimeException('Số lượng phải lớn hơn 0.');
         }
 
         $stmt = $this->db->prepare(
@@ -302,15 +297,11 @@ final class Cart
         $item = $stmt->fetch();
 
         if (!$item) {
-            throw new RuntimeException(
-                'Không tìm thấy sản phẩm trong giỏ hàng.'
-            );
+            throw new \RuntimeException('Không tìm thấy sản phẩm trong giỏ hàng.');
         }
 
         if ($quantity > (int) $item['SoLuongTon']) {
-            throw new RuntimeException(
-                'Số lượng vượt quá số lượng tồn kho.'
-            );
+            throw new \RuntimeException('Số lượng vượt quá số lượng tồn kho.');
         }
 
         $stmt = $this->db->prepare(

@@ -1,11 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 use App\Core\Router;
 
 define('BASE_PATH', dirname(__DIR__));
 
-$appConfig = require BASE_PATH . '/config/app.php';
+$appConfig = require BASE_PATH.'/config/app.php';
 date_default_timezone_set($appConfig['timezone'] ?? 'Asia/Ho_Chi_Minh');
 
 if (($appConfig['debug'] ?? false) === true) {
@@ -23,7 +24,7 @@ spl_autoload_register(static function (string $class): void {
     }
 
     $relativeClass = substr($class, strlen($prefix));
-    $file = BASE_PATH . '/app/' . str_replace('\\', '/', $relativeClass) . '.php';
+    $file = BASE_PATH.'/app/'.str_replace('\\', '/', $relativeClass).'.php';
 
     if (is_file($file)) {
         require $file;
@@ -40,8 +41,8 @@ set_exception_handler(static function (Throwable $exception) use ($appConfig): v
     http_response_code(500);
     if (($appConfig['debug'] ?? false) === true) {
         echo '<h1>Lỗi ứng dụng (chế độ phát triển)</h1><pre>'
-            . htmlspecialchars($exception->getMessage(), ENT_QUOTES, 'UTF-8')
-            . '</pre>';
+            .htmlspecialchars($exception->getMessage(), ENT_QUOTES, 'UTF-8')
+            .'</pre>';
     } else {
         echo '<h1>Đã xảy ra lỗi</h1><p>Vui lòng thử lại sau.</p>';
     }
@@ -49,7 +50,7 @@ set_exception_handler(static function (Throwable $exception) use ($appConfig): v
 
 $router = new Router();
 
-require BASE_PATH . '/routes/web.php';
+require BASE_PATH.'/routes/web.php';
 
 $requestUri = $_SERVER['REQUEST_URI'] ?? '/';
 $requestPath = parse_url($requestUri, PHP_URL_PATH) ?: '/';
@@ -59,7 +60,7 @@ $basePath = '/DoAn1CongThanhDucThinh/public';
 
 if ($requestPath === $basePath) {
     $requestPath = '/';
-} elseif (str_starts_with($requestPath, $basePath . '/')) {
+} elseif (str_starts_with($requestPath, $basePath.'/')) {
     $requestPath = substr($requestPath, strlen($basePath));
 }
 

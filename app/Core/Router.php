@@ -1,9 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Core;
-
-use RuntimeException;
 
 final class Router
 {
@@ -22,7 +21,7 @@ final class Router
 
     public function add(string $method, string $path, callable|array $handler): void
     {
-        $path = '/' . trim($path, '/');
+        $path = '/'.trim($path, '/');
         if ($path === '//') {
             $path = '/';
         }
@@ -30,13 +29,13 @@ final class Router
         $quoted = preg_quote($path, '#');
         $pattern = preg_replace_callback(
             '/\\\\\{([a-zA-Z_][a-zA-Z0-9_]*)\\\\\}/',
-            static fn(array $matches): string => '(?P<' . $matches[1] . '>[^/]+)',
+            static fn (array $matches): string => '(?P<'.$matches[1].'>[^/]+)',
             $quoted
         );
 
         $this->routes[] = [
             'method' => strtoupper($method),
-            'pattern' => '#^' . $pattern . '/?$#',
+            'pattern' => '#^'.$pattern.'/?$#',
             'handler' => $handler,
         ];
     }
@@ -46,12 +45,12 @@ final class Router
         $path = parse_url($uri, PHP_URL_PATH) ?: '/';
         $path = rawurldecode($path);
 
-        $app = require dirname(__DIR__, 2) . '/config/app.php';
+        $app = require dirname(__DIR__, 2).'/config/app.php';
         $baseUrl = rtrim((string) ($app['base_url'] ?? ''), '/');
 
         if (
             $baseUrl !== ''
-            && ($path === $baseUrl || str_starts_with($path, $baseUrl . '/'))
+            && ($path === $baseUrl || str_starts_with($path, $baseUrl.'/'))
         ) {
             $path = substr($path, strlen($baseUrl)) ?: '/';
         }
@@ -72,18 +71,22 @@ final class Router
                 [$class, $action] = $handler;
                 $controller = new $class();
                 $controller->{$action}(...array_values($params));
+
                 return;
             }
 
             $handler(...array_values($params));
+
             return;
         }
 
         http_response_code(404);
         $title = 'Không tìm thấy trang';
         $message = 'Đường dẫn bạn truy cập không tồn tại.';
-        require dirname(__DIR__) . '/Views/errors/404.php';
+        require dirname(__DIR__).'/Views/errors/404.php';
     }
 
-    public function __construct() {}
+    public function __construct()
+    {
+    }
 }
