@@ -9,6 +9,7 @@ $baseUrl = rtrim($appConfig['base_url'] ?? '', '/');
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?php echo htmlspecialchars(($pageTitle ?? 'T&T Computer').' | T&T Computer', ENT_QUOTES, 'UTF-8'); ?></title>
     <link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/base.css">
+    <link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/home.css">
     <link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/auth.css">
     <link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/header.css">
     <link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/products.css">
@@ -159,9 +160,9 @@ $baseUrl = rtrim($appConfig['base_url'] ?? '', '/');
             <div class="footer-col">
                 <h4>Về chúng tôi</h4>
                 <ul class="footer-list">
-                    <li><a href="#">Trang chủ</a></li>
-                    <li><a href="#">Giới thiệu</a></li>
-                    <li><a href="#">Sản phẩm mới</a></li>
+                    <li><a href="<?php echo htmlspecialchars($baseUrl.'/', ENT_QUOTES, 'UTF-8'); ?>">Trang chủ</a></li>
+                    <li><a href="<?php echo htmlspecialchars($baseUrl.'/about', ENT_QUOTES, 'UTF-8'); ?>">Giới thiệu</a></li>
+                    <li><a href="<?php echo htmlspecialchars($baseUrl.'/products', ENT_QUOTES, 'UTF-8'); ?>">Sản phẩm</a></li>
                     <li><a href="#">Khuyến mãi</a></li>
                     <li><a href="#">Tin tức công nghệ</a></li>
                 </ul>

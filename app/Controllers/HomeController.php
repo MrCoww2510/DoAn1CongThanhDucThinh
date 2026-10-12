@@ -15,7 +15,8 @@ final class HomeController extends Controller
 
         $this->view('home/index', [
             'pageTitle' => 'Trang chủ',
-            'products' => $model->featured(8),
+            'featuredProducts' => $model->featured(8),
+            'categories' => $model->categories(),
         ]);
     }
 }
