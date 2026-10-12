@@ -35,26 +35,26 @@ INSERT INTO NguoiDung (MaND, HoTen, SDT, Email) VALUES
 
 INSERT INTO TaiKhoan
 (MaTK, MaND, TenDangNhap, MatKhau, VaiTro, TrangThai) VALUES
-('TK001','ND001','nguyenvanan','123456','KhachHang','HoatDong'),
-('TK002','ND002','tranvanbinh','123456','KhachHang','HoatDong'),
-('TK003','ND003','leminhchau','123456','KhachHang','HoatDong'),
-('TK004','ND004','phamquocdung','123456','KhachHang','HoatDong'),
-('TK005','ND005','thinhvo','123456','KhachHang','HoatDong'),
-('TK006','ND006','nguyenhoangnam','123456','KhachHang','HoatDong'),
-('TK007','ND007','tranminhkhang','123456','KhachHang','HoatDong'),
-('TK008','ND008','lequochuy','123456','KhachHang','HoatDong'),
-('TK009','ND009','phamminhtuan','123456','KhachHang','HoatDong'),
-('TK010','ND010','nguyenducanh','123456','KhachHang','HoatDong'),
-('TK011','ND011','tranquocviet','123456','NhanVien','HoatDong'),
-('TK012','ND012','leminhduc','123456','NhanVien','HoatDong'),
-('TK013','ND013','nguyenthanhdat','123456','NhanVien','HoatDong'),
-('TK014','ND014','phamgiahung','123456','NhanVien','HoatDong'),
-('TK015','ND015','dangminhquan','123456','NhanVien','HoatDong'),
-('TK016','ND016','buihoanglong','123456','QuanTriVien','HoatDong'),
-('TK017','ND017','nguyennhatminh','123456','QuanTriVien','HoatDong'),
-('TK018','ND018','doanhkhoa','123456','KhachHang','HoatDong'),
-('TK019','ND019','hominhkhoi','123456','KhachHang','HoatDong'),
-('TK020','ND020','phanthanhtung','123456','KhachHang','HoatDong');
+('TK001','ND001','nguyenvanan','1234567890','KhachHang','HoatDong'),
+('TK002','ND002','tranvanbinh','1234567890','KhachHang','HoatDong'),
+('TK003','ND003','leminhchau','1234567890','KhachHang','HoatDong'),
+('TK004','ND004','phamquocdung','1234567890','KhachHang','HoatDong'),
+('TK005','ND005','thinhvo','1234567890','KhachHang','HoatDong'),
+('TK006','ND006','nguyenhoangnam','1234567890','KhachHang','HoatDong'),
+('TK007','ND007','tranminhkhang','1234567890','KhachHang','HoatDong'),
+('TK008','ND008','lequochuy','1234567890','KhachHang','HoatDong'),
+('TK009','ND009','phamminhtuan','1234567890','KhachHang','HoatDong'),
+('TK010','ND010','nguyenducanh','1234567890','KhachHang','HoatDong'),
+('TK011','ND011','tranquocviet','1234567890','NhanVien','HoatDong'),
+('TK012','ND012','leminhduc','1234567890','NhanVien','HoatDong'),
+('TK013','ND013','nguyenthanhdat','1234567890','NhanVien','HoatDong'),
+('TK014','ND014','phamgiahung','1234567890','NhanVien','HoatDong'),
+('TK015','ND015','dangminhquan','1234567890','NhanVien','HoatDong'),
+('TK016','ND016','buihoanglong','1234567890','QuanTriVien','HoatDong'),
+('TK017','ND017','nguyennhatminh','1234567890','QuanTriVien','HoatDong'),
+('TK018','ND018','doanhkhoa','1234567890','KhachHang','HoatDong'),
+('TK019','ND019','hominhkhoi','1234567890','KhachHang','HoatDong'),
+('TK020','ND020','phanthanhtung','1234567890','KhachHang','HoatDong');
 
 -- ============================================================
 -- 3. DANH MỤC
