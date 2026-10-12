@@ -185,9 +185,9 @@ $baseUrl = rtrim($appConfig['base_url'] ?? '', '/');
                 <h4>Kết nối</h4>
                 <p class="muted">Theo dõi chúng tôi trên các nền tảng mạng xã hội để cập nhật những ưu đãi mới nhất.</p>
                 <ul class="footer-list">
-                    <li><a href="#">🌐 Facebook</a></li>
-                    <li><a href="#">📺 YouTube</a></li>
-                    <li><a href="#">🎵 TikTok</a></li>
+                    <li><a href="https://www.facebook.com/mrcoww05">🌐 Facebook</a></li>
+                    <li><a href="https://www.youtube.com/@mrcoww05">📺 YouTube</a></li>
+                    <li><a href="https://www.tiktok.com/@mrcoww05">🎵 TikTok</a></li>
                 </ul>
             </div>
         </div>
