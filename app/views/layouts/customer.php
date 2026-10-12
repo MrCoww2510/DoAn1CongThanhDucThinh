@@ -17,45 +17,107 @@ $baseUrl = rtrim($appConfig['base_url'] ?? '', '/');
 </head>
 <body>
 
+
 <header class="site-header">
     <div class="container header-inner">
-        <a class="brand"
-           href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/">
+
+        <!-- Logo -->
+        <a
+            class="brand"
+            href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/"
+        >
             T&amp;T <span>COMPUTER</span>
         </a>
 
-        <p class="header-note">Máy tính &amp; linh kiện máy tính</p>
+        <!-- Mô tả cửa hàng -->
+        <p class="header-note">
+            Máy tính &amp; linh kiện máy tính
+        </p>
 
-        <div class="header-account">
-            <?php if (isset($_SESSION['user'])) { ?>
-                <!-- Chỉ hiện khi đã đăng nhập -->
-                <span>
-                    Xin chào,
-                    <?php echo htmlspecialchars(
-                        (string) (
-                            $_SESSION['user']['HoTen']
-                            ?? $_SESSION['user']['TenDangNhap']
-                            ?? 'Khách hàng'
-                        ),
+        <!-- Thanh tìm kiếm sản phẩm -->
+        <form
+            class="header-search"
+            method="get"
+            action="<?php echo htmlspecialchars($baseUrl.'/products', ENT_QUOTES, 'UTF-8'); ?>"
+        >
+            <input
+                type="search"
+                name="q"
+                placeholder="Tìm kiếm sản phẩm..."
+                aria-label="Tìm kiếm sản phẩm"
+                value="<?php
+                    echo htmlspecialchars(
+                        (string) ($_GET['q'] ?? ''),
                         ENT_QUOTES,
                         'UTF-8'
-                    ); ?>
-                </span>
+                    );
+?>"
+            >
 
-                <form method="post"
-                    action="<?php echo htmlspecialchars($baseUrl.'/logout', ENT_QUOTES, 'UTF-8'); ?>">
-                    <input type="hidden" name="_csrf"
-                        value="<?php echo htmlspecialchars($_SESSION['_csrf'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
+            <button type="submit" aria-label="Tìm kiếm">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                >
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+            </button>
+        </form>
+        <!-- Tài khoản -->
+        <div class="header-account">
+            <?php if (isset($_SESSION['user'])) { ?>
+                <span>
+                    Xin chào,
+                    <?php
+    echo htmlspecialchars(
+        (string) (
+            $_SESSION['user']['HoTen']
+            ?? $_SESSION['user']['TenDangNhap']
+            ?? 'Khách hàng'
+        ),
+        ENT_QUOTES,
+        'UTF-8'
+    );
+                ?>
+                </span>
+                <form
+                    method="post"
+                    action="<?php echo htmlspecialchars($baseUrl.'/logout', ENT_QUOTES, 'UTF-8'); ?>"
+                >
+                    <input
+                        type="hidden"
+                        name="_csrf"
+                        value="<?php
+                        echo htmlspecialchars(
+                            $_SESSION['_csrf'] ?? '',
+                            ENT_QUOTES,
+                            'UTF-8'
+                        );
+                ?>"
+                    >
                     <button type="submit">Đăng xuất</button>
                 </form>
             <?php } else { ?>
-                <!-- Chưa đăng nhập -->
-                <a href="<?php echo htmlspecialchars($baseUrl.'/login', ENT_QUOTES, 'UTF-8'); ?>">Đăng nhập</a>
-                <a href="<?php echo htmlspecialchars($baseUrl.'/register', ENT_QUOTES, 'UTF-8'); ?>">Đăng ký</a>
+                <a href="<?php echo htmlspecialchars($baseUrl.'/login', ENT_QUOTES, 'UTF-8'); ?>">
+                    Đăng nhập
+                </a>
+                <a href="<?php echo htmlspecialchars($baseUrl.'/register', ENT_QUOTES, 'UTF-8'); ?>">
+                    Đăng ký
+                </a>
             <?php } ?>
         </div>
     </div>
 </header>
+
 
 
     <nav class="main-nav" aria-label="Điều hướng chính">
