@@ -75,5 +75,11 @@ $createdAt = strtotime((string) ($order['NgayTao'] ?? ''));
         <a class="checkout-submit" href="<?= $escape($checkoutBaseUrl) ?>/products">
             Tiếp tục mua sắm
         </a>
+        <a
+            class="checkout-submit"
+            href="<?= $escape($checkoutBaseUrl) ?>/orders/<?= rawurlencode((string) $order['MaDH']) ?>"
+        >
+            Theo dõi đơn hàng
+        </a>
     </div>
 </section>

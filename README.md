@@ -26,6 +26,7 @@ CSS mặc định dùng đường dẫn `/css/main.css`, phù hợp khi `public/
 ## Đặt hàng và thanh toán
 - Khách hàng đăng nhập, thêm sản phẩm vào giỏ và chọn **Tiến hành thanh toán**.
 - Hiện hỗ trợ thanh toán khi nhận hàng (COD). Trạng thái thanh toán ban đầu là **Chưa thanh toán**.
+- Khách hàng có thể theo dõi danh sách, chi tiết và trạng thái đơn hàng của chính mình; chỉ đơn **Chờ xác nhận** mới được hủy. Hủy đơn hoàn trả tồn kho và ghi lịch sử kho trong cùng một transaction.
 - Thanh toán trực tuyến chưa khả dụng vì chưa tích hợp cổng thanh toán; ứng dụng không giả lập giao dịch trực tuyến thành công.
 - Khi tạo đơn, ứng dụng kiểm tra lại tồn kho, lưu giá tại thời điểm đặt hàng, giữ chỗ tồn kho và ghi lịch sử kho trong cùng một transaction.
 - Phí giao hàng hiện chưa được tính trong hệ thống.
