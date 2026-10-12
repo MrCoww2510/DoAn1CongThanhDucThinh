@@ -27,7 +27,9 @@
 
 .product-filter {
 	display: grid;
-	grid-template-columns: minmax(200px, 1fr) minmax(200px, 260px) auto auto;
+	grid-template-columns:
+		minmax(200px, 1fr) minmax(180px, 260px) minmax(140px, 180px)
+		auto auto;
 	align-items: center;
 	gap: 12px;
 	padding: 20px;
@@ -517,10 +519,12 @@
 /* =========================================
    4. RESPONSIVE (ĐIỆN THOẠI & TABLET)
    ========================================= */
+
 @media (max-width: 1000px) {
 	.product-filter {
 		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 	}
+
 	.product-filter .primary-button,
 	.product-filter .reset-link {
 		width: 100%;
@@ -552,21 +556,16 @@
 }
 
 @media (max-width: 520px) {
-	.page-heading h1 {
-		font-size: 25px;
-	}
 	.product-filter {
 		grid-template-columns: minmax(0, 1fr);
 		padding: 14px;
 		gap: 10px;
 	}
+
 	.product-filter input,
 	.product-filter select,
 	.product-filter .primary-button {
 		width: 100%;
-	}
-	.product-grid {
-		grid-template-columns: 1fr !important;
 	}
 }
 

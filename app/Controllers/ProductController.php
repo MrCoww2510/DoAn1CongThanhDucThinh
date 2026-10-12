@@ -13,15 +13,42 @@ final class ProductController extends Controller
     {
         $model = new Product();
 
+        // Lấy dữ liệu từ URL
         $keyword = trim((string) ($_GET['q'] ?? ''));
         $categoryId = trim((string) ($_GET['category'] ?? ''));
+        $sort = trim((string) ($_GET['sort'] ?? 'default'));
 
+        // Danh sách kiểu sắp xếp được phép
+        $allowedSorts = [
+            'default',
+            'name_asc',
+            'name_desc',
+            'price_asc',
+            'price_desc',
+        ];
+
+        // Kiểm tra kiểu sắp xếp
+        if (!in_array($sort, $allowedSorts, true)) {
+            $sort = 'default';
+        }
+
+        // Lấy dữ liệu sản phẩm và danh mục
+        $products = $model->all(
+            $keyword,
+            $categoryId,
+            $sort
+        );
+
+        $categories = $model->categories();
+
+        // Truyền dữ liệu sang View
         $this->view('products/index', [
             'pageTitle' => 'Sản phẩm',
-            'products' => $model->all($keyword, $categoryId),
-            'categories' => $model->categories(),
+            'products' => $products,
+            'categories' => $categories,
             'keyword' => $keyword,
             'categoryId' => $categoryId,
+            'sort' => $sort,
         ]);
     }
 
