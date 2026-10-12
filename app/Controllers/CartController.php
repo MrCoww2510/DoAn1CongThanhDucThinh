@@ -107,6 +107,41 @@ final class CartController extends Controller
         $this->redirect('cart');
     }
 
+    public function buyNow(): void
+    {
+        $this->postOnly();
+        $this->verifyCsrf();
+        $user = $this->requireCustomer();
+
+        $maSP = trim((string) ($_POST['maSP'] ?? ''));
+        $quantity = filter_var(
+            $_POST['quantity'] ?? 1,
+            FILTER_VALIDATE_INT
+        );
+
+        if ($maSP === '' || $quantity === false || $quantity < 1) {
+            $this->flash('Thông tin sản phẩm hoặc số lượng không hợp lệ.', 'error');
+            $this->redirect('cart');
+        }
+
+        try {
+            (new Cart())->addItem(
+                (string) $user['MaND'],
+                $maSP,
+                $quantity
+            );
+        } catch (RuntimeException $exception) {
+            $this->flash($exception->getMessage(), 'error');
+            $this->redirect('cart');
+        } catch (\Throwable $exception) {
+            error_log('[Cart buy now] ' . $exception->getMessage());
+            $this->flash('Không thể thêm sản phẩm. Vui lòng thử lại.', 'error');
+            $this->redirect('cart');
+        }
+
+        $this->redirect('checkout');
+    }
+
     public function update(): void
     {
         $this->postOnly();

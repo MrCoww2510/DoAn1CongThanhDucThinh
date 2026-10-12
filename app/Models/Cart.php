@@ -126,6 +126,13 @@ final class Cart
         $this->db->beginTransaction();
 
         try {
+            $maGH = $this->getOrCreateCart($maND);
+
+            $stmt = $this->db->prepare(
+                'SELECT MaGH FROM GioHang WHERE MaGH = :maGH FOR UPDATE'
+            );
+            $stmt->execute(['maGH' => $maGH]);
+
             $stmt = $this->db->prepare(
                 'SELECT
                     sp.MaSP,
@@ -159,8 +166,6 @@ final class Cart
                     'Sản phẩm hiện không được phép bán.'
                 );
             }
-
-            $maGH = $this->getOrCreateCart($maND);
 
             $stmt = $this->db->prepare(
                 'SELECT SoLuong
@@ -218,6 +223,57 @@ final class Cart
 
             throw $e;
         }
+    }
+
+    /**
+     * Lấy các mặt hàng hiện tại mà không tạo giỏ mới.
+     */
+    public function findItems(string $maND): array
+    {
+        $stmt = $this->db->prepare(
+            'SELECT MaGH FROM GioHang WHERE MaND = :maND LIMIT 1'
+        );
+        $stmt->execute(['maND' => $maND]);
+        $maGH = $stmt->fetchColumn();
+
+        if ($maGH === false) {
+            return [
+                'maGH' => null,
+                'items' => [],
+                'total' => 0,
+            ];
+        }
+
+        $stmt = $this->db->prepare(
+            'SELECT
+                ct.MaCTGH,
+                ct.MaSP,
+                ct.SoLuong,
+                sp.TenSP,
+                sp.GiaBan,
+                sp.SoLuongTon,
+                cts.HinhAnh,
+                cts.TrangThai,
+                (ct.SoLuong * sp.GiaBan) AS ThanhTien
+             FROM ChiTietGioHang ct
+             INNER JOIN SanPham sp ON sp.MaSP = ct.MaSP
+             LEFT JOIN ChiTietSanPham cts ON cts.MaSP = sp.MaSP
+             WHERE ct.MaGH = :maGH
+             ORDER BY ct.MaCTGH DESC'
+        );
+        $stmt->execute(['maGH' => $maGH]);
+        $items = $stmt->fetchAll();
+        $total = 0;
+
+        foreach ($items as $item) {
+            $total += (float) $item['ThanhTien'];
+        }
+
+        return [
+            'maGH' => (string) $maGH,
+            'items' => $items,
+            'total' => $total,
+        ];
     }
 
     /**

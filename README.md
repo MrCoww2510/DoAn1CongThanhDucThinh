@@ -1,6 +1,6 @@
 # T&T Computer — MVC starter
 
-Đây là bộ khung khởi tạo, chưa phải website hoàn chỉnh. Chưa có module sản phẩm, tài khoản, giỏ hàng, đơn hàng hoặc quản trị.
+Đây là ứng dụng MVC bán máy tính đang được phát triển; hiện có các luồng sản phẩm, tài khoản, giỏ hàng và đặt hàng COD cơ bản.
 
 ## Yêu cầu
 - XAMPP có Apache, MySQL và PHP 8+
@@ -22,6 +22,13 @@ CSS mặc định dùng đường dẫn `/css/main.css`, phù hợp khi `public/
 - Route chưa khai báo: hiển thị 404
 - Kết nối PDO hiện được khởi tạo theo nhu cầu; trang chủ chưa truy vấn database nên trang chủ có thể mở ngay cả khi database chưa kết nối được. Cần kiểm thử kết nối PDO riêng ở bước tiếp theo.
 - `debug=true` chỉ dành cho local development; tắt khi triển khai thật.
+
+## Đặt hàng và thanh toán
+- Khách hàng đăng nhập, thêm sản phẩm vào giỏ và chọn **Tiến hành thanh toán**.
+- Hiện hỗ trợ thanh toán khi nhận hàng (COD). Trạng thái thanh toán ban đầu là **Chưa thanh toán**.
+- Thanh toán trực tuyến chưa khả dụng vì chưa tích hợp cổng thanh toán; ứng dụng không giả lập giao dịch trực tuyến thành công.
+- Khi tạo đơn, ứng dụng kiểm tra lại tồn kho, lưu giá tại thời điểm đặt hàng, giữ chỗ tồn kho và ghi lịch sử kho trong cùng một transaction.
+- Phí giao hàng hiện chưa được tính trong hệ thống.
 
 ## An toàn
 Không đặt thông tin kết nối trong `public/`. Không dùng route GET cho thao tác ghi dữ liệu. Chưa có CSRF/auth middleware trong bộ khung; phải triển khai trước khi đưa các chức năng ghi dữ liệu và tài khoản vào sử dụng.

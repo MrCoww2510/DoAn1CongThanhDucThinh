@@ -3,6 +3,8 @@
 -- Chuyển từ cú pháp SQL Server sang MySQL
 -- ============================================================
 
+SET NAMES utf8mb4;
+
 CREATE DATABASE IF NOT EXISTS TTComputer
 CHARACTER SET utf8mb4
 COLLATE utf8mb4_unicode_ci;
@@ -210,20 +212,20 @@ CREATE TABLE DonHang (
 
     CONSTRAINT CK_DonHang_TrangThaiDH
         CHECK (
-            TrangThaiDH IN (
-                'Chờ xác nhận',
-                'Đang chuẩn bị hàng',
-                'Đang giao hàng',
-                'Hoàn thành',
-                'Đã hủy'
+            HEX(TrangThaiDH) IN (
+                '4368E1BB9D2078C3A163206E68E1BAAD6E',
+                'C490616E6720636875E1BAA96E2062E1BB8B2068C3A06E67',
+                'C490616E67206769616F2068C3A06E67',
+                '486FC3A06E207468C3A06E68',
+                'C490C3A32068E1BBA779'
             )
         ),
 
     CONSTRAINT CK_DonHang_TrangThaiTT
         CHECK (
-            TrangThaiTT IN (
-                'Chưa thanh toán',
-                'Đã thanh toán'
+            HEX(TrangThaiTT) IN (
+                '4368C6B061207468616E6820746FC3A16E',
+                'C490C3A3207468616E6820746FC3A16E'
             )
         )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

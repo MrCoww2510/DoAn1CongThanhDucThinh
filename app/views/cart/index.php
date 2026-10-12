@@ -314,16 +314,15 @@ $baseUrlEscaped = $escape($baseUrl);
                     <strong><?= $formatMoney($total) ?></strong>
                 </div>
 
-                <button
-                    type="button"
+                <a
                     class="cart-checkout-btn"
-                    disabled
+                    href="<?= $baseUrlEscaped ?>/checkout"
                 >
-                    Thanh toán — sẽ bổ sung sau
-                </button>
+                    Tiến hành đặt hàng
+                </a>
 
                 <p class="cart-summary-note">
-                    Giá và số lượng sẽ được kiểm tra lại khi bạn đặt hàng.
+                    Tồn kho và giá sẽ được kiểm tra lại khi bạn đặt hàng.
                 </p>
 
             </aside>
