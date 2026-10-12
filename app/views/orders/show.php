@@ -77,17 +77,28 @@ $statusClass = ($order['TrangThaiDH'] ?? '') === 'Đã hủy'
             <?php if ($items === []): ?>
                 <p class="orders-muted">Không có thông tin sản phẩm trong đơn hàng.</p>
             <?php else: ?>
-                <ul class="order-items">
+                <table class="order-items-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Sản phẩm</th>
+                            <th scope="col">Số lượng</th>
+                            <th scope="col">Thành tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                     <?php foreach ($items as $item): ?>
-                        <li>
-                            <span>
+                        <tr>
+                            <td class="order-item-name">
                                 <?= $escape($item['TenSP']) ?>
-                                <small>× <?= (int) $item['SoLuong'] ?></small>
-                            </span>
-                            <strong><?= $formatMoney($item['ThanhTien']) ?></strong>
-                        </li>
+                            </td>
+                            <td class="order-item-quantity">
+                                <?= (int) $item['SoLuong'] ?>
+                            </td>
+                            <td class="order-item-price"><?= $formatMoney($item['ThanhTien']) ?></td>
+                        </tr>
                     <?php endforeach; ?>
-                </ul>
+                    </tbody>
+                </table>
             <?php endif; ?>
             <div class="order-grand-total">
                 <span>Tổng tiền sản phẩm</span>

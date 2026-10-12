@@ -136,25 +136,57 @@
     top: 24px;
 }
 
-.checkout-items {
-    display: grid;
-    gap: 14px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
+.checkout-order-items {
+    width: 100%;
+    margin-top: 8px;
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: 12px;
 }
 
-.checkout-items li {
-    display: flex;
-    justify-content: space-between;
-    gap: 16px;
-    color: #64748b;
-    font-size: 13px;
+.checkout-order-items th,
+.checkout-order-items td {
+    padding: 11px 8px;
+    border-bottom: 1px solid #edf0f4;
 }
 
-.checkout-items strong {
-    color: #263244;
+.checkout-order-items th {
+    color: #718096;
+    font-weight: 700;
+    text-align: left;
+}
+
+.checkout-order-items th:nth-child(1),
+.checkout-order-items td:nth-child(1) {
+    width: 45%;
+    padding-left: 0;
+}
+
+.checkout-order-items th:nth-child(2),
+.checkout-order-items td:nth-child(2) {
+    width: 25%;
     text-align: right;
+}
+
+.checkout-order-items th:nth-child(3),
+.checkout-order-items td:nth-child(3) {
+    width: 30%;
+    padding-right: 0;
+    text-align: right;
+}
+
+.checkout-item-name {
+    color: #475569;
+    overflow-wrap: anywhere;
+}
+
+.checkout-item-quantity {
+    color: #718096;
+}
+
+.checkout-item-price {
+    color: #202938;
+    font-size: 11px;
     white-space: nowrap;
 }
 

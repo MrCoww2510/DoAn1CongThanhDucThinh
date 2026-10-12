@@ -52,17 +52,24 @@ $createdAt = strtotime((string) ($order['NgayTao'] ?? ''));
         </dl>
 
         <h2>Sản phẩm</h2>
-        <ul class="checkout-items checkout-receipt-items">
+        <table class="checkout-order-items checkout-receipt-items">
+            <thead>
+                <tr>
+                    <th scope="col">Sản phẩm</th>
+                    <th scope="col">Số lượng</th>
+                    <th scope="col">Thành tiền</th>
+                </tr>
+            </thead>
+            <tbody>
             <?php foreach ($items as $item): ?>
-                <li>
-                    <span>
-                        <?= $escape($item['TenSP']) ?>
-                        × <?= (int) $item['SoLuong'] ?>
-                    </span>
-                    <strong><?= $formatMoney($item['ThanhTien']) ?></strong>
-                </li>
+                <tr>
+                    <td class="checkout-item-name"><?= $escape($item['TenSP']) ?></td>
+                    <td class="checkout-item-quantity"><?= (int) $item['SoLuong'] ?></td>
+                    <td class="checkout-item-price"><?= $formatMoney($item['ThanhTien']) ?></td>
+                </tr>
             <?php endforeach; ?>
-        </ul>
+            </tbody>
+        </table>
 
         <div class="checkout-total">
             <span>Tổng tiền sản phẩm</span>
