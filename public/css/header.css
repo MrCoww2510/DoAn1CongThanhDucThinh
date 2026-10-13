@@ -123,6 +123,26 @@
 	font-weight: 600;
 }
 
+.header-account .header-account-profile-link {
+	min-height: 0;
+	padding: 8px 0;
+	color: #374151;
+	background: transparent;
+	border: 0;
+	font-size: 14px;
+	text-decoration: none;
+	text-align: right;
+}
+
+.header-account .header-account-profile-link:hover,
+.header-account .header-account-profile-link:focus-visible {
+	color: #b91c1c;
+	background: transparent;
+	text-decoration: underline;
+	transform: none;
+	filter: none;
+}
+
 @media (max-width: 650px) {
 	.header-inner {
 		flex-direction: column;
@@ -142,6 +162,9 @@
 	}
 	.header-greeting {
 		width: 100%;
+		text-align: center;
+	}
+	.header-account .header-account-profile-link {
 		text-align: center;
 	}
 	.nav-inner {

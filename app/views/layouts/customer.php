@@ -76,37 +76,38 @@ $baseUrl = rtrim($appConfig['base_url'] ?? '', '/');
         <!-- Tài khoản -->
         <div class="header-account">
             <?php if (isset($_SESSION['user'])) { ?>
-                <span>
-                    Xin chào,
-                    <?php
-    echo htmlspecialchars(
-        (string) (
-            $_SESSION['user']['HoTen']
-            ?? $_SESSION['user']['TenDangNhap']
-            ?? 'Khách hàng'
-        ),
-        ENT_QUOTES,
-        'UTF-8'
-    );
+                <?php
+                $greetingName = htmlspecialchars(
+                    (string) (
+                        $_SESSION['user']['HoTen']
+                        ?? $_SESSION['user']['TenDangNhap']
+                        ?? 'Khách hàng'
+                    ),
+                    ENT_QUOTES,
+                    'UTF-8'
+                );
                 ?>
-                </span>
-                <form
-                    method="post"
-                    action="<?php echo htmlspecialchars($baseUrl.'/logout', ENT_QUOTES, 'UTF-8'); ?>"
-                >
-                    <input
-                        type="hidden"
-                        name="_csrf"
-                        value="<?php
-                        echo htmlspecialchars(
-                            $_SESSION['_csrf'] ?? '',
-                            ENT_QUOTES,
-                            'UTF-8'
-                        );
-                ?>"
+                <?php if (($_SESSION['user']['VaiTro'] ?? '') === 'KhachHang') { ?>
+                    <a
+                        class="header-account-profile-link"
+                        href="<?php echo htmlspecialchars($baseUrl.'/account', ENT_QUOTES, 'UTF-8'); ?>"
                     >
-                    <button type="submit">Đăng xuất</button>
-                </form>
+                        Xin chào, <?php echo $greetingName; ?>
+                    </a>
+                <?php } else { ?>
+                    <span class="header-greeting">Xin chào, <?php echo $greetingName; ?></span>
+                    <form
+                        method="post"
+                        action="<?php echo htmlspecialchars($baseUrl.'/logout', ENT_QUOTES, 'UTF-8'); ?>"
+                    >
+                        <input
+                            type="hidden"
+                            name="_csrf"
+                            value="<?php echo htmlspecialchars($_SESSION['_csrf'] ?? '', ENT_QUOTES, 'UTF-8'); ?>"
+                        >
+                        <button class="header-account-button" type="submit">Đăng xuất</button>
+                    </form>
+                <?php } ?>
             <?php } else { ?>
                 <a href="<?php echo htmlspecialchars($baseUrl.'/login', ENT_QUOTES, 'UTF-8'); ?>">
                     Đăng nhập

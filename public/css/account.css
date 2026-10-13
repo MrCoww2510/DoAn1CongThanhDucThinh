@@ -1,0 +1,196 @@
+.account-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 42px 24px 64px;
+    color: #202938;
+}
+
+.account-heading {
+    margin-bottom: 24px;
+}
+
+.account-heading h1 {
+    margin: 0;
+    font-size: clamp(28px, 4vw, 38px);
+}
+
+.account-heading > p:last-child {
+    margin: 10px 0 0;
+    color: #718096;
+    line-height: 1.6;
+}
+
+.account-eyebrow {
+    margin: 0 0 8px;
+    color: #d32f2f;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.account-notice {
+    margin-bottom: 20px;
+    padding: 14px 18px;
+    border: 1px solid;
+    border-radius: 10px;
+    line-height: 1.6;
+}
+
+.account-notice-success {
+    color: #166534;
+    background: #f0fdf4;
+    border-color: #bbf7d0;
+}
+
+.account-notice-error {
+    color: #991b1b;
+    background: #fef2f2;
+    border-color: #fecaca;
+}
+
+.account-notice ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.account-form {
+    display: grid;
+    gap: 20px;
+}
+
+.account-card {
+    padding: 24px;
+    background: #fff;
+    border: 1px solid #e7ebf0;
+    border-radius: 14px;
+    box-shadow: 0 6px 24px rgb(15 23 42 / 4%);
+}
+
+.account-card h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.account-section-note {
+    margin: 8px 0 20px;
+    color: #718096;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.account-section-note strong {
+    color: #334155;
+}
+
+.account-fields {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.account-field {
+    display: grid;
+    align-content: start;
+    gap: 7px;
+}
+
+.account-field-wide {
+    grid-column: 1 / -1;
+}
+
+.account-field label {
+    color: #334155;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.account-field input,
+.account-field textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 11px 12px;
+    color: #202938;
+    background: #fff;
+    border: 1px solid #dce2ea;
+    border-radius: 8px;
+    font: inherit;
+}
+
+.account-field input:focus,
+.account-field textarea:focus {
+    border-color: #d32f2f;
+    outline: 3px solid rgb(211 47 47 / 12%);
+}
+
+.account-field textarea {
+    resize: vertical;
+}
+
+.account-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.account-save-button {
+    min-height: 46px;
+    padding: 0 24px;
+    color: #fff;
+    background: #d32f2f;
+    border: 0;
+    border-radius: 9px;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 750;
+}
+
+.account-save-button:hover {
+    background: #b71c1c;
+}
+
+.account-logout {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 18px;
+}
+
+.account-logout form {
+    margin: 0;
+}
+
+.account-logout-button {
+    min-height: 42px;
+    padding: 0 20px;
+    color: #b91c1c;
+    background: #fff;
+    border: 1px solid #fecaca;
+    border-radius: 9px;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 700;
+}
+
+.account-logout-button:hover {
+    background: #fef2f2;
+}
+
+@media (max-width: 620px) {
+    .account-page {
+        padding: 28px 16px 44px;
+    }
+
+    .account-card {
+        padding: 20px;
+    }
+
+    .account-fields {
+        grid-template-columns: 1fr;
+    }
+
+    .account-field-wide {
+        grid-column: auto;
+    }
+
+    .account-save-button {
+        width: 100%;
+    }
+}

@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Controllers\AboutController;
+use App\Controllers\AccountController;
 use App\Controllers\AuthController;
 use App\Controllers\CartController;
 use App\Controllers\CheckoutController;
@@ -24,6 +25,10 @@ $router->post('/register', [AuthController::class, 'register']);
 $router->get('/login', [AuthController::class, 'login']);
 $router->post('/login', [AuthController::class, 'login']);
 $router->post('/logout', [AuthController::class, 'logout']);
+
+// Quản lý tài khoản khách hàng
+$router->get('/account', [AccountController::class, 'index']);
+$router->post('/account', [AccountController::class, 'update']);
 
 // Giỏ hàng
 $router->get('/cart', [CartController::class, 'index']);

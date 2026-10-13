@@ -1,0 +1,2 @@
+ALTER TABLE NguoiDung
+    ADD COLUMN DiaChiNhanHang VARCHAR(255) NULL AFTER Email;
