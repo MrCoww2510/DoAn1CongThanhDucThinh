@@ -97,18 +97,18 @@ $baseUrl = rtrim($appConfig['base_url'] ?? '', '/');
                     </a>
                 <?php } else { ?>
                     <span class="header-greeting">Xin chào, <?php echo $greetingName; ?></span>
-                    <form
-                        method="post"
-                        action="<?php echo htmlspecialchars($baseUrl.'/logout', ENT_QUOTES, 'UTF-8'); ?>"
-                    >
-                        <input
-                            type="hidden"
-                            name="_csrf"
-                            value="<?php echo htmlspecialchars($_SESSION['_csrf'] ?? '', ENT_QUOTES, 'UTF-8'); ?>"
-                        >
-                        <button class="header-account-button" type="submit">Đăng xuất</button>
-                    </form>
                 <?php } ?>
+                <form
+                    method="post"
+                    action="<?php echo htmlspecialchars($baseUrl.'/logout', ENT_QUOTES, 'UTF-8'); ?>"
+                >
+                    <input
+                        type="hidden"
+                        name="_csrf"
+                        value="<?php echo htmlspecialchars($_SESSION['_csrf'] ?? '', ENT_QUOTES, 'UTF-8'); ?>"
+                    >
+                    <button class="header-account-button" type="submit">Đăng xuất</button>
+                </form>
             <?php } else { ?>
                 <a href="<?php echo htmlspecialchars($baseUrl.'/login', ENT_QUOTES, 'UTF-8'); ?>">
                     Đăng nhập

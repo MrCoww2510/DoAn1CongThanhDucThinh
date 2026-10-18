@@ -165,6 +165,96 @@ final class Account
         return (bool) $stmt->fetchColumn();
     }
 
+    // Lấy hồ sơ khách hàng dùng cho trang tài khoản và biểu mẫu đặt hàng.
+    public function findCustomerProfile(string $userId): ?array
+    {
+        $stmt = Database::connection()->prepare(
+            'SELECT nd.MaND, nd.HoTen, nd.SDT, nd.Email, nd.DiaChiNhanHang
+             FROM NguoiDung nd
+             INNER JOIN TaiKhoan tk ON tk.MaND = nd.MaND
+             WHERE nd.MaND = :userId AND tk.VaiTro = :role
+             LIMIT 1'
+        );
+        $stmt->execute(['userId' => $userId, 'role' => 'KhachHang']);
+        $profile = $stmt->fetch();
+
+        return $profile ?: null;
+    }
+
+    // Cập nhật hồ sơ khách hàng; chỉ đổi mật khẩu khi người dùng cung cấp mật khẩu hiện tại.
+    public function updateCustomerProfile(
+        string $userId,
+        string $name,
+        string $email,
+        string $phone,
+        string $address,
+        ?string $currentPassword = null,
+        ?string $newPassword = null
+    ): void {
+        $pdo = Database::connection();
+        $pdo->beginTransaction();
+
+        try {
+            $stmt = $pdo->prepare(
+                'SELECT tk.MaTK, tk.MatKhau
+                 FROM TaiKhoan tk
+                 WHERE tk.MaND = :userId AND tk.VaiTro = :role
+                 FOR UPDATE'
+            );
+            $stmt->execute(['userId' => $userId, 'role' => 'KhachHang']);
+            $account = $stmt->fetch();
+
+            if (!$account) {
+                throw new \RuntimeException('Không tìm thấy tài khoản khách hàng.');
+            }
+
+            $stmt = $pdo->prepare(
+                'SELECT 1 FROM NguoiDung
+                 WHERE Email = :email AND MaND <> :userId LIMIT 1'
+            );
+            $stmt->execute(['email' => $email, 'userId' => $userId]);
+            if ($stmt->fetchColumn()) {
+                throw new \RuntimeException('Email này đã được sử dụng bởi tài khoản khác.');
+            }
+
+            if ($currentPassword !== null || $newPassword !== null) {
+                if (
+                    $currentPassword === null
+                    || $newPassword === null
+                    || !password_verify($currentPassword, (string) $account['MatKhau'])
+                ) {
+                    throw new \RuntimeException('Mật khẩu hiện tại không chính xác.');
+                }
+
+                $stmt = $pdo->prepare('UPDATE TaiKhoan SET MatKhau = :password WHERE MaTK = :accountId');
+                $stmt->execute([
+                    'password' => password_hash($newPassword, PASSWORD_DEFAULT),
+                    'accountId' => $account['MaTK'],
+                ]);
+            }
+
+            $stmt = $pdo->prepare(
+                'UPDATE NguoiDung
+                 SET HoTen = :name, Email = :email, SDT = :phone, DiaChiNhanHang = :address
+                 WHERE MaND = :userId'
+            );
+            $stmt->execute([
+                'name' => $name,
+                'email' => $email,
+                'phone' => $phone !== '' ? $phone : null,
+                'address' => $address !== '' ? $address : null,
+                'userId' => $userId,
+            ]);
+
+            $pdo->commit();
+        } catch (\Throwable $exception) {
+            if ($pdo->inTransaction()) {
+                $pdo->rollBack();
+            }
+            throw $exception;
+        }
+    }
+
     // Đổi trạng thái tài khoản, đồng thời bảo vệ quản trị viên cuối cùng.
     public function changeStatus(string $accountId, string $status): string
     {
