@@ -1,16 +1,14 @@
 <?php
-$escape = static fn ($value): string =>
-    htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
-$formatMoney = static fn ($amount): string =>
-    number_format((float) $amount, 0, ',', '.') . ' ₫';
-$appConfig = require BASE_PATH . '/config/app.php';
+$escape = static fn ($value): string => htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
+$formatMoney = static fn ($amount): string => number_format((float) $amount, 0, ',', '.').' ₫';
+$appConfig = require BASE_PATH.'/config/app.php';
 $checkoutBaseUrl = rtrim((string) ($appConfig['base_url'] ?? ''), '/');
 $createdAt = strtotime((string) ($order['NgayTao'] ?? ''));
 ?>
 
 <link
     rel="stylesheet"
-    href="<?= $escape($checkoutBaseUrl) ?>/css/checkout.css"
+    href="<?php echo $escape($checkoutBaseUrl); ?>/css/checkout.css"
 >
 
 <section class="checkout-page">
@@ -21,21 +19,21 @@ $createdAt = strtotime((string) ($order['NgayTao'] ?? ''));
         <p>
             Đơn hàng đang chờ xác nhận. Bạn thanh toán khi nhận hàng;
             trạng thái thanh toán hiện là
-            <strong><?= $escape($order['TrangThaiTT']) ?></strong>.
+            <strong><?php echo $escape($order['TrangThaiTT']); ?></strong>.
         </p>
 
         <dl class="checkout-receipt">
             <div>
                 <dt>Mã đơn hàng</dt>
-                <dd><?= $escape($order['MaDH']) ?></dd>
+                <dd><?php echo $escape($order['MaDH']); ?></dd>
             </div>
             <div>
                 <dt>Người nhận</dt>
-                <dd><?= $escape($order['TenNguoiNhan']) ?></dd>
+                <dd><?php echo $escape($order['TenNguoiNhan']); ?></dd>
             </div>
             <div>
                 <dt>Địa chỉ giao hàng</dt>
-                <dd><?= $escape($order['DiaChiGiao']) ?></dd>
+                <dd><?php echo $escape($order['DiaChiGiao']); ?></dd>
             </div>
             <div>
                 <dt>Phương thức thanh toán</dt>
@@ -43,36 +41,36 @@ $createdAt = strtotime((string) ($order['NgayTao'] ?? ''));
             </div>
             <div>
                 <dt>Trạng thái đơn hàng</dt>
-                <dd><?= $escape($order['TrangThaiDH']) ?></dd>
+                <dd><?php echo $escape($order['TrangThaiDH']); ?></dd>
             </div>
             <div>
                 <dt>Ngày đặt</dt>
-                <dd><?= $createdAt === false ? '—' : date('d/m/Y H:i', $createdAt) ?></dd>
+                <dd><?php echo $createdAt === false ? '—' : date('d/m/Y H:i', $createdAt); ?></dd>
             </div>
         </dl>
 
         <h2>Sản phẩm</h2>
         <ul class="checkout-items checkout-receipt-items">
-            <?php foreach ($items as $item): ?>
+            <?php foreach ($items as $item) { ?>
                 <li>
                     <span>
-                        <?= $escape($item['TenSP']) ?>
-                        × <?= (int) $item['SoLuong'] ?>
+                        <?php echo $escape($item['TenSP']); ?>
+                        × <?php echo (int) $item['SoLuong']; ?>
                     </span>
-                    <strong><?= $formatMoney($item['ThanhTien']) ?></strong>
+                    <strong><?php echo $formatMoney($item['ThanhTien']); ?></strong>
                 </li>
-            <?php endforeach; ?>
+            <?php } ?>
         </ul>
 
         <div class="checkout-total">
             <span>Tổng tiền sản phẩm</span>
-            <strong><?= $formatMoney($order['TongTien']) ?></strong>
+            <strong><?php echo $formatMoney($order['TongTien']); ?></strong>
         </div>
         <p class="checkout-shipping-note">
             Phí giao hàng chưa được tính trong hệ thống.
         </p>
 
-        <a class="checkout-submit" href="<?= $escape($checkoutBaseUrl) ?>/products">
+        <a class="checkout-submit" href="<?php echo $escape($checkoutBaseUrl); ?>/products">
             Tiếp tục mua sắm
         </a>
     </div>

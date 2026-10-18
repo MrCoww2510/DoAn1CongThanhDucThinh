@@ -8,6 +8,7 @@ final class Database
 {
     private static ?\PDO $connection = null;
 
+    // Mở và tái sử dụng kết nối PDO tới cơ sở dữ liệu.
     public static function connection(): \PDO
     {
         if (self::$connection instanceof \PDO) {
@@ -38,6 +39,7 @@ final class Database
         return self::$connection;
     }
 
+    // Ngăn tạo đối tượng vì lớp chỉ cung cấp kết nối tĩnh.
     private function __construct()
     {
     }

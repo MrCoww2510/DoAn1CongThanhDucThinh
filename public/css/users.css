@@ -1,0 +1,202 @@
+/* =========================================
+   USER MANAGEMENT - RED & WHITE THEME
+========================================= */
+
+.user-management {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 20px;
+	font-family: Arial, sans-serif;
+	color: #333;
+	background-color: #ffffff;
+}
+
+/* Tiêu đề */
+.user-management h1,
+.user-management h2 {
+	color: #d32f2f; /* Đỏ đậm */
+	border-bottom: 2px solid #ffcdd2;
+	padding-bottom: 10px;
+	margin-bottom: 20px;
+}
+
+.user-management p {
+	color: #555;
+}
+
+/* Thông báo lỗi & thành công */
+.user-management p[role="alert"] {
+	background-color: #ffebee;
+	color: #c62828;
+	padding: 12px 15px;
+	border-left: 4px solid #d32f2f;
+	border-radius: 4px;
+	font-weight: bold;
+}
+
+.user-management p[role="status"] {
+	background-color: #f1f8e9; /* Giữ xanh nhạt cho UX tốt, nhưng viền thanh lịch */
+	color: #33691e;
+	padding: 12px 15px;
+	border-left: 4px solid #689f38;
+	border-radius: 4px;
+	font-weight: bold;
+}
+
+/* Biểu mẫu (Forms) */
+.user-management form {
+	background-color: #fffafa; /* Trắng pha chút đỏ rất nhạt */
+	border: 1px solid #ffcdd2; /* Viền đỏ nhạt */
+	padding: 20px;
+	border-radius: 8px;
+	margin-bottom: 30px;
+}
+
+/* Riêng form tìm kiếm */
+.user-management form[method="get"] {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	flex-wrap: wrap;
+	background-color: #ffffff;
+	border-left: 4px solid #d32f2f;
+}
+
+.user-management label {
+	display: block;
+	margin-bottom: 15px;
+	font-weight: bold;
+	color: #b71c1c;
+}
+
+.user-management input,
+.user-management select {
+	width: 100%;
+	padding: 10px;
+	margin-top: 6px;
+	border: 1px solid #e0e0e0;
+	border-radius: 4px;
+	box-sizing: border-box;
+	transition:
+		border-color 0.3s,
+		box-shadow 0.3s;
+}
+
+.user-management form[method="get"] label {
+	margin-bottom: 0;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	width: auto;
+}
+
+.user-management form[method="get"] input {
+	width: 300px;
+	margin-top: 0;
+}
+
+.user-management input:focus,
+.user-management select:focus {
+	outline: none;
+	border-color: #d32f2f;
+	box-shadow: 0 0 5px rgba(211, 47, 47, 0.3);
+}
+
+/* Nút bấm (Buttons & Links) */
+.user-management button {
+	background-color: #d32f2f;
+	color: #ffffff;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 15px;
+	font-weight: bold;
+	transition: background-color 0.3s;
+}
+
+.user-management button:hover {
+	background-color: #b71c1c;
+}
+
+.user-management a {
+	color: #d32f2f;
+	text-decoration: none;
+	font-weight: bold;
+	margin-left: 10px;
+}
+
+.user-management a:hover {
+	text-decoration: underline;
+}
+
+/* Bảng dữ liệu (Table) */
+.user-management .table-container {
+	overflow-x: auto;
+}
+
+.user-management table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 10px;
+	background-color: #fff;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.user-management th,
+.user-management td {
+	padding: 12px 15px;
+	text-align: left;
+	border-bottom: 1px solid #ffebee;
+}
+
+.user-management th {
+	background-color: #d32f2f;
+	color: #ffffff;
+	font-weight: bold;
+	white-space: nowrap;
+}
+
+.user-management tr:nth-child(even) {
+	background-color: #fff9f9;
+}
+
+.user-management tr:hover {
+	background-color: #ffebee;
+}
+
+/* Form cập nhật trạng thái trong bảng */
+.user-management td form {
+	background: transparent;
+	border: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	gap: 8px;
+	align-items: center;
+}
+
+.user-management td select {
+	width: auto;
+	margin-top: 0;
+	padding: 6px;
+}
+
+.user-management td button {
+	padding: 6px 12px;
+	font-size: 13px;
+	background-color: #e53935;
+}
+
+/* Ẩn nhãn cho trợ năng (Accessibility) */
+.visually-hidden {
+	position: absolute !important;
+	width: 1px !important;
+	height: 1px !important;
+	padding: 0 !important;
+	margin: -1px !important;
+	overflow: hidden !important;
+	clip: rect(0, 0, 0, 0) !important;
+	white-space: nowrap !important;
+	border: 0 !important;
+}

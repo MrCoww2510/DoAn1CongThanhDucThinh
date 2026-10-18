@@ -1,22 +1,22 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Models;
 
 use App\Core\Database;
-use PDO;
-use RuntimeException;
-use Throwable;
 
 final class Order
 {
-    private PDO $db;
+    private \PDO $db;
 
+    // Lưu kết nối cơ sở dữ liệu để dùng trong các thao tác đơn hàng.
     public function __construct()
     {
         $this->db = Database::connection();
     }
 
+    // Tạo đơn COD, lưu chi tiết và trừ tồn kho trong cùng giao dịch.
     public function placeCodOrder(
         string $customerId,
         string $recipientName,
@@ -37,7 +37,7 @@ final class Order
             $cartId = $stmt->fetchColumn();
 
             if ($cartId === false) {
-                throw new RuntimeException('Giỏ hàng đang trống.');
+                throw new \RuntimeException('Giỏ hàng đang trống.');
             }
 
             $stmt = $this->db->prepare(
@@ -59,14 +59,12 @@ final class Order
             $items = $stmt->fetchAll();
 
             if ($items === []) {
-                throw new RuntimeException('Giỏ hàng đang trống.');
+                throw new \RuntimeException('Giỏ hàng đang trống.');
             }
 
             foreach ($items as $item) {
                 if ((int) $item['SoLuong'] < 1) {
-                    throw new RuntimeException(
-                        'Số lượng sản phẩm trong giỏ hàng không hợp lệ.'
-                    );
+                    throw new \RuntimeException('Số lượng sản phẩm trong giỏ hàng không hợp lệ.');
                 }
 
                 $status = trim((string) ($item['TrangThai'] ?? ''));
@@ -79,15 +77,11 @@ final class Order
                         true
                     )
                 ) {
-                    throw new RuntimeException(
-                        'Sản phẩm "' . $item['TenSP'] . '" hiện không được phép bán.'
-                    );
+                    throw new \RuntimeException('Sản phẩm "'.$item['TenSP'].'" hiện không được phép bán.');
                 }
 
                 if ((int) $item['SoLuong'] > (int) $item['SoLuongTon']) {
-                    throw new RuntimeException(
-                        'Sản phẩm "' . $item['TenSP'] . '" không đủ tồn kho.'
-                    );
+                    throw new \RuntimeException('Sản phẩm "'.$item['TenSP'].'" không đủ tồn kho.');
                 }
             }
 
@@ -100,7 +94,7 @@ final class Order
             $stmt->execute(['cartId' => $cartId]);
             $total = (string) $stmt->fetchColumn();
 
-            $orderId = 'DH' . strtoupper(bin2hex(random_bytes(9)));
+            $orderId = 'DH'.strtoupper(bin2hex(random_bytes(9)));
             $stmt = $this->db->prepare(
                 'INSERT INTO DonHang
                     (MaDH, MaND, MaNV, TenNguoiNhan, DiaChiGiao, SDTNhan,
@@ -138,13 +132,10 @@ final class Order
                 ]);
 
                 if ($stmt->rowCount() !== 1) {
-                    throw new RuntimeException(
-                        'Tồn kho sản phẩm "' . $item['TenSP']
-                            . '" vừa thay đổi. Vui lòng kiểm tra giỏ hàng và thử lại.'
-                    );
+                    throw new \RuntimeException('Tồn kho sản phẩm "'.$item['TenSP'].'" vừa thay đổi. Vui lòng kiểm tra giỏ hàng và thử lại.');
                 }
 
-                $detailId = 'CTDH' . strtoupper(bin2hex(random_bytes(8)));
+                $detailId = 'CTDH'.strtoupper(bin2hex(random_bytes(8)));
                 $stmt = $this->db->prepare(
                     'INSERT INTO ChiTietDonHang
                         (MaCTDH, MaDH, MaSP, SoLuong, DonGia)
@@ -159,7 +150,7 @@ final class Order
                     'unitPrice' => $item['GiaBan'],
                 ]);
 
-                $historyId = 'LS' . strtoupper(bin2hex(random_bytes(9)));
+                $historyId = 'LS'.strtoupper(bin2hex(random_bytes(9)));
                 $stmt = $this->db->prepare(
                     'INSERT INTO LichSuKho
                         (MaLS, MaSP, SoLuongThayDoi, LoaiThaoTac, MaND)
@@ -191,7 +182,7 @@ final class Order
                 'MaDH' => $orderId,
                 'TongTien' => $total,
             ];
-        } catch (Throwable $exception) {
+        } catch (\Throwable $exception) {
             if ($this->db->inTransaction()) {
                 $this->db->rollBack();
             }
@@ -200,6 +191,7 @@ final class Order
         }
     }
 
+    // Tìm đơn hàng thuộc về khách hàng đã đăng nhập.
     public function findForCustomer(string $orderId, string $customerId): ?array
     {
         $stmt = $this->db->prepare(

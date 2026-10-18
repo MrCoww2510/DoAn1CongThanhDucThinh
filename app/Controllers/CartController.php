@@ -9,6 +9,7 @@ use App\Models\Cart;
 
 final class CartController extends Controller
 {
+    // Yêu cầu đăng nhập và lấy mã người dùng hiện tại.
     private function requireCustomer(): array
     {
         $user = $_SESSION['user'] ?? null;
@@ -24,6 +25,7 @@ final class CartController extends Controller
         return $user;
     }
 
+    // Dừng xử lý nếu token CSRF trong biểu mẫu không hợp lệ.
     private function verifyCsrf(): void
     {
         $csrf = (string) ($_POST['_csrf'] ?? '');
@@ -39,6 +41,7 @@ final class CartController extends Controller
         }
     }
 
+    // Chỉ cho phép các thao tác thay đổi giỏ hàng qua POST.
     private function postOnly(): void
     {
         if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
@@ -47,6 +50,7 @@ final class CartController extends Controller
         }
     }
 
+    // Lưu thông báo tạm thời để hiển thị sau khi chuyển hướng.
     private function flash(string $message, string $type = 'success'): void
     {
         $_SESSION['_cart_flash'] = [
@@ -55,6 +59,7 @@ final class CartController extends Controller
         ];
     }
 
+    // Lấy giỏ hàng và hiển thị nội dung cho khách.
     public function index(): void
     {
         $user = $this->requireCustomer();
@@ -73,6 +78,7 @@ final class CartController extends Controller
         ]);
     }
 
+    // Thêm sản phẩm được chọn vào giỏ hàng.
     public function add(): void
     {
         $this->postOnly();
@@ -107,6 +113,7 @@ final class CartController extends Controller
         $this->redirect('cart');
     }
 
+    // Thêm sản phẩm vào giỏ rồi chuyển tiếp sang bước thanh toán.
     public function buyNow(): void
     {
         $this->postOnly();
@@ -142,6 +149,7 @@ final class CartController extends Controller
         $this->redirect('checkout');
     }
 
+    // Cập nhật số lượng sản phẩm trong giỏ.
     public function update(): void
     {
         $this->postOnly();
@@ -176,6 +184,7 @@ final class CartController extends Controller
         $this->redirect('cart');
     }
 
+    // Xóa một sản phẩm khỏi giỏ hàng.
     public function remove(): void
     {
         $this->postOnly();
@@ -200,6 +209,7 @@ final class CartController extends Controller
         $this->redirect('cart');
     }
 
+    // Xóa toàn bộ sản phẩm trong giỏ hàng.
     public function clear(): void
     {
         $this->postOnly();

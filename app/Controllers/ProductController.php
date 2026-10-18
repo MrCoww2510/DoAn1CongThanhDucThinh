@@ -9,6 +9,7 @@ use App\Models\Product;
 
 final class ProductController extends Controller
 {
+    // Hiển thị danh sách sản phẩm theo từ khóa, danh mục và sắp xếp.
     public function index(): void
     {
         $model = new Product();
@@ -52,6 +53,7 @@ final class ProductController extends Controller
         ]);
     }
 
+    // Hiển thị thông tin chi tiết của sản phẩm được chọn.
     public function show(): void
     {
         $id = trim((string) ($_GET['id'] ?? ''));
@@ -76,6 +78,7 @@ final class ProductController extends Controller
         ]);
     }
 
+    // Trả về trang không tìm thấy sản phẩm.
     private function notFound(): void
     {
         http_response_code(404);

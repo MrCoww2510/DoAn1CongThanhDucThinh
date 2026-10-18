@@ -6,6 +6,7 @@ namespace App\Controllers;
 
 class AboutController
 {
+    // Hiển thị trang giới thiệu cửa hàng.
     public function index(): void
     {
         $appConfig = require BASE_PATH.'/config/app.php';

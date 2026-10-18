@@ -6,9 +6,10 @@ namespace App\Core;
 
 final class View
 {
+    // Tìm tệp giao diện, truyền dữ liệu và ghép nội dung vào layout.
     public static function render(string $view, array $data = [], string $layout = 'customer'): void
     {
-        $viewsRoot = dirname(__DIR__).'/Views/';
+        $viewsRoot = dirname(__DIR__).'/views/';
         $viewPath = $viewsRoot.trim($view, '/').'.php';
         $layoutPath = $viewsRoot.'layouts/'.$layout.'.php';
 
@@ -31,6 +32,7 @@ final class View
         require $layoutPath;
     }
 
+    // Ngăn tạo đối tượng vì giao diện được render qua phương thức tĩnh.
     private function __construct()
     {
     }

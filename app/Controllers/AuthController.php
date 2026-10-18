@@ -9,6 +9,7 @@ use App\Models\Account;
 
 final class AuthController extends Controller
 {
+    // Xác thực thông tin đăng nhập và tạo phiên người dùng.
     public function login(): void
     {
         if (isset($_SESSION['user'])) {
@@ -66,6 +67,7 @@ final class AuthController extends Controller
         ]);
     }
 
+    // Kiểm tra dữ liệu và tạo tài khoản khách hàng mới.
     public function register(): void
     {
         if (isset($_SESSION['user'])) {
@@ -162,6 +164,7 @@ final class AuthController extends Controller
         ]);
     }
 
+    // Kết thúc phiên đăng nhập sau khi kiểm tra yêu cầu và CSRF.
     public function logout(): void
     {
         // Chỉ chấp nhận POST
@@ -211,6 +214,7 @@ final class AuthController extends Controller
         exit;
     }
 
+    // Chuyển người dùng sau đăng nhập theo vai trò tài khoản.
     private function redirectByRole(string $role): never
     {
         if ($role === 'QuanTriVien' || $role === 'NhanVien') {

@@ -9,6 +9,7 @@ use App\Models\Product;
 
 final class HomeController extends Controller
 {
+    // Lấy sản phẩm nổi bật và hiển thị trang chủ.
     public function index(): void
     {
         $model = new Product();

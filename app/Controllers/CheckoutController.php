@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controllers;
@@ -6,11 +7,10 @@ namespace App\Controllers;
 use App\Core\Controller;
 use App\Models\Cart;
 use App\Models\Order;
-use RuntimeException;
-use Throwable;
 
 final class CheckoutController extends Controller
 {
+    // Yêu cầu đăng nhập và lấy thông tin khách đang đặt hàng.
     private function requireCustomer(): array
     {
         $user = $_SESSION['user'] ?? null;
@@ -26,6 +26,7 @@ final class CheckoutController extends Controller
         return $user;
     }
 
+    // Kiểm tra token CSRF của biểu mẫu thanh toán.
     private function verifyCsrf(): void
     {
         $csrf = (string) ($_POST['_csrf'] ?? '');
@@ -41,6 +42,7 @@ final class CheckoutController extends Controller
         }
     }
 
+    // Hiển thị biểu mẫu đặt hàng cùng nội dung giỏ hàng.
     public function index(): void
     {
         $user = $this->requireCustomer();
@@ -63,6 +65,7 @@ final class CheckoutController extends Controller
         ]);
     }
 
+    // Kiểm tra dữ liệu nhận hàng và tạo đơn hàng COD.
     public function placeOrder(): void
     {
         if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
@@ -121,6 +124,7 @@ final class CheckoutController extends Controller
 
         if ($errors !== []) {
             $this->renderCheckout($cart, $form, $errors);
+
             return;
         }
 
@@ -133,20 +137,20 @@ final class CheckoutController extends Controller
             );
 
             $this->redirect(
-                'checkout/success?id=' . rawurlencode($order['MaDH']),
+                'checkout/success?id='.rawurlencode($order['MaDH']),
                 303
             );
         } catch (\PDOException $exception) {
-            error_log('[Checkout] ' . $exception->getMessage());
+            error_log('[Checkout] '.$exception->getMessage());
             $this->renderCheckout(
                 $cart,
                 $form,
                 ['Không thể tạo đơn hàng lúc này. Vui lòng thử lại.']
             );
-        } catch (RuntimeException $exception) {
+        } catch (\RuntimeException $exception) {
             $this->renderCheckout($cart, $form, [$exception->getMessage()]);
-        } catch (Throwable $exception) {
-            error_log('[Checkout] ' . $exception->getMessage());
+        } catch (\Throwable $exception) {
+            error_log('[Checkout] '.$exception->getMessage());
             $this->renderCheckout(
                 $cart,
                 $form,
@@ -155,6 +159,7 @@ final class CheckoutController extends Controller
         }
     }
 
+    // Hiển thị kết quả đặt hàng thành công.
     public function success(): void
     {
         $user = $this->requireCustomer();
@@ -173,6 +178,7 @@ final class CheckoutController extends Controller
                 'title' => 'Không tìm thấy đơn hàng',
                 'message' => 'Đơn hàng không tồn tại hoặc không thuộc tài khoản của bạn.',
             ], 'customer');
+
             return;
         }
 
@@ -183,6 +189,7 @@ final class CheckoutController extends Controller
         ]);
     }
 
+    // Dựng lại trang thanh toán với dữ liệu và lỗi đã có.
     private function renderCheckout(array $cart, array $form, array $errors): void
     {
         $this->view('checkout/index', [

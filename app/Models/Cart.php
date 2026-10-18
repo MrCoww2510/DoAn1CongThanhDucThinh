@@ -10,6 +10,7 @@ final class Cart
 {
     private \PDO $db;
 
+    // Lưu kết nối cơ sở dữ liệu để dùng trong các thao tác giỏ hàng.
     public function __construct()
     {
         $this->db = Database::connection();

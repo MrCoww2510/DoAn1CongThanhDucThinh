@@ -1,15 +1,13 @@
 <?php
-$escape = static fn ($value): string =>
-    htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
-$formatMoney = static fn ($amount): string =>
-    number_format((float) $amount, 0, ',', '.') . ' ₫';
-$appConfig = require BASE_PATH . '/config/app.php';
+$escape = static fn ($value): string => htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
+$formatMoney = static fn ($amount): string => number_format((float) $amount, 0, ',', '.').' ₫';
+$appConfig = require BASE_PATH.'/config/app.php';
 $checkoutBaseUrl = rtrim((string) ($appConfig['base_url'] ?? ''), '/');
 ?>
 
 <link
     rel="stylesheet"
-    href="<?= $escape($checkoutBaseUrl) ?>/css/checkout.css"
+    href="<?php echo $escape($checkoutBaseUrl); ?>/css/checkout.css"
 >
 
 <section class="checkout-page">
@@ -19,37 +17,37 @@ $checkoutBaseUrl = rtrim((string) ($appConfig['base_url'] ?? ''), '/');
             <h1>Thanh toán</h1>
             <p>Kiểm tra thông tin giao hàng và chọn phương thức thanh toán.</p>
         </div>
-        <a href="<?= $escape($checkoutBaseUrl) ?>/cart">← Quay lại giỏ hàng</a>
+        <a href="<?php echo $escape($checkoutBaseUrl); ?>/cart">← Quay lại giỏ hàng</a>
     </div>
 
-    <?php if ($errors !== []): ?>
+    <?php if ($errors !== []) { ?>
         <div class="checkout-errors" role="alert">
             <ul>
-                <?php foreach ($errors as $error): ?>
-                    <li><?= $escape($error) ?></li>
-                <?php endforeach; ?>
+                <?php foreach ($errors as $error) { ?>
+                    <li><?php echo $escape($error); ?></li>
+                <?php } ?>
             </ul>
         </div>
-    <?php endif; ?>
+    <?php } ?>
 
-    <?php if ($items === []): ?>
+    <?php if ($items === []) { ?>
         <div class="checkout-empty">
             <h2>Giỏ hàng đang trống</h2>
             <p>Hãy chọn sản phẩm trước khi tiến hành thanh toán.</p>
-            <a class="checkout-submit" href="<?= $escape($checkoutBaseUrl) ?>/products">
+            <a class="checkout-submit" href="<?php echo $escape($checkoutBaseUrl); ?>/products">
                 Khám phá sản phẩm
             </a>
         </div>
-    <?php else: ?>
+    <?php } else { ?>
         <form
             class="checkout-layout"
             method="post"
-            action="<?= $escape($checkoutBaseUrl) ?>/checkout"
+            action="<?php echo $escape($checkoutBaseUrl); ?>/checkout"
         >
             <input
                 type="hidden"
                 name="_csrf"
-                value="<?= $escape($csrfToken) ?>"
+                value="<?php echo $escape($csrfToken); ?>"
             >
 
             <div class="checkout-form-card">
@@ -63,7 +61,7 @@ $checkoutBaseUrl = rtrim((string) ($appConfig['base_url'] ?? ''), '/');
                         type="text"
                         maxlength="100"
                         autocomplete="name"
-                        value="<?= $escape($form['recipientName'] ?? '') ?>"
+                        value="<?php echo $escape($form['recipientName'] ?? ''); ?>"
                         required
                     >
 
@@ -74,7 +72,7 @@ $checkoutBaseUrl = rtrim((string) ($appConfig['base_url'] ?? ''), '/');
                         type="tel"
                         maxlength="20"
                         autocomplete="tel"
-                        value="<?= $escape($form['recipientPhone'] ?? '') ?>"
+                        value="<?php echo $escape($form['recipientPhone'] ?? ''); ?>"
                         required
                     >
 
@@ -86,7 +84,7 @@ $checkoutBaseUrl = rtrim((string) ($appConfig['base_url'] ?? ''), '/');
                         maxlength="255"
                         autocomplete="street-address"
                         required
-                    ><?= $escape($form['deliveryAddress'] ?? '') ?></textarea>
+                    ><?php echo $escape($form['deliveryAddress'] ?? ''); ?></textarea>
                 </section>
 
                 <section class="checkout-section">
@@ -97,7 +95,7 @@ $checkoutBaseUrl = rtrim((string) ($appConfig['base_url'] ?? ''), '/');
                             type="radio"
                             name="paymentMethod"
                             value="COD"
-                            <?= ($form['paymentMethod'] ?? '') === 'COD' ? 'checked' : '' ?>
+                            <?php echo ($form['paymentMethod'] ?? '') === 'COD' ? 'checked' : ''; ?>
                             required
                         >
                         <span>
@@ -120,20 +118,20 @@ $checkoutBaseUrl = rtrim((string) ($appConfig['base_url'] ?? ''), '/');
                 <h2>Đơn hàng của bạn</h2>
 
                 <ul class="checkout-items">
-                    <?php foreach ($items as $item): ?>
+                    <?php foreach ($items as $item) { ?>
                         <li>
                             <span>
-                                <?= $escape($item['TenSP'] ?? 'Sản phẩm') ?>
-                                × <?= (int) ($item['SoLuong'] ?? 0) ?>
+                                <?php echo $escape($item['TenSP'] ?? 'Sản phẩm'); ?>
+                                × <?php echo (int) ($item['SoLuong'] ?? 0); ?>
                             </span>
-                            <strong><?= $formatMoney($item['ThanhTien'] ?? 0) ?></strong>
+                            <strong><?php echo $formatMoney($item['ThanhTien'] ?? 0); ?></strong>
                         </li>
-                    <?php endforeach; ?>
+                    <?php } ?>
                 </ul>
 
                 <div class="checkout-total">
                     <span>Tổng tiền sản phẩm</span>
-                    <strong><?= $formatMoney($total) ?></strong>
+                    <strong><?php echo $formatMoney($total); ?></strong>
                 </div>
 
                 <p class="checkout-shipping-note">
@@ -145,5 +143,5 @@ $checkoutBaseUrl = rtrim((string) ($appConfig['base_url'] ?? ''), '/');
                 </button>
             </aside>
         </form>
-    <?php endif; ?>
+    <?php } ?>
 </section>

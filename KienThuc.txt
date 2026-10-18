@@ -1,0 +1,141 @@
+﻿KIẾN THỨC ĐỌC CODE – DỰ ÁN T&T COMPUTER
+========================================
+
+Tài liệu này diễn giải luồng đang có trong mã nguồn dự án, để người mới có thể lần theo code. Điểm bắt đầu là public/index.php. Khi cần biết hành vi chi tiết nhất, đối chiếu tên file/hàm được ghi dưới đây vì code có thể thay đổi theo thời gian.
+
+1. CẤU TRÚC VÀ CÁCH MỘT REQUEST ĐƯỢC XỬ LÝ
+-------------------------------------------
+- public/index.php là Front Controller: mọi request của website được đưa qua đây.
+- File nạp config/app.php, đặt múi giờ và chế độ báo lỗi; đăng ký autoload để lớp App\X\Y được tìm ở app/X/Y.php; khởi động session; rồi nạp routes/web.php.
+- URI được tách phần path và bỏ tiền tố thư mục cài XAMPP. Router nhận HTTP method (GET/POST) cùng path để tìm route.
+- routes/web.php khai báo URL và controller/action tương ứng. Router gọi action phù hợp; nếu không có route thì trả HTTP 404.
+- Controller nhận request, kiểm tra dữ liệu/đăng nhập, gọi Model để đọc hoặc ghi dữ liệu, rồi đưa dữ liệu sang View.
+- View nằm trong app/views. app/Core/View.php render view trước, lưu HTML vào biến content, sau đó nhúng content vào app/views/layouts/customer.php.
+- Model nằm trong app/Models, chịu trách nhiệm truy vấn MySQL qua PDO. Cấu trúc bảng nằm trong database.sql.
+
+Luồng tổng quát:
+Trình duyệt → public/index.php → routes/web.php/Router → Controller → Model → MySQL
+                                                        Controller → View → Layout → HTML
+
+2. CÁC THÀNH PHẦN NỀN TẢNG
+--------------------------
+- app/Core/Router.php
+  + get(path, handler), post(path, handler): đăng ký route theo phương thức HTTP.
+  + add(method, path, handler): chuẩn hóa path, tạo mẫu so khớp (có hỗ trợ tham số dạng {id}) và lưu route.
+  + dispatch(method, uri): giải mã path, bỏ base_url nếu cần, tìm route đúng cả method lẫn path rồi gọi handler. Không khớp thì trả 404.
+- app/Core/Controller.php
+  + view(view, data, layout): tiện ích để controller gọi View::render.
+  + redirect(path, statusCode): gửi header Location tới URL mới rồi kết thúc request bằng exit.
+- app/Core/View.php
+  + render(view, data, layout): tìm file view/layout, đưa biến data thành biến cục bộ bằng extract, bắt HTML của view bằng output buffering rồi nạp layout. Thiếu file thì ném RuntimeException.
+- app/Core/Database.php
+  + connection(): tạo kết nối PDO lần đầu và tái sử dụng kết nối tĩnh cho request đó. Cấu hình lấy từ config/database.php; PDO bật exception, kết quả mặc định dạng associative array và tắt prepared statement giả lập. Lỗi kết nối được ghi log, sau đó báo lỗi tổng quát.
+- config/app.php: tên ứng dụng, base_url, múi giờ, debug.
+- config/database.php: host, port, tên database, username/password và charset. Không đưa thông tin kết nối ra giao diện.
+
+3. CÁC ROUTE VÀ CHỨC NĂNG
+-------------------------
+- GET /: HomeController::index – lấy sản phẩm nổi bật và danh mục để hiển thị trang chủ.
+- GET /products: ProductController::index – đọc từ khóa q, category, sort; chỉ nhận giá trị sort nằm trong danh sách cho phép; lấy danh sách và danh mục.
+- GET /product?id=...: ProductController::show – lấy mã sản phẩm, tìm chi tiết; thiếu/không tồn tại thì hiện trang 404 sản phẩm.
+- GET/POST /register và /login: AuthController xử lý hiển thị form hoặc xử lý gửi form.
+- POST /logout: kết thúc phiên đăng nhập.
+- GET /admin/users: UserManagementController::index – trang quản lý tài khoản; chỉ quản trị viên được vào.
+- POST /admin/users/create-staff, /update-staff, /status: tạo/sửa nhân viên và đổi trạng thái tài khoản; kiểm tra quyền và CSRF trước khi ghi.
+- GET /cart: CartController::index. POST /cart/add, /buy-now, /update, /remove, /clear thực hiện thao tác giỏ hàng.
+- GET /checkout: xem form đặt hàng. POST /checkout: tạo đơn. GET /checkout/success: xem đơn vừa tạo.
+- GET /about: AboutController::index – trang giới thiệu.
+
+GET thường dùng để xem dữ liệu; POST dùng cho thao tác làm thay đổi dữ liệu. Danh sách route là nguồn sự thật về URL hiện có.
+
+4. LUỒNG SẢN PHẨM
+------------------
+- app/Controllers/HomeController.php: index() gọi Product::featured(8) và Product::categories(), rồi render home/index.
+- app/Controllers/ProductController.php:
+  + index() lấy bộ lọc từ query string, kiểm tra sort, gọi model all() và categories(), truyền kết quả qua products/index.
+  + show() lấy id từ query string, gọi findById(); nếu không có sản phẩm thì notFound().
+  + notFound() đặt HTTP 404 và render products/not-found.
+- app/Models/Product.php:
+  + featured(limit): lấy sản phẩm nổi bật với số lượng giới hạn.
+  + all(keyword, categoryId, sort): dựng truy vấn danh sách và bộ lọc; giá trị lọc được truyền qua prepared statement. Tên cột/thứ tự sắp xếp được chọn trong code theo sort hợp lệ.
+  + categories(): lấy các danh mục.
+  + findById(id): tìm một sản phẩm theo mã, trả về null khi không có.
+  + baseQuery(): phần SELECT dùng chung để các truy vấn sản phẩm trả về cùng nhóm thông tin.
+- View sản phẩm: products/index.php là danh sách; _card.php là thẻ dùng lại; show.php là chi tiết.
+
+5. LUỒNG ĐĂNG KÝ, ĐĂNG NHẬP VÀ QUẢN LÝ TÀI KHOẢN
+--------------------------------------------------
+- app/Controllers/AuthController.php:
+  + login(): GET render form. POST lấy thông tin đăng nhập, tìm tài khoản bằng username hoặc email, kiểm tra trạng thái và password_verify(); đăng nhập thành công thì lưu dữ liệu người dùng trong session và chuyển hướng theo vai trò.
+  + register(): GET render form. POST kiểm tra/chuẩn hóa dữ liệu, kiểm tra username/email đã tồn tại, rồi gọi Account::register(). Lỗi được giữ để hiển thị lại form; thông tin kỹ thuật ghi log.
+  + logout(): xóa trạng thái đăng nhập/session theo code hiện tại và chuyển về trang phù hợp.
+  + redirectByRole(): chọn nơi chuyển hướng theo vai trò.
+- app/Models/Account.php:
+  + findForLogin(identity): tìm tài khoản cùng hồ sơ người dùng theo username hoặc email.
+  + usernameExists(), emailExists(): kiểm tra trùng khi đăng ký.
+  + register(...): tạo hồ sơ NguoiDung và tài khoản TaiKhoan trong một transaction; mật khẩu được lưu bằng password_hash(), không lưu dạng chữ thường.
+  + searchForManagement(query), findForManagement(id): tìm/lấy thông tin tài khoản để quản lý.
+  + createStaff(...), updateStaff(...): tạo hoặc cập nhật nhân viên; các thao tác nhiều bảng dùng transaction.
+  + usernameUsedByOther(), emailUsedByOther(): kiểm tra trùng nhưng bỏ qua chính tài khoản đang sửa.
+  + changeStatus(id, status): đổi trạng thái; kiểm tra để không vô hiệu hóa quản trị viên hoạt động cuối cùng.
+- app/Controllers/UserManagementController.php kiểm tra quyền quản trị, CSRF, dữ liệu đầu vào, rồi gọi các hàm Account tương ứng. Các POST lỗi/thành công dùng flash message rồi redirect về trang quản lý.
+- Session là nơi controller xác định người dùng đang đăng nhập. Kiểm tra quyền luôn phải diễn ra ở phía server, không chỉ ẩn nút giao diện.
+
+6. LUỒNG GIỎ HÀNG
+-----------------
+- CartController::requireCustomer(): kiểm tra session có khách hàng hợp lệ không; nếu chưa đăng nhập thì chuyển đến trang đăng nhập.
+- verifyCsrf(): so token trong POST với token lưu trong session để chống request giả mạo.
+- postOnly(): chặn thao tác thay đổi dữ liệu nếu request không phải POST.
+- index(): lấy giỏ theo mã người dùng và hiển thị cart/index.
+- add(): kiểm tra mã sản phẩm/số lượng rồi gọi Cart::addItem().
+- buyNow(): thêm sản phẩm vào giỏ rồi chuyển sang checkout.
+- update(): kiểm tra và cập nhật số lượng dòng hàng.
+- remove(): xóa một sản phẩm khỏi giỏ.
+- clear(): xóa toàn bộ sản phẩm khỏi giỏ.
+- flash(): đặt thông báo một lần trong session để trang sau hiển thị.
+- app/Models/Cart.php chứa các thao tác dữ liệu giỏ: tìm/tạo giỏ, đọc dòng hàng, thêm hàng, cập nhật số lượng, xóa một dòng hoặc làm trống giỏ. Model kiểm tra sản phẩm/tồn kho và tính lại tổng tiền theo dữ liệu database; không nên tin giá do trình duyệt gửi lên.
+
+7. LUỒNG ĐẶT HÀNG COD
+---------------------
+1. CheckoutController::index() yêu cầu đăng nhập, lấy nội dung giỏ và render checkout/index.
+2. CheckoutController::placeOrder() nhận POST, kiểm tra CSRF và người dùng, kiểm tra thông tin người nhận. Nếu dữ liệu chưa hợp lệ, render lại form cùng lỗi.
+3. Nếu hợp lệ, gọi Order::placeCodOrder(customerId, tên, địa chỉ, điện thoại).
+4. Order::placeCodOrder() mở transaction; khóa giỏ và các dòng sản phẩm khi đọc; kiểm tra giỏ không rỗng, số lượng hợp lệ, trạng thái sản phẩm và tồn kho; tính tổng dựa trên giá hiện tại trong database.
+5. Model tạo đơn COD và chi tiết đơn, trừ tồn kho, ghi lịch sử kho, xóa dòng giỏ và đưa tổng giỏ về 0. Tất cả nằm trong cùng transaction.
+6. Thành công thì commit và trả mã đơn/tổng tiền. Nếu có lỗi, rollback để tránh chỉ lưu một phần, sau đó ném lỗi cho controller xử lý.
+7. Controller chuyển tới trang success. Order::findForCustomer() chỉ trả đơn khi mã đơn thuộc đúng khách hàng đang đăng nhập; đồng thời lấy các mặt hàng chi tiết.
+
+Đây là COD (trả tiền khi nhận hàng). Mã hiện tại không thực hiện thanh toán trực tuyến. Transaction giúp các thay đổi đơn hàng/kho cùng thành công hoặc cùng bị hủy.
+
+8. CÁCH ĐỌC VIEW VÀ FORM
+------------------------
+- app/views/layouts/customer.php là khung chung: header/menu, nội dung $content và footer.
+- Các view nhận dữ liệu do Controller truyền bằng mảng data. Ví dụ pageTitle, products, cart, errors.
+- Form dùng action trỏ tới route và method GET/POST. Các thao tác POST thường có token CSRF; xem cách controller xác minh trước khi xử lý.
+- Khi in dữ liệu do người dùng/database cung cấp vào HTML, cần escape phù hợp (thường dùng htmlspecialchars) để tránh HTML/script chạy ngoài ý muốn.
+- CSS và JavaScript tĩnh nằm trong public/css và public/js; ảnh sản phẩm nằm ở public/images/products.
+
+9. CÁC KHÁI NIỆM PHP/DATABASE THƯỜNG GẶP TRONG DỰ ÁN
+----------------------------------------------------
+- Prepared statement: prepare(SQL) rồi execute(params), giúp tách dữ liệu đầu vào khỏi câu lệnh SQL.
+- PDO: lớp PHP kết nối và làm việc với MySQL.
+- Session: dữ liệu lưu giữa các request của cùng trình duyệt, dùng cho đăng nhập, token CSRF và thông báo flash.
+- Transaction: beginTransaction() bắt đầu nhóm thao tác; commit() xác nhận; rollBack() hủy nhóm thao tác khi gặp lỗi.
+- try/catch: chạy đoạn có thể lỗi và xử lý/ghi log lỗi.
+- return null: thường biểu thị không tìm thấy bản ghi.
+- ?-> / kiểu ?array: giá trị có thể là null.
+- array: nhóm dữ liệu key/value; fetch() trả một dòng, fetchAll() trả nhiều dòng.
+- htmlspecialchars(): chuyển ký tự đặc biệt thành dạng an toàn khi đưa vào HTML.
+- password_hash()/password_verify(): tạo và xác minh hash mật khẩu.
+
+10. GỢI Ý TỰ LẦN THEO CODE
+--------------------------
+- Muốn hiểu một URL: tìm URL trong routes/web.php → mở controller action → theo lời gọi model → xem view nhận biến gì.
+- Muốn hiểu một nút form: tìm form trong file view → xem action/method/name của input → tìm route tương ứng → đọc controller → đọc model.
+- Muốn hiểu một bảng: tìm tên bảng trong database.sql → tìm SQL sử dụng bảng bằng tìm kiếm toàn dự án → đối chiếu Model/Controller.
+- Luôn đọc cả dữ liệu vào, điều kiện kiểm tra, kết quả trả về và nhánh lỗi; logic quan trọng thường nằm ở nhánh lỗi/rollback.
+- Không chạy file SQL chỉ để đọc tài liệu. database.sql có thể tạo database/bảng; thao tác schema hoặc dữ liệu cần được xem xét riêng.
+
+Các file nên mở đầu tiên:
+public/index.php, routes/web.php, app/Core/Router.php,
+app/Controllers/, app/Models/, app/views/, database.sql.

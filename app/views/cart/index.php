@@ -314,7 +314,7 @@ $baseUrlEscaped = $escape($baseUrl);
 
                 <a
                     class="cart-checkout-btn"
-                    href="<?= $baseUrlEscaped ?>/checkout"
+                    href="<?php echo $baseUrlEscaped; ?>/checkout"
                 >
                     Tiến hành đặt hàng
                 </a>

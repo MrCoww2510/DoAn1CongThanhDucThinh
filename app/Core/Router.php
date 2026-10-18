@@ -9,16 +9,19 @@ final class Router
     /** @var array<int, array{method:string, pattern:string, handler:callable|array}> */
     private array $routes = [];
 
+    // Đăng ký tuyến đường chỉ nhận yêu cầu GET.
     public function get(string $path, callable|array $handler): void
     {
         $this->add('GET', $path, $handler);
     }
 
+    // Đăng ký tuyến đường chỉ nhận yêu cầu POST.
     public function post(string $path, callable|array $handler): void
     {
         $this->add('POST', $path, $handler);
     }
 
+    // Chuẩn hóa đường dẫn và lưu tuyến đường cùng hàm xử lý.
     public function add(string $method, string $path, callable|array $handler): void
     {
         $path = '/'.trim($path, '/');
@@ -40,6 +43,7 @@ final class Router
         ];
     }
 
+    // Tìm tuyến đường khớp với yêu cầu rồi gọi controller tương ứng.
     public function dispatch(string $method, string $uri): void
     {
         $path = parse_url($uri, PHP_URL_PATH) ?: '/';
@@ -86,6 +90,7 @@ final class Router
         require dirname(__DIR__).'/Views/errors/404.php';
     }
 
+    // Khởi tạo bộ định tuyến với danh sách route rỗng.
     public function __construct()
     {
     }

@@ -6,11 +6,13 @@ namespace App\Core;
 
 abstract class Controller
 {
+    // Nạp một trang giao diện cùng dữ liệu cần hiển thị.
     protected function view(string $view, array $data = [], string $layout = 'customer'): void
     {
         View::render($view, $data, $layout);
     }
 
+    // Chuyển trình duyệt sang đường dẫn khác rồi kết thúc yêu cầu hiện tại.
     protected function redirect(string $path, int $statusCode = 302): never
     {
         $app = require dirname(__DIR__, 2).'/config/app.php';
