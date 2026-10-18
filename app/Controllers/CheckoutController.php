@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\Core\Controller;
+use App\Models\Account;
 use App\Models\Cart;
 use App\Models\Order;
 
@@ -49,6 +50,7 @@ final class CheckoutController extends Controller
         $_SESSION['_csrf'] ??= bin2hex(random_bytes(32));
 
         $cart = (new Cart())->findItems((string) $user['MaND']);
+        $profile = (new Account())->findCustomerProfile((string) $user['MaND']);
 
         $this->view('checkout/index', [
             'pageTitle' => 'Thanh toán',
@@ -57,9 +59,9 @@ final class CheckoutController extends Controller
             'csrfToken' => $_SESSION['_csrf'],
             'errors' => [],
             'form' => [
-                'recipientName' => (string) ($user['HoTen'] ?? ''),
-                'recipientPhone' => (string) ($user['SDT'] ?? ''),
-                'deliveryAddress' => '',
+                'recipientName' => (string) ($profile['HoTen'] ?? $user['HoTen'] ?? ''),
+                'recipientPhone' => (string) ($profile['SDT'] ?? $user['SDT'] ?? ''),
+                'deliveryAddress' => (string) ($profile['DiaChiNhanHang'] ?? ''),
                 'paymentMethod' => 'COD',
             ],
         ]);

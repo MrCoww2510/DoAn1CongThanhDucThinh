@@ -238,4 +238,138 @@ final class Order
             'items' => $stmt->fetchAll(),
         ];
     }
+
+    public function findAllForCustomer(string $customerId): array
+    {
+        $stmt = $this->db->prepare(
+            'SELECT
+                dh.MaDH,
+                dh.TongTien,
+                dh.PhuongThucTT,
+                dh.TrangThaiDH,
+                dh.TrangThaiTT,
+                dh.NgayTao,
+                (
+                    SELECT COUNT(*)
+                    FROM ChiTietDonHang ct
+                    WHERE ct.MaDH = dh.MaDH
+                ) AS SoMatHang
+             FROM DonHang dh
+             WHERE dh.MaND = :customerId
+             ORDER BY dh.NgayTao DESC, dh.MaDH DESC'
+        );
+        $stmt->execute(['customerId' => $customerId]);
+
+        return $stmt->fetchAll();
+    }
+
+    public function cancelForCustomer(string $orderId, string $customerId): void
+    {
+        $this->db->beginTransaction();
+
+        try {
+            $stmt = $this->db->prepare(
+                'SELECT TrangThaiDH
+                 FROM DonHang
+                 WHERE MaDH = :orderId AND MaND = :customerId
+                 LIMIT 1
+                 FOR UPDATE'
+            );
+            $stmt->execute([
+                'orderId' => $orderId,
+                'customerId' => $customerId,
+            ]);
+            $status = $stmt->fetchColumn();
+
+            if ($status === false) {
+                throw new RuntimeException(
+                    'Đơn hàng không tồn tại hoặc không thuộc tài khoản của bạn.'
+                );
+            }
+
+            if ($status === 'Đã hủy') {
+                throw new RuntimeException('Đơn hàng này đã được hủy trước đó.');
+            }
+
+            if ($status !== 'Chờ xác nhận') {
+                throw new RuntimeException(
+                    'Chỉ có thể hủy đơn hàng đang ở trạng thái Chờ xác nhận.'
+                );
+            }
+
+            $stmt = $this->db->prepare(
+                'SELECT MaSP, SoLuong
+                 FROM ChiTietDonHang
+                 WHERE MaDH = :orderId
+                 ORDER BY MaSP
+                 FOR UPDATE'
+            );
+            $stmt->execute(['orderId' => $orderId]);
+            $items = $stmt->fetchAll();
+
+            foreach ($items as $item) {
+                $productId = (string) $item['MaSP'];
+                $quantity = (int) $item['SoLuong'];
+
+                $stmt = $this->db->prepare(
+                    'UPDATE SanPham
+                     SET SoLuongTon = SoLuongTon + :quantity
+                     WHERE MaSP = :productId'
+                );
+                $stmt->execute([
+                    'quantity' => $quantity,
+                    'productId' => $productId,
+                ]);
+
+                if ($stmt->rowCount() !== 1) {
+                    throw new RuntimeException(
+                        'Không thể hoàn trả tồn kho cho sản phẩm trong đơn hàng.'
+                    );
+                }
+
+                $historyId = 'LS' . strtoupper(bin2hex(random_bytes(9)));
+                $stmt = $this->db->prepare(
+                    'INSERT INTO LichSuKho
+                        (MaLS, MaSP, SoLuongThayDoi, LoaiThaoTac, MaND)
+                     VALUES
+                        (:historyId, :productId, :quantityChange, :operation, :customerId)'
+                );
+                $stmt->execute([
+                    'historyId' => $historyId,
+                    'productId' => $productId,
+                    'quantityChange' => $quantity,
+                    'operation' => 'NhapKho',
+                    'customerId' => $customerId,
+                ]);
+            }
+
+            $stmt = $this->db->prepare(
+                'UPDATE DonHang
+                 SET TrangThaiDH = :cancelledStatus
+                 WHERE MaDH = :orderId
+                   AND MaND = :customerId
+                   AND TrangThaiDH = :pendingStatus'
+            );
+            $stmt->execute([
+                'cancelledStatus' => 'Đã hủy',
+                'orderId' => $orderId,
+                'customerId' => $customerId,
+                'pendingStatus' => 'Chờ xác nhận',
+            ]);
+
+            if ($stmt->rowCount() !== 1) {
+                throw new RuntimeException(
+                    'Trạng thái đơn hàng đã thay đổi. Vui lòng tải lại trang.'
+                );
+            }
+
+            $this->db->commit();
+        } catch (Throwable $exception) {
+            if ($this->db->inTransaction()) {
+                $this->db->rollBack();
+            }
+
+            throw $exception;
+        }
+    }
 }

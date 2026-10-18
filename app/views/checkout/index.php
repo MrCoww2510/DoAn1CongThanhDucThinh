@@ -117,17 +117,28 @@ $checkoutBaseUrl = rtrim((string) ($appConfig['base_url'] ?? ''), '/');
             <aside class="checkout-summary">
                 <h2>Đơn hàng của bạn</h2>
 
-                <ul class="checkout-items">
-                    <?php foreach ($items as $item) { ?>
-                        <li>
-                            <span>
-                                <?php echo $escape($item['TenSP'] ?? 'Sản phẩm'); ?>
-                                × <?php echo (int) ($item['SoLuong'] ?? 0); ?>
-                            </span>
-                            <strong><?php echo $formatMoney($item['ThanhTien'] ?? 0); ?></strong>
-                        </li>
-                    <?php } ?>
-                </ul>
+                <table class="checkout-order-items">
+                    <thead>
+                        <tr>
+                            <th scope="col">Sản phẩm</th>
+                            <th scope="col">Số lượng</th>
+                            <th scope="col">Thành tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($items as $item): ?>
+                        <tr>
+                            <td class="checkout-item-name">
+                                <?= $escape($item['TenSP'] ?? 'Sản phẩm') ?>
+                            </td>
+                            <td class="checkout-item-quantity">
+                                <?= (int) ($item['SoLuong'] ?? 0) ?>
+                            </td>
+                            <td class="checkout-item-price"><?= $formatMoney($item['ThanhTien'] ?? 0) ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
 
                 <div class="checkout-total">
                     <span>Tổng tiền sản phẩm</span>

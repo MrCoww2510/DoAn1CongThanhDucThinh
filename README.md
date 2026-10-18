@@ -26,9 +26,15 @@ CSS mặc định dùng đường dẫn `/css/main.css`, phù hợp khi `public/
 ## Đặt hàng và thanh toán
 - Khách hàng đăng nhập, thêm sản phẩm vào giỏ và chọn **Tiến hành thanh toán**.
 - Hiện hỗ trợ thanh toán khi nhận hàng (COD). Trạng thái thanh toán ban đầu là **Chưa thanh toán**.
+- Khách hàng có thể theo dõi danh sách, chi tiết và trạng thái đơn hàng của chính mình; chỉ đơn **Chờ xác nhận** mới được hủy. Hủy đơn hoàn trả tồn kho và ghi lịch sử kho trong cùng một transaction.
 - Thanh toán trực tuyến chưa khả dụng vì chưa tích hợp cổng thanh toán; ứng dụng không giả lập giao dịch trực tuyến thành công.
 - Khi tạo đơn, ứng dụng kiểm tra lại tồn kho, lưu giá tại thời điểm đặt hàng, giữ chỗ tồn kho và ghi lịch sử kho trong cùng một transaction.
 - Phí giao hàng hiện chưa được tính trong hệ thống.
+
+## Quản lý tài khoản
+- Khách hàng có thể cập nhật họ tên, email, số điện thoại, địa chỉ nhận hàng và đổi mật khẩu tại `/account`.
+
+- Khi đổi mật khẩu cần nhập đúng mật khẩu hiện tại; các cập nhật hồ sơ và mật khẩu được lưu nguyên tử.
 
 ## An toàn
 Không đặt thông tin kết nối trong `public/`. Không dùng route GET cho thao tác ghi dữ liệu. Chưa có CSRF/auth middleware trong bộ khung; phải triển khai trước khi đưa các chức năng ghi dữ liệu và tài khoản vào sử dụng.

@@ -61,6 +61,24 @@ $createdAt = strtotime((string) ($order['NgayTao'] ?? ''));
                 </li>
             <?php } ?>
         </ul>
+        <table class="checkout-order-items checkout-receipt-items">
+            <thead>
+                <tr>
+                    <th scope="col">Sản phẩm</th>
+                    <th scope="col">Số lượng</th>
+                    <th scope="col">Thành tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($items as $item) { ?>
+                <tr>
+                    <td class="checkout-item-name"><?php echo $escape($item['TenSP']); ?></td>
+                    <td class="checkout-item-quantity"><?php echo (int) $item['SoLuong']; ?></td>
+                    <td class="checkout-item-price"><?php echo $formatMoney($item['ThanhTien']); ?></td>
+                </tr>
+            <?php } ?>
+            </tbody>
+        </table>
 
         <div class="checkout-total">
             <span>Tổng tiền sản phẩm</span>
@@ -72,6 +90,12 @@ $createdAt = strtotime((string) ($order['NgayTao'] ?? ''));
 
         <a class="checkout-submit" href="<?php echo $escape($checkoutBaseUrl); ?>/products">
             Tiếp tục mua sắm
+        </a>
+        <a
+            class="checkout-submit"
+            href="<?php echo $escape($checkoutBaseUrl); ?>/orders/<?php echo rawurlencode((string) $order['MaDH']); ?>"
+        >
+            Theo dõi đơn hàng
         </a>
     </div>
 </section>

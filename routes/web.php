@@ -7,6 +7,7 @@ use App\Controllers\AuthController;
 use App\Controllers\CartController;
 use App\Controllers\CheckoutController;
 use App\Controllers\HomeController;
+use App\Controllers\OrderController;
 use App\Controllers\ProductController;
 use App\Controllers\UserManagementController;
 use App\Core\Router;
@@ -43,5 +44,9 @@ $router->post('/cart/clear', [CartController::class, 'clear']);
 $router->get('/checkout', [CheckoutController::class, 'index']);
 $router->post('/checkout', [CheckoutController::class, 'placeOrder']);
 $router->get('/checkout/success', [CheckoutController::class, 'success']);
+
+$router->get('/orders', [OrderController::class, 'index']);
+$router->get('/orders/{orderId}', [OrderController::class, 'show']);
+$router->post('/orders/{orderId}/cancel', [OrderController::class, 'cancel']);
 
 $router->get('/about', [AboutController::class, 'index']);
