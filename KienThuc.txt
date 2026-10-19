@@ -40,10 +40,14 @@ Trình duyệt → public/index.php → routes/web.php/Router → Controller →
 - GET /product?id=...: ProductController::show – lấy mã sản phẩm, tìm chi tiết; thiếu/không tồn tại thì hiện trang 404 sản phẩm.
 - GET/POST /register và /login: AuthController xử lý hiển thị form hoặc xử lý gửi form.
 - POST /logout: kết thúc phiên đăng nhập.
+- GET/POST /account: AccountController xem và cập nhật hồ sơ khách hàng.
 - GET /admin/users: UserManagementController::index – trang quản lý tài khoản; chỉ quản trị viên được vào.
 - POST /admin/users/create-staff, /update-staff, /status: tạo/sửa nhân viên và đổi trạng thái tài khoản; kiểm tra quyền và CSRF trước khi ghi.
 - GET /cart: CartController::index. POST /cart/add, /buy-now, /update, /remove, /clear thực hiện thao tác giỏ hàng.
 - GET /checkout: xem form đặt hàng. POST /checkout: tạo đơn. GET /checkout/success: xem đơn vừa tạo.
+- GET /orders: xem danh sách đơn hàng của khách đang đăng nhập.
+- GET /orders/{orderId}: xem chi tiết đơn hàng thuộc khách đang đăng nhập.
+- POST /orders/{orderId}/cancel: hủy đơn đủ điều kiện.
 - GET /about: AboutController::index – trang giới thiệu.
 
 GET thường dùng để xem dữ liệu; POST dùng cho thao tác làm thay đổi dữ liệu. Danh sách route là nguồn sự thật về URL hiện có.
@@ -81,7 +85,23 @@ GET thường dùng để xem dữ liệu; POST dùng cho thao tác làm thay đ
 - app/Controllers/UserManagementController.php kiểm tra quyền quản trị, CSRF, dữ liệu đầu vào, rồi gọi các hàm Account tương ứng. Các POST lỗi/thành công dùng flash message rồi redirect về trang quản lý.
 - Session là nơi controller xác định người dùng đang đăng nhập. Kiểm tra quyền luôn phải diễn ra ở phía server, không chỉ ẩn nút giao diện.
 
-6. LUỒNG GIỎ HÀNG
+6. LUỒNG HỒ SƠ KHÁCH HÀNG
+-------------------------
+- AccountController::index() yêu cầu khách hàng đăng nhập, lấy hồ sơ và hiển thị form tại account/index.
+- AccountController::update() chỉ nhận POST, xác minh CSRF, kiểm tra họ tên, email, số điện thoại, địa chỉ và các trường đổi mật khẩu. Khi lỗi, form được hiển thị lại kèm lỗi; khi thành công, thông tin session được cập nhật và chuyển về /account.
+- Đổi mật khẩu là tùy chọn: khách hàng phải nhập mật khẩu hiện tại, mật khẩu mới tối thiểu 8 ký tự và xác nhận khớp.
+- Account::findCustomerProfile() chỉ lấy hồ sơ gắn với tài khoản có vai trò KhachHang. Account::updateCustomerProfile() kiểm tra email không trùng, xác minh mật khẩu hiện tại nếu đổi mật khẩu, hash mật khẩu mới và cập nhật hồ sơ trong transaction.
+- Màn hình và xử lý hồ sơ chỉ dành cho khách hàng; quyền được kiểm tra phía server.
+
+7. LUỒNG THEO DÕI VÀ HỦY ĐƠN HÀNG
+---------------------------------
+- OrderController::index() yêu cầu khách hàng đăng nhập và gọi Order::findAllForCustomer() để hiển thị danh sách đơn của chính khách hàng đó.
+- show(orderId) lấy đơn và các mặt hàng chi tiết qua Order::findForCustomer(). Model ràng buộc cả mã đơn lẫn mã khách hàng; không tìm thấy hoặc không thuộc khách hàng thì trả trang 404.
+- cancel(orderId) chỉ nhận POST, kiểm tra CSRF và gọi Order::cancelForCustomer(). Thông báo kết quả được lưu dạng flash rồi chuyển về trang chi tiết.
+- Order::cancelForCustomer() khóa đơn và chi tiết trong transaction; chỉ cho hủy đơn của khách đó khi trạng thái là “Chờ xác nhận”. Hủy thành công sẽ hoàn số lượng về kho, ghi lịch sử kho và đổi trạng thái đơn; lỗi sẽ rollback.
+- app/views/orders/index.php và show.php lần lượt hiển thị danh sách và chi tiết; thao tác hủy chỉ nên hiển thị theo trạng thái đơn, còn điều kiện cuối cùng luôn do model kiểm tra.
+
+8. LUỒNG GIỎ HÀNG
 -----------------
 - CartController::requireCustomer(): kiểm tra session có khách hàng hợp lệ không; nếu chưa đăng nhập thì chuyển đến trang đăng nhập.
 - verifyCsrf(): so token trong POST với token lưu trong session để chống request giả mạo.
@@ -95,7 +115,7 @@ GET thường dùng để xem dữ liệu; POST dùng cho thao tác làm thay đ
 - flash(): đặt thông báo một lần trong session để trang sau hiển thị.
 - app/Models/Cart.php chứa các thao tác dữ liệu giỏ: tìm/tạo giỏ, đọc dòng hàng, thêm hàng, cập nhật số lượng, xóa một dòng hoặc làm trống giỏ. Model kiểm tra sản phẩm/tồn kho và tính lại tổng tiền theo dữ liệu database; không nên tin giá do trình duyệt gửi lên.
 
-7. LUỒNG ĐẶT HÀNG COD
+9. LUỒNG ĐẶT HÀNG COD
 ---------------------
 1. CheckoutController::index() yêu cầu đăng nhập, lấy nội dung giỏ và render checkout/index.
 2. CheckoutController::placeOrder() nhận POST, kiểm tra CSRF và người dùng, kiểm tra thông tin người nhận. Nếu dữ liệu chưa hợp lệ, render lại form cùng lỗi.
@@ -107,7 +127,7 @@ GET thường dùng để xem dữ liệu; POST dùng cho thao tác làm thay đ
 
 Đây là COD (trả tiền khi nhận hàng). Mã hiện tại không thực hiện thanh toán trực tuyến. Transaction giúp các thay đổi đơn hàng/kho cùng thành công hoặc cùng bị hủy.
 
-8. CÁCH ĐỌC VIEW VÀ FORM
+10. CÁCH ĐỌC VIEW VÀ FORM
 ------------------------
 - app/views/layouts/customer.php là khung chung: header/menu, nội dung $content và footer.
 - Các view nhận dữ liệu do Controller truyền bằng mảng data. Ví dụ pageTitle, products, cart, errors.
@@ -115,7 +135,7 @@ GET thường dùng để xem dữ liệu; POST dùng cho thao tác làm thay đ
 - Khi in dữ liệu do người dùng/database cung cấp vào HTML, cần escape phù hợp (thường dùng htmlspecialchars) để tránh HTML/script chạy ngoài ý muốn.
 - CSS và JavaScript tĩnh nằm trong public/css và public/js; ảnh sản phẩm nằm ở public/images/products.
 
-9. CÁC KHÁI NIỆM PHP/DATABASE THƯỜNG GẶP TRONG DỰ ÁN
+11. CÁC KHÁI NIỆM PHP/DATABASE THƯỜNG GẶP TRONG DỰ ÁN
 ----------------------------------------------------
 - Prepared statement: prepare(SQL) rồi execute(params), giúp tách dữ liệu đầu vào khỏi câu lệnh SQL.
 - PDO: lớp PHP kết nối và làm việc với MySQL.
@@ -128,7 +148,7 @@ GET thường dùng để xem dữ liệu; POST dùng cho thao tác làm thay đ
 - htmlspecialchars(): chuyển ký tự đặc biệt thành dạng an toàn khi đưa vào HTML.
 - password_hash()/password_verify(): tạo và xác minh hash mật khẩu.
 
-10. GỢI Ý TỰ LẦN THEO CODE
+12. GỢI Ý TỰ LẦN THEO CODE
 --------------------------
 - Muốn hiểu một URL: tìm URL trong routes/web.php → mở controller action → theo lời gọi model → xem view nhận biến gì.
 - Muốn hiểu một nút form: tìm form trong file view → xem action/method/name của input → tìm route tương ứng → đọc controller → đọc model.
