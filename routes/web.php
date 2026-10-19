@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Controllers\AboutController;
+use App\Controllers\AccountController;
 use App\Controllers\AuthController;
 use App\Controllers\CartController;
 use App\Controllers\CheckoutController;
@@ -25,6 +26,10 @@ $router->post('/register', [AuthController::class, 'register']);
 $router->get('/login', [AuthController::class, 'login']);
 $router->post('/login', [AuthController::class, 'login']);
 $router->post('/logout', [AuthController::class, 'logout']);
+
+// Tài khoản khách hàng
+$router->get('/account', [AccountController::class, 'index']);
+$router->post('/account', [AccountController::class, 'update']);
 
 // Quản lý người dùng (chỉ quản trị viên; các thao tác ghi dùng POST và CSRF).
 $router->get('/admin/users', [UserManagementController::class, 'index']);

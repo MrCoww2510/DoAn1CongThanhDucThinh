@@ -97,7 +97,7 @@ $baseUrl = rtrim($appConfig['base_url'] ?? '', '/');
                     </a>
                 <?php } else { ?>
                     <span class="header-greeting">Xin chào, <?php echo $greetingName; ?></span>
-                <?php } ?>
+
                 <form
                     method="post"
                     action="<?php echo htmlspecialchars($baseUrl.'/logout', ENT_QUOTES, 'UTF-8'); ?>"
@@ -109,6 +109,7 @@ $baseUrl = rtrim($appConfig['base_url'] ?? '', '/');
                     >
                     <button class="header-account-button" type="submit">Đăng xuất</button>
                 </form>
+                <?php } ?>
             <?php } else { ?>
                 <a href="<?php echo htmlspecialchars($baseUrl.'/login', ENT_QUOTES, 'UTF-8'); ?>">
                     Đăng nhập
@@ -147,7 +148,7 @@ $baseUrl = rtrim($appConfig['base_url'] ?? '', '/');
     </nav>
 
     <main class="container main-content">
-        <?php echo $content; ?>
+        <?php echo $content ?? ''; ?>
     </main>
 
     <footer class="site-footer">

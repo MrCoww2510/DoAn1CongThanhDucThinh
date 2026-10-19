@@ -33,12 +33,12 @@ $baseUrl = rtrim((string) ($appConfig['base_url'] ?? ''), '/');
     <?php endif; ?>
 
     <form class="account-form" method="post" action="<?= $escape($baseUrl) ?>/account">
-        <input type="hidden" name="_csrf" value="<?= $escape($csrfToken) ?>">
+        <input type="hidden" name="_csrf" value="<?= $escape($csrfToken ?? '') ?>">
 
         <section class="account-card">
             <h2>Thông tin cá nhân</h2>
             <p class="account-section-note">
-                Tên đăng nhập: <strong><?= $escape($profile['TenDangNhap']) ?></strong>
+                Tên đăng nhập: <strong><?= $escape($profile['TenDangNhap'] ?? '') ?></strong>
                 <span> (không thể thay đổi)</span>
             </p>
 
@@ -142,7 +142,7 @@ $baseUrl = rtrim((string) ($appConfig['base_url'] ?? ''), '/');
 
     <div class="account-logout">
         <form method="post" action="<?= $escape($baseUrl) ?>/logout">
-            <input type="hidden" name="_csrf" value="<?= $escape($csrfToken) ?>">
+            <input type="hidden" name="_csrf" value="<?= $escape($csrfToken ?? '') ?>">
             <button class="account-logout-button" type="submit">Đăng xuất</button>
         </form>
     </div>
