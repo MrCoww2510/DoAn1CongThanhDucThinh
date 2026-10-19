@@ -166,16 +166,17 @@ final class Account
     }
 
     // Lấy hồ sơ khách hàng dùng cho trang tài khoản và biểu mẫu đặt hàng.
-    public function findCustomerProfile(string $userId): ?array
+    public function findCustomerProfile(string $userId, string $role = 'KhachHang'): ?array
     {
         $stmt = Database::connection()->prepare(
-            'SELECT nd.MaND, nd.HoTen, nd.SDT, nd.Email, nd.DiaChiNhanHang
+            'SELECT nd.MaND, nd.HoTen, nd.SDT, nd.Email, nd.DiaChiNhanHang,
+                    tk.TenDangNhap
              FROM NguoiDung nd
              INNER JOIN TaiKhoan tk ON tk.MaND = nd.MaND
              WHERE nd.MaND = :userId AND tk.VaiTro = :role
              LIMIT 1'
         );
-        $stmt->execute(['userId' => $userId, 'role' => 'KhachHang']);
+        $stmt->execute(['userId' => $userId, 'role' => $role]);
         $profile = $stmt->fetch();
 
         return $profile ?: null;
@@ -189,7 +190,8 @@ final class Account
         string $phone,
         string $address,
         ?string $currentPassword = null,
-        ?string $newPassword = null
+        ?string $newPassword = null,
+        string $role = 'KhachHang'
     ): void {
         $pdo = Database::connection();
         $pdo->beginTransaction();
@@ -201,11 +203,11 @@ final class Account
                  WHERE tk.MaND = :userId AND tk.VaiTro = :role
                  FOR UPDATE'
             );
-            $stmt->execute(['userId' => $userId, 'role' => 'KhachHang']);
+            $stmt->execute(['userId' => $userId, 'role' => $role]);
             $account = $stmt->fetch();
 
             if (!$account) {
-                throw new \RuntimeException('Không tìm thấy tài khoản khách hàng.');
+                throw new \RuntimeException('Không tìm thấy tài khoản.');
             }
 
             $stmt = $pdo->prepare(

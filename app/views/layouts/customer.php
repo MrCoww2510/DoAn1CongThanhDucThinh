@@ -88,7 +88,7 @@ $baseUrl = rtrim($appConfig['base_url'] ?? '', '/');
                     'UTF-8'
                 );
                 ?>
-                <?php if (($_SESSION['user']['VaiTro'] ?? '') === 'KhachHang') { ?>
+                <?php if (in_array($_SESSION['user']['VaiTro'] ?? '', ['KhachHang', 'QuanTriVien'], true)) { ?>
                     <a
                         class="header-account-profile-link"
                         href="<?php echo htmlspecialchars($baseUrl.'/account', ENT_QUOTES, 'UTF-8'); ?>"
@@ -97,7 +97,8 @@ $baseUrl = rtrim($appConfig['base_url'] ?? '', '/');
                     </a>
                 <?php } else { ?>
                     <span class="header-greeting">Xin chào, <?php echo $greetingName; ?></span>
-
+                <?php } ?>
+                <?php if (($_SESSION['user']['VaiTro'] ?? '') !== 'KhachHang') { ?>
                 <form
                     method="post"
                     action="<?php echo htmlspecialchars($baseUrl.'/logout', ENT_QUOTES, 'UTF-8'); ?>"

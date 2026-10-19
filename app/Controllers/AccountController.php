@@ -12,14 +12,14 @@ use Throwable;
 
 final class AccountController extends Controller
 {
-    private function requireCustomer(): array
+    private function requireAccountUser(): array
     {
         $user = $_SESSION['user'] ?? null;
 
         if (
             !is_array($user)
             || empty($user['MaND'])
-            || ($user['VaiTro'] ?? '') !== 'KhachHang'
+            || !in_array($user['VaiTro'] ?? '', ['KhachHang', 'QuanTriVien'], true)
         ) {
             $this->redirect('login');
         }
@@ -44,8 +44,9 @@ final class AccountController extends Controller
 
     public function index(): void
     {
-        $user = $this->requireCustomer();
-        $profile = (new Account())->findCustomerProfile((string) $user['MaND']);
+        $user = $this->requireAccountUser();
+        $role = (string) $user['VaiTro'];
+        $profile = (new Account())->findCustomerProfile((string) $user['MaND'], $role);
 
         if ($profile === null) {
             http_response_code(404);
@@ -85,7 +86,8 @@ final class AccountController extends Controller
         }
 
         $this->verifyCsrf();
-        $user = $this->requireCustomer();
+        $user = $this->requireAccountUser();
+        $role = (string) $user['VaiTro'];
         $form = [
             'name' => trim((string) ($_POST['name'] ?? '')),
             'email' => trim((string) ($_POST['email'] ?? '')),
@@ -157,7 +159,8 @@ final class AccountController extends Controller
                 $form['phone'],
                 $form['address'],
                 $changingPassword ? $currentPassword : null,
-                $changingPassword ? $newPassword : null
+                $changingPassword ? $newPassword : null,
+                $role
             );
 
             $_SESSION['user']['HoTen'] = $form['name'];
@@ -189,7 +192,10 @@ final class AccountController extends Controller
 
     private function renderForm(array $user, array $form, array $errors): void
     {
-        $profile = (new Account())->findCustomerProfile((string) $user['MaND']);
+        $profile = (new Account())->findCustomerProfile(
+            (string) $user['MaND'],
+            (string) $user['VaiTro']
+        );
 
         if ($profile === null) {
             http_response_code(404);
