@@ -1,0 +1,12 @@
+﻿flowchart LR
+  Browser --> Apache
+  Apache --> FrontController[public/index.php]
+  FrontController --> Router[routes/web.php + Router]
+  Router --> Controller
+  Controller --> Model
+  Model --> PDO[Database::connection]
+  PDO --> MySQL
+  Controller --> View[View::render]
+  View --> Template[PHP view + layout]
+  Template --> Browser
+  Template --> Assets[CSS + JavaScript]

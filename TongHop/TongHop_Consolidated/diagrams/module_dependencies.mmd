@@ -1,0 +1,11 @@
+﻿flowchart TD
+  Entry[public/index.php] --> Routes[routes/web.php]
+  Routes --> Router[app/Core/Router.php]
+  Router --> Controllers[Controllers]
+  Controllers --> Models[Models]
+  Controllers --> View[Core View]
+  Models --> Database[Core Database]
+  Database --> PDO[(PDO / MySQL)]
+  View --> Templates[PHP views/layout]
+  Templates --> Assets[CSS / JavaScript]
+  Controllers --> Session[PHP session]

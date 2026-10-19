@@ -1,0 +1,18 @@
+﻿flowchart TD
+  Entry[public/index.php] --> RouteFile[routes/web.php]
+  RouteFile --> Router[app/Core/Router.php]
+  Router --> Controllers[app/Controllers]
+  Controllers --> BaseController[app/Core/Controller.php]
+  Controllers --> Models[app/Models]
+  BaseController --> ViewClass[app/Core/View.php]
+  Controllers --> ViewClass
+  ViewClass --> Views[app/views]
+  Views --> Layout[layouts/customer.php]
+  Layout --> Css[public/css]
+  Layout --> NavJs[public/js/nav.js]
+  Views --> CancelJs[public/js/order-cancel-dialog.js]
+  Models --> Database[app/Core/Database.php]
+  Database --> Config[config/database.php]
+  Database --> PDO[(PDO / MySQL)]
+  Models --> Schema[(database.sql tables)]
+  Controllers --> Session[PHP session]

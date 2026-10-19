@@ -1,0 +1,16 @@
+﻿flowchart LR
+  B[Browser] -->|HTTP| A[Apache]
+  A --> R[Root .htaccess: block internal folders]
+  A --> P[public/.htaccess]
+  P -->|file or directory exists| S[Serve static asset]
+  P -->|other path| F[public/index.php]
+  F --> L[Load app config, autoload, session, exception handler]
+  F --> W[routes/web.php + Router]
+  W --> C[Controller action]
+  C --> M[Model]
+  M --> D[Database::connection / PDO]
+  D --> DB[(MySQL schema)]
+  C --> V[View::render]
+  V --> T[PHP view + customer layout]
+  T -->|HTML| B
+  C -->|Redirect / status| B

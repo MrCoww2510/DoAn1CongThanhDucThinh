@@ -1,0 +1,19 @@
+﻿sequenceDiagram
+  participant U as Browser
+  participant A as Apache
+  participant F as Front controller
+  participant R as Router
+  participant C as Controller
+  participant M as Model
+  participant D as PDO/MySQL
+  participant V as View/Layout
+  U->>A: HTTP request
+  A->>F: Rewrite dynamic path
+  F->>R: Dispatch method and path
+  R->>C: Invoke matched action
+  C->>M: Validate and invoke use case
+  M->>D: Prepared query or transaction
+  D-->>M: Rows/result
+  M-->>C: Data/result
+  C->>V: Render template or redirect
+  V-->>U: HTML response

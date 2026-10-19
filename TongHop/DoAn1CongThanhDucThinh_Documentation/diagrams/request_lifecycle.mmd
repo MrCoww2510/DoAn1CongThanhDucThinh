@@ -1,0 +1,17 @@
+﻿sequenceDiagram
+  participant U as Browser
+  participant A as Apache
+  participant F as Front Controller
+  participant R as Router
+  participant C as Controller
+  participant M as Model
+  participant D as MySQL via PDO
+  U->>A: HTTP request
+  A->>F: rewrite URL động
+  F->>R: dispatch method/path
+  R->>C: gọi action
+  C->>M: truy vấn nghiệp vụ
+  M->>D: prepared SQL / transaction
+  D-->>M: rows / kết quả
+  M-->>C: dữ liệu
+  C-->>U: HTML view hoặc redirect

@@ -1,0 +1,13 @@
+﻿erDiagram
+  NguoiDung ||--o| TaiKhoan : account
+  NguoiDung ||--o| GioHang : cart
+  DanhMuc ||--o{ SanPham : classifies
+  SanPham ||--o| ChiTietSanPham : details
+  GioHang ||--o{ ChiTietGioHang : contains
+  SanPham ||--o{ ChiTietGioHang : selected
+  NguoiDung ||--o{ DonHang : places
+  DonHang ||--o{ ChiTietDonHang : contains
+  SanPham ||--o{ ChiTietDonHang : referenced
+  DonHang ||--o{ GiaoDichThanhToan : transactions
+  SanPham ||--o{ LichSuKho : stock_history
+  NguoiDung ||--o{ LichSuKho : performs

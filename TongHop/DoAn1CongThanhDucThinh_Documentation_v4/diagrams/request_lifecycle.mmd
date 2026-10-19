@@ -1,0 +1,29 @@
+﻿sequenceDiagram
+  participant U as Browser
+  participant A as Apache
+  participant H as .htaccess rules
+  participant F as public/index.php
+  participant R as Router
+  participant C as Controller
+  participant M as Model
+  participant P as PDO/MySQL
+  participant V as View/Layout
+  U->>A: HTTP method + URL
+  A->>H: Apply root/public rewrite and access rules
+  alt static file or directory exists under public
+    H-->>U: Serve asset
+  else application route
+    H->>F: Rewrite to index.php
+    F->>F: Load config/autoloader/session; normalize project base path
+    F->>R: dispatch(method, path)
+    R->>C: Invoke mapped action
+    C->>M: Validate/prepare business operation
+    M->>P: Prepared query or transaction
+    P-->>M: Rows/result
+    M-->>C: Domain data/result
+    C->>V: Render view with data
+    V-->>U: HTML response
+    opt action redirects
+      C-->>U: Location + status
+    end
+  end

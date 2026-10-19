@@ -1,0 +1,13 @@
+﻿erDiagram
+  NguoiDung ||--|| TaiKhoan : co
+  NguoiDung ||--|| GioHang : so_huu
+  GioHang ||--o{ ChiTietGioHang : chua
+  SanPham ||--o{ ChiTietGioHang : duoc_dat
+  DanhMuc ||--o{ SanPham : phan_loai
+  SanPham ||--o| ChiTietSanPham : mo_ta
+  NguoiDung ||--o{ DonHang : dat
+  DonHang ||--|{ ChiTietDonHang : gom
+  SanPham ||--o{ ChiTietDonHang : tham_chieu
+  DonHang ||--o{ GiaoDichThanhToan : thanh_toan
+  SanPham ||--o{ LichSuKho : thay_doi
+  NguoiDung ||--o{ LichSuKho : thuc_hien
