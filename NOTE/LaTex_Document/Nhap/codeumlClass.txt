@@ -1,0 +1,183 @@
+@startuml
+title Sơ đồ lớp triển khai MVC - T&T Computer
+
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+hide empty members
+left to right direction
+
+package "app/Core" {
+    abstract class Controller {
+        # view(view : string, data : array, layout : string = 'customer') : void
+        # redirect(path : string, statusCode : int = 302) : never
+    }
+    class Database {
+        - {static} connection : ?PDO
+        + {static} connection() : PDO
+        - __construct()
+    }
+    class Router {
+        - routes : array
+        + get(path : string, handler : callable|array) : void
+        + post(path : string, handler : callable|array) : void
+        + add(method : string, path : string, handler : callable|array) : void
+        + dispatch(method : string, uri : string) : void
+        + __construct()
+    }
+    class View {
+        + {static} render(view : string, data : array, layout : string = 'customer') : void
+        - __construct()
+    }
+}
+
+package "app/Controllers" {
+    class HomeController {
+        + index() : void
+    }
+    class ProductController {
+        + index() : void
+        + show() : void
+    }
+    class AuthController {
+        + login() : void
+        + register() : void
+        + logout() : void
+    }
+    class AccountController {
+        + index() : void
+        + update() : void
+    }
+    class UserManagementController {
+        + index() : void
+        + createStaff() : void
+        + updateStaff() : void
+        + changeStatus() : void
+    }
+    class CartController {
+        + index() : void
+        + add() : void
+        + buyNow() : void
+        + update() : void
+        + remove() : void
+        + clear() : void
+    }
+    class CheckoutController {
+        + index() : void
+        + placeOrder() : void
+        + success() : void
+    }
+    class OrderController {
+        + index() : void
+        + show(orderId : string) : void
+        + cancel(orderId : string) : void
+    }
+    class AboutController {
+        + index() : void
+    }
+}
+
+package "app/Models" {
+    class Product {
+        + featured(limit : int = 8) : array
+        + all(keyword : string = '', categoryId : string = '', sort : string = 'default') : array
+        + categories() : array
+        + findById(id : string) : ?array
+        - baseQuery() : string
+    }
+    class Account {
+        + searchForManagement(query : string = '') : array
+        + findForManagement(accountId : string) : ?array
+        + createStaff(name : string, username : string, email : string, phone : string, password : string) : void
+        + updateStaff(accountId : string, name : string, username : string, email : string, phone : string) : bool
+        + usernameUsedByOther(username : string, accountId : string = '') : bool
+        + emailUsedByOther(email : string, accountId : string = '') : bool
+        + findCustomerProfile(userId : string, role : string = 'KhachHang') : ?array
+        + updateCustomerProfile(userId : string, name : string, email : string, phone : string, address : string, currentPassword : ?string = null, newPassword : ?string = null, role : string = 'KhachHang') : void
+        + changeStatus(accountId : string, status : string) : string
+        + findForLogin(identity : string) : ?array
+        + usernameExists(username : string) : bool
+        + emailExists(email : string) : bool
+        + register(name : string, username : string, email : string, phone : string, password : string) : void
+    }
+    class Cart {
+        - db : PDO
+        + __construct()
+        + getOrCreateCart(maND : string) : string
+        + getItems(maND : string) : array
+        + addItem(maND : string, maSP : string, quantity : int) : void
+        + findItems(maND : string) : array
+        + updateItem(maND : string, maSP : string, quantity : int) : void
+        + removeItem(maND : string, maSP : string) : void
+        + clear(maND : string) : void
+    }
+    class Order {
+        - db : PDO
+        + __construct()
+        + placeCodOrder(customerId : string, recipientName : string, deliveryAddress : string, recipientPhone : string) : array
+        + findForCustomer(orderId : string, customerId : string) : ?array
+        + findAllForCustomer(customerId : string) : array
+        + cancelForCustomer(orderId : string, customerId : string) : void
+    }
+}
+
+' Kế thừa theo khai báo PHP.
+Controller <|-- HomeController
+Controller <|-- ProductController
+Controller <|-- AuthController
+Controller <|-- AccountController
+Controller <|-- UserManagementController
+Controller <|-- CartController
+Controller <|-- CheckoutController
+Controller <|-- OrderController
+
+' Phụ thuộc theo lời gọi Model và thành phần hỗ trợ trong mã nguồn.
+Router ..> HomeController : gọi theo route
+Router ..> ProductController : gọi theo route
+Router ..> AuthController : gọi theo route
+Router ..> AccountController : gọi theo route
+Router ..> UserManagementController : gọi theo route
+Router ..> CartController : gọi theo route
+Router ..> CheckoutController : gọi theo route
+Router ..> OrderController : gọi theo route
+Router ..> AboutController : gọi theo route
+Controller ..> View : render
+HomeController ..> Product
+ProductController ..> Product
+AuthController ..> Account
+AccountController ..> Account
+UserManagementController ..> Account
+CartController ..> Cart
+CheckoutController ..> Cart
+CheckoutController ..> Account
+CheckoutController ..> Order
+OrderController ..> Order
+Account ..> Database
+Product ..> Database
+Cart ..> Database
+Order ..> Database
+
+note right of AboutController
+  Lớp này không kế thừa Controller trong mã nguồn.
+end note
+
+note bottom of Product
+  Tên lớp PHP khác tên bảng SQL.
+  Product truy vấn DanhMuc, SanPham, ChiTietSanPham.
+  Account, Cart và Order cũng truy vấn các bảng theo mã nguồn;
+  các lớp thực thể cùng tên bảng không được khai báo trong PHP.
+end note
+
+note right of Database
+  Nạp cấu hình từ config/database.php.
+end note
+
+note bottom of View
+  app/views chứa PHP template, không phải các lớp PHP.
+end note
+
+note bottom of Order
+  Đặt hàng hiện triển khai COD; chưa thấy luồng sử dụng
+  GiaoDichThanhToan hoặc tích hợp thanh toán trực tuyến.
+end note
+
+@enduml
