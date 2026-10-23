@@ -1,48 +1,41 @@
-\chapter{PHƯƠNG PHÁP NGHIÊN CỨU}\label{chap2_intro}
+\chapter{PHÂN TÍCH VÀ THIẾT KẾ HỆ THỐNG}\label{chap2_intro}
 \vspace{-40pt}
 
- 
-\section{PHƯƠNG PHÁP NGHIÊN CỨU}
-Nội dung đoạn 1
+\section{Yêu cầu hệ thống}
+\subsection{Yêu cầu chức năng}
+\begin{itemize}
+    \item Khách chưa đăng nhập có thể xem thông tin giới thiệu, danh mục và sản phẩm.
+    \item Khách hàng có thể đăng ký, đăng nhập, cập nhật hồ sơ và đổi mật khẩu.
+    \item Khách hàng có thể thêm, cập nhật số lượng hoặc xóa sản phẩm trong giỏ hàng.
+    \item Khách hàng có thể đặt hàng với thông tin nhận hàng, chọn hình thức COD, xem đơn hàng và gửi yêu cầu hủy khi trạng thái đơn cho phép.
+    \item Nhân viên quản trị có thể xem và quản lý tài khoản nhân viên theo quyền được cấp.
+\end{itemize}
 
+\subsection{Yêu cầu phi chức năng}
+Thông tin đầu vào cần được kiểm tra trước khi xử lý; thao tác thay đổi dữ liệu cần được thực hiện qua các luồng có kiểm soát. Dữ liệu tài khoản và đơn hàng được lưu trong cơ sở dữ liệu MySQL. Giao diện cần trình bày các chức năng rõ ràng trên trình duyệt máy tính và có thể sử dụng các tương tác JavaScript hiện có.
 
-Nội dung đoạn 2 nếu có
-%\cite{pham2024luanvan}
+\section{Tác nhân và quy trình nghiệp vụ}
+\subsection{Tác nhân}
+\begin{itemize}
+    \item \textbf{Khách vãng lai:} xem thông tin cửa hàng, danh mục và sản phẩm.
+    \item \textbf{Khách hàng:} sử dụng tài khoản để quản lý hồ sơ, giỏ hàng và đơn hàng.
+    \item \textbf{Nhân viên quản trị:} thực hiện các chức năng quản lý tài khoản nhân viên được hệ thống hỗ trợ.
+\end{itemize}
 
+\subsection{Quy trình đặt hàng}
+Khách hàng chọn sản phẩm và số lượng để đưa vào giỏ hàng. Khi tiến hành đặt hàng, hệ thống kiểm tra dữ liệu đơn hàng và các mặt hàng trong giỏ, tạo đơn cùng chi tiết đơn, cập nhật số lượng tồn kho và xóa các dòng giỏ hàng đã đặt. Các thao tác liên quan được xử lý trong giao dịch cơ sở dữ liệu. Đơn hàng trong phạm vi đồ án sử dụng hình thức COD.
 
+\subsection{Quy trình hủy đơn}
+Khách hàng gửi yêu cầu hủy đơn từ danh sách đơn hàng. Hệ thống kiểm tra quyền sở hữu và trạng thái đơn trước khi xử lý; nếu đủ điều kiện, thông tin đơn được cập nhật và số lượng hàng được hoàn lại kho.
 
-\section{PHÂN TÍCH - THIẾT KẾ}
-\subsection{Phân tích 1}
-Nội dung văn bản
-%-- Nếu có hình ---
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\textwidth]{Chapter_2/Images_c2/usecase.jpg}
-    \caption{Sơ đồ use case quản lý danh sách yêu thích} 
-    \label{fig-usqlds}
-\end{figure}
+\section{Thiết kế kiến trúc}
+Hệ thống được tổ chức quanh front controller và router. Router chuyển yêu cầu đến controller tương ứng; controller gọi model để thực hiện nghiệp vụ và lấy dữ liệu; view nhận dữ liệu để hiển thị trang. Các model kết nối MySQL thông qua PDO. Cấu trúc này giữ phần giao diện tách biệt tương đối với xử lý nghiệp vụ và truy vấn dữ liệu.
 
-%-- Nếu có bảng ---
-\begin{table}[H]
-\centering
-\caption{Kết quả thực nghiệm.}
-\begin{tabular}{ccccc}
-\toprule
-\textbf{STT} & \textbf{Model}   & \textbf{Cột A} & \textbf{Cột B} & \textbf{Cột C} \\ 
-\midrule
-1 & Thuật toán 1        & 1  & 2  & 3            \\
-2 & Thuật toán 2       & 4  & 5  & 6            \\
-\bottomrule
-\end{tabular}
-\label{tab-kq}
-\end{table}
+\section{Thiết kế cơ sở dữ liệu}
+Cơ sở dữ liệu lưu trữ các nhóm thông tin chính: người dùng và tài khoản; danh mục và sản phẩm; giỏ hàng và chi tiết giỏ hàng; đơn hàng và chi tiết đơn hàng; lịch sử kho. Các bảng được liên kết bằng khóa chính, khóa ngoại và các ràng buộc phù hợp với quan hệ nghiệp vụ. Bảng giao dịch thanh toán có trong schema nhưng chưa được sử dụng trong luồng đặt hàng hiện tại.
 
-\subsection{Phân tích 2}
+\section{Công cụ và môi trường}
+Ứng dụng được xây dựng bằng PHP, MySQL, HTML, CSS và JavaScript; PDO được dùng để kết nối cơ sở dữ liệu. Môi trường triển khai của dự án sử dụng máy chủ web Apache trong bộ XAMPP.
 
-\subsection{Phân tích 3}
-
-\section{KHẢO SÁT - XỬ LÝ SỐ LIỆU MÔ HÌNH, QUY TRÌNH, CÔNG CỤ SỬ DỤNG}
-
-\subsection{KHẢO SÁT - XỬ LÝ SỐ LIỆU MÔ HÌNH}
-\subsection{QUY TRÌNH}
-\subsection{CÔNG CỤ SỬ DỤNG}
+\section{Tổng kết chương}
+Chương này xác định các yêu cầu và quy trình chính của website, đồng thời mô tả kiến trúc và các nhóm dữ liệu. Chương tiếp theo cập nhật các chức năng hiện có và tiến độ xây dựng hệ thống.

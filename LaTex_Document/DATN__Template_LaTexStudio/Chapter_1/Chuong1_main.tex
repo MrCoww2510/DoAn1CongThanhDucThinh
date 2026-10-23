@@ -1,11 +1,27 @@
 \addtocontents{toc}{\protect\setcounter{tocdepth}{3}}
-\chapter{TỔNG QUAN LÝ THUYẾT VÀ CƠ SỞ NGHIÊN CỨU}\label{chap1_intro}
+\chapter{CƠ SỞ LÝ THUYẾT VÀ CÔNG NGHỆ}\label{chap1_intro}
 \vspace{-40pt}
 \renewcommand{\thesection}{\thechapter.\arabic{section}}
 \setcounter{section}{0} % Đảm bảo section bắt đầu từ 1.1
 
-\section{TÌNH HÌNH NGHIÊN CỨU}
+\section{Giới thiệu bài toán}
+Đồ án xây dựng website thương mại điện tử T\&T Computer, tập trung vào việc giới thiệu máy tính và linh kiện máy tính, hỗ trợ khách hàng tra cứu sản phẩm và thực hiện các bước mua hàng trực tuyến. Hệ thống cần kết nối các chức năng xem sản phẩm, tài khoản khách hàng, giỏ hàng và đơn hàng trong một quy trình thống nhất.
 
-\section{MÔ HÌNH NGHIÊN CỨU/GIẢI PHÁP}
+\section{Website thương mại điện tử}
+Website thương mại điện tử cung cấp thông tin hàng hóa và hỗ trợ giao dịch giữa cửa hàng với khách hàng thông qua môi trường web. Với phạm vi của đồ án, quy trình cơ bản gồm xem danh mục và thông tin sản phẩm, thêm sản phẩm vào giỏ, cung cấp thông tin nhận hàng, đặt hàng, sau đó theo dõi trạng thái đơn hàng. Hình thức thanh toán được triển khai trong phạm vi hệ thống là thanh toán khi nhận hàng (COD).
 
-\subsection{Mô hình dự báo Random Forest kết hợp thuật toán tối ưu tồn kho tự động}
+\section{Công nghệ sử dụng}
+\subsection{PHP}
+PHP là ngôn ngữ phía máy chủ được sử dụng để xử lý yêu cầu HTTP, thực hiện nghiệp vụ và tạo nội dung trang. Mã nguồn của đồ án tổ chức các thành phần xử lý thành controller, model và view theo cấu trúc MVC một phần do dự án tự triển khai \cite{phpmanual}.
+
+\subsection{MySQL và PDO}
+MySQL được sử dụng để lưu trữ dữ liệu của website. PDO cung cấp giao diện kết nối cơ sở dữ liệu từ PHP; trong đồ án, các model sử dụng PDO để thực hiện truy vấn và thao tác dữ liệu \cite{mysqlmanual,pdomanual}.
+
+\subsection{HTML, CSS và JavaScript}
+HTML biểu diễn cấu trúc nội dung trang; CSS trình bày giao diện; JavaScript hỗ trợ một số tương tác ở phía trình duyệt. Website kết xuất giao diện từ phía máy chủ và sử dụng JavaScript cho các thao tác DOM cần thiết \cite{mdnweb}.
+
+\section{Kiến trúc ứng dụng}
+Ứng dụng sử dụng mô hình xử lý yêu cầu qua front controller và bộ định tuyến. Controller tiếp nhận yêu cầu và điều phối nghiệp vụ; model làm việc với dữ liệu thông qua PDO; view kết xuất giao diện. Cách phân chia này giúp mã nguồn tách biệt tương đối giữa xử lý yêu cầu, truy cập dữ liệu và trình bày.
+
+\section{Tổng kết chương}
+Chương này giới thiệu bài toán bán hàng trực tuyến và các công nghệ nền tảng của website. Những nội dung đó là cơ sở để xác định yêu cầu và thiết kế hệ thống ở chương tiếp theo.

@@ -1,49 +1,44 @@
-\chapter{KẾT QUẢ VÀ THẢO LUẬN}\label{chap3_intro}
+\chapter{TIẾN ĐỘ XÂY DỰNG HỆ THỐNG}\label{chap3_intro}
 \vspace{-40pt}
 
- 
-\section{SẢN PHẨM/KẾT QUẢ ĐẠT ĐƯỢC}
-\subsection{Kết quả 1}
-Nội dung văn bản 
+\section{Danh sách Use Case theo tiến độ}
+Các Use Case dưới đây được đánh số theo danh mục trong tài liệu phân tích người dùng và Use Case. Phần mô tả chỉ ghi nhận chức năng đã có trong mã nguồn hiện tại; Use Case chưa được triển khai được để trống để bổ sung trong các giai đoạn tiếp theo.
 
-Nội dung đoạn 1
+\subsection{UC01: Đăng ký}
+Khách vãng lai có thể gửi thông tin để tạo tài khoản khách hàng. Hệ thống kiểm tra dữ liệu đăng ký và thông tin tài khoản trùng trước khi lưu.
 
+\subsection{UC02: Đăng nhập}
+Người dùng có thể đăng nhập bằng thông tin tài khoản. Hệ thống xác thực mật khẩu và trạng thái tài khoản; người dùng có thể đăng xuất.
 
-Nội dung đoạn 2 nếu có
+\subsection{UC03: Xem, tìm kiếm và lọc sản phẩm}
+Khách vãng lai và khách hàng có thể xem danh sách, tìm kiếm theo từ khóa, lọc theo danh mục, sắp xếp theo tên hoặc giá và xem chi tiết sản phẩm. Lọc theo khoảng giá và thương hiệu chưa có trong chức năng hiện tại.
 
-\subsection{Kết quả 2}
+\subsection{UC04: Quản lý giỏ hàng}
+Khách hàng có thể thêm sản phẩm vào giỏ, mua ngay, xem giỏ hàng, cập nhật số lượng, xóa một sản phẩm hoặc làm trống giỏ hàng. Hệ thống kiểm tra số lượng và tình trạng sản phẩm khi xử lý thao tác.
 
+\subsection{UC05: Đặt hàng}
+Khách hàng có thể gửi thông tin người nhận để tạo đơn từ giỏ hàng. Luồng hiện tại hỗ trợ đặt hàng COD; hệ thống kiểm tra dữ liệu và tồn kho, tạo đơn hàng cùng chi tiết đơn, cập nhật tồn kho và làm trống giỏ hàng.
 
-\subsection{Kết quả 3}
+\subsection{UC06: Thanh toán}
+Hiện tại chỉ có hình thức COD. Thanh toán trực tuyến và tích hợp cổng thanh toán chưa được triển khai.
 
+\subsection{UC07: Theo dõi và hủy đơn hàng}
+Khách hàng có thể xem danh sách và chi tiết đơn hàng thuộc tài khoản của mình. Khách hàng được gửi yêu cầu hủy đơn khi trạng thái cho phép; khi hủy hợp lệ, hệ thống cập nhật đơn và hoàn lại tồn kho.
 
-\section{THẢO LUẬN}
+\subsection{UC08: Quản lý tài khoản}
+Người dùng đã đăng nhập có thể xem và cập nhật thông tin cá nhân, thông tin liên hệ, địa chỉ nhận hàng và đổi mật khẩu.
 
-\subsection{Đánh giá mức độ đạt mục tiêu đề ra}
-Nội dung văn bản
-%-- Nếu có hình ---
-\begin{figure}[htbp]
-    \centering % Bỏ dấu gạch dưới ở đây
-    \includegraphics[width=\textwidth]{Chapter_3/Images_c3/khuyenmai.png}
-    \caption{Cập nhật chương trình khuyến mãi} 
-    \label{fig-logo3}
-\end{figure}
+\subsection{UC09: Quản lý đơn hàng}
 
-%-- Nếu có bảng ---
-\begin{table}[H]
-\centering
-\caption{Kết quả thực nghiệm.}
-\begin{tabular}{ccccc}
-\toprule
-\textbf{STT} & \textbf{Model}   & \textbf{Cột A} & \textbf{Cột B} & \textbf{Cột C} \\ 
-\midrule
-1 & Thuật toán 1        & 1  & 2  & 3            \\
-2 & Thuật toán 2       & 4  & 5  & 6            \\
-\bottomrule
-\end{tabular}
-\label{tab-vidu3}
-\end{table}
+\subsection{UC10: Kiểm tra tồn kho}
 
-\subsection{Ưu điểm}
+\subsection{UC11: Quản lý sản phẩm}
 
-\subsection{Nhược điểm}
+\subsection{UC12: Quản lý danh mục}
+
+\subsection{UC13: Quản lý người dùng}
+Quản trị viên có thể xem danh sách, tạo tài khoản nhân viên và cập nhật trạng thái tài khoản nhân viên. Các chức năng quản trị tài khoản khách hàng chưa có trong phạm vi hiện tại.
+
+\subsection{UC14: Quản lý kho}
+
+\subsection{UC15: Xem thống kê}
