@@ -1,0 +1,423 @@
+BÁO CÁO PHÂN TÍCH LUỒNG HOẠT ĐỘNG WEBSITE T&T COMPUTER
+Ngày khảo sát: 23/10/2026
+Phạm vi: Đọc source code; không chạy website, không kết nối database, không gửi form, không thay đổi dữ liệu.
+
+PHẦN A — TỔNG QUAN DỰ ÁN
+
+1. Cây thư mục thực tế
+
+/
+├── public/
+│   ├── index.php
+│   ├── .htaccess
+│   ├── css/                 CSS theo trang/chức năng
+│   ├── js/                  nav.js, order-cancel-dialog.js
+│   └── images/products/     ảnh sản phẩm, placeholder và một file Python
+├── app/
+│   ├── Core/                Router, Controller, View, Database
+│   ├── Controllers/         xử lý route/chức năng
+│   ├── Models/              truy vấn và cập nhật dữ liệu
+│   └── views/
+│       ├── layouts/
+│       ├── auth/
+│       ├── products/
+│       ├── cart/
+│       ├── checkout/
+│       ├── orders/
+│       ├── account/
+│       ├── admin/
+│       ├── home/
+│       ├── pages/
+│       └── errors/
+├── routes/web.php
+├── config/app.php
+├── config/database.php
+├── database.sql
+├── database/migrations/20261012_add_customer_address.sql
+├── dulieuao.sql
+├── storage/
+├── LaTex_Document/
+└── TongHop/                 các phiên bản/tài liệu tổng hợp
+
+Không có index.php ở thư mục gốc. Entry point PHP được xác định là public/index.php vì public/.htaccess rewrite các URL ứng dụng về file đó, và file này nạp route rồi gọi Router::dispatch(). Không thấy composer.json hoặc framework bên ngoài được nạp trong request. Router và renderer là code dự án.
+
+2. Bản đồ file, vai trò và cách sử dụng
+
+File/thư mục | Vai trò thực tế | Được gọi bởi | Sử dụng/gọi
+public/index.php | Front controller: cấu hình, autoload, session, khởi tạo và dispatch router | Apache khi request tới entry point | config/app.php, routes/web.php, Router
+public/.htaccess | Cho Apache phục vụ file thật trực tiếp; URL khác rewrite về index.php | Apache | public/index.php
+/.htaccess | Tắt directory listing, chặn truy cập web vào app/config/routes/storage | Apache | Không gọi PHP
+routes/web.php | Khai báo mapping HTTP method + URL tới controller/method | public/index.php qua require | Các controller
+app/Core/Router.php | Chuẩn hóa route, so khớp path/method, gọi handler hoặc trả 404 | public/index.php | Controller, trang 404
+app/Core/Controller.php | Hàm tiện ích view() và redirect() cho controller kế thừa | Controller | View::render(), Location header
+app/Core/View.php | Renderer: nạp view, thu output vào buffer, nạp layout | Controller::view() | View PHP, layout PHP
+app/Core/Database.php | Khởi tạo và tái sử dụng PDO static | Model gọi connection() | config/database.php, MySQL PDO
+app/Controllers | Đọc/kiểm tra đầu vào, gọi Model/View, redirect | Router | Model, session, view
+app/Models | Đóng gói SQL và trả dữ liệu cho controller | Controller | Database/PDO
+app/views | Tạo HTML từ dữ liệu truyền vào | View renderer hoặc AboutController | Layout, partial, CSS/JS
+app/views/layouts/customer.php | Khung trang: title, header, menu, footer và $content | View renderer; AboutController gọi trực tiếp | CSS, nav.js, HTML của view
+public/css, public/js, public/images | Tài nguyên tĩnh do Apache phục vụ | Trình duyệt tải theo liên kết HTML | CSS/JS/ảnh
+database.sql | Schema SQL mẫu; có DROP TABLE | Không thấy PHP runtime gọi | Chỉ có tác dụng nếu người vận hành chủ động chạy SQL
+database/migrations/20261012_add_customer_address.sql | Thêm DiaChiNhanHang | Không thấy runtime tự chạy | Chỉ thay đổi schema khi được chủ động chạy
+TongHop, LaTex_Document, dulieuao.sql | Có trong workspace nhưng không thấy được require/include trong request web đã khảo sát | Chưa thấy file runtime nào gọi | Chưa xác định vai trò nội dung đầy đủ
+
+Chú ý: database.sql chứa lệnh DROP TABLE nhưng website không tự chạy file này theo mỗi request. Không chạy file SQL hoặc migration trong quá trình phân tích.
+
+3. Kiến trúc thực tế
+
+Dự án dùng mô hình MVC tự triển khai:
+- Router chọn controller và method.
+- Controller nhận dữ liệu request, kiểm tra điều kiện, gọi Model hoặc render View.
+- Model truy vấn MySQL qua PDO.
+- View tạo HTML, layout bọc nội dung.
+- Apache rewrite các URL ứng dụng và phục vụ file tĩnh.
+- PHP Session giữ thông tin đăng nhập, CSRF và thông báo tạm.
+
+Không thấy middleware riêng hay Dependency Injection container. Các controller tự gọi các hàm kiểm tra quyền và thường tạo model bằng new.
+
+PHẦN B — LUỒNG REQUEST TỪ URL ĐẾN RESPONSE
+
+1. Sơ đồ trang chủ
+
+flowchart TD
+    A["Trình duyệt gửi GET /DoAn1CongThanhDucThinh/public/"] --> B["Apache tiếp nhận"]
+    B --> C{"File/thư mục tĩnh có thật?"}
+    C -->|Có: CSS, JS, ảnh| S["Apache trả tài nguyên trực tiếp"]
+    C -->|Không: URL route| D["public/.htaccess rewrite về index.php"]
+    D --> E["public/index.php"]
+    E --> F["Nạp config, thiết lập timezone/debug"]
+    F --> G["Autoload App namespace và session_start"]
+    G --> H["require routes/web.php"]
+    H --> I["Router::dispatch(method, path)"]
+    I --> J["HomeController::index"]
+    J --> K["Product::featured(8), Product::categories"]
+    K --> L["Database::connection → PDO → MySQL"]
+    L --> M["Controller::view → View::render"]
+    M --> N["require home/index.php trong output buffer"]
+    N --> O["require layouts/customer.php, chèn $content"]
+    O --> P["PHP trả HTML"]
+    P --> Q["Trình duyệt dựng trang, tải CSS/JS/ảnh riêng"]
+
+Đây là luồng dựa trên .htaccess và source code. Không khởi động Apache để xác minh cấu hình máy đang chạy.
+
+2. Thứ tự trong public/index.php
+
+- define('BASE_PATH', dirname(__DIR__)) tạo hằng trỏ tới thư mục gốc dự án.
+- require config/app.php lấy mảng cấu hình; entry point đặt múi giờ và chế độ hiển thị lỗi.
+- spl_autoload_register đăng ký quy tắc: class namespace App\ đổi thành đường dẫn app/...php; require chỉ xảy ra khi PHP cần class và file tồn tại.
+- session_start() bắt đầu hoặc tiếp tục session trước khi controller đọc $_SESSION.
+- Exception handler ghi lỗi vào log, đặt HTTP 500 và hiển thị thông báo. Nếu debug bật, message được escape HTML; nếu không, chỉ hiện thông báo chung.
+- Tạo Router mới; require routes/web.php đăng ký route.
+- Lấy $_SERVER['REQUEST_URI'], dùng parse_url để tách path; cắt tiền tố base path.
+- Gọi $router->dispatch($_SERVER['REQUEST_METHOD'], $requestPath).
+
+Database chưa được kết nối ở khởi tạo. Kết nối chỉ xuất hiện khi model gọi Database::connection().
+
+3. Router phân nhánh ra sao
+
+routes/web.php gọi $router->get() hoặc $router->post(). Router::add():
+- Chuẩn hóa path, thêm slash đầu và bỏ slash cuối.
+- preg_quote() escape các ký tự regex.
+- Placeholder như {orderId} đổi thành nhóm regex có tên (?P<orderId>[^/]+).
+- Lưu method viết hoa, pattern và handler vào thuộc tính mảng $routes.
+
+Router::dispatch():
+- parse_url($uri, PHP_URL_PATH) lấy path, rawurldecode giải mã.
+- Đọc config base_url và bỏ tiền tố nếu path bắt đầu bằng base URL.
+- foreach lần lượt duyệt route. Nếu method không trùng thì continue; nếu regex không khớp cũng continue.
+- Khi khớp, lấy placeholder thành $params.
+- Handler dạng [Class, method] thì tạo controller bằng new và gọi method với các tham số placeholder theo thứ tự.
+- return sau khi gọi để không xét route khác.
+- Nếu duyệt hết mà không khớp, đặt 404 và require view lỗi.
+
+Ví dụ GET /orders/ABC: placeholder orderId được lấy từ regex rồi truyền thành đối số cho OrderController::show(string $orderId).
+
+Nếu path trùng nhưng HTTP method không khớp route, Router hiện tiếp tục tìm và cuối cùng trả 404. Một số controller có kiểm tra POST và trả 405, nhưng trong cấu hình hiện tại request sai method thường không đến được controller vì route đã bị Router loại.
+
+URL /css/base.css là file thật nên Apache phục vụ trực tiếp theo điều kiện -f của public/.htaccess; không đi qua controller. Root .htaccess không rewrite mọi URL về front controller.
+
+Redirect khác require:
+- require nạp file trong request hiện tại.
+- redirect() gửi Location header rồi exit; trình duyệt nhận response redirect và gửi request khác.
+- return chỉ kết thúc function/method hiện tại, không tự gửi response redirect.
+
+PHẦN C — TRUY VẾT BIẾN VÀ DỮ LIỆU (DANH SÁCH SẢN PHẨM)
+
+Ví dụ URL minh họa: GET /products?q=keyboard&category=DM01&sort=price_asc. DM01 chỉ là ví dụ, không phải dữ liệu thực được kiểm tra.
+
+Bước | File/method | Biến | Giá trị/kiểu | Nguồn và nơi truyền
+1 | public/index.php | $_SERVER['REQUEST_URI'] | Chuỗi URL | PHP server environment; parse_url lấy path
+2 | public/index.php | $requestPath | Chuỗi, ví dụ /products | Loại query string, cắt base path; truyền Router
+3 | public/index.php | $_SERVER['REQUEST_METHOD'] | Chuỗi GET/POST | Server environment; truyền dispatch
+4 | Router::dispatch | $method, $uri, $path | Tham số cục bộ dạng chuỗi | So route và regex
+5 | ProductController::index | $_GET['q'] | Giá trị query string | PHP dựng $_GET; controller ép kiểu và trim
+6 | Cùng method | $keyword, $categoryId, $sort | Chuỗi đã chuẩn hóa | Nếu key thiếu, dùng giá trị mặc định
+7 | Cùng method | $model | Object Product | Tạo bằng new; gọi all(...)
+8 | Product::all | $conditions, $params, $sql | Mảng điều kiện/bind và chuỗi SQL | Filter không rỗng thêm WHERE và tham số
+9 | Product::all | $stmt | PDOStatement | Nhận từ prepare(); execute($params)
+10 | Product::all | fetchAll() | Mảng các row associative | return về controller
+11 | ProductController | $products, $categories | Mảng kết quả DB | Đóng gói thành mảng data cho view()
+12 | View::render | $data, $baseUrl, $content | data array, chuỗi URL, chuỗi HTML | extract(data), buffer view, lấy HTML
+13 | products/index.php | $products, $product | Mảng và row hiện tại | foreach; require _card.php mỗi lượt
+14 | customer layout | $content | HTML của view | echo vào main; PHP hoàn tất response
+
+Các biến $keyword, $stmt, $product trong method là biến cục bộ. $this->db là thuộc tính instance của model. Database::$connection là static property dùng lại kết nối. $_GET, $_POST, $_SESSION, $_SERVER là superglobal do PHP cung cấp. Không thấy code đọc $_COOKIE hoặc gọi setcookie() trong phạm vi tìm kiếm.
+
+Đoạn code đầu vào tại ProductController:
+$keyword = trim((string) ($_GET['q'] ?? ''));
+$categoryId = trim((string) ($_GET['category'] ?? ''));
+$sort = trim((string) ($_GET['sort'] ?? 'default'));
+
+$_GET được PHP dựng từ query string; ?? cấp giá trị mặc định nếu key không tồn tại; (string) ép kiểu; trim bỏ khoảng trắng hai đầu. Sau đó sort được so với allowlist; giá trị không hợp lệ đổi thành default. Các biến cục bộ được truyền làm đối số Product::all().
+
+Trong Product::all(), keyword/category được đưa vào mảng bind $params và truy vấn dùng prepare/execute. ORDER BY không thể bind như một giá trị; model ánh xạ sort sang chuỗi SQL cố định trong allowlist.
+
+PHẦN D — LUỒNG CÁC CHỨC NĂNG
+
+1. Trang chủ
+
+Request GET /. HomeController::index() tạo Product model, gọi featured(8) và categories(), gán kết quả lần lượt vào featuredProducts và categories rồi truyền cho home/index. Product::featured giới hạn limit từ 1 đến 24, query ORDER BY MaSP DESC LIMIT. View lặp từng featured product và require partial products/_card.php. Sau đó layout bọc HTML.
+
+Database được đọc. Không có thao tác ghi đơn hàng/giỏ trong luồng này.
+
+2. Danh sách, tìm kiếm, lọc, sắp xếp
+
+Request GET /products với query tùy chọn q, category, sort. Form tìm kiếm ở header và form lọc đều dùng GET. Controller đọc $_GET, trim, kiểm tra allowlist sort, gọi Product::all(keyword, categoryId, sort). Model thêm WHERE cho keyword và category, nối các điều kiện bằng AND, execute các tham số, fetchAll trả rows. Controller đưa products, categories và giá trị filter vào view.
+
+View hiện count($products). Nếu mảng rỗng thì hiện trạng thái rỗng; nếu không thì foreach và require _card.php cho từng hàng.
+
+Không tìm thấy phân trang sản phẩm: không có biến page/controller, không có OFFSET, không có liên kết trước/sau. Product::featured có LIMIT tối đa 24 nhưng đây là giới hạn danh sách nổi bật, không phải phân trang. Account::searchForManagement giới hạn 200, cũng không phải giao diện phân trang.
+
+3. Chi tiết sản phẩm
+
+Request GET /product?id=... . Controller lấy $_GET['id']; rỗng thì gọi notFound(), đặt HTTP 404, render products/not-found rồi return. Nếu có ID, gọi Product::findById($id). Model prepare SQL với :id, execute, fetch một row. fetch trả false khi không có hàng; model chuyển false thành null. Controller nhận null thì 404; có sản phẩm thì truyền row thành product cho view.
+
+View dùng các key như TenSP, GiaBan, SoLuongTon, HinhAnh, MoTa, ThongSoKT. Giá trị động thường được htmlspecialchars trước khi xuất HTML. Tồn kho quyết định hiện form thêm giỏ hoặc trạng thái hết hàng.
+
+4. Đăng ký
+
+Request GET/POST /register.
+- Nếu session đã có user, controller redirect.
+- GET tạo CSRF nếu chưa có rồi render form.
+- POST đọc name, username, email, phone, password, confirm_password, _csrf từ $_POST.
+- Kiểm tra CSRF bằng hash_equals; trường bắt buộc; giới hạn độ dài; regex username; FILTER_VALIDATE_EMAIL; mật khẩu xác nhận và độ dài tối thiểu.
+- Account model kiểm tra username/email tồn tại.
+- Nếu hợp lệ, Account::register() bắt đầu transaction, tạo ID ngẫu nhiên, insert NguoiDung, insert TaiKhoan với password_hash(), role KhachHang, status HoatDong rồi commit.
+- Nếu exception trong transaction thì rollback rồi ném lại.
+- Controller thành công đổi CSRF, đặt cờ session _register_success rồi redirect /login.
+- Login view đọc cờ, hiện thông báo rồi unset để chỉ hiển thị một lần.
+
+5. Đăng nhập và đăng xuất
+
+Đăng nhập GET/POST /login:
+- Nếu $_SESSION['user'] tồn tại, redirectByRole().
+- POST đọc identity/password/_csrf; kiểm tra token và trường rỗng.
+- Account::findForLogin truy vấn TaiKhoan join NguoiDung theo username hoặc email.
+- Nếu account null hoặc password_verify sai, đặt lỗi.
+- Nếu TrangThai khác HoatDong, đặt lỗi.
+- Thành công: session_regenerate_id(true), unset MatKhau khỏi mảng account, gán account vào $_SESSION['user'], tạo CSRF token mới và redirect.
+- redirectByRole hiện đưa mọi role về trang chủ; comment cho biết trang quản trị tổng quát chưa xây. Module /admin/users tồn tại độc lập.
+
+Đăng xuất POST /logout:
+- Kiểm tra method, session user hợp lệ, CSRF.
+- Nếu hợp lệ, unset $_SESSION['user'], tạo CSRF mới, gửi Location về trang chủ và exit.
+- Không thấy session_destroy(); session vẫn còn nhưng dữ liệu user bị xóa.
+
+6. Giỏ hàng
+
+Route GET /cart và POST /cart/add, /cart/buy-now, /cart/update, /cart/remove, /cart/clear.
+- requireCustomer kiểm tra $_SESSION['user'], MaND và role KhachHang; không đạt thì redirect login.
+- Các thao tác POST kiểm tra method và CSRF.
+- Dữ liệu POST như maSP và quantity được trim/validate; quantity dùng FILTER_VALIDATE_INT và phải >= 1.
+- Cart::getOrCreateCart tìm giỏ theo MaND; nếu chưa có thì tạo GioHang.
+- Cart::addItem dùng transaction, kiểm tra sản phẩm/tồn kho, tăng số lượng hoặc insert chi tiết.
+- Cart::getItems join ChiTietGioHang, SanPham và ChiTietSanPham; tính ThanhTien từng dòng, cộng total, cập nhật GioHang.TongTien rồi return maGH/items/total.
+- Controller flash message vào session, redirect về cart hoặc checkout.
+- GET cart đọc flash rồi unset để thông báo chỉ dùng một lần.
+
+Điểm đáng lưu ý: getItems() có UPDATE TongTien nên request hiển thị giỏ có thể ghi giá trị tổng vào database. Đây là hành vi được đọc từ code, không được thực thi trong phân tích.
+
+7. Checkout COD, xác nhận và hủy đơn
+
+GET /checkout:
+- Yêu cầu khách đăng nhập.
+- Tạo CSRF nếu cần.
+- Lấy giỏ bằng Cart::findItems và hồ sơ bằng Account::findCustomerProfile.
+- Điền sẵn tên, điện thoại, địa chỉ, COD rồi render form.
+
+POST /checkout:
+- Kiểm tra method và CSRF.
+- Đọc, trim thông tin form.
+- Kiểm tra tên, chuẩn hóa phone, địa chỉ, paymentMethod; chỉ chấp nhận COD.
+- Đọc giỏ; nếu rỗng hoặc lỗi validation thì render lại form và return.
+- Nếu hợp lệ gọi Order::placeCodOrder(customerId, recipientName, deliveryAddress, recipientPhone).
+- Model mở transaction, khóa giỏ và các sản phẩm bằng FOR UPDATE, kiểm tra giỏ, số lượng, trạng thái bán và tồn kho. Tính tổng từ giá hiện hành. Insert DonHang, trừ tồn kho, insert ChiTietDonHang và LichSuKho, xóa dòng giỏ, đặt tổng giỏ về 0, commit.
+- Model return MaDH/TongTien. Controller redirect status 303 tới /checkout/success?id=...
+- PDOException và lỗi khác được log; form được render lại với thông báo.
+
+Thanh toán online chưa được tích hợp: controller nêu rõ chỉ COD được chấp nhận.
+
+GET /checkout/success:
+- Đọc id từ $_GET, truy vấn đơn theo MaDH cùng MaND của user hiện tại.
+- Không có hoặc không thuộc user thì HTTP 404; nếu có thì render receipt.
+
+POST /orders/{orderId}/cancel:
+- Kiểm tra POST/CSRF và khách đăng nhập.
+- Model khóa đơn và chỉ cho hủy trạng thái Chờ xác nhận.
+- Hoàn tồn kho, ghi lịch sử kho, đổi trạng thái Đã hủy trong transaction rồi commit.
+- Controller đặt flash, redirect 303 về trang chi tiết.
+
+8. Hồ sơ khách hàng
+
+GET /account cho role KhachHang hoặc QuanTriVien. Controller xác thực session, gọi findCustomerProfile theo MaND và role, dựng mảng form; nếu không tìm thấy profile trả 404. POST kiểm tra CSRF và các trường, rồi model cập nhật trong transaction. Nếu yêu cầu đổi mật khẩu, model kiểm tra mật khẩu cũ bằng password_verify và lưu hash mới. Sau cập nhật có flash và redirect 303.
+
+9. Quản trị người dùng
+
+Có GET /admin/users và các POST create-staff, update-staff, status. Không thấy route/controller quản trị sản phẩm.
+
+requireAdministrator kiểm tra role session. Sau đó truy vấn lại tài khoản hiện hành trong DB và xác nhận role QuanTriVien cùng status HoatDong. Chưa đăng nhập thì redirect login; đăng nhập sai quyền thì 403; admin bị vô hiệu hóa thì xóa user khỏi session rồi redirect login.
+
+Các POST kiểm tra CSRF và validate dữ liệu. Tạo/sửa nhân viên và đổi status gọi Account model, đặt thông báo trong session rồi redirect về danh sách.
+
+10. Trang About
+
+Route GET /about vào AboutController::index(). Controller này không kế thừa Controller; nó tự nạp config, bắt đầu ob_start, require app/Views/pages/about.php, lấy output thành $content rồi require layout. Kết quả giống renderer chung nhưng cách gọi khác.
+
+11. Chức năng đã/không thấy
+
+Chức năng | Kết luận từ source
+Trang chủ | Có
+Danh sách và chi tiết sản phẩm | Có
+Tìm kiếm theo tên | Có
+Lọc danh mục | Có
+Sắp xếp tên/giá | Có
+Phân trang sản phẩm | Không tìm thấy
+Đăng ký/đăng nhập/đăng xuất | Có
+Giỏ hàng | Có
+Checkout COD | Có
+Thanh toán online | Chưa tích hợp
+Đơn hàng: danh sách, chi tiết, hủy | Có
+Hồ sơ khách hàng | Có
+Quản lý nhân viên/tài khoản admin | Có, phạm vi module users
+Quản trị sản phẩm | Không thấy route/controller
+Upload ảnh qua website | Không tìm thấy
+Cookie tùy chỉnh | Không tìm thấy $_COOKIE/setcookie
+Middleware riêng | Không thấy; kiểm tra quyền trong controller
+
+PHẦN E — DATABASE VÀ PDO
+
+1. Kết nối
+
+Database::connection():
+- Nếu self::$connection là PDO thì return lại.
+- Nếu chưa có, require config/database.php và dựng DSN MySQL từ host/port/database/charset.
+- Tạo PDO với ERRMODE_EXCEPTION, FETCH_ASSOC và tắt emulate prepares.
+- Lỗi kết nối được log; caller nhận RuntimeException chung.
+- Kết nối static dùng lại trong cùng tiến trình PHP.
+
+Cấu hình thông tin xác thực không được chép vào báo cáo. Kết nối chưa mở trong entry point; chỉ mở khi model gọi connection().
+
+2. Ý nghĩa PDO API
+- PDO: kết nối database; không phải kết quả truy vấn.
+- prepare($sql): tạo PDOStatement cho câu SQL.
+- execute($params): gắn values vào placeholders và thực thi.
+- PDOStatement: object giữ kết quả/trạng thái câu query.
+- fetch(): một row associative hoặc false.
+- fetchAll(): mảng các row; mảng rỗng nếu không có hàng.
+- fetchColumn(): một cột.
+- return chuyển giá trị về caller; echo ghi nội dung vào output.
+
+3. Schema đã thấy trong database.sql
+
+NguoiDung, TaiKhoan, DanhMuc, SanPham, ChiTietSanPham, GioHang, ChiTietGioHang, DonHang, ChiTietDonHang, GiaoDichThanhToan, LichSuKho.
+
+Các khóa ngoại thể hiện liên kết user-account, category-product, cart-cart items, order-order items, product-stock history. Source dùng tên cột như MaSP, GiaBan, SoLuongTon, TrangThaiDH. Migration thêm DiaChiNhanHang; database.sql cũng khai báo trường này. Trạng thái schema đang chạy chưa được kiểm tra.
+
+PHẦN F — VIEW, LAYOUT, OUTPUT BUFFERING
+
+View::render():
+1. Dựng đường dẫn view và layout.
+2. Nếu thiếu file thì throw RuntimeException.
+3. Nạp cấu hình base_url.
+4. extract($data, EXTR_SKIP) biến key mảng thành biến cục bộ trong phạm vi renderer; ví dụ key products tạo $products. EXTR_SKIP tránh ghi đè tên biến đã có.
+5. ob_start() bắt đầu buffer.
+6. require view: HTML/echo được thu vào buffer.
+7. ob_get_clean() lấy nội dung thành chuỗi $content và đóng buffer.
+8. require layout; layout echo $content bên trong main.
+9. PHP trả response HTML.
+
+Layout có title, CSS, header, search form, menu, footer và nav.js. Trình duyệt sau đó tự tải CSS/JS/ảnh qua các request riêng. View có thể thêm CSS riêng.
+
+AboutController là ngoại lệ: tự dùng ob_start/ob_get_clean và require view/layout thay vì gọi View::render.
+
+PHẦN G — BẢO MẬT VÀ XỬ LÝ LỖI
+
+Chủ đề | Bằng chứng và giới hạn
+Prepared statements | Model dùng prepare/execute cho các input. Product::all chỉ chọn ORDER BY từ allowlist; featured clamp LIMIT 1–24.
+Mật khẩu | password_hash(PASSWORD_DEFAULT) khi tạo; password_verify khi login/đổi mật khẩu.
+CSRF | Form POST mang _csrf; controller so sánh bằng hash_equals. Token sai thường HTTP 403 rồi exit.
+Xác thực | Session user; giỏ/checkout/order yêu cầu KhachHang; module admin kiểm tra role và status.
+Session fixation | Login thành công gọi session_regenerate_id(true).
+Escape HTML | Nhiều view gọi htmlspecialchars(ENT_QUOTES, UTF-8), nhất là output động. Cần xem từng output để kết luận chính xác.
+Validation | Controller kiểm tra trường bắt buộc, độ dài, email, username, phone, quantity, trạng thái và COD.
+Upload | Không tìm thấy xử lý upload.
+Cookie | Không tìm thấy $_COOKIE hoặc setcookie. Cấu hình cookie session runtime không được kiểm tra.
+Transaction | Đăng ký, giỏ, đặt/hủy đơn và một số cập nhật hồ sơ dùng beginTransaction/commit/rollback.
+Lỗi | Exception handler đặt 500, log lỗi và che thông báo khi debug tắt. Cấu hình hiện bật debug; phù hợp môi trường phát triển local hơn production.
+Phân quyền | Kiểm tra phân tán trong controller, không phải middleware chung.
+
+PHẦN H — GIỚI HẠN VÀ ĐIỂM CHƯA XÁC MINH
+
+- Không chạy website nên chưa xác nhận DocumentRoot Apache, mod_rewrite, URL thật hoặc cấu hình dịch vụ.
+- Không kết nối MySQL nên không xác nhận DB tồn tại, schema thực tế, dữ liệu sản phẩm hay trạng thái.
+- Không đọc chi tiết mọi tài liệu trong TongHop/LaTex_Document, dulieuao.sql hoặc mọi ảnh. Không thấy chúng được gọi trong runtime PHP đã khảo sát.
+- Có public/images/products/doiten.py nhưng không có bằng chứng website gọi nó.
+- Các luồng thành công thường redirect sau POST. Một số nhánh lỗi render form trực tiếp sau POST; trình duyệt có thể nhắc/gửi lại khi refresh.
+- Request sai method thường rơi vào router 404; 405 ở controller chỉ có tác dụng nếu controller được gọi trong cách khác hoặc route thay đổi.
+- Đây là phân tích source tĩnh; không chạy test, không submit form, không chạy SQL, không chạy migration.
+
+PHẦN I — LỘ TRÌNH TỰ ĐỌC SOURCE
+
+Bước | File | Cần lần theo | Đọc xong cần giải thích
+1 | public/.htaccess, public/index.php | REQUEST_URI, REQUEST_METHOD, requestPath, BASE_PATH | Apache đưa URL route vào PHP nào; session/config khởi tạo ra sao
+2 | routes/web.php, app/Core/Router.php | routes, pattern, matches, params, handler | Router match method/path và gọi controller thế nào
+3 | HomeController.php, Product.php | model, featuredProducts, categories, stmt | Dữ liệu đi controller-model-return thế nào
+4 | Database.php, config/database.php | self::$connection, DSN, PDO options | PDO kết nối khi nào và được tái dùng ra sao
+5 | Controller.php, View.php, home/index.php, customer.php | data, extract, content, product | Output buffer, view và layout ghép nhau ra sao
+6 | ProductController.php, Product.php, products/index.php | $_GET, keyword, sort, params, products | Tìm/lọc/sắp xếp; vì sao không có phân trang
+7 | AuthController.php, Account.php | $_POST, $_SESSION['user'], CSRF, account | Đăng nhập sai/thành công phân nhánh thế nào
+8 | CartController.php, Cart.php | MaND, maGH, items, total, flash | Giỏ gắn user, tính tiền và hiển thị ra sao
+9 | CheckoutController.php, Order.php | form, errors, items, order, transaction | Tạo đơn COD, cập nhật kho, rollback/redirect ra sao
+10 | OrderController.php, UserManagementController.php, database.sql | role, status, foreign keys | Phân quyền và ràng buộc dữ liệu được kiểm tra ở đâu
+
+Mô hình đọc xuyên suốt: Request đưa dữ liệu vào Controller → Controller kiểm tra và gọi Model → Model truy vấn database rồi return dữ liệu → Controller truyền mảng cho renderer → View tạo HTML → Layout bọc HTML → PHP trả response → trình duyệt hiển thị và tải tài nguyên tĩnh.
+
+CÁC FILE SOURCE CHÍNH ĐỂ ĐỐI CHIẾU
+
+public/index.php
+routes/web.php
+app/Core/Router.php
+app/Core/Controller.php
+app/Core/View.php
+app/Core/Database.php
+app/Controllers/HomeController.php
+app/Controllers/ProductController.php
+app/Controllers/AuthController.php
+app/Controllers/AccountController.php
+app/Controllers/CartController.php
+app/Controllers/CheckoutController.php
+app/Controllers/OrderController.php
+app/Controllers/UserManagementController.php
+app/Controllers/AboutController.php
+app/Models/Product.php
+app/Models/Account.php
+app/Models/Cart.php
+app/Models/Order.php
+app/views/layouts/customer.php
+app/views/home/index.php
+app/views/products/index.php
+app/views/products/show.php
+app/views/products/_card.php
+database.sql
+database/migrations/20261012_add_customer_address.sql
+

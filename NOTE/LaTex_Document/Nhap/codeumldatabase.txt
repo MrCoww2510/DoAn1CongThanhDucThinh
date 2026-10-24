@@ -1,0 +1,193 @@
+@startuml
+title Sơ đồ cơ sở dữ liệu MySQL - T&T Computer
+
+hide methods
+hide stereotypes
+skinparam linetype ortho
+skinparam entity {
+    BackgroundColor White
+    BorderColor Black
+}
+left to right direction
+
+entity "NguoiDung" as ND {
+    * MaND : VARCHAR(20) <<PK>>
+    --
+    * HoTen : VARCHAR(100)
+    SDT : VARCHAR(15) <<NULL>>
+    Email : VARCHAR(100) <<NULL>>
+    DiaChiNhanHang : VARCHAR(255) <<NULL>>
+}
+
+entity "TaiKhoan" as TK {
+    * MaTK : VARCHAR(20) <<PK>>
+    --
+    * MaND : VARCHAR(20) <<FK, UNIQUE>>
+    * TenDangNhap : VARCHAR(50) <<UNIQUE>>
+    * MatKhau : VARCHAR(255)
+    * VaiTro : VARCHAR(20)
+    * TrangThai : VARCHAR(30) <<DEFAULT 'HoatDong'>>
+}
+
+entity "DanhMuc" as DM {
+    * MaDM : VARCHAR(20) <<PK>>
+    --
+    * TenDM : VARCHAR(100) <<UNIQUE>>
+}
+
+entity "SanPham" as SP {
+    * MaSP : VARCHAR(20) <<PK>>
+    --
+    * MaDM : VARCHAR(20) <<FK>>
+    * TenSP : VARCHAR(200)
+    * GiaBan : DECIMAL(18,2)
+    * SoLuongTon : INT <<DEFAULT 0>>
+}
+
+entity "ChiTietSanPham" as CTSP {
+    * MaCTSP : VARCHAR(20) <<PK>>
+    --
+    * MaSP : VARCHAR(20) <<FK, UNIQUE>>
+    LoaiSP : VARCHAR(100) <<NULL>>
+    ThongSoKT : TEXT <<NULL>>
+    ThuongHieu : VARCHAR(100) <<NULL>>
+    HinhAnh : VARCHAR(500) <<NULL>>
+    MoTa : TEXT <<NULL>>
+    TrangThai : VARCHAR(50) <<NULL>>
+}
+
+entity "GioHang" as GH {
+    * MaGH : VARCHAR(20) <<PK>>
+    --
+    * MaND : VARCHAR(20) <<FK, UNIQUE>>
+    * TongTien : DECIMAL(18,2) <<DEFAULT 0>>
+}
+
+entity "ChiTietGioHang" as CTGH {
+    * MaCTGH : VARCHAR(20) <<PK>>
+    --
+    * MaGH : VARCHAR(20) <<FK>>
+    * MaSP : VARCHAR(20) <<FK>>
+    * SoLuong : INT
+    ..
+    UNIQUE UQ_GioHang_SanPham (MaGH, MaSP)
+}
+
+entity "DonHang" as DH {
+    * MaDH : VARCHAR(20) <<PK>>
+    --
+    * MaND : VARCHAR(20) <<FK>>
+    MaNV : VARCHAR(20) <<FK, NULL>>
+    * TenNguoiNhan : VARCHAR(100)
+    * DiaChiGiao : VARCHAR(255)
+    * SDTNhan : VARCHAR(15)
+    * TongTien : DECIMAL(18,2)
+    * PhuongThucTT : VARCHAR(20)
+    * TrangThaiDH : VARCHAR(50)
+    * TrangThaiTT : VARCHAR(50)
+    * NgayTao : DATETIME <<DEFAULT CURRENT_TIMESTAMP>>
+}
+
+entity "ChiTietDonHang" as CTDH {
+    * MaCTDH : VARCHAR(20) <<PK>>
+    --
+    * MaDH : VARCHAR(20) <<FK>>
+    * MaSP : VARCHAR(20) <<FK>>
+    * SoLuong : INT
+    * DonGia : DECIMAL(18,2)
+}
+
+entity "GiaoDichThanhToan" as GDTT {
+    * MaGD : VARCHAR(50) <<PK>>
+    --
+    * MaDH : VARCHAR(20) <<FK>>
+    * SoTien : DECIMAL(18,2)
+    * TrangThai : VARCHAR(30)
+    ThoiGianGiaoDich : DATETIME <<NULL>>
+}
+
+entity "LichSuKho" as LSK {
+    * MaLS : VARCHAR(20) <<PK>>
+    --
+    * MaSP : VARCHAR(20) <<FK>>
+    * SoLuongThayDoi : INT
+    * LoaiThaoTac : VARCHAR(30)
+    * MaND : VARCHAR(20) <<FK>>
+    * ThoiGian : DATETIME <<DEFAULT CURRENT_TIMESTAMP>>
+}
+
+' Cardinality theo NULL, UNIQUE và FK đã khai báo trong database.sql.
+ND ||--o| TK : FK_TaiKhoan_NguoiDung
+DM ||--o{ SP : FK_SanPham_DanhMuc
+SP ||--o| CTSP : FK_ChiTietSanPham_SanPham
+ND ||--o| GH : FK_GioHang_NguoiDung
+GH ||--o{ CTGH : FK_ChiTietGioHang_GioHang\nON DELETE CASCADE
+SP ||--o{ CTGH : FK_ChiTietGioHang_SanPham
+ND ||--o{ DH : FK_DonHang_KhachHang (MaND)
+ND |o--o{ DH : FK_DonHang_NhanVien (MaNV)
+DH ||--o{ CTDH : FK_ChiTietDonHang_DonHang\nON DELETE CASCADE
+SP ||--o{ CTDH : FK_ChiTietDonHang_SanPham
+DH ||--o{ GDTT : FK_GiaoDichThanhToan_DonHang
+SP ||--o{ LSK : FK_LichSuKho_SanPham
+ND ||--o{ LSK : FK_LichSuKho_NguoiDung
+
+note bottom of TK
+  CHECK CK_TaiKhoan_VaiTro:
+  VaiTro IN ('KhachHang', 'NhanVien', 'QuanTriVien')
+  CHECK CK_TaiKhoan_TrangThai:
+  TrangThai IN ('HoatDong', 'VoHieuHoa', 'KhongConHoatDong')
+end note
+
+note bottom of SP
+  CHECK CK_SanPham_GiaBan: GiaBan >= 0
+  CHECK CK_SanPham_SoLuongTon: SoLuongTon >= 0
+end note
+
+note bottom of GH
+  CHECK CK_GioHang_TongTien: TongTien >= 0
+end note
+
+note bottom of CTGH
+  CHECK CK_ChiTietGioHang_SoLuong: SoLuong > 0
+end note
+
+note bottom of DH
+  CHECK CK_DonHang_TongTien: TongTien >= 0
+  CHECK CK_DonHang_PhuongThucTT: PhuongThucTT IN ('COD', 'Online')
+  CHECK CK_DonHang_TrangThaiDH: HEX(TrangThaiDH) IN
+  ('4368E1BB9D2078C3A163206E68E1BAAD6E',
+   'C490616E6720636875E1BAA96E2062E1BB8B2068C3A06E67',
+   'C490616E67206769616F2068C3A06E67',
+   '486FC3A06E207468C3A06E68', 'C490C3A32068E1BBA779')
+  CHECK CK_DonHang_TrangThaiTT: HEX(TrangThaiTT) IN
+  ('4368C6B061207468616E6820746FC3A16E',
+   'C490C3A3207468616E6820746FC3A16E')
+end note
+
+note bottom of CTDH
+  CHECK CK_ChiTietDonHang_SoLuong: SoLuong > 0
+  CHECK CK_ChiTietDonHang_DonGia: DonGia >= 0
+end note
+
+note bottom of GDTT
+  CHECK CK_GiaoDichThanhToan_SoTien: SoTien >= 0
+  CHECK CK_GiaoDichThanhToan_TrangThai:
+  TrangThai IN ('ThanhCong', 'ThatBai', 'DangXuLy')
+end note
+
+note bottom of LSK
+  CHECK CK_LichSuKho_LoaiThaoTac:
+  LoaiThaoTac IN ('NhapKho', 'DieuChinh', 'XuatKho')
+end note
+
+note as Rules
+  Dấu * biểu thị NOT NULL; cột không có dấu * cho phép NULL.
+  Mỗi bảng có ENGINE=InnoDB, DEFAULT CHARSET=utf8mb4.
+  FK không ghi ON DELETE/ON UPDATE dùng hành vi mặc định MySQL;
+  chỉ hai FK hiển thị CASCADE có ON DELETE CASCADE.
+  SQL không khai báo ON UPDATE, AUTO_INCREMENT hay index riêng.
+  CHECK trạng thái đơn hàng được giữ theo biểu thức HEX trong SQL;
+  sơ đồ ghi số lượng giá trị, không thay bằng quy tắc suy đoán.
+end note
+
+@enduml
