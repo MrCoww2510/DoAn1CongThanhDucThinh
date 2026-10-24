@@ -1,12 +1,12 @@
 # Fdb version 4
-["biber main"] 1792756859.35142 "main.bcf" "main.bbl" "main" 1792757915.97936 0
-  "main.bcf" 1792757915.3982 107995 95a616023c87a7be5d0cad091fff568e "pdflatex"
+["biber main"] 1792756859.35142 "main.bcf" "main.bbl" "main" 1792808460.96997 0
+  "main.bcf" 1792808460.39419 107995 95a616023c87a7be5d0cad091fff568e "pdflatex"
   "ref.bib" 1792746719.09168 703 ae0f0a27404959e89d3e16012bd30f3d ""
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1792757910.05148 "c:/xampp/htdocs/DoAn1CongThanhDucThinh/LaTex_Document/DATN__Template_LaTexStudio/main.tex" "main.pdf" "main" 1792757915.98198 0
+["pdflatex"] 1792808455.61203 "c:/xampp/htdocs/DoAn1CongThanhDucThinh/LaTex_Document/DATN__Template_LaTexStudio/main.tex" "main.pdf" "main" 1792808460.97209 0
   "Appendix/PhuLuc_main.tex" 1792746719.07096 519 bffe134aae6c3a5fd107b3d9d4d8224d ""
   "C:/Users/PC/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1792572256.14438 89969 e95579120a3aa0ebc21d2737ca2ba701 ""
   "C:/Users/PC/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1792572093.21819 13332036 521e3aa81e1b0b2e1258546738e6c4ff ""
@@ -160,23 +160,23 @@
   "Chapter_0/3_XacNhanHoiDong.tex" 1792746743.0849 1557 0e9c651dadb9c6ffc1a73080e9109959 ""
   "Chapter_0/4_LoiCamDoan.tex" 1792658523.82974 1277 00d8d4bc4897071e0d45f383d15356bd ""
   "Chapter_0/5_LoiCamOn.tex" 1792658524.09362 812 8648e47e0f181168dab1813373b49b9c ""
-  "Chapter_0/6_TomTat.tex" 1792756851.80237 681 051d9d9446f2a2471f51391ff2a4685e ""
+  "Chapter_0/6_TomTat.tex" 1792757922.63665 681 051d9d9446f2a2471f51391ff2a4685e ""
   "Chapter_0/8_DanhMucKyHieu.tex" 1786944988.36962 228 2c6e05087a987143023c7ebc88e7084f ""
-  "Chapter_0/Chapter0_main.tex" 1792747041.03155 1088 30511b5eb5ebf13d7d95f641cff42b63 ""
+  "Chapter_0/Chapter0_main.tex" 1792759187.54163 1096 83a49ca8ecb91abb65ee9fa21d3b8c97 ""
   "Chapter_0/logo.png" 1786944988.37262 138912 93f2aaa62c0d61e2e20abcefd24ae5e2 ""
   "Chapter_1/Chuong1_main.tex" 1792746718.99113 3006 809852fedb67a1753f4feb770184e9a1 ""
   "Chapter_2/Chuong2_main.tex" 1792755499.95666 4134 3297ac064c20f2d79e98cb76811a07e9 ""
-  "Chapter_3/Chuong3_main.tex" 1792755493.72161 1733 95df2f8c4b1cfd924dca07cf37a881f2 ""
+  "Chapter_3/Chuong3_main.tex" 1792762710.55468 2732 8908e6517d912420010b34108b74a983 ""
   "Chapter_4/Chuong4_main.tex" 1792755493.74168 84 b62332e7b9b9e04a439e43d005b7e3a2 ""
   "LoiMoDau/LoiMoDau_main.tex" 1792757911.01781 5831 0b0a6220e3d24e35d8b5c07f0678496d ""
   "c:/xampp/htdocs/DoAn1CongThanhDucThinh/LaTex_Document/DATN__Template_LaTexStudio/main.tex" 1792746807.26827 13837 17b99d47901ddc5fb2a0181876e1b127 ""
-  "main.aux" 1792757915.38422 7567 37ff4ad52abe602e97510045fc6e6299 "pdflatex"
+  "main.aux" 1792808460.3818 8799 6465b72d8856c6e936dcfbb3bec76065 "pdflatex"
   "main.bbl" 1792756863.79083 5520 dad9b5c65842e7cbad4d08d469a6f074 "biber main"
-  "main.lof" 1792757915.40295 94 3596b077e2af0adbfbb9e74bc0d03009 "pdflatex"
-  "main.lot" 1792757915.40295 94 3596b077e2af0adbfbb9e74bc0d03009 "pdflatex"
-  "main.out" 1792757915.38932 1140 140dd9363191707ff6cf9fc40262e288 "pdflatex"
-  "main.run.xml" 1792757915.40174 2331 6dd40e10a7fefe0f3013cd08d1366fd3 "pdflatex"
-  "main.toc" 1792757915.40174 3843 4f6ebe85f5984f2cb7116c3778d470bb "pdflatex"
+  "main.lof" 1792808460.39933 94 3596b077e2af0adbfbb9e74bc0d03009 "pdflatex"
+  "main.lot" 1792808460.39933 94 3596b077e2af0adbfbb9e74bc0d03009 "pdflatex"
+  "main.out" 1792808460.3848 1140 140dd9363191707ff6cf9fc40262e288 "pdflatex"
+  "main.run.xml" 1792808460.39833 2331 6dd40e10a7fefe0f3013cd08d1366fd3 "pdflatex"
+  "main.toc" 1792808460.39933 4705 89ecffa915af45a700cdbde5fb185119 "pdflatex"
   (generated)
   "main.aux"
   "main.bcf"

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.10.21)  23 OCT 2026 19:18
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.10.21)  24 OCT 2026 09:20
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1203,19 +1203,19 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.80008> not available
 
 ] (Chapter_0/6_TomTat.tex) [4
 
-] (main.toc)
+] (main.toc [5])
 \tf@toc=\write5
 \openout5 = `main.toc'.
 
- (main.lof)
+ [6] (main.lof)
 \tf@lof=\write6
 \openout6 = `main.lof'.
 
- [5] [6] (main.lot)
+ [7] (main.lot)
 \tf@lot=\write7
 \openout7 = `main.lot'.
 
- [7]) (LoiMoDau/LoiMoDau_main.tex
+ [8]) (LoiMoDau/LoiMoDau_main.tex
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 17.
  (C:\Users\PC\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
@@ -1236,17 +1236,17 @@ Ch\uhorn \ohorn ng 2.
 
 ]) [7] (Chapter_3/Chuong3_main.tex
 Ch\uhorn \ohorn ng 3.
-) [8
+[8
 
-] (Chapter_4/Chuong4_main.tex
+]) [9] (Chapter_4/Chuong4_main.tex
 Ch\uhorn \ohorn ng 4.
-) [9
+) [10
 
 ]
 LaTeX Font Info:    Trying to load font information for T5+cmtt on input line 393.
  (C:\Users\PC\AppData\Local\Programs\MiKTeX\tex/latex/vntex\t5cmtt.fd
 File: t5cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
-) [10] (Appendix/PhuLuc_main.tex)
+) [11] (Appendix/PhuLuc_main.tex)
 
 Package caption Warning: Unused \captionsetup[table] on input line 109.
 See the caption package documentation for explanation.
@@ -1274,17 +1274,17 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 29392 strings out of 467871
- 554560 string characters out of 5419827
- 1395857 words of memory out of 5000000
+ 29403 strings out of 467871
+ 554731 string characters out of 5419827
+ 1396858 words of memory out of 5000000
  57780 multiletter control sequences out of 15000+600000
- 681776 words of font info for 101 fonts, out of 8000000 for 9000
+ 681778 words of font info for 101 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  86i,13n,117p,784b,1353s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/PC/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/urwvn/utmb8v.pfb><C:/Users/PC/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/PC/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/urwvn/utmr8v.pfb><C:/Users/PC/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/urwvn/utmri8v.pfb><C:/Users/PC/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vntt12.pfb>
-Output written on main.pdf (20 pages, 229764 bytes).
+Output written on main.pdf (22 pages, 234973 bytes).
 PDF statistics:
- 243 PDF objects out of 1000 (max. 8388607)
- 67 named destinations out of 1000 (max. 500000)
+ 271 PDF objects out of 1000 (max. 8388607)
+ 78 named destinations out of 1000 (max. 500000)
  54 words of extra memory for PDF output out of 10000 (max. 10000000)
 
