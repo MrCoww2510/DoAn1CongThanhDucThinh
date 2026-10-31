@@ -1,0 +1,6 @@
+thêm api đăng nhập google
+đăng nhập bằng vai trò admin thì vào trang admin luôn còn người dùng thì về trang chủ
+thiếu giảm giá( ở thẻ sản phẩm, chi tiết sản phẩm ), khuyến mãi toàn trang hoặc cục bộ(thành 1 UC quản lý giảm giá)
+thiếu phân loại sản phẩm
+thêm UC voucher, quản lý voucher (nhập mã áp mã giảm giá)
+chọn 1 hoặc nhiều địa chỉ giao hàng (tính năng bổ sung UC08) --> sửa database --> thêm 1 phụ lưu thông tin chi tiết từng tài khoản hoặc kế thừa bản hiện tại
