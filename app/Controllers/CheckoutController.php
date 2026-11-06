@@ -7,6 +7,7 @@ namespace App\Controllers;
 use App\Core\Controller;
 use App\Models\Account;
 use App\Models\Cart;
+use App\Models\DeliveryAddress;
 use App\Models\Order;
 
 final class CheckoutController extends Controller
@@ -51,6 +52,15 @@ final class CheckoutController extends Controller
 
         $cart = (new Cart())->findItems((string) $user['MaND']);
         $profile = (new Account())->findCustomerProfile((string) $user['MaND']);
+        $addresses = $this->findDeliveryAddresses(
+            (string) $user['MaND'],
+            (string) ($profile['DiaChiNhanHang'] ?? '')
+        );
+        $selectedAddressId = (string) (
+            $_SESSION['_checkout_selected_address_id']
+                ?? ($addresses[0]['id'] ?? '')
+        );
+        unset($_SESSION['_checkout_selected_address_id']);
 
         $this->view('checkout/index', [
             'pageTitle' => 'Thanh toán',
@@ -58,13 +68,82 @@ final class CheckoutController extends Controller
             'total' => $cart['total'],
             'csrfToken' => $_SESSION['_csrf'],
             'errors' => [],
+            'addresses' => $addresses,
             'form' => [
                 'recipientName' => (string) ($profile['HoTen'] ?? $user['HoTen'] ?? ''),
                 'recipientPhone' => (string) ($profile['SDT'] ?? $user['SDT'] ?? ''),
-                'deliveryAddress' => (string) ($profile['DiaChiNhanHang'] ?? ''),
+                'deliveryAddressId' => $selectedAddressId,
+                'newAddress' => '',
                 'paymentMethod' => 'COD',
             ],
         ]);
+    }
+
+    public function addAddress(): void
+    {
+        if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
+            http_response_code(405);
+            exit('Phương thức không được hỗ trợ.');
+        }
+
+        $this->verifyCsrf();
+        $user = $this->requireCustomer();
+        $address = trim((string) ($_POST['newAddress'] ?? ''));
+        $cart = (new Cart())->findItems((string) $user['MaND']);
+        $form = [
+            'recipientName' => trim((string) ($_POST['recipientName'] ?? '')),
+            'recipientPhone' => trim((string) ($_POST['recipientPhone'] ?? '')),
+            'deliveryAddressId' => trim((string) ($_POST['deliveryAddressId'] ?? '')),
+            'newAddress' => $address,
+            'paymentMethod' => trim((string) ($_POST['paymentMethod'] ?? 'COD')),
+        ];
+
+        if ($address === '' || mb_strlen($address) > 255) {
+            $this->renderCheckout(
+                $cart,
+                $form,
+                ['Địa chỉ mới là bắt buộc và không được vượt quá 255 ký tự.'],
+                (string) $user['MaND']
+            );
+
+            return;
+        }
+
+        try {
+            $addressId = (new DeliveryAddress())->addForCustomer(
+                (string) $user['MaND'],
+                $address
+            );
+            $profile = (new Account())->findCustomerProfile((string) $user['MaND']);
+            $_SESSION['_checkout_selected_address_id'] =
+                (string) ($profile['DiaChiNhanHang'] ?? '') === $address
+                    ? 'profile'
+                    : (string) $addressId;
+            $this->redirect('checkout', 303);
+        } catch (\PDOException $exception) {
+            error_log('[Checkout address] '.$exception->getMessage());
+            $this->renderCheckout(
+                $cart,
+                $form,
+                ['Không thể lưu địa chỉ lúc này. Vui lòng thử lại.'],
+                (string) $user['MaND']
+            );
+        } catch (\RuntimeException $exception) {
+            $this->renderCheckout(
+                $cart,
+                $form,
+                [$exception->getMessage()],
+                (string) $user['MaND']
+            );
+        } catch (\Throwable $exception) {
+            error_log('[Checkout address] '.$exception->getMessage());
+            $this->renderCheckout(
+                $cart,
+                $form,
+                ['Không thể lưu địa chỉ lúc này. Vui lòng thử lại.'],
+                (string) $user['MaND']
+            );
+        }
     }
 
     // Kiểm tra dữ liệu nhận hàng và tạo đơn hàng COD.
@@ -81,7 +160,7 @@ final class CheckoutController extends Controller
         $form = [
             'recipientName' => trim((string) ($_POST['recipientName'] ?? '')),
             'recipientPhone' => trim((string) ($_POST['recipientPhone'] ?? '')),
-            'deliveryAddress' => trim((string) ($_POST['deliveryAddress'] ?? '')),
+            'deliveryAddressId' => trim((string) ($_POST['deliveryAddressId'] ?? '')),
             'paymentMethod' => trim((string) ($_POST['paymentMethod'] ?? '')),
         ];
         $errors = [];
@@ -108,10 +187,15 @@ final class CheckoutController extends Controller
             $form['recipientPhone'] = $normalizedPhone;
         }
 
-        if ($form['deliveryAddress'] === '') {
-            $errors[] = 'Vui lòng nhập địa chỉ giao hàng.';
-        } elseif (mb_strlen($form['deliveryAddress']) > 255) {
-            $errors[] = 'Địa chỉ giao hàng không được vượt quá 255 ký tự.';
+        $profile = (new Account())->findCustomerProfile((string) $user['MaND']);
+        $deliveryAddress = $this->resolveDeliveryAddress(
+            (string) $user['MaND'],
+            $form['deliveryAddressId'],
+            (string) ($profile['DiaChiNhanHang'] ?? '')
+        );
+
+        if ($deliveryAddress === null) {
+            $errors[] = 'Vui lòng chọn địa chỉ giao hàng hợp lệ hoặc thêm địa chỉ mới.';
         }
 
         if ($form['paymentMethod'] !== 'COD') {
@@ -125,7 +209,7 @@ final class CheckoutController extends Controller
         }
 
         if ($errors !== []) {
-            $this->renderCheckout($cart, $form, $errors);
+            $this->renderCheckout($cart, $form, $errors, (string) $user['MaND']);
 
             return;
         }
@@ -134,7 +218,7 @@ final class CheckoutController extends Controller
             $order = (new Order())->placeCodOrder(
                 (string) $user['MaND'],
                 $form['recipientName'],
-                $form['deliveryAddress'],
+                (string) $deliveryAddress,
                 $form['recipientPhone']
             );
 
@@ -147,16 +231,23 @@ final class CheckoutController extends Controller
             $this->renderCheckout(
                 $cart,
                 $form,
-                ['Không thể tạo đơn hàng lúc này. Vui lòng thử lại.']
+                ['Không thể tạo đơn hàng lúc này. Vui lòng thử lại.'],
+                (string) $user['MaND']
             );
         } catch (\RuntimeException $exception) {
-            $this->renderCheckout($cart, $form, [$exception->getMessage()]);
+            $this->renderCheckout(
+                $cart,
+                $form,
+                [$exception->getMessage()],
+                (string) $user['MaND']
+            );
         } catch (\Throwable $exception) {
             error_log('[Checkout] '.$exception->getMessage());
             $this->renderCheckout(
                 $cart,
                 $form,
-                ['Không thể tạo đơn hàng lúc này. Vui lòng thử lại.']
+                ['Không thể tạo đơn hàng lúc này. Vui lòng thử lại.'],
+                (string) $user['MaND']
             );
         }
     }
@@ -192,15 +283,77 @@ final class CheckoutController extends Controller
     }
 
     // Dựng lại trang thanh toán với dữ liệu và lỗi đã có.
-    private function renderCheckout(array $cart, array $form, array $errors): void
-    {
+    private function renderCheckout(
+        array $cart,
+        array $form,
+        array $errors,
+        string $customerId
+    ): void {
+        $profile = (new Account())->findCustomerProfile($customerId);
+
         $this->view('checkout/index', [
             'pageTitle' => 'Thanh toán',
             'items' => $cart['items'],
             'total' => $cart['total'],
             'csrfToken' => (string) ($_SESSION['_csrf'] ?? ''),
             'errors' => $errors,
+            'addresses' => $this->findDeliveryAddresses(
+                $customerId,
+                (string) ($profile['DiaChiNhanHang'] ?? '')
+            ),
             'form' => $form,
         ]);
+    }
+
+    /**
+     * @return array<int, array{id: string, address: string, isDefault: bool}>
+     */
+    private function findDeliveryAddresses(string $customerId, string $profileAddress): array
+    {
+        $addresses = [];
+
+        if (trim($profileAddress) !== '') {
+            $addresses[] = [
+                'id' => 'profile',
+                'address' => $profileAddress,
+                'isDefault' => true,
+            ];
+        }
+
+        foreach ((new DeliveryAddress())->findForCustomer($customerId) as $address) {
+            if (
+                trim($profileAddress) !== ''
+                && (string) $address['DiaChi'] === $profileAddress
+            ) {
+                continue;
+            }
+
+            $addresses[] = [
+                'id' => (string) $address['MaDiaChi'],
+                'address' => (string) $address['DiaChi'],
+                'isDefault' => $addresses === [],
+            ];
+        }
+
+        return $addresses;
+    }
+
+    private function resolveDeliveryAddress(
+        string $customerId,
+        string $addressId,
+        string $profileAddress
+    ): ?string {
+        if ($addressId === 'profile') {
+            return trim($profileAddress) === '' ? null : $profileAddress;
+        }
+
+        if ($addressId === '' || !ctype_digit($addressId)) {
+            return null;
+        }
+
+        return (new DeliveryAddress())->findForCustomerById(
+            (int) $addressId,
+            $customerId
+        );
     }
 }

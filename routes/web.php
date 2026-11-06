@@ -47,6 +47,7 @@ $router->post('/cart/clear', [CartController::class, 'clear']);
 
 // Đặt hàng và thanh toán khi nhận hàng.
 $router->get('/checkout', [CheckoutController::class, 'index']);
+$router->post('/checkout/address', [CheckoutController::class, 'addAddress']);
 $router->post('/checkout', [CheckoutController::class, 'placeOrder']);
 $router->get('/checkout/success', [CheckoutController::class, 'success']);
 

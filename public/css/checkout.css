@@ -98,6 +98,277 @@
     resize: vertical;
 }
 
+.checkout-selected-address {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+    padding: 18px;
+    color: #202938;
+    background: #fff;
+    border: 1px solid #e7ebf0;
+    border-radius: 14px;
+    cursor: pointer;
+    font: inherit;
+    text-align: left;
+    box-shadow: 0 4px 16px rgb(15 23 42 / 5%);
+}
+
+.checkout-selected-address:hover,
+.checkout-selected-address:focus-visible {
+    border-color: #d32f2f;
+    outline: none;
+}
+
+.checkout-selected-address-content,
+.checkout-selected-address-contact {
+    display: grid;
+    min-width: 0;
+}
+
+.checkout-selected-address-contact {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.checkout-selected-address-contact strong {
+    font-size: 17px;
+}
+
+.checkout-selected-address-contact > span {
+    color: #718096;
+    white-space: nowrap;
+}
+
+.checkout-selected-address-text {
+    color: #596579;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.checkout-address-options {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.checkout-address-option {
+    display: grid;
+    grid-template-columns: 22px minmax(0, 1fr);
+    align-items: start;
+    gap: 12px;
+    padding: 16px 0;
+    border-bottom: 1px solid #e7ebf0;
+    cursor: pointer;
+}
+
+.checkout-address-option-content {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+}
+
+.checkout-address-option.is-selected {
+    color: #202938;
+}
+
+.checkout-address-option input {
+    margin: 3px 0 0;
+    accent-color: #d32f2f;
+}
+
+.checkout-address-option span {
+    display: grid;
+    gap: 5px;
+    min-width: 0;
+}
+
+.checkout-address-option small {
+    color: #64748b;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.checkout-address-option:hover {
+    background: #fffafa;
+}
+
+.checkout-new-address-fields {
+    padding: 20px 24px;
+}
+
+.checkout-new-address-fields[hidden] {
+    display: none;
+}
+
+.checkout-new-address-fields label {
+    display: block;
+    margin: 0 0 7px;
+    color: #334155;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.checkout-new-address-fields textarea {
+    display: block;
+    width: 100%;
+    padding: 11px 12px;
+    color: #202938;
+    background: #fff;
+    border: 1px solid #dce2ea;
+    border-radius: 8px;
+    font: inherit;
+    resize: vertical;
+}
+
+.checkout-address-option-contact {
+    display: flex !important;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 9px !important;
+}
+
+.checkout-address-option-contact small {
+    padding-left: 9px;
+    border-left: 1px solid #cbd5e1;
+    font-size: 14px;
+}
+
+.checkout-address-option-text {
+    display: block !important;
+    color: #596579;
+    line-height: 1.5;
+}
+
+.checkout-address-default-badge {
+    display: inline-block;
+    width: fit-content;
+    padding: 2px 7px;
+    color: #d65b40;
+    border: 1px solid #d65b40;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.checkout-address-empty {
+    color: #718096;
+    line-height: 1.6;
+}
+
+.checkout-address-dialog {
+    width: min(620px, calc(100% - 32px));
+    max-width: 620px;
+    max-height: min(720px, calc(100% - 40px));
+    padding: 0;
+    color: #202938;
+    background: #fff;
+    border: 0;
+    border-radius: 14px;
+    box-shadow: 0 20px 60px rgb(15 23 42 / 24%);
+}
+
+.checkout-address-dialog::backdrop {
+    background: rgb(15 23 42 / 48%);
+}
+
+.checkout-address-dialog-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 22px;
+    border-bottom: 1px solid #edf0f4;
+}
+
+.checkout-address-dialog-header h3 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.checkout-dialog-back {
+    padding: 0;
+    color: #d65b40;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    font-size: 28px;
+    line-height: 1;
+}
+
+.checkout-address-dialog-content {
+    max-height: min(470px, calc(100vh - 250px));
+    overflow-y: auto;
+    padding: 0 24px;
+}
+
+.checkout-address-dialog-label {
+    margin: 0 -24px;
+    padding: 12px 24px;
+    color: #64748b;
+    background: #f5f6f7;
+    font-size: 14px;
+}
+
+.checkout-address-dialog .checkout-address-option {
+    display: grid !important;
+    grid-template-columns: 22px minmax(0, 1fr) !important;
+    width: 100%;
+    gap: 14px;
+}
+
+.checkout-address-dialog .checkout-address-options {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch;
+    width: 100%;
+}
+
+.checkout-address-dialog .checkout-address-option input {
+    width: 22px;
+    height: 22px;
+    flex: 0 0 auto;
+    margin: 3px 0 0;
+    accent-color: #e85d3f;
+}
+
+.checkout-address-dialog .checkout-address-option > span {
+    flex: 1;
+}
+
+.checkout-address-dialog-actions {
+    display: flex;
+    gap: 12px;
+    padding: 16px 24px 20px;
+    border-top: 1px solid #edf0f4;
+}
+
+.checkout-address-dialog-actions[hidden] {
+    display: none;
+}
+
+.checkout-address-dialog-actions .checkout-submit,
+.checkout-address-add-button,
+.checkout-address-cancel-button {
+    width: auto;
+    flex: 1;
+    margin: 0;
+    padding: 12px 16px;
+}
+
+.checkout-address-add-button,
+.checkout-address-cancel-button {
+    color: #d65b40;
+    background: #fff;
+    border: 1px solid #d65b40;
+    border-radius: 10px;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 700;
+}
+
 .payment-option {
     display: flex;
     align-items: flex-start;
@@ -327,4 +598,24 @@
     .checkout-success-card {
         padding: 20px;
     }
+
+    .checkout-address-dialog {
+        width: calc(100% - 24px);
+        max-height: calc(100% - 24px);
+    }
+
+    .checkout-address-dialog-header,
+    .checkout-address-dialog-content,
+    .checkout-address-dialog-actions {
+        padding-right: 16px;
+        padding-left: 16px;
+    }
+
+    .checkout-address-dialog-label {
+        margin-right: -16px;
+        margin-left: -16px;
+        padding-right: 16px;
+        padding-left: 16px;
+    }
+
 }
