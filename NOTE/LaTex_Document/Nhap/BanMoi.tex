@@ -212,11 +212,12 @@ Trạng thái thanh toán gồm:
         \item Nếu tài khoản ở trạng thái \textbf{Bị vô hiệu hóa}, hệ thống thông báo tài khoản đã bị vô hiệu hóa và từ chối đăng nhập.
         \item Nếu không thể thiết lập trạng thái đăng nhập, hệ thống thông báo xảy ra lỗi trong quá trình đăng nhập và yêu cầu người dùng thực hiện lại.
     \end{itemize}
-    \item \textbf{Điều kiện sau:} Người dùng được xác thực và đăng nhập thành công; trạng thái đăng nhập được thiết lập.
+    \item \textbf{Điều kiện sau:} Người dùng được xác thực và đăng nhập thành công; trạng thái đăng nhập được thiết lập. Khách hàng được chuyển đến trang chủ; Quản trị viên được chuyển đến khu vực quản trị (UC13 hoặc chức năng quản trị phù hợp).
     \item \textbf{Quy tắc nghiệp vụ:}
     \begin{itemize}
         \item Chỉ tài khoản tồn tại và đang ở trạng thái \textbf{Hoạt động} mới được phép đăng nhập.
         \item Tài khoản bị vô hiệu hóa hoặc không còn hoạt động không được phép đăng nhập.
+        \item Sau khi đăng nhập, hệ thống điều hướng theo vai trò: Khách hàng đến trang chủ; Quản trị viên đến khu vực quản trị. Người dùng đã đăng nhập truy cập lại trang đăng nhập cũng được điều hướng theo vai trò.
     \end{itemize}
 \end{itemize}
 
@@ -698,27 +699,26 @@ Trạng thái thanh toán gồm:
 
  \item \textbf{Điều kiện trước:} Quản trị viên đã đăng nhập.
 
- \item \textbf{Luồng chính:}
-
- \begin{enumerate}
-
-  \item Quản trị viên truy cập chức năng quản lý sản phẩm.
-
-  \item Hệ thống hiển thị danh sách sản phẩm.
-
-  \item Quản trị viên chọn thêm mới, chỉnh sửa hoặc cập nhật trạng thái sản phẩm.
-
-  \item Quản trị viên nhập hoặc chỉnh sửa thông tin.
-
-  \item Hệ thống kiểm tra dữ liệu.
-
-  \item Hệ thống lưu thay đổi.
-
- \end{enumerate}
-
- \item \textbf{Luồng thay thế / Ngoại lệ:} Nếu thông tin không hợp lệ, hệ thống thông báo và yêu cầu chỉnh sửa.
-
- \item \textbf{Điều kiện sau:} Thông tin hoặc trạng thái sản phẩm được cập nhật.
+  \item \textbf{Luồng chính:}
+  \begin{enumerate}
+   \item Quản trị viên truy cập chức năng quản lý sản phẩm.
+   \item Hệ thống hiển thị danh sách sản phẩm và các thao tác được phép.
+   \item Quản trị viên chọn thêm sản phẩm mới, chỉnh sửa sản phẩm hoặc đổi trạng thái kinh doanh.
+   \item Hệ thống hiển thị biểu mẫu tương ứng; với thao tác chỉnh sửa, biểu mẫu được điền thông tin hiện tại.
+   \item Quản trị viên nhập hoặc cập nhật tên, giá, hình ảnh, mô tả, danh mục, thương hiệu và thông số kỹ thuật.
+   \item Quản trị viên gửi biểu mẫu.
+   \item Hệ thống kiểm tra dữ liệu bắt buộc, định dạng và các ràng buộc liên quan.
+   \item Hệ thống lưu sản phẩm hoặc cập nhật thông tin, trạng thái trong cơ sở dữ liệu.
+   \item Hệ thống thông báo kết quả và hiển thị lại danh sách sản phẩm đã cập nhật.
+  \end{enumerate}
+  \item \textbf{Luồng thay thế / Ngoại lệ:}
+  \begin{itemize}
+   \item Nếu dữ liệu thiếu hoặc không hợp lệ, hệ thống thông báo lỗi, giữ lại dữ liệu đã nhập hợp lệ và yêu cầu Quản trị viên chỉnh sửa.
+   \item Nếu sản phẩm hoặc danh mục được chọn không tồn tại/không hợp lệ, hệ thống từ chối lưu và yêu cầu chọn lại.
+   \item Nếu xảy ra lỗi khi lưu, hệ thống thông báo thao tác chưa thành công; dữ liệu hiện tại không bị báo là đã cập nhật.
+   \item Nếu tài khoản không có quyền Quản trị viên hoặc phiên đăng nhập không còn hợp lệ, hệ thống từ chối thao tác và yêu cầu đăng nhập lại khi cần.
+  \end{itemize}
+  \item \textbf{Điều kiện sau:} Khi thao tác thành công, thông tin hoặc trạng thái sản phẩm được cập nhật; nếu thao tác thất bại, dữ liệu sản phẩm hiện có không thay đổi.
 
  \item \textbf{Quy tắc nghiệp vụ:}
 
@@ -756,17 +756,29 @@ Trạng thái thanh toán gồm:
 
   \item Hệ thống hiển thị danh sách danh mục.
 
-  \item Quản trị viên thêm mới hoặc chỉnh sửa danh mục.
+   \item Quản trị viên chọn thêm danh mục mới, chỉnh sửa thông tin hoặc đổi trạng thái danh mục.
 
-  \item Hệ thống kiểm tra dữ liệu.
+   \item Hệ thống hiển thị biểu mẫu; nếu chỉnh sửa, biểu mẫu chứa thông tin hiện tại.
 
-  \item Hệ thống lưu thay đổi.
+   \item Quản trị viên nhập tên, mô tả và thông tin cần cập nhật rồi gửi biểu mẫu.
+
+   \item Hệ thống kiểm tra tính đầy đủ, hợp lệ và tính duy nhất của tên danh mục.
+
+   \item Hệ thống lưu danh mục hoặc cập nhật thông tin, trạng thái.
+
+   \item Hệ thống thông báo kết quả và hiển thị danh sách danh mục đã cập nhật.
 
  \end{enumerate}
 
- \item \textbf{Luồng thay thế / Ngoại lệ:} Nếu tên danh mục đã tồn tại hoặc dữ liệu không hợp lệ, hệ thống thông báo và yêu cầu chỉnh sửa.
+  \item \textbf{Luồng thay thế / Ngoại lệ:}
+  \begin{itemize}
+  \item Nếu tên danh mục đã tồn tại hoặc dữ liệu không hợp lệ, hệ thống thông báo và yêu cầu chỉnh sửa; danh mục chưa được lưu.
+  \item Nếu Quản trị viên yêu cầu xóa danh mục còn sản phẩm liên kết, hệ thống từ chối xóa vật lý và hướng dẫn chuyển danh mục sang trạng thái Ngừng kinh doanh.
+  \item Nếu danh mục không tồn tại hoặc phát sinh lỗi lưu, hệ thống thông báo thao tác thất bại và không xác nhận thay đổi.
+  \item Nếu người dùng không có quyền Quản trị viên hoặc phiên đăng nhập không hợp lệ, hệ thống từ chối truy cập.
+  \end{itemize}
 
- \item \textbf{Điều kiện sau:} Danh mục được cập nhật.
+  \item \textbf{Điều kiện sau:} Khi thao tác thành công, thông tin hoặc trạng thái danh mục được cập nhật; nếu thất bại, dữ liệu hiện tại được giữ nguyên.
 
 \item \textbf{Quy tắc nghiệp vụ:}
 \begin{itemize}

@@ -3,13 +3,17 @@
 declare(strict_types=1);
 
 use App\Controllers\AboutController;
+use App\Controllers\AdminController;
 use App\Controllers\AccountController;
 use App\Controllers\AuthController;
 use App\Controllers\CartController;
+use App\Controllers\CatalogManagementController;
 use App\Controllers\CheckoutController;
 use App\Controllers\HomeController;
+use App\Controllers\InventoryController;
 use App\Controllers\OrderController;
 use App\Controllers\ProductController;
+use App\Controllers\StatisticsController;
 use App\Controllers\UserManagementController;
 use App\Core\Router;
 
@@ -36,6 +40,17 @@ $router->get('/admin/users', [UserManagementController::class, 'index']);
 $router->post('/admin/users/create-staff', [UserManagementController::class, 'createStaff']);
 $router->post('/admin/users/update-staff', [UserManagementController::class, 'updateStaff']);
 $router->post('/admin/users/status', [UserManagementController::class, 'changeStatus']);
+$router->get('/admin', [AdminController::class, 'index']);
+$router->get('/admin/products', [CatalogManagementController::class, 'products']);
+$router->post('/admin/products/save', [CatalogManagementController::class, 'saveProduct']);
+$router->post('/admin/products/status', [CatalogManagementController::class, 'productStatus']);
+$router->get('/admin/categories', [CatalogManagementController::class, 'categories']);
+$router->post('/admin/categories/save', [CatalogManagementController::class, 'saveCategory']);
+$router->post('/admin/categories/status', [CatalogManagementController::class, 'categoryStatus']);
+$router->post('/admin/categories/delete', [CatalogManagementController::class, 'deleteCategory']);
+$router->get('/admin/inventory', [InventoryController::class, 'index']);
+$router->post('/admin/inventory/update', [InventoryController::class, 'update']);
+$router->get('/admin/statistics', [StatisticsController::class, 'index']);
 
 // Giỏ hàng
 $router->get('/cart', [CartController::class, 'index']);

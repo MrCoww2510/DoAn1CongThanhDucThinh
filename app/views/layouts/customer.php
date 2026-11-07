@@ -15,6 +15,7 @@ $baseUrl = rtrim($appConfig['base_url'] ?? '', '/');
     <link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/products.css">
     <link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/about.css">
     <link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/users.css">
+    <link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/admin.css">
     <script src="<?php echo htmlspecialchars($baseUrl ?? '', ENT_QUOTES, 'UTF-8'); ?>/js/nav.js"></script>
 </head>
 <body>
@@ -142,6 +143,11 @@ $baseUrl = rtrim($appConfig['base_url'] ?? '', '/');
                     <a href="<?php echo htmlspecialchars($baseUrl.'/orders', ENT_QUOTES, 'UTF-8'); ?>">Theo dõi đơn hàng</a>
                 <?php } ?>
                 <?php if (($_SESSION['user']['VaiTro'] ?? '') === 'QuanTriVien') { ?>
+                    <a href="<?php echo htmlspecialchars($baseUrl.'/admin', ENT_QUOTES, 'UTF-8'); ?>">Tổng quan quản trị</a>
+                    <a href="<?php echo htmlspecialchars($baseUrl.'/admin/products', ENT_QUOTES, 'UTF-8'); ?>">Quản lý sản phẩm</a>
+                    <a href="<?php echo htmlspecialchars($baseUrl.'/admin/categories', ENT_QUOTES, 'UTF-8'); ?>">Quản lý danh mục</a>
+                    <a href="<?php echo htmlspecialchars($baseUrl.'/admin/inventory', ENT_QUOTES, 'UTF-8'); ?>">Quản lý kho</a>
+                    <a href="<?php echo htmlspecialchars($baseUrl.'/admin/statistics', ENT_QUOTES, 'UTF-8'); ?>">Thống kê</a>
                     <a href="<?php echo htmlspecialchars($baseUrl.'/admin/users', ENT_QUOTES, 'UTF-8'); ?>">Quản lý người dùng</a>
                 <?php } ?>
             </div>

@@ -217,8 +217,11 @@ final class AuthController extends Controller
     // Chuyển người dùng sau đăng nhập theo vai trò tài khoản.
     private function redirectByRole(string $role): never
     {
-        if ($role === 'QuanTriVien' || $role === 'NhanVien') {
-            // Chưa chuyển vào trang quản trị khi module quản trị chưa được xây dựng.
+        if ($role === 'QuanTriVien') {
+            $this->redirect('admin');
+        }
+
+        if ($role === 'NhanVien') {
             $this->redirect('');
         }
 

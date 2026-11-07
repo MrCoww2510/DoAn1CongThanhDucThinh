@@ -1,0 +1,2 @@
+ALTER TABLE DanhMuc
+    ADD COLUMN TrangThai VARCHAR(30) NOT NULL DEFAULT 'DangKinhDoanh';
