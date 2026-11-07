@@ -141,7 +141,7 @@ final class Product
         $limit = max(1, min($limit, 24));
 
         $sql = $this->baseQuery()
-            ." WHERE ct.TrangThai = 'DangKinhDoanh' AND dm.TrangThai = 'DangKinhDoanh' ORDER BY sp.MaSP DESC LIMIT ".$limit;
+            ." WHERE ct.TrangThai IN ('DangKinhDoanh', 'Đang bán') AND dm.TrangThai = 'DangKinhDoanh' ORDER BY sp.MaSP DESC LIMIT ".$limit;
 
         return Database::connection()
             ->query($sql)
@@ -158,7 +158,7 @@ final class Product
     ): array {
         $sql = $this->baseQuery();
 
-        $conditions = ["ct.TrangThai = 'DangKinhDoanh'", "dm.TrangThai = 'DangKinhDoanh'"];
+        $conditions = ["ct.TrangThai IN ('DangKinhDoanh', 'Đang bán')", "dm.TrangThai = 'DangKinhDoanh'"];
         $params = [];
 
         // Tìm kiếm theo tên sản phẩm
@@ -222,7 +222,7 @@ final class Product
     public function findById(string $id): ?array
     {
         $sql = $this->baseQuery()
-            ." WHERE sp.MaSP = :id AND ct.TrangThai = 'DangKinhDoanh' AND dm.TrangThai = 'DangKinhDoanh' LIMIT 1";
+            ." WHERE sp.MaSP = :id AND ct.TrangThai IN ('DangKinhDoanh', 'Đang bán') AND dm.TrangThai = 'DangKinhDoanh' LIMIT 1";
 
         $stmt = Database::connection()->prepare($sql);
         $stmt->execute(['id' => $id]);

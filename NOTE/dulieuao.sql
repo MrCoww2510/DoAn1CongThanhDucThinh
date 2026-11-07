@@ -30,6 +30,23 @@ INSERT INTO NguoiDung (MaND, HoTen, SDT, Email) VALUES
 ('ND020','Phan Thanh Tùng','0901000020','tung.phan@gmail.com');
 
 -- ============================================================
+-- 1.1. ĐỊA CHỈ GIAO HÀNG (một người dùng có thể có nhiều địa chỉ)
+-- ============================================================
+
+INSERT INTO DiaChiNhanHang (MaND, DiaChi) VALUES
+('ND001','12 Nguyễn Trãi, Ninh Kiều, Cần Thơ'),
+('ND001','45 Lý Tự Trọng, Ninh Kiều, Cần Thơ'),
+('ND002','88 30 Tháng 4, Ninh Kiều, Cần Thơ'),
+('ND003','21 Nguyễn Văn Cừ, Ninh Kiều, Cần Thơ'),
+('ND004','16 Mậu Thân, Ninh Kiều, Cần Thơ'),
+('ND005','09 Trần Hưng Đạo, Ninh Kiều, Cần Thơ'),
+('ND006','33 Võ Văn Kiệt, Bình Thủy, Cần Thơ'),
+('ND007','72 Nguyễn Việt Hồng, Ninh Kiều, Cần Thơ'),
+('ND008','05 Hùng Vương, Ninh Kiều, Cần Thơ'),
+('ND009','101 Cách Mạng Tháng 8, Bình Thủy, Cần Thơ'),
+('ND010','27 Phạm Ngũ Lão, Ninh Kiều, Cần Thơ');
+
+-- ============================================================
 -- 2. DỮ LIỆU TÀI KHOẢN
 -- ============================================================
 
@@ -60,17 +77,17 @@ INSERT INTO TaiKhoan
 -- 3. DANH MỤC
 -- ============================================================
 
-INSERT INTO DanhMuc (MaDM, TenDM) VALUES
-('DM001','Chuột'),
-('DM002','Bàn phím'),
-('DM003','Tai nghe'),
-('DM004','Laptop'),
-('DM005','Màn hình'),
-('DM006','Ghế Gaming'),
-('DM007','Lót chuột'),
-('DM008','Card đồ họa'),
-('DM009','RAM'),
-('DM010','Ổ cứng SSD');
+INSERT INTO DanhMuc (MaDM, TenDM, TrangThai) VALUES
+('DM001','Chuột','DangKinhDoanh'),
+('DM002','Bàn phím','DangKinhDoanh'),
+('DM003','Tai nghe','DangKinhDoanh'),
+('DM004','Laptop','DangKinhDoanh'),
+('DM005','Màn hình','DangKinhDoanh'),
+('DM006','Ghế Gaming','DangKinhDoanh'),
+('DM007','Lót chuột','DangKinhDoanh'),
+('DM008','Card đồ họa','DangKinhDoanh'),
+('DM009','RAM','DangKinhDoanh'),
+('DM010','Ổ cứng SSD','DangKinhDoanh');
 
 -- ============================================================
 -- 4. 120 SẢN PHẨM
@@ -356,7 +373,7 @@ SELECT
 
     CONCAT('/images/products/', MaSP, '.jpg'),
     'Sản phẩm chính hãng, phù hợp cho nhu cầu học tập, làm việc và gaming.',
-    'Đang bán'
+    'DangKinhDoanh'
 
 FROM SanPham
 ORDER BY MaSP;
@@ -371,6 +388,8 @@ SELECT 'NguoiDung' AS Bang, COUNT(*) AS SoLuong FROM NguoiDung
 UNION ALL
 SELECT 'TaiKhoan', COUNT(*) FROM TaiKhoan
 UNION ALL
+SELECT 'DiaChiNhanHang', COUNT(*) FROM DiaChiNhanHang
+UNION ALL
 SELECT 'DanhMuc', COUNT(*) FROM DanhMuc
 UNION ALL
 SELECT 'SanPham', COUNT(*) FROM SanPham
@@ -380,6 +399,7 @@ SELECT 'ChiTietSanPham', COUNT(*) FROM ChiTietSanPham;
 -- Kết quả mong đợi:
 -- NguoiDung       = 20
 -- TaiKhoan        = 20
+-- DiaChiNhanHang  = 11
 -- DanhMuc         = 10
 -- SanPham         = 120
 -- ChiTietSanPham  = 120
