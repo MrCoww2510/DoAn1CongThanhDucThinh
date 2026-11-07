@@ -28,7 +28,7 @@ bán máy tính và linh kiện máy tính}
 
 Hệ thống được xây dựng nhằm hỗ trợ hoạt động kinh doanh máy tính và linh kiện máy tính thông qua website thương mại điện tử. Người dùng có thể xem, tìm kiếm và lựa chọn sản phẩm, quản lý giỏ hàng, đặt hàng và thanh toán. Hệ thống cũng hỗ trợ quản lý đơn hàng, sản phẩm, danh mục, người dùng, kho và thống kê.
 
-Phạm vi của hệ thống tập trung vào các chức năng cốt lõi, phù hợp với thời gian thực hiện Đồ án 1. Các chức năng nâng cao như AI, chatbot, đa nhà bán hàng, tích điểm, voucher, đánh giá sản phẩm và hệ thống vận chuyển phức tạp không thuộc phạm vi hiện tại.
+Phạm vi của hệ thống tập trung vào các chức năng cốt lõi của website bán lẻ, bao gồm xác thực tài khoản, tra cứu và phân loại sản phẩm, quản lý giá khuyến mãi, voucher, đơn hàng, địa chỉ giao hàng, kho và thống kê. AI, chatbot, đa nhà bán hàng, tích điểm, đánh giá sản phẩm và tích hợp vận chuyển phức tạp không thuộc phạm vi hiện tại.
 
 \section{PHÂN TÍCH NGƯỜI DÙNG (ACTOR)}
 
@@ -43,6 +43,8 @@ Phạm vi của hệ thống tập trung vào các chức năng cốt lõi, phù
  \item \textbf{Quản trị viên:} Là người có quyền quản lý và vận hành hệ thống. Quản trị viên có thể quản lý đơn hàng, sản phẩm, danh mục, người dùng, kho và xem các số liệu thống kê.
 
  \item \textbf{Cổng thanh toán:} Là hệ thống bên ngoài được sử dụng để xử lý các giao dịch thanh toán trực tuyến và trả kết quả giao dịch về cho hệ thống.
+
+ \item \textbf{Google Identity:} Là nhà cung cấp danh tính bên ngoài, xác thực người dùng và trả thông tin định danh đã được xác minh cho hệ thống khi người dùng chọn đăng nhập bằng Google.
 
 \end{itemize}
 
@@ -64,6 +66,9 @@ Phạm vi của hệ thống tập trung vào các chức năng cốt lõi, phù
     \item \textbf{UC13: Quản lý người dùng}
     \item \textbf{UC14: Quản lý kho}
     \item \textbf{UC15: Xem thống kê}
+    \item \textbf{UC16: Quản lý chương trình giảm giá}
+    \item \textbf{UC17: Quản lý voucher}
+    \item \textbf{UC18: Áp dụng voucher khi đặt hàng}
 \end{itemize}
 
 \section{QUY TRÌNH NGHIỆP VỤ CHUNG}
@@ -188,36 +193,40 @@ Trạng thái thanh toán gồm:
 \subsection{UC02. Đăng nhập}
 
 \begin{itemize}
-    \item \textbf{Actor:} Khách vãng lai.
+    \item \textbf{Actor:} Khách vãng lai, Google Identity.
     \item \textbf{Mục tiêu:} Cho phép người dùng xác thực tài khoản và đăng nhập vào hệ thống.
     \item \textbf{Mô tả:} Use Case này cho phép người dùng cung cấp thông tin đăng nhập. Hệ thống kiểm tra thông tin xác thực và trạng thái tài khoản trước khi thiết lập trạng thái đăng nhập.
     \item \textbf{Điều kiện trước:} Người dùng chưa đăng nhập vào hệ thống.
     \item \textbf{Luồng chính:}
     \begin{enumerate}
         \item Người dùng chọn chức năng Đăng nhập.
-        \item Hệ thống hiển thị biểu mẫu đăng nhập.
-        \item Người dùng nhập thông tin đăng nhập.
-        \item Người dùng gửi thông tin đăng nhập.
-        \item Hệ thống kiểm tra thông tin đăng nhập.
+        \item Hệ thống hiển thị biểu mẫu đăng nhập bằng tài khoản hệ thống và lựa chọn đăng nhập bằng Google.
+        \item Người dùng chọn một phương thức đăng nhập. Với tài khoản hệ thống, người dùng nhập tên đăng nhập/email và mật khẩu rồi gửi biểu mẫu.
+        \item Hệ thống kiểm tra thông tin đăng nhập hoặc chuyển người dùng đến Google Identity để xác thực.
+        \item Nếu xác thực qua Google thành công, Google Identity trả thông tin định danh đã xác minh về hệ thống; hệ thống tìm tài khoản Google đã liên kết hoặc tạo tài khoản Khách hàng mới theo quy tắc nghiệp vụ.
         \item Hệ thống kiểm tra trạng thái tài khoản.
         \item Hệ thống thiết lập trạng thái đăng nhập.
-        \item Hệ thống thông báo đăng nhập thành công.
+        \item Hệ thống thông báo đăng nhập thành công và điều hướng người dùng theo vai trò.
     \end{enumerate}
     \item \textbf{Luồng thay thế / Ngoại lệ:}
     \begin{itemize}
         \item Nếu thông tin đăng nhập chưa đầy đủ, hệ thống thông báo dữ liệu chưa đầy đủ và yêu cầu người dùng nhập lại.
         \item Nếu tài khoản không tồn tại, hệ thống thông báo tài khoản không tồn tại và cho phép người dùng chuyển sang UC01 -- Đăng ký.
         \item Nếu mật khẩu không chính xác, hệ thống thông báo mật khẩu không đúng và yêu cầu người dùng nhập lại.
+        \item Nếu người dùng hủy xác thực Google, Google Identity trả lỗi hoặc thông tin xác thực không hợp lệ, hệ thống từ chối đăng nhập và thông báo phù hợp.
+        \item Nếu email Google đã thuộc một tài khoản hiện có nhưng chưa được liên kết, hệ thống không tự động gộp tài khoản; người dùng phải xác thực tài khoản hiện có để liên kết.
         \item Nếu tài khoản ở trạng thái \textbf{Không còn hoạt động}, hệ thống thông báo tài khoản không tồn tại và từ chối đăng nhập.
         \item Nếu tài khoản ở trạng thái \textbf{Bị vô hiệu hóa}, hệ thống thông báo tài khoản đã bị vô hiệu hóa và từ chối đăng nhập.
         \item Nếu không thể thiết lập trạng thái đăng nhập, hệ thống thông báo xảy ra lỗi trong quá trình đăng nhập và yêu cầu người dùng thực hiện lại.
     \end{itemize}
-    \item \textbf{Điều kiện sau:} Người dùng được xác thực và đăng nhập thành công; trạng thái đăng nhập được thiết lập. Khách hàng được chuyển đến trang chủ; Quản trị viên được chuyển đến khu vực quản trị (UC13 hoặc chức năng quản trị phù hợp).
+    \item \textbf{Điều kiện sau:} Người dùng được xác thực và đăng nhập thành công; trạng thái đăng nhập được thiết lập. Khách hàng được chuyển đến trang chủ; Quản trị viên được chuyển đến trang tổng quan quản trị.
     \item \textbf{Quy tắc nghiệp vụ:}
     \begin{itemize}
         \item Chỉ tài khoản tồn tại và đang ở trạng thái \textbf{Hoạt động} mới được phép đăng nhập.
         \item Tài khoản bị vô hiệu hóa hoặc không còn hoạt động không được phép đăng nhập.
         \item Sau khi đăng nhập, hệ thống điều hướng theo vai trò: Khách hàng đến trang chủ; Quản trị viên đến khu vực quản trị. Người dùng đã đăng nhập truy cập lại trang đăng nhập cũng được điều hướng theo vai trò.
+        \item Tài khoản mới tạo bằng Google mặc định có vai trò \textbf{Khách hàng}; thông tin từ Google không được dùng để cấp quyền Quản trị viên.
+        \item Tài khoản Google được liên kết bằng mã định danh ổn định do Google cấp sau khi hệ thống xác minh chữ ký, đối tượng nhận, thời hạn và trạng thái email đã xác minh.
     \end{itemize}
 \end{itemize}
 
@@ -247,7 +256,9 @@ Trạng thái thanh toán gồm:
 
   \item Người dùng có thể nhập từ khóa tìm kiếm.
 
-  \item Người dùng có thể lọc sản phẩm theo khoảng giá hoặc thương hiệu.
+  \item Người dùng có thể lọc sản phẩm theo loại sản phẩm, thương hiệu, khoảng giá và các thuộc tính kỹ thuật được hệ thống hỗ trợ.
+
+  \item Hệ thống hiển thị giá niêm yết, giá sau giảm và thông tin chương trình giảm giá đang có hiệu lực (nếu có).
 
   \item Hệ thống xử lý yêu cầu và hiển thị kết quả phù hợp.
 
@@ -267,6 +278,8 @@ Trạng thái thanh toán gồm:
 
   \item Sản phẩm hết hàng vẫn có thể được hiển thị nhưng phải thể hiện rõ tình trạng hết hàng.
 
+   \item Nếu chương trình giảm giá hết hạn hoặc không còn hiệu lực, hệ thống chỉ hiển thị giá niêm yết.
+
  \end{itemize}
 
  \item \textbf{Điều kiện sau:} Người dùng nhận được danh sách hoặc thông tin chi tiết của sản phẩm.
@@ -280,6 +293,8 @@ Trạng thái thanh toán gồm:
   \item Chỉ sản phẩm đang được phép kinh doanh mới được hiển thị trong danh sách thông thường.
 
   \item Thông tin sản phẩm hiển thị phải phù hợp với dữ liệu hiện có trong hệ thống.
+
+   \item Các giá trị loại sản phẩm, thương hiệu và thuộc tính lọc phải lấy từ thông tin sản phẩm đã được Quản trị viên khai báo; không coi chuỗi tìm kiếm của người dùng là dữ liệu phân loại.
 
  \end{itemize}
 
@@ -341,7 +356,7 @@ Trạng thái thanh toán gồm:
 
  \item \textbf{Mục tiêu:} Tạo đơn hàng từ các sản phẩm trong giỏ hàng.
 
- \item \textbf{Mô tả:} Use Case này cho phép khách hàng tạo đơn hàng từ các sản phẩm đã chọn trong giỏ hàng. Khách hàng kiểm tra lại thông tin sản phẩm, số lượng, tổng tiền, cung cấp thông tin nhận hàng và lựa chọn phương thức thanh toán cho đơn hàng. Hệ thống kiểm tra thông tin trước khi tạo đơn hàng với trạng thái ban đầu là \textbf{Chờ xác nhận}. Việc xử lý thanh toán được thực hiện riêng trong UC06 -- Thanh toán.
+  \item \textbf{Mô tả:} Use Case này cho phép khách hàng tạo đơn hàng từ các sản phẩm đã chọn trong giỏ hàng. Khách hàng kiểm tra sản phẩm, số lượng và giá sau khuyến mãi, chọn một địa chỉ giao hàng, có thể nhập voucher, rồi lựa chọn phương thức thanh toán. Hệ thống kiểm tra lại giá, chương trình giảm giá, điều kiện voucher và tồn kho trước khi tạo đơn hàng với trạng thái ban đầu là \textbf{Chờ xác nhận}. Việc xử lý thanh toán được thực hiện riêng trong UC06 -- Thanh toán.
 
  \item \textbf{Điều kiện trước:} Khách hàng đã đăng nhập và giỏ hàng có ít nhất một sản phẩm.
 
@@ -353,11 +368,15 @@ Trạng thái thanh toán gồm:
 
   \item Khách hàng chọn chức năng Đặt hàng.
 
-  \item Hệ thống hiển thị thông tin sản phẩm và tổng tiền.
+   \item Hệ thống hiển thị thông tin sản phẩm, giá niêm yết, giá sau giảm và tổng tiền tạm tính.
 
   \item Khách hàng nhập hoặc chọn thông tin nhận hàng.
 
-  \item Khách hàng lựa chọn phương thức thanh toán.
+   \item Khách hàng có thể nhập mã voucher và yêu cầu áp dụng theo UC18.
+
+   \item Hệ thống kiểm tra điều kiện voucher và cập nhật số tiền giảm cùng tổng tiền phải trả.
+
+   \item Khách hàng lựa chọn phương thức thanh toán.
 
   \item Hệ thống kiểm tra thông tin.
 
@@ -369,7 +388,7 @@ Trạng thái thanh toán gồm:
 
  \end{enumerate}
 
- \item \textbf{Luồng thay thế / Ngoại lệ:} Nếu thông tin nhận hàng không hợp lệ hoặc giỏ hàng không còn sản phẩm hợp lệ, hệ thống thông báo và yêu cầu khách hàng điều chỉnh.
+  \item \textbf{Luồng thay thế / Ngoại lệ:} Nếu thông tin nhận hàng không hợp lệ hoặc giỏ hàng không còn sản phẩm hợp lệ, hệ thống thông báo và yêu cầu khách hàng điều chỉnh. Nếu voucher không hợp lệ hoặc không đủ điều kiện, hệ thống thông báo lý do, không trừ giảm giá và cho phép khách hàng nhập mã khác hoặc tiếp tục không dùng voucher.
 
  \item \textbf{Điều kiện sau:} Đơn hàng được tạo với trạng thái \textbf{Chờ xác nhận}.
 
@@ -381,6 +400,8 @@ Trạng thái thanh toán gồm:
 \item Không tạo đơn hàng khi giỏ hàng trống.
 \item Việc đặt hàng và thanh toán là hai nghiệp vụ riêng biệt.
 \item \textbf{Hệ thống tự động tạm trừ (giữ chỗ) số lượng tồn kho ngay khi đơn hàng được tạo thành công.}
+\item Hệ thống tính lại giá khuyến mãi và voucher tại thời điểm xác nhận đặt hàng; không tin số tiền giảm do trình duyệt gửi lên.
+\item Tổng tiền, số tiền giảm và mã voucher (nếu có) được lưu cùng đơn hàng để giữ nguyên lịch sử giao dịch.
 \end{itemize}
 
 \end{itemize}
@@ -533,7 +554,7 @@ Trạng thái thanh toán gồm:
 
  \item \textbf{Mục tiêu:} Cho phép khách hàng quản lý thông tin tài khoản.
 
- \item \textbf{Mô tả:} Use Case này cho phép khách hàng xem và cập nhật các thông tin liên quan đến tài khoản của mình, bao gồm thông tin cá nhân, thông tin liên hệ, địa chỉ nhận hàng và mật khẩu. Hệ thống kiểm tra tính hợp lệ của dữ liệu trước khi lưu thay đổi.
+ \item \textbf{Mô tả:} Use Case này cho phép khách hàng xem và cập nhật thông tin cá nhân, thông tin liên hệ, mật khẩu và sổ địa chỉ giao hàng. Khách hàng có thể lưu nhiều địa chỉ, thêm địa chỉ mới hoặc cập nhật và xóa địa chỉ đã lưu. Khi đặt hàng, khách hàng chọn một địa chỉ trong sổ địa chỉ cho đơn hàng đó.
 
  \item \textbf{Điều kiện trước:} Khách hàng đã đăng nhập.
 
@@ -545,17 +566,19 @@ Trạng thái thanh toán gồm:
 
   \item Hệ thống hiển thị thông tin hiện có.
 
-  \item Khách hàng chỉnh sửa thông tin hoặc thay đổi mật khẩu.
+   \item Khách hàng chỉnh sửa thông tin cá nhân, thay đổi mật khẩu hoặc thêm, sửa, xóa địa chỉ giao hàng.
 
   \item Hệ thống kiểm tra dữ liệu.
 
-  \item Hệ thống lưu thay đổi.
+   \item Hệ thống lưu thay đổi và gắn từng địa chỉ với tài khoản khách hàng tương ứng.
 
  \end{enumerate}
 
- \item \textbf{Luồng thay thế / Ngoại lệ:} Nếu thông tin không hợp lệ hoặc mật khẩu hiện tại không chính xác, hệ thống thông báo và không lưu thay đổi.
+  \item \textbf{Luồng thay thế / Ngoại lệ:} Nếu thông tin không hợp lệ hoặc mật khẩu hiện tại không chính xác, hệ thống thông báo và không lưu thay đổi. Nếu khách hàng chọn địa chỉ không thuộc tài khoản của mình, hệ thống từ chối thao tác.
 
  \item \textbf{Điều kiện sau:} Thông tin tài khoản được cập nhật.
+
+  \item \textbf{Quy tắc nghiệp vụ:} Một khách hàng có thể lưu nhiều địa chỉ giao hàng; mỗi đơn hàng sử dụng một địa chỉ giao hàng tại thời điểm đặt. Địa chỉ đã chụp vào đơn hàng phải được giữ nguyên trong lịch sử kể cả khi khách hàng sửa hoặc xóa địa chỉ trong sổ địa chỉ.
 
 \end{itemize}
 
@@ -695,7 +718,7 @@ Trạng thái thanh toán gồm:
 
  \item \textbf{Mục tiêu:} Quản lý thông tin các sản phẩm được kinh doanh trên hệ thống.
 
- \item \textbf{Mô tả:} Use Case này cho phép Quản trị viên thêm mới, chỉnh sửa và cập nhật trạng thái kinh doanh của sản phẩm. Các thông tin được quản lý bao gồm tên sản phẩm, giá bán, hình ảnh, mô tả, danh mục, thương hiệu và thông số kỹ thuật. Chức năng này không trực tiếp quản lý số lượng tồn kho.
+ \item \textbf{Mô tả:} Use Case này cho phép Quản trị viên thêm mới, chỉnh sửa và cập nhật trạng thái kinh doanh của sản phẩm. Thông tin quản lý gồm tên, giá niêm yết, hình ảnh, mô tả, danh mục, loại sản phẩm, thương hiệu và thông số kỹ thuật. Giá khuyến mãi được cấu hình riêng trong UC16; chức năng này không trực tiếp quản lý tồn kho.
 
  \item \textbf{Điều kiện trước:} Quản trị viên đã đăng nhập.
 
@@ -705,7 +728,7 @@ Trạng thái thanh toán gồm:
    \item Hệ thống hiển thị danh sách sản phẩm và các thao tác được phép.
    \item Quản trị viên chọn thêm sản phẩm mới, chỉnh sửa sản phẩm hoặc đổi trạng thái kinh doanh.
    \item Hệ thống hiển thị biểu mẫu tương ứng; với thao tác chỉnh sửa, biểu mẫu được điền thông tin hiện tại.
-   \item Quản trị viên nhập hoặc cập nhật tên, giá, hình ảnh, mô tả, danh mục, thương hiệu và thông số kỹ thuật.
+    \item Quản trị viên nhập hoặc cập nhật tên, giá niêm yết, hình ảnh, mô tả, danh mục, loại sản phẩm, thương hiệu và thông số kỹ thuật.
    \item Quản trị viên gửi biểu mẫu.
    \item Hệ thống kiểm tra dữ liệu bắt buộc, định dạng và các ràng buộc liên quan.
    \item Hệ thống lưu sản phẩm hoặc cập nhật thông tin, trạng thái trong cơ sở dữ liệu.
@@ -730,6 +753,10 @@ Trạng thái thanh toán gồm:
 
   \item Số lượng tồn kho được quản lý trong UC14.
 
+   \item Danh mục, loại sản phẩm, thương hiệu và thuộc tính kỹ thuật được dùng nhất quán để phân loại, tìm kiếm và lọc sản phẩm trong UC03.
+
+   \item Giá niêm yết không bị ghi đè bởi giá khuyến mãi; chương trình giảm giá được quản lý độc lập trong UC16.
+
  \end{itemize}
 
 \end{itemize}
@@ -744,7 +771,7 @@ Trạng thái thanh toán gồm:
 
  \item \textbf{Mục tiêu:} Quản lý việc phân loại sản phẩm.
 
- \item \textbf{Mô tả:} Use Case này cho phép Quản trị viên thêm mới, chỉnh sửa hoặc cập nhật thông tin các danh mục sản phẩm. Danh mục được sử dụng để phân loại và hỗ trợ người dùng tìm kiếm sản phẩm trên website.
+  \item \textbf{Mô tả:} Use Case này cho phép Quản trị viên thêm mới, chỉnh sửa hoặc cập nhật trạng thái danh mục sản phẩm. Danh mục là nhóm phân loại chính; kết hợp với loại sản phẩm, thương hiệu và thông số kỹ thuật để hỗ trợ người dùng lọc sản phẩm trong UC03.
 
  \item \textbf{Điều kiện trước:} Quản trị viên đã đăng nhập.
 
@@ -937,6 +964,103 @@ Trạng thái thanh toán gồm:
         \item Đơn hàng ở trạng thái \textbf{Chờ xác nhận}, \textbf{Đang chuẩn bị hàng} và \textbf{Đang giao hàng} không được tính vào doanh thu thực tế.
     \end{itemize}
 
+\end{itemize}
+
+% ==================================================
+
+\subsection{UC16. Quản lý chương trình giảm giá}
+
+\begin{itemize}
+ \item \textbf{Actor:} Quản trị viên.
+ \item \textbf{Mục tiêu:} Thiết lập và quản lý giá giảm cho sản phẩm trong một khoảng thời gian.
+ \item \textbf{Mô tả:} Quản trị viên tạo, chỉnh sửa, kích hoạt hoặc kết thúc chương trình giảm giá. Chương trình có thể áp dụng toàn trang cho các sản phẩm đủ điều kiện hoặc chỉ áp dụng cho một hay nhiều sản phẩm được chọn. Mức giảm có thể theo phần trăm hoặc số tiền cố định.
+ \item \textbf{Điều kiện trước:} Quản trị viên đã đăng nhập và các sản phẩm mục tiêu đã tồn tại.
+ \item \textbf{Luồng chính:}
+ \begin{enumerate}
+  \item Quản trị viên truy cập chức năng quản lý chương trình giảm giá.
+  \item Hệ thống hiển thị các chương trình và trạng thái hiện tại.
+  \item Quản trị viên chọn tạo mới hoặc chỉnh sửa chương trình.
+  \item Quản trị viên nhập tên, phạm vi áp dụng, danh sách sản phẩm nếu là chương trình cục bộ, loại và mức giảm, thời gian bắt đầu/kết thúc, trạng thái.
+  \item Hệ thống kiểm tra dữ liệu, sản phẩm mục tiêu và thời hạn chương trình.
+  \item Hệ thống lưu chương trình và xác định giá hiệu lực cho sản phẩm trong thời gian áp dụng.
+  \item Hệ thống hiển thị kết quả cập nhật.
+ \end{enumerate}
+ \item \textbf{Luồng thay thế / Ngoại lệ:}
+ \begin{itemize}
+  \item Nếu mức giảm không hợp lệ, thời gian kết thúc không sau thời gian bắt đầu hoặc sản phẩm mục tiêu không tồn tại, hệ thống từ chối lưu và yêu cầu chỉnh sửa.
+  \item Nếu chương trình chưa đến thời gian bắt đầu, đã hết hạn hoặc bị tắt, hệ thống không áp dụng giảm giá.
+  \item Nếu có nhiều chương trình cùng đủ điều kiện cho một sản phẩm, hệ thống chỉ áp dụng một chương trình có mức giảm lớn nhất; không cộng dồn các chương trình giảm giá sản phẩm.
+ \end{itemize}
+ \item \textbf{Điều kiện sau:} Chương trình được lưu; giá khuyến mãi chỉ có hiệu lực với sản phẩm và thời điểm thỏa điều kiện.
+ \item \textbf{Quy tắc nghiệp vụ:}
+ \begin{itemize}
+  \item Giá niêm yết được giữ nguyên; giá sau giảm được tính từ chương trình đang có hiệu lực và không thấp hơn 0.
+  \item Chương trình toàn trang áp dụng cho sản phẩm đang kinh doanh; chương trình cục bộ chỉ áp dụng cho các sản phẩm được chỉ định.
+  \item Thẻ sản phẩm, trang chi tiết, giỏ hàng và đặt hàng phải sử dụng cùng một giá hiệu lực; hệ thống tính lại giá tại thời điểm đặt hàng.
+  \item Việc chỉnh sửa hoặc kết thúc chương trình không làm thay đổi giá đã được chụp vào đơn hàng đã tạo.
+ \end{itemize}
+\end{itemize}
+
+% ==================================================
+
+\subsection{UC17. Quản lý voucher}
+
+\begin{itemize}
+ \item \textbf{Actor:} Quản trị viên.
+ \item \textbf{Mục tiêu:} Tạo và kiểm soát các mã ưu đãi do khách hàng chủ động nhập khi đặt hàng.
+ \item \textbf{Mô tả:} Quản trị viên tạo, chỉnh sửa, kích hoạt hoặc vô hiệu hóa voucher. Mỗi voucher có mã duy nhất, loại và mức giảm, thời hạn, giá trị đơn tối thiểu, mức giảm tối đa (nếu là phần trăm), tổng lượt sử dụng và giới hạn sử dụng trên mỗi khách hàng.
+ \item \textbf{Điều kiện trước:} Quản trị viên đã đăng nhập.
+ \item \textbf{Luồng chính:}
+ \begin{enumerate}
+  \item Quản trị viên mở chức năng quản lý voucher.
+  \item Hệ thống hiển thị danh sách voucher và tình trạng sử dụng.
+  \item Quản trị viên chọn tạo mới hoặc chỉnh sửa voucher.
+  \item Quản trị viên nhập mã, mức giảm, điều kiện đơn hàng, thời hạn và giới hạn sử dụng.
+  \item Hệ thống kiểm tra tính duy nhất của mã và tính hợp lệ của các điều kiện.
+  \item Hệ thống lưu voucher và thông báo kết quả.
+ \end{enumerate}
+ \item \textbf{Luồng thay thế / Ngoại lệ:} Nếu mã bị trùng, mức giảm hoặc giới hạn không hợp lệ, hệ thống thông báo lỗi và không lưu thay đổi.
+ \item \textbf{Điều kiện sau:} Voucher hợp lệ được lưu và có thể được khách hàng sử dụng trong thời hạn cho phép.
+ \item \textbf{Quy tắc nghiệp vụ:}
+ \begin{itemize}
+  \item Mã voucher là duy nhất; voucher bị tắt, chưa bắt đầu, hết hạn hoặc hết lượt không được áp dụng.
+  \item Một đơn hàng chỉ sử dụng tối đa một voucher. Voucher được áp dụng sau các chương trình giảm giá sản phẩm; không áp dụng chồng nhiều voucher.
+  \item Mức giảm không được vượt quá giá trị hàng hóa đủ điều kiện và tổng tiền đơn hàng không được âm.
+  \item Lượt sử dụng chỉ được ghi nhận khi đơn hàng được tạo thành công; việc kiểm tra lượt còn lại và ghi nhận sử dụng phải bảo đảm không vượt giới hạn khi có nhiều yêu cầu đồng thời.
+ \end{itemize}
+\end{itemize}
+
+% ==================================================
+
+\subsection{UC18. Áp dụng voucher khi đặt hàng}
+
+\begin{itemize}
+ \item \textbf{Actor:} Khách hàng.
+ \item \textbf{Mục tiêu:} Sử dụng mã voucher hợp lệ để giảm số tiền phải trả cho đơn hàng.
+ \item \textbf{Mô tả:} Khách hàng nhập mã voucher ở bước kiểm tra đơn hàng. Hệ thống xác thực voucher theo thời hạn, trạng thái, giá trị đơn và giới hạn sử dụng trước khi tính lại tổng tiền.
+ \item \textbf{Điều kiện trước:} Khách hàng đã đăng nhập, giỏ hàng có sản phẩm và đang thực hiện UC05 -- Đặt hàng.
+ \item \textbf{Luồng chính:}
+ \begin{enumerate}
+  \item Khách hàng nhập mã voucher và yêu cầu áp dụng.
+  \item Hệ thống chuẩn hóa mã và tìm voucher tương ứng.
+  \item Hệ thống kiểm tra trạng thái, thời hạn, giá trị đơn tối thiểu, lượt sử dụng và điều kiện theo khách hàng.
+  \item Hệ thống tính mức giảm voucher trên tổng tiền sau khi đã áp dụng giảm giá sản phẩm.
+  \item Hệ thống hiển thị mã được áp dụng, số tiền giảm và tổng tiền mới.
+  \item Khi khách hàng xác nhận đặt hàng, hệ thống kiểm tra lại điều kiện và ghi nhận việc sử dụng cùng giao dịch tạo đơn hàng.
+ \end{enumerate}
+ \item \textbf{Luồng thay thế / Ngoại lệ:}
+ \begin{itemize}
+  \item Nếu mã không tồn tại, đã hết hạn, bị vô hiệu hóa, hết lượt hoặc khách hàng không đủ điều kiện, hệ thống thông báo lý do và không giảm giá.
+  \item Nếu giỏ hàng thay đổi khiến không còn đủ điều kiện, hệ thống tính lại đơn và yêu cầu xác nhận tổng tiền mới.
+  \item Nếu voucher hết lượt trước khi đơn hàng được tạo, hệ thống không ghi nhận voucher và yêu cầu khách hàng xác nhận đơn với số tiền cập nhật.
+ \end{itemize}
+ \item \textbf{Điều kiện sau:} Voucher hợp lệ được lưu cùng thông tin giảm giá thực tế của đơn hàng; voucher không hợp lệ không làm thay đổi tổng tiền.
+ \item \textbf{Quy tắc nghiệp vụ:}
+ \begin{itemize}
+  \item Trình duyệt không được tự quyết định số tiền giảm; hệ thống luôn tự tính lại tại thời điểm áp dụng và tạo đơn.
+  \item Mã voucher và số tiền giảm thực tế phải được lưu trong đơn hàng để bảo toàn lịch sử khi cấu hình voucher thay đổi.
+  \item Hủy hoặc áp dụng lại voucher trong giao diện không được ghi tăng lượt sử dụng; chỉ giao dịch tạo đơn thành công mới ghi nhận lượt.
+ \end{itemize}
 \end{itemize}
 
 \newpage
