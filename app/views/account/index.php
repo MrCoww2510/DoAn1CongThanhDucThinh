@@ -13,7 +13,7 @@ $baseUrl = rtrim((string) ($appConfig['base_url'] ?? ''), '/');
     <div class="account-heading">
         <p class="account-eyebrow">TÀI KHOẢN CỦA BẠN</p>
         <h1>Quản lý tài khoản</h1>
-        <p>Cập nhật thông tin cá nhân, địa chỉ nhận hàng và mật khẩu.</p>
+        <p>Cập nhật thông tin cá nhân, mật khẩu và sổ địa chỉ giao hàng.</p>
     </div>
 
     <?php if (!empty($flash)): ?>
@@ -81,16 +81,6 @@ $baseUrl = rtrim((string) ($appConfig['base_url'] ?? ''), '/');
                     >
                 </div>
 
-                <div class="account-field account-field-wide">
-                    <label for="account-address">Địa chỉ nhận hàng</label>
-                    <textarea
-                        id="account-address"
-                        name="address"
-                        rows="3"
-                        maxlength="255"
-                        autocomplete="street-address"
-                    ><?= $escape($form['address'] ?? '') ?></textarea>
-                </div>
             </div>
         </section>
 
@@ -139,6 +129,73 @@ $baseUrl = rtrim((string) ($appConfig['base_url'] ?? ''), '/');
             <button class="account-save-button" type="submit">Lưu thay đổi</button>
         </div>
     </form>
+
+    <?php if (!empty($addressBookEnabled)): ?>
+        <section class="account-card account-address-book">
+            <h2>Sổ địa chỉ giao hàng</h2>
+            <p class="account-section-note">
+                Lưu nhiều địa chỉ để chọn khi đặt hàng. Thay đổi ở đây không làm thay đổi địa chỉ đã lưu trên đơn hàng trước đó.
+            </p>
+
+            <form class="account-address-add" method="post" action="<?= $escape($baseUrl) ?>/account/addresses/add">
+                <input type="hidden" name="_csrf" value="<?= $escape($csrfToken ?? '') ?>">
+                <div class="account-field">
+                    <label for="new-delivery-address">Thêm địa chỉ mới</label>
+                    <textarea
+                        id="new-delivery-address"
+                        name="address"
+                        rows="3"
+                        maxlength="255"
+                        autocomplete="street-address"
+                        required
+                    ><?= $escape(($addressDraft['id'] ?? '') === '' ? ($addressDraft['address'] ?? '') : '') ?></textarea>
+                </div>
+                <button class="account-save-button" type="submit">Thêm địa chỉ</button>
+            </form>
+
+            <?php if (empty($addresses)): ?>
+                <p class="account-address-empty">Bạn chưa lưu địa chỉ giao hàng nào.</p>
+            <?php else: ?>
+                <ul class="account-address-list">
+                    <?php foreach ($addresses as $address): ?>
+                        <?php
+                        $addressId = (string) $address['MaDiaChi'];
+                        $addressValue = ($addressDraft['id'] ?? null) === $addressId
+                            ? (string) ($addressDraft['address'] ?? '')
+                            : (string) $address['DiaChi'];
+                        ?>
+                        <li class="account-address-item">
+                            <form method="post" action="<?= $escape($baseUrl) ?>/account/addresses/update">
+                                <input type="hidden" name="_csrf" value="<?= $escape($csrfToken ?? '') ?>">
+                                <input type="hidden" name="address_id" value="<?= $escape($addressId) ?>">
+                                <input type="hidden" name="current_address" value="<?= $escape($address['DiaChi']) ?>">
+                                <div class="account-field">
+                                    <label for="delivery-address-<?= $escape($addressId) ?>">
+                                        Địa chỉ giao hàng<?= $addressId === 'profile' ? ' (địa chỉ cũ)' : '' ?>
+                                    </label>
+                                    <textarea
+                                        id="delivery-address-<?= $escape($addressId) ?>"
+                                        name="address"
+                                        rows="3"
+                                        maxlength="255"
+                                        autocomplete="street-address"
+                                        required
+                                    ><?= $escape($addressValue) ?></textarea>
+                                </div>
+                                <button class="account-save-button" type="submit">Lưu địa chỉ</button>
+                            </form>
+                            <form method="post" action="<?= $escape($baseUrl) ?>/account/addresses/delete">
+                                <input type="hidden" name="_csrf" value="<?= $escape($csrfToken ?? '') ?>">
+                                <input type="hidden" name="address_id" value="<?= $escape($addressId) ?>">
+                                <input type="hidden" name="current_address" value="<?= $escape($address['DiaChi']) ?>">
+                                <button class="account-address-delete" type="submit">Xóa địa chỉ</button>
+                            </form>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
+        </section>
+    <?php endif; ?>
 
     <div class="account-logout">
         <form method="post" action="<?= $escape($baseUrl) ?>/logout">

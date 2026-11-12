@@ -41,3 +41,9 @@ Transaction protects order header/detail/stock/history/cart atomically under Inn
 `validCsrf`: POST token nonempty and hash_equals. `staffData`: trim four text fields. `validateStaff`: required name/username/email; max lengths; username ASCII regex; filter_var email; returns error string or ''. Phone length only, no numeric normalization. `fail/succeed`: session keys and redirect.
 
 Notable side effects/edge cases: flash unset occurs after view include; if rendering throws, unset may not run. The admin status method trusts HTTP route POST but does not separately call `postOnly`; router exposes only POST, so route mapping provides method gate. create/update/status all CSRF check. Admin self role/status is refreshed each management request.
+
+## UC09 — Quản lý đơn hàng (bổ sung 12-11-2026)
+
+`OrderManagementController` cung cấp danh sách có lọc/tìm kiếm, trang chi tiết, cập nhật trạng thái và xác nhận hàng hoàn về kho tại `/admin/orders`. Nhân viên và quản trị viên đang hoạt động được phép truy cập; vai trò/trạng thái tài khoản được đọc lại từ DB. Các POST dùng CSRF và redirect 303.
+
+`Order::updateStatusForManagement` khóa đơn trong transaction, chỉ cho phép `Chờ xác nhận → Đang chuẩn bị hàng → Đang giao hàng → Hoàn thành | Giao hàng thất bại`; khi xác nhận lần đầu, khóa và kiểm tra chi tiết/tồn kho nhưng không trừ kho lần nữa vì hàng đã được giữ chỗ lúc đặt. `confirmReturnForManagement` chỉ hoàn tồn khi đơn giao thất bại và `DaHoanKho = 0`, ghi lịch sử kho rồi đặt cờ trong cùng transaction để ngăn hoàn lặp. Migration bổ sung trạng thái thất bại và cờ này; chưa được thực thi trên DB.

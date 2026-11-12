@@ -12,6 +12,7 @@ use App\Controllers\CheckoutController;
 use App\Controllers\HomeController;
 use App\Controllers\InventoryController;
 use App\Controllers\OrderController;
+use App\Controllers\OrderManagementController;
 use App\Controllers\ProductController;
 use App\Controllers\StatisticsController;
 use App\Controllers\UserManagementController;
@@ -34,6 +35,9 @@ $router->post('/logout', [AuthController::class, 'logout']);
 // Tài khoản khách hàng
 $router->get('/account', [AccountController::class, 'index']);
 $router->post('/account', [AccountController::class, 'update']);
+$router->post('/account/addresses/add', [AccountController::class, 'addAddress']);
+$router->post('/account/addresses/update', [AccountController::class, 'updateAddress']);
+$router->post('/account/addresses/delete', [AccountController::class, 'deleteAddress']);
 
 // Quản lý người dùng (chỉ quản trị viên; các thao tác ghi dùng POST và CSRF).
 $router->get('/admin/users', [UserManagementController::class, 'index']);
@@ -69,5 +73,10 @@ $router->get('/checkout/success', [CheckoutController::class, 'success']);
 $router->get('/orders', [OrderController::class, 'index']);
 $router->get('/orders/{orderId}', [OrderController::class, 'show']);
 $router->post('/orders/{orderId}/cancel', [OrderController::class, 'cancel']);
+
+$router->get('/admin/orders', [OrderManagementController::class, 'index']);
+$router->get('/admin/orders/{orderId}', [OrderManagementController::class, 'show']);
+$router->post('/admin/orders/{orderId}/status', [OrderManagementController::class, 'updateStatus']);
+$router->post('/admin/orders/{orderId}/return', [OrderManagementController::class, 'confirmReturn']);
 
 $router->get('/about', [AboutController::class, 'index']);

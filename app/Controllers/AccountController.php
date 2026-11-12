@@ -6,6 +6,7 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 use App\Models\Account;
+use App\Models\DeliveryAddress;
 use PDOException;
 use RuntimeException;
 use Throwable;
@@ -66,13 +67,17 @@ final class AccountController extends Controller
             'name' => (string) $profile['HoTen'],
             'email' => (string) ($profile['Email'] ?? ''),
             'phone' => (string) ($profile['SDT'] ?? ''),
-            'address' => (string) ($profile['DiaChiNhanHang'] ?? ''),
         ];
 
         $this->view('account/index', [
             'pageTitle' => 'Quản lý tài khoản',
             'profile' => $profile,
             'form' => $form,
+            'addresses' => $role === 'KhachHang'
+                ? $this->addressBook((string) $user['MaND'], (string) ($profile['DiaChiNhanHang'] ?? ''))
+                : [],
+            'addressBookEnabled' => $role === 'KhachHang',
+            'addressDraft' => null,
             'flash' => $flash,
             'csrfToken' => $_SESSION['_csrf'],
         ]);
@@ -92,7 +97,6 @@ final class AccountController extends Controller
             'name' => trim((string) ($_POST['name'] ?? '')),
             'email' => trim((string) ($_POST['email'] ?? '')),
             'phone' => trim((string) ($_POST['phone'] ?? '')),
-            'address' => trim((string) ($_POST['address'] ?? '')),
         ];
         $currentPassword = (string) ($_POST['current_password'] ?? '');
         $newPassword = (string) ($_POST['new_password'] ?? '');
@@ -126,10 +130,6 @@ final class AccountController extends Controller
             $form['phone'] = $normalizedPhone;
         }
 
-        if (mb_strlen($form['address']) > 255) {
-            $errors[] = 'Địa chỉ nhận hàng không được vượt quá 255 ký tự.';
-        }
-
         $changingPassword = $currentPassword !== ''
             || $newPassword !== ''
             || $confirmPassword !== '';
@@ -157,7 +157,6 @@ final class AccountController extends Controller
                 $form['name'],
                 $form['email'],
                 $form['phone'],
-                $form['address'],
                 $changingPassword ? $currentPassword : null,
                 $changingPassword ? $newPassword : null,
                 $role
@@ -190,7 +189,142 @@ final class AccountController extends Controller
         }
     }
 
-    private function renderForm(array $user, array $form, array $errors): void
+    public function addAddress(): void
+    {
+        $this->mutateAddress('add');
+    }
+
+    public function updateAddress(): void
+    {
+        $this->mutateAddress('update');
+    }
+
+    public function deleteAddress(): void
+    {
+        $this->mutateAddress('delete');
+    }
+
+    private function mutateAddress(string $operation): void
+    {
+        if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
+            http_response_code(405);
+            exit('Phương thức không được hỗ trợ.');
+        }
+
+        $this->verifyCsrf();
+        $user = $this->requireAccountUser();
+        if (($user['VaiTro'] ?? '') !== 'KhachHang') {
+            http_response_code(403);
+            exit('Chỉ khách hàng mới có thể quản lý sổ địa chỉ.');
+        }
+
+        $addressId = trim((string) ($_POST['address_id'] ?? ''));
+        $address = trim((string) ($_POST['address'] ?? ''));
+        $currentAddress = (string) ($_POST['current_address'] ?? '');
+        $addressDraftValue = $operation === 'delete' ? $currentAddress : $address;
+        $error = '';
+
+        if ($operation !== 'delete' && ($address === '' || mb_strlen($address) > 255)) {
+            $error = 'Địa chỉ là bắt buộc và không được vượt quá 255 ký tự.';
+        } elseif ($operation === 'update' && $addressId === '') {
+            $error = 'Địa chỉ cần cập nhật không hợp lệ.';
+        } elseif ($operation === 'delete' && $addressId === '') {
+            $error = 'Địa chỉ cần xóa không hợp lệ.';
+        }
+
+        if ($error !== '') {
+            $this->renderForm(
+                $user,
+                [],
+                [$error],
+                ['id' => $addressId, 'address' => $addressDraftValue]
+            );
+            return;
+        }
+
+        try {
+            $addresses = new DeliveryAddress();
+            if ($operation === 'add') {
+                $addresses->addForCustomer((string) $user['MaND'], $address);
+            } elseif ($addressId === 'profile') {
+                $updated = $operation === 'update'
+                    ? $addresses->updateProfileAddressForCustomer(
+                        (string) $user['MaND'],
+                        $currentAddress,
+                        $address
+                    )
+                    : $addresses->deleteProfileAddressForCustomer(
+                        (string) $user['MaND'],
+                        $currentAddress
+                    );
+                if (!$updated) {
+                    throw new RuntimeException('Không tìm thấy địa chỉ cần cập nhật.');
+                }
+            } else {
+                if (!ctype_digit($addressId) || (int) $addressId < 1) {
+                    throw new RuntimeException('Địa chỉ cần thao tác không hợp lệ.');
+                }
+                $updated = $operation === 'update'
+                    ? $addresses->updateForCustomer((int) $addressId, (string) $user['MaND'], $address)
+                    : $addresses->deleteForCustomer((int) $addressId, (string) $user['MaND']);
+                if (!$updated) {
+                    throw new RuntimeException('Không tìm thấy địa chỉ trong sổ địa chỉ của bạn.');
+                }
+            }
+
+            $_SESSION['_account_flash'] = [
+                'type' => 'success',
+                'message' => $operation === 'add'
+                    ? 'Đã thêm địa chỉ giao hàng.'
+                    : ($operation === 'update' ? 'Đã cập nhật địa chỉ giao hàng.' : 'Đã xóa địa chỉ giao hàng.'),
+            ];
+            $this->redirect('account', 303);
+        } catch (PDOException $exception) {
+            error_log('[Account address] '.$exception->getMessage());
+            $this->renderForm(
+                $user,
+                [],
+                ['Không thể lưu địa chỉ. Địa chỉ có thể đã tồn tại hoặc thông tin đã thay đổi.'],
+                ['id' => $addressId, 'address' => $addressDraftValue]
+            );
+        } catch (RuntimeException $exception) {
+            $this->renderForm($user, [], [$exception->getMessage()], [
+                'id' => $addressId,
+                'address' => $addressDraftValue,
+            ]);
+        } catch (\Throwable $exception) {
+            error_log('[Account address] '.$exception->getMessage());
+            $this->renderForm(
+                $user,
+                [],
+                ['Đã xảy ra lỗi khi quản lý địa chỉ. Vui lòng thử lại.'],
+                ['id' => $addressId, 'address' => $addressDraftValue]
+            );
+        }
+    }
+
+    private function addressBook(string $customerId, string $profileAddress): array
+    {
+        $addresses = (new DeliveryAddress())->findForCustomer($customerId);
+        foreach ($addresses as $address) {
+            if ((string) $address['DiaChi'] === $profileAddress && $profileAddress !== '') {
+                return $addresses;
+            }
+        }
+
+        if ($profileAddress !== '') {
+            array_unshift($addresses, ['MaDiaChi' => 'profile', 'DiaChi' => $profileAddress]);
+        }
+
+        return $addresses;
+    }
+
+    private function renderForm(
+        array $user,
+        array $form,
+        array $errors,
+        ?array $addressDraft = null
+    ): void
     {
         $profile = (new Account())->findCustomerProfile(
             (string) $user['MaND'],
@@ -207,10 +341,23 @@ final class AccountController extends Controller
             return;
         }
 
+        if ($form === []) {
+            $form = [
+                'name' => (string) $profile['HoTen'],
+                'email' => (string) ($profile['Email'] ?? ''),
+                'phone' => (string) ($profile['SDT'] ?? ''),
+            ];
+        }
+
         $this->view('account/index', [
             'pageTitle' => 'Quản lý tài khoản',
             'profile' => $profile,
             'form' => $form,
+            'addresses' => ($user['VaiTro'] ?? '') === 'KhachHang'
+                ? $this->addressBook((string) $user['MaND'], (string) ($profile['DiaChiNhanHang'] ?? ''))
+                : [],
+            'addressBookEnabled' => ($user['VaiTro'] ?? '') === 'KhachHang',
+            'addressDraft' => $addressDraft,
             'errors' => $errors,
             'csrfToken' => (string) ($_SESSION['_csrf'] ?? ''),
         ]);

@@ -13,7 +13,7 @@ Nguồn yêu cầu gồm `rule.txt` và `LaTex_Document/Nhap/BanMoi.tex`; đó l
 | UC06 thanh toán | Một phần; không thấy payment gateway/callback |
 | UC07 theo dõi/hủy đơn | Có, theo customer/owner/status |
 | UC08 tài khoản | Có hồ sơ khách |
-| UC09 quản lý đơn bởi nhân viên | Chưa thấy route tương ứng |
+| UC09 quản lý đơn bởi nhân viên | Đã bổ sung GET/POST `/admin/orders` cho danh sách, chi tiết, chuyển trạng thái và xác nhận hàng hoàn; migration cho trạng thái giao thất bại/chống hoàn kho lặp chưa chạy |
 | UC10 tra tồn độc lập | Chưa thấy route/controller riêng |
 | UC11–12 CRUD sản phẩm/danh mục admin | Chưa thấy route tương ứng |
 | UC13 quản lý người dùng | Một phần; quản lý nhân viên |

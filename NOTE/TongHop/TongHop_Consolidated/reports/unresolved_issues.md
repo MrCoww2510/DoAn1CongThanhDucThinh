@@ -16,7 +16,7 @@
 | Sơ đồ ER | Sơ đồ gốc và v4 khác cardinality/chi tiết; v4 `19_DIAGRAM_CARDINALITY_NOTES.md` giải thích constraint vật lý vs business rule; `18_DIAGRAM_INDEX_CORRIGENDUM.md` sửa vị trí sơ đồ | Sơ đồ tổng hợp giản lược; không xem cardinality tối thiểu là constraint | Đối chiếu toàn bộ FK/UNIQUE với `database.sql` |
 | Encoding và path case | Terminal mojibake có thể do console. `AboutController` dùng `Views` còn thư mục được báo cáo là `views`, rủi ro trên Linux | Không kết luận file encoding hỏng hoặc chắc chắn lỗi deploy | Kiểm bytes, filesystem và triển khai mục tiêu |
 | Schema/migration | `database.sql` được nói đã có `DiaChiNhanHang`; migration lại ADD cột này | Nêu nguy cơ áp dụng lặp/trùng; không chọn trạng thái DB | Kiểm migration ledger/schema runtime |
-| Ràng buộc trạng thái order | V4 requirements traceability ghi nhận trạng thái “Giao hàng thất bại” có thể không nằm trong CHECK | Giữ là điểm cần đối chiếu, chưa xác nhận lỗi | So nguyên văn enum/check/transition với schema/model |
+| Ràng buộc trạng thái order | Schema snapshot ban đầu chưa cho phép “Giao hàng thất bại” và chưa có cờ xác nhận hàng hoàn | Đã bổ sung vào schema source và tạo migration UC09; migration chưa chạy | Trước khi áp dụng, xác minh DB đang dùng đúng schema/constraint và phiên bản MySQL/MariaDB |
 
 ## Vấn đề kỹ thuật chưa xác minh
 

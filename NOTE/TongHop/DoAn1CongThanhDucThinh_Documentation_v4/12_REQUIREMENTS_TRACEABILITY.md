@@ -1,6 +1,6 @@
 ﻿# Đối chiếu yêu cầu nghiệp vụ với source
 
-Ngày phân tích: 2026-10-19. Nguồn yêu cầu: `rule.txt` và `LaTex_Document/Nhap/BanMoi.tex`; nguồn thực thi ưu tiên: `routes/web.php`, controller/model/view, `database.sql`. Chỉ kết luận có/không có bằng chứng trong snapshot tĩnh; không xác nhận runtime.
+Ngày phân tích ban đầu: 2026-10-19; UC09 được cập nhật theo source ngày 2026-11-12. Nguồn yêu cầu: `rule.txt` và `LaTex_Document/Nhap/BanMoi.tex`; nguồn thực thi ưu tiên: `routes/web.php`, controller/model/view, `database.sql`. Chỉ kết luận có/không có bằng chứng trong snapshot tĩnh; không xác nhận runtime.
 
 | UC | Phạm vi yêu cầu | Kết quả đối chiếu source | Bằng chứng / giới hạn |
 |---|---|---|---|
@@ -12,7 +12,7 @@ Ngày phân tích: 2026-10-19. Nguồn yêu cầu: `rule.txt` và `LaTex_Documen
 | UC06 | Thanh toán | Một phần | Checkout chọn COD; không thấy cổng trực tuyến/callback. `GiaoDichThanhToan` trong schema không chứng minh tích hợp. |
 | UC07 | Theo dõi/hủy đơn | Có | GET `/orders`, GET `/orders/{orderId}`, POST cancel tại `routes/web.php:53-55`; model giới hạn đơn theo khách và điều kiện trạng thái. |
 | UC08 | Quản lý tài khoản | Có cho hồ sơ khách | `/account` GET/POST ở dòng 31-32; Account model. |
-| UC09 | Quản lý đơn bởi nhân viên/admin | Chưa thấy triển khai | Không có route nghiệp vụ quản trị đơn trong 27 route khai báo; controller OrderController là luồng khách hàng. |
+| UC09 | Quản lý đơn bởi nhân viên/admin | Đã bổ sung trong source; cần áp dụng migration | GET `/admin/orders`, GET chi tiết, POST cập nhật trạng thái và xác nhận hàng hoàn; `OrderManagementController`/`Order` kiểm tra vai trò, CSRF, luồng trạng thái và hoàn kho một lần. Migration thêm trạng thái “Giao hàng thất bại” và cờ `DaHoanKho`; chưa chạy trên database. |
 | UC10 | Tra tồn kho bởi nhân viên | Chưa thấy triển khai | Không có route/controller tra kho độc lập; tồn kho chỉ được đọc/điều chỉnh trong luồng giỏ/đặt/hủy đơn. |
 | UC11 | Quản lý sản phẩm admin | Chưa thấy triển khai | Không có route CRUD sản phẩm; ProductController là đọc danh sách/chi tiết. |
 | UC12 | Quản lý danh mục admin | Chưa thấy triển khai | Không có route CRUD danh mục; model chỉ truy vấn danh sách. |
@@ -22,11 +22,11 @@ Ngày phân tích: 2026-10-19. Nguồn yêu cầu: `rule.txt` và `LaTex_Documen
 
 ## Mâu thuẫn/khác biệt đáng chú ý
 
-- Các use case UC09–UC12, UC14–UC15 mô tả chức năng chưa thấy route triển khai. Đây là thiếu bằng chứng trong source hiện tại, không phải khẳng định rằng chức năng không thể tồn tại ngoài snapshot.
+- Các use case UC10–UC12, UC14–UC15 vẫn chưa thấy route triển khai trong source hiện tại. Đây là thiếu bằng chứng, không phải khẳng định rằng chức năng không thể tồn tại ngoài snapshot.
 - Yêu cầu `rule.txt:455-463` nói session regeneration sau đăng nhập. Trong phần AuthController đã đọc, cần xác nhận riêng việc gọi `session_regenerate_id`; route/source hiện có đăng nhập nhưng không thể suy luận biện pháp này chỉ từ yêu cầu.
 - UC03 và `rule.txt:218-232` nêu lọc khoảng giá, thương hiệu, phân trang; code hiện được đặc tả ở `modules/catalog.md` không có phân trang, và form không cung cấp đủ bộ lọc đó.
 - Kho được trừ trong lúc đặt COD, đồng thời giao diện/đặc tả có khái niệm payment; flow được đọc không có thanh toán online.
-- `DonHang` có CHECK trạng thái tại `database.sql:214-224`; đối chiếu nguyên văn trạng thái được đặc tả với CHECK và code cần lưu ý trạng thái “Giao hàng thất bại” không nằm trong CHECK theo kiểm tra trước đó. Không chạy SQL.
+- Migration `2026-11-12-add-order-failure-status-and-returned-stock.sql` bổ sung trạng thái “Giao hàng thất bại” và cờ chống hoàn kho lặp; migration chỉ được tạo, chưa chạy. Cần xác nhận phiên bản MySQL/MariaDB và trạng thái database trước khi áp dụng.
 - `rule.txt` là prompt/yêu cầu và template LaTeX chứa mô hình/Use Case thiết kế. Chúng không được coi là bằng chứng tính năng đang chạy.
 
-Các nhận định trên là đối chiếu tĩnh, được dẫn tới route/schema/module để người đọc tra cứu. Đề xuất triển khai, nếu có, thuộc tài liệu khuyến nghị và không được thực hiện tại source.
+Các nhận định trên là đối chiếu tĩnh, được dẫn tới route/schema/module để người đọc tra cứu. UC09 đã được bổ sung vào source; migration mở rộng trạng thái và ghi nhận hoàn kho mới chỉ được tạo, chưa chạy trên database.

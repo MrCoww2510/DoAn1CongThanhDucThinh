@@ -147,6 +147,70 @@
     background: #b71c1c;
 }
 
+.account-address-book {
+    margin-top: 20px;
+}
+
+.account-address-add {
+    display: grid;
+    justify-items: start;
+    gap: 14px;
+    margin-bottom: 24px;
+}
+
+.account-address-add .account-field {
+    width: 100%;
+}
+
+.account-address-list {
+    display: grid;
+    gap: 14px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.account-address-item {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: 12px;
+    padding: 16px;
+    border: 1px solid #e7ebf0;
+    border-radius: 10px;
+}
+
+.account-address-item form:first-child {
+    display: grid;
+    justify-items: start;
+    gap: 12px;
+}
+
+.account-address-item .account-field {
+    width: 100%;
+}
+
+.account-address-delete {
+    min-height: 42px;
+    padding: 0 16px;
+    color: #b91c1c;
+    background: #fff;
+    border: 1px solid #fecaca;
+    border-radius: 9px;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 700;
+}
+
+.account-address-delete:hover {
+    background: #fef2f2;
+}
+
+.account-address-empty {
+    margin: 0;
+    color: #718096;
+}
+
 .account-logout {
     display: flex;
     justify-content: flex-start;
@@ -191,6 +255,15 @@
     }
 
     .account-save-button {
+        width: 100%;
+    }
+
+    .account-address-item {
+        grid-template-columns: 1fr;
+    }
+
+    .account-address-item > form:last-child,
+    .account-address-item > form:last-child button {
         width: 100%;
     }
 }

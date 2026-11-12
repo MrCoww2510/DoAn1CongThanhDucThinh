@@ -188,7 +188,6 @@ final class Account
         string $name,
         string $email,
         string $phone,
-        string $address,
         ?string $currentPassword = null,
         ?string $newPassword = null,
         string $role = 'KhachHang'
@@ -237,14 +236,13 @@ final class Account
 
             $stmt = $pdo->prepare(
                 'UPDATE NguoiDung
-                 SET HoTen = :name, Email = :email, SDT = :phone, DiaChiNhanHang = :address
+                 SET HoTen = :name, Email = :email, SDT = :phone
                  WHERE MaND = :userId'
             );
             $stmt->execute([
                 'name' => $name,
                 'email' => $email,
                 'phone' => $phone !== '' ? $phone : null,
-                'address' => $address !== '' ? $address : null,
                 'userId' => $userId,
             ]);
 

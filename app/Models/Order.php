@@ -239,6 +239,105 @@ final class Order
         ];
     }
 
+    public function findAllForManagement(string $status = '', string $query = ''): array
+    {
+        $conditions = [];
+        $params = [];
+
+        if ($status !== '') {
+            $conditions[] = 'dh.TrangThaiDH = :status';
+            $params['status'] = $status;
+        }
+
+        if ($query !== '') {
+            $conditions[] = '(
+                dh.MaDH LIKE :orderId
+                OR nd.HoTen LIKE :customerName
+                OR dh.TenNguoiNhan LIKE :recipientName
+            )';
+            $needle = '%'.$query.'%';
+            $params['orderId'] = $needle;
+            $params['customerName'] = $needle;
+            $params['recipientName'] = $needle;
+        }
+
+        $where = $conditions === [] ? '' : ' WHERE '.implode(' AND ', $conditions);
+        $stmt = $this->db->prepare(
+            'SELECT
+                dh.MaDH,
+                dh.TenNguoiNhan,
+                dh.TongTien,
+                dh.TrangThaiDH,
+                dh.TrangThaiTT,
+                dh.NgayTao,
+                nd.HoTen AS TenKhachHang,
+                (
+                    SELECT COUNT(*)
+                    FROM ChiTietDonHang ct
+                    WHERE ct.MaDH = dh.MaDH
+                ) AS SoMatHang
+             FROM DonHang dh
+             INNER JOIN NguoiDung nd ON nd.MaND = dh.MaND'
+             .$where.
+            ' ORDER BY dh.NgayTao DESC, dh.MaDH DESC'
+        );
+        $stmt->execute($params);
+
+        return $stmt->fetchAll();
+    }
+
+    public function findForManagement(string $orderId): ?array
+    {
+        $stmt = $this->db->prepare(
+            'SELECT
+                dh.MaDH,
+                dh.MaND,
+                dh.MaNV,
+                dh.TenNguoiNhan,
+                dh.DiaChiGiao,
+                dh.SDTNhan,
+                dh.TongTien,
+                dh.PhuongThucTT,
+                dh.TrangThaiDH,
+                dh.TrangThaiTT,
+                dh.NgayTao,
+                dh.DaHoanKho,
+                nd.HoTen AS TenKhachHang,
+                nv.HoTen AS TenNhanVien
+             FROM DonHang dh
+             INNER JOIN NguoiDung nd ON nd.MaND = dh.MaND
+             LEFT JOIN NguoiDung nv ON nv.MaND = dh.MaNV
+             WHERE dh.MaDH = :orderId
+             LIMIT 1'
+        );
+        $stmt->execute(['orderId' => $orderId]);
+        $order = $stmt->fetch();
+
+        if ($order === false) {
+            return null;
+        }
+
+        $stmt = $this->db->prepare(
+            'SELECT
+                ct.MaSP,
+                ct.SoLuong,
+                ct.DonGia,
+                sp.TenSP,
+                sp.SoLuongTon,
+                (ct.SoLuong * ct.DonGia) AS ThanhTien
+             FROM ChiTietDonHang ct
+             INNER JOIN SanPham sp ON sp.MaSP = ct.MaSP
+             WHERE ct.MaDH = :orderId
+             ORDER BY ct.MaCTDH'
+        );
+        $stmt->execute(['orderId' => $orderId]);
+
+        return [
+            'order' => $order,
+            'items' => $stmt->fetchAll(),
+        ];
+    }
+
     public function findAllForCustomer(string $customerId): array
     {
         $stmt = $this->db->prepare(
@@ -261,6 +360,168 @@ final class Order
         $stmt->execute(['customerId' => $customerId]);
 
         return $stmt->fetchAll();
+    }
+
+    public function updateStatusForManagement(
+        string $orderId,
+        string $staffUserId,
+        string $targetStatus
+    ): void {
+        $this->db->beginTransaction();
+
+        try {
+            $stmt = $this->db->prepare(
+                'SELECT TrangThaiDH
+                 FROM DonHang
+                 WHERE MaDH = :orderId
+                 LIMIT 1
+                 FOR UPDATE'
+            );
+            $stmt->execute(['orderId' => $orderId]);
+            $currentStatus = $stmt->fetchColumn();
+
+            if ($currentStatus === false) {
+                throw new RuntimeException('Không tìm thấy đơn hàng.');
+            }
+
+            $transitions = [
+                'Chờ xác nhận' => ['Đang chuẩn bị hàng'],
+                'Đang chuẩn bị hàng' => ['Đang giao hàng'],
+                'Đang giao hàng' => ['Hoàn thành', 'Giao hàng thất bại'],
+            ];
+            if (!in_array($targetStatus, $transitions[$currentStatus] ?? [], true)) {
+                throw new RuntimeException(
+                    'Trạng thái hiện tại không cho phép thực hiện thao tác này.'
+                );
+            }
+
+            if ($currentStatus === 'Chờ xác nhận') {
+                $stmt = $this->db->prepare(
+                    'SELECT ct.MaSP, ct.SoLuong, sp.SoLuongTon, sp.TenSP
+                     FROM ChiTietDonHang ct
+                     INNER JOIN SanPham sp ON sp.MaSP = ct.MaSP
+                     WHERE ct.MaDH = :orderId
+                     ORDER BY ct.MaSP
+                     FOR UPDATE'
+                );
+                $stmt->execute(['orderId' => $orderId]);
+                $items = $stmt->fetchAll();
+
+                if ($items === []) {
+                    throw new RuntimeException(
+                        'Đơn hàng không có sản phẩm để xác nhận.'
+                    );
+                }
+
+                foreach ($items as $item) {
+                    if ((int) $item['SoLuong'] < 1 || (int) $item['SoLuongTon'] < 0) {
+                        throw new RuntimeException(
+                            'Không thể xác nhận vì tồn kho sản phẩm "'.$item['TenSP'].'" không hợp lệ.'
+                        );
+                    }
+                }
+            }
+
+            $stmt = $this->db->prepare(
+                'UPDATE DonHang
+                 SET TrangThaiDH = :targetStatus, MaNV = :staffUserId
+                 WHERE MaDH = :orderId AND TrangThaiDH = :currentStatus'
+            );
+            $stmt->execute([
+                'targetStatus' => $targetStatus,
+                'staffUserId' => $staffUserId,
+                'orderId' => $orderId,
+                'currentStatus' => $currentStatus,
+            ]);
+
+            if ($stmt->rowCount() !== 1) {
+                throw new RuntimeException(
+                    'Trạng thái đơn hàng đã thay đổi. Vui lòng tải lại trang.'
+                );
+            }
+
+            $this->db->commit();
+        } catch (Throwable $exception) {
+            if ($this->db->inTransaction()) {
+                $this->db->rollBack();
+            }
+
+            throw $exception;
+        }
+    }
+
+    public function confirmReturnForManagement(string $orderId, string $staffUserId): void
+    {
+        $this->db->beginTransaction();
+
+        try {
+            $stmt = $this->db->prepare(
+                'SELECT TrangThaiDH, DaHoanKho
+                 FROM DonHang
+                 WHERE MaDH = :orderId
+                 LIMIT 1
+                 FOR UPDATE'
+            );
+            $stmt->execute(['orderId' => $orderId]);
+            $order = $stmt->fetch();
+
+            if ($order === false) {
+                throw new RuntimeException('Không tìm thấy đơn hàng.');
+            }
+            if ($order['TrangThaiDH'] !== 'Giao hàng thất bại') {
+                throw new RuntimeException(
+                    'Chỉ có thể xác nhận hàng hoàn về kho cho đơn giao thất bại.'
+                );
+            }
+            if ((int) $order['DaHoanKho'] === 1) {
+                throw new RuntimeException('Hàng của đơn này đã được hoàn về kho.');
+            }
+
+            $stmt = $this->db->prepare(
+                'SELECT MaSP, SoLuong
+                 FROM ChiTietDonHang
+                 WHERE MaDH = :orderId
+                 ORDER BY MaSP
+                 FOR UPDATE'
+            );
+            $stmt->execute(['orderId' => $orderId]);
+            $items = $stmt->fetchAll();
+
+            if ($items === []) {
+                throw new RuntimeException(
+                    'Đơn hàng không có sản phẩm để hoàn trả tồn kho.'
+                );
+            }
+
+            $this->restoreOrderStock($items, $staffUserId);
+
+            $stmt = $this->db->prepare(
+                'UPDATE DonHang
+                 SET DaHoanKho = 1, MaNV = :staffUserId
+                 WHERE MaDH = :orderId
+                   AND TrangThaiDH = :failedStatus
+                   AND DaHoanKho = 0'
+            );
+            $stmt->execute([
+                'staffUserId' => $staffUserId,
+                'orderId' => $orderId,
+                'failedStatus' => 'Giao hàng thất bại',
+            ]);
+
+            if ($stmt->rowCount() !== 1) {
+                throw new RuntimeException(
+                    'Trạng thái hoàn kho đã thay đổi. Vui lòng tải lại trang.'
+                );
+            }
+
+            $this->db->commit();
+        } catch (Throwable $exception) {
+            if ($this->db->inTransaction()) {
+                $this->db->rollBack();
+            }
+
+            throw $exception;
+        }
     }
 
     public function cancelForCustomer(string $orderId, string $customerId): void
@@ -307,41 +568,7 @@ final class Order
             $stmt->execute(['orderId' => $orderId]);
             $items = $stmt->fetchAll();
 
-            foreach ($items as $item) {
-                $productId = (string) $item['MaSP'];
-                $quantity = (int) $item['SoLuong'];
-
-                $stmt = $this->db->prepare(
-                    'UPDATE SanPham
-                     SET SoLuongTon = SoLuongTon + :quantity
-                     WHERE MaSP = :productId'
-                );
-                $stmt->execute([
-                    'quantity' => $quantity,
-                    'productId' => $productId,
-                ]);
-
-                if ($stmt->rowCount() !== 1) {
-                    throw new RuntimeException(
-                        'Không thể hoàn trả tồn kho cho sản phẩm trong đơn hàng.'
-                    );
-                }
-
-                $historyId = 'LS' . strtoupper(bin2hex(random_bytes(9)));
-                $stmt = $this->db->prepare(
-                    'INSERT INTO LichSuKho
-                        (MaLS, MaSP, SoLuongThayDoi, LoaiThaoTac, MaND)
-                     VALUES
-                        (:historyId, :productId, :quantityChange, :operation, :customerId)'
-                );
-                $stmt->execute([
-                    'historyId' => $historyId,
-                    'productId' => $productId,
-                    'quantityChange' => $quantity,
-                    'operation' => 'NhapKho',
-                    'customerId' => $customerId,
-                ]);
-            }
+            $this->restoreOrderStock($items, $customerId);
 
             $stmt = $this->db->prepare(
                 'UPDATE DonHang
@@ -370,6 +597,48 @@ final class Order
             }
 
             throw $exception;
+        }
+    }
+
+    /**
+     * @param array<int, array{MaSP:mixed, SoLuong:mixed}> $items
+     */
+    private function restoreOrderStock(array $items, string $userId): void
+    {
+        foreach ($items as $item) {
+            $productId = (string) $item['MaSP'];
+            $quantity = (int) $item['SoLuong'];
+
+            $stmt = $this->db->prepare(
+                'UPDATE SanPham
+                 SET SoLuongTon = SoLuongTon + :quantity
+                 WHERE MaSP = :productId'
+            );
+            $stmt->execute([
+                'quantity' => $quantity,
+                'productId' => $productId,
+            ]);
+
+            if ($stmt->rowCount() !== 1) {
+                throw new RuntimeException(
+                    'Không thể hoàn trả tồn kho cho sản phẩm trong đơn hàng.'
+                );
+            }
+
+            $historyId = 'LS'.strtoupper(bin2hex(random_bytes(9)));
+            $stmt = $this->db->prepare(
+                'INSERT INTO LichSuKho
+                    (MaLS, MaSP, SoLuongThayDoi, LoaiThaoTac, MaND)
+                 VALUES
+                    (:historyId, :productId, :quantityChange, :operation, :userId)'
+            );
+            $stmt->execute([
+                'historyId' => $historyId,
+                'productId' => $productId,
+                'quantityChange' => $quantity,
+                'operation' => 'NhapKho',
+                'userId' => $userId,
+            ]);
         }
     }
 }
