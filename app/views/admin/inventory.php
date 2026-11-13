@@ -59,7 +59,8 @@ $escape = static fn (mixed $v): string => htmlspecialchars((string) $v, ENT_QUOT
         </tr>
         </thead>
         <tbody>
-    <?php foreach ($history as $item) { $operationLabel = ['NhapKho' => 'Nhập kho', 'DieuChinh' => 'Điều chỉnh', 'XuatKho' => 'Xuất kho'][$item['LoaiThaoTac']] ?? $item['LoaiThaoTac']; ?>
+    <?php foreach ($history as $item) {
+        $operationLabel = ['NhapKho' => 'Nhập kho', 'DieuChinh' => 'Điều chỉnh', 'XuatKho' => 'Xuất kho'][$item['LoaiThaoTac']] ?? $item['LoaiThaoTac']; ?>
         <tr>
         <td>
         <?php echo $escape($item['ThoiGian']); ?>
