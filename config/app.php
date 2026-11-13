@@ -1,4 +1,6 @@
 <?php
+// Cấu hình chung của ứng dụng.
+
 
 declare(strict_types=1);
 

@@ -1,4 +1,6 @@
 <?php
+// Controller quản lý sản phẩm và danh mục trong khu vực quản trị.
+
 
 declare(strict_types=1);
 
@@ -9,6 +11,7 @@ use App\Models\Product;
 
 final class CatalogManagementController extends Controller
 {
+    // Lấy dữ liệu sản phẩm phục vụ trang quản trị.
     public function products(): void
     {
         AdminController::authorize();
@@ -24,6 +27,7 @@ final class CatalogManagementController extends Controller
         unset($_SESSION['_catalog_error'], $_SESSION['_catalog_success']);
     }
 
+    // Kiểm tra dữ liệu gửi lên rồi lưu thông tin sản phẩm.
     public function saveProduct(): void
     {
         AdminController::authorize();
@@ -52,6 +56,7 @@ final class CatalogManagementController extends Controller
         }
     }
 
+    // Cập nhật trạng thái kinh doanh của sản phẩm.
     public function productStatus(): void
     {
         AdminController::authorize();
@@ -62,6 +67,7 @@ final class CatalogManagementController extends Controller
         $this->succeed('Đã cập nhật trạng thái sản phẩm.');
     }
 
+    // Lấy danh sách danh mục phục vụ trang hiện tại.
     public function categories(): void
     {
         AdminController::authorize();
@@ -74,6 +80,7 @@ final class CatalogManagementController extends Controller
         unset($_SESSION['_catalog_error'], $_SESSION['_catalog_success']);
     }
 
+    // Tạo mới hoặc cập nhật tên danh mục.
     public function saveCategory(): void
     {
         AdminController::authorize();
@@ -90,6 +97,7 @@ final class CatalogManagementController extends Controller
         }
     }
 
+    // Cập nhật trạng thái kinh doanh của danh mục.
     public function categoryStatus(): void
     {
         AdminController::authorize();
@@ -100,6 +108,7 @@ final class CatalogManagementController extends Controller
         $this->succeed('Đã cập nhật trạng thái danh mục.');
     }
 
+    // Xóa danh mục sau khi kiểm tra điều kiện nghiệp vụ.
     public function deleteCategory(): void
     {
         AdminController::authorize();
@@ -108,18 +117,21 @@ final class CatalogManagementController extends Controller
         $this->succeed('Đã xóa danh mục không còn sản phẩm liên kết.');
     }
 
+    // So sánh mã CSRF trong yêu cầu với mã lưu trong phiên.
     private function validCsrf(): bool
     {
         $token = (string) ($_POST['_csrf'] ?? '');
         return $token !== '' && isset($_SESSION['_csrf']) && hash_equals($_SESSION['_csrf'], $token);
     }
 
+    // Lưu thông báo lỗi và chuyển hướng về trang phù hợp.
     private function fail(string $message): never
     {
         $_SESSION['_catalog_error'] = $message;
         $this->redirect('admin/products');
     }
 
+    // Lưu thông báo thành công và chuyển hướng về trang phù hợp.
     private function succeed(string $message): never
     {
         $_SESSION['_catalog_success'] = $message;

@@ -1,4 +1,6 @@
 <?php
+// Model lưu và truy vấn địa chỉ nhận hàng của khách hàng.
+
 
 declare(strict_types=1);
 
@@ -24,6 +26,7 @@ final class DeliveryAddress
         return $stmt->fetchAll();
     }
 
+    // Tìm địa chỉ theo mã và xác nhận địa chỉ thuộc khách hàng.
     public function findForCustomerById(int $addressId, string $customerId): ?string
     {
         $stmt = Database::connection()->prepare(
@@ -41,6 +44,7 @@ final class DeliveryAddress
         return $address === false ? null : (string) $address;
     }
 
+    // Lưu địa chỉ nhận hàng mới cho khách hàng.
     public function addForCustomer(string $customerId, string $address): int
     {
         $pdo = Database::connection();
@@ -112,6 +116,7 @@ final class DeliveryAddress
         }
     }
 
+    // Cập nhật địa chỉ khi mã địa chỉ thuộc đúng khách hàng.
     public function updateForCustomer(int $addressId, string $customerId, string $address): bool
     {
         $pdo = Database::connection();
@@ -165,6 +170,7 @@ final class DeliveryAddress
         }
     }
 
+    // Xóa địa chỉ khi mã địa chỉ thuộc đúng khách hàng.
     public function deleteForCustomer(int $addressId, string $customerId): bool
     {
         $pdo = Database::connection();
@@ -212,6 +218,7 @@ final class DeliveryAddress
         }
     }
 
+    // Cập nhật địa chỉ mặc định trong hồ sơ khách hàng.
     public function updateProfileAddressForCustomer(
         string $customerId,
         string $currentAddress,
@@ -245,6 +252,7 @@ final class DeliveryAddress
         return $stmt->rowCount() > 0;
     }
 
+    // Xóa địa chỉ mặc định khỏi hồ sơ khách hàng.
     public function deleteProfileAddressForCustomer(
         string $customerId,
         string $currentAddress

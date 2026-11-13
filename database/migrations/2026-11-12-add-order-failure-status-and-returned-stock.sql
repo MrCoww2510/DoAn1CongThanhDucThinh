@@ -1,3 +1,4 @@
+-- Migration bổ sung trạng thái giao hàng thất bại và ràng buộc trạng thái đơn.
 ALTER TABLE DonHang
     DROP CONSTRAINT CK_DonHang_TrangThaiDH,
     ADD CONSTRAINT CK_DonHang_TrangThaiDH

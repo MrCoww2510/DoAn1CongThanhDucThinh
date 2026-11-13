@@ -1,4 +1,6 @@
 <?php
+// Model quản lý các mặt hàng trong giỏ của khách hàng.
+
 
 declare(strict_types=1);
 

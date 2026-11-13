@@ -1,3 +1,4 @@
+// Giao diện trang chủ với danh mục và sản phẩm nổi bật.
 
 <?php
 $featuredProducts = $featuredProducts ?? [];

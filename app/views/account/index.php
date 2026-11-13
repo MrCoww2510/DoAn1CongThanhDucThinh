@@ -1,4 +1,6 @@
 <?php
+// Giao diện hồ sơ tài khoản và thông tin nhận hàng của khách.
+
 declare(strict_types=1);
 
 $escape = static fn ($value): string =>

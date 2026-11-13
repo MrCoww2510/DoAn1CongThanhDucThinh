@@ -1,4 +1,6 @@
 <?php
+// Controller quản lý hồ sơ khách hàng và địa chỉ nhận hàng.
+
 
 declare(strict_types=1);
 
@@ -13,6 +15,7 @@ use Throwable;
 
 final class AccountController extends Controller
 {
+    // Xác thực phiên và lấy tài khoản đang thao tác.
     private function requireAccountUser(): array
     {
         $user = $_SESSION['user'] ?? null;
@@ -28,6 +31,7 @@ final class AccountController extends Controller
         return $user;
     }
 
+    // Từ chối yêu cầu nếu mã CSRF không khớp với phiên.
     private function verifyCsrf(): void
     {
         $csrf = (string) ($_POST['_csrf'] ?? '');
@@ -43,6 +47,7 @@ final class AccountController extends Controller
         }
     }
 
+    // Chuẩn bị dữ liệu và hiển thị trang tương ứng.
     public function index(): void
     {
         $user = $this->requireAccountUser();
@@ -83,6 +88,7 @@ final class AccountController extends Controller
         ]);
     }
 
+    // Cập nhật dữ liệu sau khi kiểm tra các điều kiện nghiệp vụ.
     public function update(): void
     {
         if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
@@ -189,21 +195,25 @@ final class AccountController extends Controller
         }
     }
 
+    // Nhận và lưu địa chỉ giao hàng mới của khách hàng.
     public function addAddress(): void
     {
         $this->mutateAddress('add');
     }
 
+    // Nhận dữ liệu và cập nhật địa chỉ giao hàng đã lưu.
     public function updateAddress(): void
     {
         $this->mutateAddress('update');
     }
 
+    // Xóa địa chỉ giao hàng thuộc về khách hàng hiện tại.
     public function deleteAddress(): void
     {
         $this->mutateAddress('delete');
     }
 
+    // Xử lý thêm, sửa hoặc xóa địa chỉ theo thao tác được yêu cầu.
     private function mutateAddress(string $operation): void
     {
         if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
@@ -303,6 +313,7 @@ final class AccountController extends Controller
         }
     }
 
+    // Kết hợp địa chỉ hồ sơ với các địa chỉ nhận hàng đã lưu.
     private function addressBook(string $customerId, string $profileAddress): array
     {
         $addresses = (new DeliveryAddress())->findForCustomer($customerId);
@@ -319,6 +330,7 @@ final class AccountController extends Controller
         return $addresses;
     }
 
+    // Chuẩn bị dữ liệu và hiển thị biểu mẫu tài khoản.
     private function renderForm(
         array $user,
         array $form,

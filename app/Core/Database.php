@@ -1,4 +1,6 @@
 <?php
+// Quản lý kết nối PDO dùng chung tới cơ sở dữ liệu.
+
 
 declare(strict_types=1);
 

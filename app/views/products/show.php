@@ -1,3 +1,4 @@
+// Giao diện thông tin chi tiết một sản phẩm.
 
 <?php
 $image = trim((string) ($product['HinhAnh'] ?? ''));

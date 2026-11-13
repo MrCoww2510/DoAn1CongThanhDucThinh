@@ -1,4 +1,6 @@
 <?php
+// Điểm vào HTTP: khởi tạo ứng dụng, nạp route và điều phối yêu cầu.
+
 
 declare(strict_types=1);
 

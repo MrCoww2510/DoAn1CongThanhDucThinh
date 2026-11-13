@@ -1,4 +1,6 @@
 <?php
+// Controller tổng hợp và hiển thị thống kê kinh doanh.
+
 
 declare(strict_types=1);
 
@@ -9,6 +11,7 @@ use App\Core\Database;
 
 final class StatisticsController extends Controller
 {
+    // Chuẩn bị dữ liệu và hiển thị trang tương ứng.
     public function index(): void
     {
         AdminController::authorize();
@@ -43,6 +46,7 @@ final class StatisticsController extends Controller
         ]);
     }
 
+    // Kiểm tra ngày đầu vào có đúng định dạng và là ngày hợp lệ.
     private function validDate(string $date): ?\DateTimeImmutable
     {
         $parsed = \DateTimeImmutable::createFromFormat('!Y-m-d', $date);

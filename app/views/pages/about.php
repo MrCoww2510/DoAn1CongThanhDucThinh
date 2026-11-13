@@ -1,4 +1,6 @@
 <?php
+// Giao diện nội dung giới thiệu cửa hàng.
+
 declare(strict_types=1);
 
 $appConfig = require BASE_PATH.'/config/app.php';

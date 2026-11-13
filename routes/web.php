@@ -1,4 +1,6 @@
 <?php
+// Khai báo các tuyến HTTP và ánh xạ chúng tới controller.
+
 
 declare(strict_types=1);
 

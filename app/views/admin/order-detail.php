@@ -1,4 +1,6 @@
 <?php
+// Giao diện chi tiết đơn hàng và các thao tác xử lý quản trị.
+
 $escape = static fn (mixed $value): string => htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
 $formatMoney = static fn (mixed $amount): string => number_format((float) $amount, 0, ',', '.').' ₫';
 $createdAt = strtotime((string) ($order['NgayTao'] ?? ''));

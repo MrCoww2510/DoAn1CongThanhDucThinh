@@ -1,4 +1,6 @@
 <?php
+// Controller xử lý quy trình đặt hàng và thanh toán tại bước checkout.
+
 
 declare(strict_types=1);
 
@@ -80,6 +82,7 @@ final class CheckoutController extends Controller
         ]);
     }
 
+    // Lưu địa chỉ giao hàng mới trong quá trình thanh toán.
     public function addAddress(): void
     {
         if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
@@ -352,6 +355,7 @@ final class CheckoutController extends Controller
         return $addresses;
     }
 
+    // Xác định địa chỉ giao hàng theo lựa chọn và dữ liệu gửi lên.
     private function resolveDeliveryAddress(
         string $customerId,
         string $addressId,

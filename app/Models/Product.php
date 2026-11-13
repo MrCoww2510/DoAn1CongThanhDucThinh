@@ -1,4 +1,6 @@
 <?php
+// Model truy vấn và quản lý dữ liệu sản phẩm, danh mục.
+
 
 declare(strict_types=1);
 
@@ -23,6 +25,7 @@ final class Product
         return $stmt->fetchAll();
     }
 
+    // Tạo mới hoặc cập nhật dữ liệu sản phẩm.
     public function saveManaged(array $data, ?string $id = null): string
     {
         $pdo = Database::connection();
@@ -56,6 +59,7 @@ final class Product
         }
     }
 
+    // Tìm sản phẩm theo mã trong dữ liệu quản trị.
     public function findManaged(string $id): ?array
     {
         $stmt = Database::connection()->prepare($this->baseQuery().' WHERE sp.MaSP = :id LIMIT 1');
@@ -64,6 +68,7 @@ final class Product
         return $product === false ? null : $product;
     }
 
+    // Cập nhật trạng thái kinh doanh của sản phẩm.
     public function changeProductStatus(string $id, string $status): bool
     {
         $stmt = Database::connection()->prepare('UPDATE ChiTietSanPham SET TrangThai = :status WHERE MaSP = :id');
@@ -77,6 +82,7 @@ final class Product
         return Database::connection()->query('SELECT dm.MaDM, dm.TenDM, dm.TrangThai, COUNT(sp.MaSP) AS SoSanPham FROM DanhMuc dm LEFT JOIN SanPham sp ON sp.MaDM = dm.MaDM GROUP BY dm.MaDM, dm.TenDM, dm.TrangThai ORDER BY dm.TenDM')->fetchAll();
     }
 
+    // Kiểm tra danh mục còn được phép kinh doanh.
     public function categoryIsActive(string $id): bool
     {
         $stmt = Database::connection()->prepare("SELECT 1 FROM DanhMuc WHERE MaDM = :id AND TrangThai = 'DangKinhDoanh'");
@@ -84,6 +90,7 @@ final class Product
         return (bool) $stmt->fetchColumn();
     }
 
+    // Tạo mới hoặc cập nhật tên danh mục.
     public function saveCategory(string $name, ?string $id = null): void
     {
         $pdo = Database::connection();
@@ -100,6 +107,7 @@ final class Product
         }
     }
 
+    // Cập nhật trạng thái kinh doanh của danh mục.
     public function changeCategoryStatus(string $id, string $status): bool
     {
         $stmt = Database::connection()->prepare('UPDATE DanhMuc SET TrangThai = :status WHERE MaDM = :id');
@@ -107,6 +115,7 @@ final class Product
         return $stmt->rowCount() > 0;
     }
 
+    // Xóa danh mục sau khi kiểm tra điều kiện nghiệp vụ.
     public function deleteCategory(string $id): bool
     {
         $pdo = Database::connection();
@@ -118,6 +127,7 @@ final class Product
         return $stmt->rowCount() > 0;
     }
 
+    // Kiểm tra danh mục có tồn tại trong cơ sở dữ liệu.
     private function categoryExists(\PDO $pdo, string $id): bool
     {
         $stmt = $pdo->prepare('SELECT 1 FROM DanhMuc WHERE MaDM = :id');
@@ -125,6 +135,7 @@ final class Product
         return (bool) $stmt->fetchColumn();
     }
 
+    // Tạo mã tiếp theo dựa trên tiền tố và mã hiện có.
     private function nextId(\PDO $pdo, string $table, string $column, string $prefix): string
     {
         $stmt = $pdo->query('SELECT '.$column.' FROM '.$table.' WHERE '.$column.' REGEXP \'^'.$prefix.'[0-9]+$\' ORDER BY CAST(SUBSTRING('.$column.', '.(strlen($prefix) + 1).') AS UNSIGNED) DESC LIMIT 1');

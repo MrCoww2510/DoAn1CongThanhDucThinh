@@ -1,4 +1,6 @@
 <?php
+// Giao diện giỏ hàng và các thao tác cập nhật mặt hàng.
+
 declare(strict_types=1);
 
 /*

@@ -1,4 +1,6 @@
 <?php
+// Layout chung cho các trang phía khách hàng.
+
 $appConfig = require BASE_PATH.'/config/app.php';
 $baseUrl = rtrim($appConfig['base_url'] ?? '', '/');
 ?>
@@ -230,6 +232,7 @@ $baseUrl = rtrim($appConfig['base_url'] ?? '', '/');
         }
     };
 
+    // Đưa trang về đầu khi người dùng kích hoạt nút lên đầu trang.
     function scrollToTop() {
         window.scrollTo({
             top: 0,

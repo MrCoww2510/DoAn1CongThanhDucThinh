@@ -1,4 +1,6 @@
 <?php
+// Model cập nhật tồn kho và ghi nhận lịch sử thao tác kho.
+
 
 declare(strict_types=1);
 
@@ -8,6 +10,7 @@ use App\Core\Database;
 
 final class Inventory
 {
+    // Cập nhật dữ liệu sau khi kiểm tra các điều kiện nghiệp vụ.
     public function update(string $productId, string $operation, int $quantity, string $userId): void
     {
         $pdo = Database::connection();
@@ -42,11 +45,13 @@ final class Inventory
         }
     }
 
+    // Lấy dữ liệu sản phẩm phục vụ trang quản trị.
     public function products(): array
     {
         return Database::connection()->query('SELECT sp.MaSP, sp.TenSP, sp.SoLuongTon, dm.TenDM FROM SanPham sp JOIN DanhMuc dm ON dm.MaDM = sp.MaDM ORDER BY sp.SoLuongTon ASC, sp.TenSP ASC')->fetchAll();
     }
 
+    // Lấy lịch sử các lần nhập và điều chỉnh tồn kho.
     public function history(): array
     {
         return Database::connection()->query('SELECT ls.MaLS, ls.SoLuongThayDoi, ls.LoaiThaoTac, ls.ThoiGian, sp.MaSP, sp.TenSP, nd.HoTen FROM LichSuKho ls JOIN SanPham sp ON sp.MaSP = ls.MaSP JOIN NguoiDung nd ON nd.MaND = ls.MaND ORDER BY ls.ThoiGian DESC LIMIT 100')->fetchAll();

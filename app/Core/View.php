@@ -1,4 +1,6 @@
 <?php
+// Nạp view, truyền dữ liệu và kết xuất nội dung cùng layout.
+
 
 declare(strict_types=1);
 

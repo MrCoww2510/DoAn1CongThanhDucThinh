@@ -1,4 +1,6 @@
 <?php
+// Mảnh giao diện hiển thị thông tin tóm tắt một sản phẩm.
+
 $image = trim((string) ($product['HinhAnh'] ?? ''));
 
 if ($image !== '') {

@@ -1,4 +1,6 @@
 <?php
+// Model tạo đơn hàng và thực hiện các thao tác nghiệp vụ trên đơn.
+
 
 declare(strict_types=1);
 
@@ -209,6 +211,7 @@ final class Order
         }
     }
 
+    // Đối chiếu số tiền giao dịch rồi ghi nhận thanh toán trực tuyến.
     public function markOnlineOrderPaid(string $orderId, string $transactionAmount): bool
     {
         $this->db->beginTransaction();
@@ -338,6 +341,7 @@ final class Order
         ];
     }
 
+    // Tìm danh sách đơn hàng theo bộ lọc quản trị.
     public function findAllForManagement(string $status = '', string $query = ''): array
     {
         $conditions = [];
@@ -385,6 +389,7 @@ final class Order
         return $stmt->fetchAll();
     }
 
+    // Tìm bản ghi theo mã để hiển thị trong khu vực quản trị.
     public function findForManagement(string $orderId): ?array
     {
         $stmt = $this->db->prepare(
@@ -437,6 +442,7 @@ final class Order
         ];
     }
 
+    // Lấy danh sách đơn hàng của khách hàng.
     public function findAllForCustomer(string $customerId): array
     {
         $stmt = $this->db->prepare(
@@ -461,6 +467,7 @@ final class Order
         return $stmt->fetchAll();
     }
 
+    // Cập nhật trạng thái đơn theo quy trình quản trị.
     public function updateStatusForManagement(
         string $orderId,
         string $staffUserId,
@@ -549,6 +556,7 @@ final class Order
         }
     }
 
+    // Xác nhận hàng hoàn và cập nhật tồn kho liên quan.
     public function confirmReturnForManagement(string $orderId, string $staffUserId): void
     {
         $this->db->beginTransaction();
@@ -623,6 +631,7 @@ final class Order
         }
     }
 
+    // Hủy đơn theo yêu cầu khách hàng và cập nhật dữ liệu liên quan.
     public function cancelForCustomer(string $orderId, string $customerId): void
     {
         $this->db->beginTransaction();

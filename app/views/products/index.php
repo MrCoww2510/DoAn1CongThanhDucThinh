@@ -1,4 +1,6 @@
 <?php
+// Giao diện bộ lọc và danh sách sản phẩm.
+
 $sort = $sort ?? 'default';
 ?>
 

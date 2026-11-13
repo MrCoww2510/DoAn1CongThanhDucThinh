@@ -1,3 +1,4 @@
+// Điều khiển hộp thoại xác nhận yêu cầu hủy đơn hàng.
 (() => {
     const dialog = document.querySelector('[data-order-cancel-dialog]');
     const form = document.querySelector('[data-order-cancel-form]');

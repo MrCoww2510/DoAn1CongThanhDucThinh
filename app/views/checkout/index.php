@@ -1,4 +1,6 @@
 <?php
+// Giao diện xác nhận thông tin và gửi yêu cầu đặt hàng.
+
 $escape = static fn ($value): string => htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
 $formatMoney = static fn ($amount): string => number_format((float) $amount, 0, ',', '.').' ₫';
 $appConfig = require BASE_PATH.'/config/app.php';

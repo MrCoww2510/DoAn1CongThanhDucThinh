@@ -1,3 +1,4 @@
+// Điều khiển đóng mở menu điều hướng trên màn hình nhỏ.
 document.addEventListener("DOMContentLoaded", function () {
 	// Lấy các phần tử menu
 	const toggleBtn = document.querySelector(".mobile-menu-toggle");

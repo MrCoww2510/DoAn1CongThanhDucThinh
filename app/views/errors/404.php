@@ -1,4 +1,6 @@
 <?php
+// Giao diện thông báo trang hoặc tài nguyên không tồn tại.
+
 $appConfig = require BASE_PATH.'/config/app.php';
 $baseUrl = rtrim($appConfig['base_url'] ?? '', '/');
 ?>

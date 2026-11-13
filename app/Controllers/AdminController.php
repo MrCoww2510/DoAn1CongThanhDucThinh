@@ -1,4 +1,6 @@
 <?php
+// Controller điều phối trang tổng quan và quyền truy cập quản trị.
+
 
 declare(strict_types=1);
 
@@ -10,6 +12,7 @@ use App\Models\Product;
 
 final class AdminController extends Controller
 {
+    // Chuẩn bị dữ liệu và hiển thị trang tương ứng.
     public function index(): void
     {
         $this->authorize();
@@ -23,6 +26,7 @@ final class AdminController extends Controller
         ], 'customer');
     }
 
+    // Kiểm tra quyền truy cập khu vực quản trị.
     public static function authorize(): void
     {
         if (($_SESSION['user']['VaiTro'] ?? '') !== 'QuanTriVien') {

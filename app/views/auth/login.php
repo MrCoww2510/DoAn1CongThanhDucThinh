@@ -1,3 +1,4 @@
+// Giao diện biểu mẫu đăng nhập.
 
 <div class="auth-page">
     <section class="auth-card">

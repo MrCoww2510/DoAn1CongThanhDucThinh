@@ -1,4 +1,6 @@
 <?php
+// Giao diện tạo, cập nhật và quản lý sản phẩm.
+
 $escape = static fn (mixed $v): string => htmlspecialchars((string) $v, ENT_QUOTES, 'UTF-8');
 $editing = $editing ?? null;
 ?>

@@ -1,4 +1,6 @@
 <?php
+// Controller xử lý nghiệp vụ điều chỉnh và xem tồn kho.
+
 
 declare(strict_types=1);
 
@@ -9,6 +11,7 @@ use App\Models\Inventory;
 
 final class InventoryController extends Controller
 {
+    // Chuẩn bị dữ liệu và hiển thị trang tương ứng.
     public function index(): void
     {
         AdminController::authorize();
@@ -22,6 +25,7 @@ final class InventoryController extends Controller
         unset($_SESSION['_inventory_error'], $_SESSION['_inventory_success']);
     }
 
+    // Cập nhật dữ liệu sau khi kiểm tra các điều kiện nghiệp vụ.
     public function update(): void
     {
         AdminController::authorize();
@@ -45,6 +49,7 @@ final class InventoryController extends Controller
         }
     }
 
+    // Lưu thông báo lỗi và chuyển hướng về trang phù hợp.
     private function fail(string $message): never
     {
         $_SESSION['_inventory_error'] = $message;

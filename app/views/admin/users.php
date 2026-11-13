@@ -1,4 +1,6 @@
 <?php
+// Giao diện tra cứu và quản lý tài khoản người dùng.
+
 $escape = static fn (mixed $value): string => htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
 $roles = ['KhachHang' => 'Khách hàng', 'NhanVien' => 'Nhân viên', 'QuanTriVien' => 'Quản trị viên'];
 $statuses = ['HoatDong' => 'Hoạt động', 'VoHieuHoa' => 'Bị vô hiệu hóa', 'KhongConHoatDong' => 'Không còn hoạt động'];

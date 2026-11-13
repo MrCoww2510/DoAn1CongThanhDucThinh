@@ -1,4 +1,6 @@
 <?php
+// Giao diện chi tiết một đơn hàng của khách hàng.
+
 declare(strict_types=1);
 
 $escape = static fn ($value): string =>

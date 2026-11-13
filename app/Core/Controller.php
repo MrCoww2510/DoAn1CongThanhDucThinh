@@ -1,4 +1,6 @@
 <?php
+// Lớp nền cung cấp tiện ích dùng chung cho các controller.
+
 
 declare(strict_types=1);
 

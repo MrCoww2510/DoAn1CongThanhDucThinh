@@ -1,4 +1,6 @@
 <?php
+// Controller xử lý các thao tác giỏ hàng của khách hàng.
+
 
 declare(strict_types=1);
 

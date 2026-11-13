@@ -1,3 +1,4 @@
+/* Kiểu dáng cho các trang đăng nhập và đăng ký. */
 .auth-page {
 	min-height: calc(100vh - 150px);
 	display: flex;

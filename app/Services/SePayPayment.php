@@ -1,4 +1,6 @@
 <?php
+// Dịch vụ tạo và xác minh dữ liệu thanh toán qua SePay.
+
 
 declare(strict_types=1);
 
@@ -13,12 +15,14 @@ final class SePayPayment
     /** @var array<string, string> */
     private array $config;
 
+    // Đọc thông tin cấu hình cần thiết cho tích hợp SePay.
     public function __construct()
     {
         $config = require dirname(__DIR__, 2).'/config/sepay.php';
         $this->config = $config;
     }
 
+    // Kiểm tra các thông tin bắt buộc của SePay đã được cấu hình.
     public function isConfigured(): bool
     {
         return $this->config['merchant_id'] !== ''
@@ -27,6 +31,7 @@ final class SePayPayment
             && $this->publicBaseUrl() !== null;
     }
 
+    // Lấy khóa dùng để xác minh thông báo thanh toán.
     public function ipnSecretKey(): string
     {
         return $this->config['ipn_secret_key'];
@@ -129,6 +134,7 @@ final class SePayPayment
             .'</body></html>';
     }
 
+    // So sánh hai số tiền dưới dạng giá trị VND chuẩn hóa.
     public static function amountsMatch(string $left, string $right): bool
     {
         $normalize = static function (string $amount): ?string {
@@ -151,6 +157,7 @@ final class SePayPayment
             && hash_equals($normalizedLeft, $normalizedRight);
     }
 
+    // Chuẩn hóa chuỗi số tiền thành số nguyên VND.
     private function amountInVnd(string $amount): int
     {
         if (
@@ -179,6 +186,7 @@ final class SePayPayment
         return $amountInVnd;
     }
 
+    // Lấy địa chỉ gốc công khai cần thiết cho callback thanh toán.
     private function publicBaseUrl(): ?string
     {
         $url = trim($this->config['public_base_url']);

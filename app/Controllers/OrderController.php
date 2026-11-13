@@ -1,4 +1,6 @@
 <?php
+// Controller xử lý danh sách, chi tiết và yêu cầu hủy đơn của khách hàng.
+
 
 declare(strict_types=1);
 
@@ -11,6 +13,7 @@ use Throwable;
 
 final class OrderController extends Controller
 {
+    // Đảm bảo yêu cầu được gửi bởi khách hàng đã đăng nhập.
     private function requireCustomer(): array
     {
         $user = $_SESSION['user'] ?? null;
@@ -26,6 +29,7 @@ final class OrderController extends Controller
         return $user;
     }
 
+    // Từ chối yêu cầu nếu mã CSRF không khớp với phiên.
     private function verifyCsrf(): void
     {
         $csrf = (string) ($_POST['_csrf'] ?? '');
@@ -41,6 +45,7 @@ final class OrderController extends Controller
         }
     }
 
+    // Chỉ cho phép thao tác khi yêu cầu dùng phương thức POST.
     private function postOnly(): void
     {
         if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
@@ -49,6 +54,7 @@ final class OrderController extends Controller
         }
     }
 
+    // Lưu thông báo tạm thời để hiển thị sau khi chuyển trang.
     private function flash(string $message, string $type = 'success'): void
     {
         $_SESSION['_order_flash'] = [
@@ -57,6 +63,7 @@ final class OrderController extends Controller
         ];
     }
 
+    // Chuẩn bị dữ liệu và hiển thị trang tương ứng.
     public function index(): void
     {
         $user = $this->requireCustomer();
@@ -70,6 +77,7 @@ final class OrderController extends Controller
         ]);
     }
 
+    // Tìm và hiển thị thông tin chi tiết của đối tượng được yêu cầu.
     public function show(string $orderId): void
     {
         $user = $this->requireCustomer();
@@ -101,6 +109,7 @@ final class OrderController extends Controller
         ]);
     }
 
+    // Xử lý yêu cầu hủy giao dịch hoặc đơn hàng.
     public function cancel(string $orderId): void
     {
         $this->postOnly();

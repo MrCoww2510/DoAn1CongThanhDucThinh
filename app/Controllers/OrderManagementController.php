@@ -1,4 +1,6 @@
 <?php
+// Controller xử lý đơn hàng trong khu vực quản trị.
+
 
 declare(strict_types=1);
 
@@ -21,6 +23,7 @@ final class OrderManagementController extends Controller
         'Đã hủy',
     ];
 
+    // Chuẩn bị dữ liệu và hiển thị trang tương ứng.
     public function index(): void
     {
         $this->requireOrderManager();
@@ -60,6 +63,7 @@ final class OrderManagementController extends Controller
         unset($_SESSION['_order_management_error'], $_SESSION['_order_management_success']);
     }
 
+    // Tìm và hiển thị thông tin chi tiết của đối tượng được yêu cầu.
     public function show(string $orderId): void
     {
         $this->requireOrderManager();
@@ -92,6 +96,7 @@ final class OrderManagementController extends Controller
         ]);
     }
 
+    // Kiểm tra quyền và cập nhật trạng thái theo yêu cầu.
     public function updateStatus(string $orderId): void
     {
         $this->postOnly();
@@ -121,6 +126,7 @@ final class OrderManagementController extends Controller
         $this->redirect('admin/orders/'.rawurlencode($orderId), 303);
     }
 
+    // Xác nhận hàng hoàn về kho cho đơn hàng.
     public function confirmReturn(string $orderId): void
     {
         $this->postOnly();
@@ -143,6 +149,7 @@ final class OrderManagementController extends Controller
         $this->redirect('admin/orders/'.rawurlencode($orderId), 303);
     }
 
+    // Kiểm tra vai trò trước khi cho phép quản lý đơn hàng.
     private function requireOrderManager(): array
     {
         $sessionUser = $_SESSION['user'] ?? null;
@@ -172,6 +179,7 @@ final class OrderManagementController extends Controller
         return $account;
     }
 
+    // Từ chối yêu cầu nếu mã CSRF không khớp với phiên.
     private function verifyCsrf(): void
     {
         $csrf = $_POST['_csrf'] ?? '';
@@ -189,6 +197,7 @@ final class OrderManagementController extends Controller
         }
     }
 
+    // Chỉ cho phép thao tác khi yêu cầu dùng phương thức POST.
     private function postOnly(): void
     {
         if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
@@ -197,6 +206,7 @@ final class OrderManagementController extends Controller
         }
     }
 
+    // Lưu thông báo lỗi và chuyển hướng về trang phù hợp.
     private function fail(string $orderId, string $message): never
     {
         $_SESSION['_order_management_error'] = $message;

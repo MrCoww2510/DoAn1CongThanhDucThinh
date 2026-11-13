@@ -1,4 +1,6 @@
 <?php
+// Cấu hình kết nối cơ sở dữ liệu.
+
 
 declare(strict_types=1);
 

@@ -1,4 +1,6 @@
 <?php
+// Cấu hình tích hợp thanh toán SePay.
+
 
 declare(strict_types=1);
 

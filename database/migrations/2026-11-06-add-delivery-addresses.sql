@@ -1,3 +1,4 @@
+-- Migration tạo bảng địa chỉ nhận hàng và liên kết với người dùng.
 CREATE TABLE IF NOT EXISTS DiaChiNhanHang (
     MaDiaChi INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     MaND VARCHAR(20) NOT NULL,

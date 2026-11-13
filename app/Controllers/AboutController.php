@@ -1,4 +1,6 @@
 <?php
+// Controller hiển thị trang giới thiệu cửa hàng.
+
 
 declare(strict_types=1);
 

@@ -1,4 +1,6 @@
-<?php $escape = static fn (mixed $v): string => htmlspecialchars((string) $v, ENT_QUOTES, 'UTF-8'); ?>
+<?php
+// Giao diện tổng quan khu vực quản trị.
+ $escape = static fn (mixed $v): string => htmlspecialchars((string) $v, ENT_QUOTES, 'UTF-8'); ?>
 <section class="admin-page">
     <p class="admin-eyebrow">KHU VỰC QUẢN TRỊ</p><h1>Tổng quan hệ thống</h1>
     <p>Xin chào, <?php echo $escape($_SESSION['user']['HoTen'] ?? $_SESSION['user']['TenDangNhap'] ?? 'Quản trị viên'); ?>. Chọn một chức năng để bắt đầu.</p>

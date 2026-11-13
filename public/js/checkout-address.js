@@ -1,3 +1,4 @@
+// Điều khiển hộp thoại chọn, thêm và xác nhận địa chỉ giao hàng.
 (() => {
     const dialog = document.querySelector('[data-address-dialog]');
     const openButton = document.querySelector('[data-open-address-dialog]');
