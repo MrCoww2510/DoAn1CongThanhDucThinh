@@ -1,6 +1,6 @@
 <?php
-// Đăng ký tuyến HTTP và điều phối yêu cầu tới handler tương ứng.
 
+// Đăng ký tuyến HTTP và điều phối yêu cầu tới handler tương ứng.
 
 declare(strict_types=1);
 
