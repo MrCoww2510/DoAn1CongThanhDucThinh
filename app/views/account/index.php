@@ -33,6 +33,22 @@ $baseUrl = rtrim((string) ($appConfig['base_url'] ?? ''), '/');
 	</div>
 	<?php } ?>
 
+	<?php if (($user['VaiTro'] ?? '') === 'KhachHang') { ?>
+	<div class="account-card google-link-card">
+		<h2>Đăng nhập bằng Google</h2>
+		<p class="account-section-note">Để liên kết an toàn, email Google phải trùng với email tài khoản này.</p>
+		<div data-google-auth
+			data-client-id="<?php echo $escape($googleClientId ?? ''); ?>"
+			data-endpoint="<?php echo $escape($baseUrl); ?>/auth/google/link"
+			data-csrf="<?php echo $escape($csrfToken ?? ''); ?>">
+			<div class="google-button" data-google-button></div>
+			<p class="google-message" data-google-message role="status" aria-live="polite"></p>
+		</div>
+	</div>
+	<script src="https://accounts.google.com/gsi/client" async defer></script>
+	<script src="<?php echo $escape($baseUrl); ?>/js/google-auth.js" defer></script>
+	<?php } ?>
+
 	<form class="account-form" method="post" action="<?php echo $escape($baseUrl); ?>/account">
 		<input type="hidden" name="_csrf" value="<?php echo $escape($csrfToken ?? ''); ?>">
 

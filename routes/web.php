@@ -34,6 +34,8 @@ $router->post('/register', [AuthController::class, 'register']);
 $router->get('/login', [AuthController::class, 'login']);
 $router->post('/login', [AuthController::class, 'login']);
 $router->post('/logout', [AuthController::class, 'logout']);
+$router->post('/auth/google/login', [AuthController::class, 'googleLogin']);
+$router->post('/auth/google/link', [AuthController::class, 'linkGoogle']);
 
 // Tài khoản khách hàng
 $router->get('/account', [AccountController::class, 'index']);

@@ -337,6 +337,136 @@ final class Account
         return $account ?: null;
     }
 
+    /** Tìm tài khoản bằng mã định danh ổn định do Google cấp. */
+    public function findForGoogleLogin(string $googleId): ?array
+    {
+        $stmt = Database::connection()->prepare(
+            'SELECT tk.MaTK, tk.MaND, tk.TenDangNhap, tk.VaiTro, tk.TrangThai,
+                    nd.HoTen, nd.Email, nd.SDT
+             FROM TaiKhoan tk
+             INNER JOIN NguoiDung nd ON nd.MaND = tk.MaND
+             WHERE tk.GoogleID = :googleId LIMIT 1'
+        );
+        $stmt->execute(['googleId' => $googleId]);
+        $account = $stmt->fetch();
+
+        return $account ?: null;
+    }
+
+    /** Tìm email đã đăng ký, để không liên kết tự động tài khoản hiện hữu. */
+    public function findByEmail(string $email): ?array
+    {
+        $stmt = Database::connection()->prepare(
+            'SELECT tk.MaTK, tk.MaND, tk.TenDangNhap, tk.VaiTro, tk.TrangThai,
+                    nd.HoTen, nd.Email, nd.SDT
+             FROM TaiKhoan tk
+             INNER JOIN NguoiDung nd ON nd.MaND = tk.MaND
+             WHERE nd.Email = :email LIMIT 1'
+        );
+        $stmt->execute(['email' => $email]);
+        $account = $stmt->fetch();
+
+        return $account ?: null;
+    }
+
+    /** Tạo hồ sơ/tài khoản khách Google trong transaction; password hash ngẫu nhiên không dùng để đăng nhập Google. */
+    public function registerGoogle(string $googleId, string $name, string $email): array
+    {
+        $pdo = Database::connection();
+        $lockName = 'ttg_'.substr(hash('sha256', mb_strtolower($email)), 0, 60);
+        $lock = $pdo->prepare('SELECT GET_LOCK(:name, 10)');
+        $lock->execute(['name' => $lockName]);
+        if ((int) $lock->fetchColumn() !== 1) {
+            throw new \RuntimeException('Không thể hoàn tất đăng ký bằng Google. Vui lòng thử lại.');
+        }
+
+        try {
+            $pdo->beginTransaction();
+            $existing = $this->findByEmail($email);
+            if ($existing !== null) {
+                $pdo->commit();
+
+                return ['status' => 'existing', 'account' => $existing];
+            }
+
+            $localPart = strstr($email, '@', true) ?: 'google-user';
+            $base = substr((string) preg_replace('/[^a-zA-Z0-9_.-]/', '', $localPart), 0, 35);
+            $base = strlen($base) >= 4 ? $base : 'googleuser';
+            do {
+                $username = $base.'_'.bin2hex(random_bytes(5));
+            } while ($this->usernameExists($username));
+
+            $userId = 'ND'.bin2hex(random_bytes(9));
+            $accountId = 'TK'.bin2hex(random_bytes(9));
+            $stmt = $pdo->prepare(
+                'INSERT INTO NguoiDung (MaND, HoTen, SDT, Email)
+                 VALUES (:id, :name, NULL, :email)'
+            );
+            $stmt->execute(['id' => $userId, 'name' => mb_substr($name, 0, 100), 'email' => $email]);
+            $stmt = $pdo->prepare(
+                'INSERT INTO TaiKhoan
+                    (MaTK, MaND, TenDangNhap, MatKhau, VaiTro, TrangThai, GoogleID)
+                 VALUES (:id, :user_id, :username, :password, "KhachHang", "HoatDong", :googleId)'
+            );
+            $stmt->execute([
+                'id' => $accountId,
+                'user_id' => $userId,
+                'username' => $username,
+                'password' => password_hash(bin2hex(random_bytes(32)), PASSWORD_DEFAULT),
+                'googleId' => $googleId,
+            ]);
+            $pdo->commit();
+
+            return ['status' => 'created', 'account' => $this->findForGoogleLogin($googleId)];
+        } catch (\Throwable $exception) {
+            if ($pdo->inTransaction()) {
+                $pdo->rollBack();
+            }
+            throw $exception;
+        } finally {
+            $release = $pdo->prepare('SELECT RELEASE_LOCK(:name)');
+            $release->execute(['name' => $lockName]);
+        }
+    }
+
+    /** Liên kết chỉ đúng tài khoản đang có session; email phải khớp và GoogleID chưa được gán nơi khác. */
+    public function linkGoogle(string $accountId, string $googleId, string $email): string
+    {
+        $alreadyLinked = $this->findForGoogleLogin($googleId);
+        if ($alreadyLinked !== null && $alreadyLinked['MaTK'] !== $accountId) {
+            return 'already_linked';
+        }
+        $stmt = Database::connection()->prepare(
+            'SELECT tk.MaTK, tk.VaiTro, tk.TrangThai, nd.Email
+             FROM TaiKhoan tk INNER JOIN NguoiDung nd ON nd.MaND = tk.MaND
+             WHERE tk.MaTK = :id LIMIT 1'
+        );
+        $stmt->execute(['id' => $accountId]);
+        $account = $stmt->fetch();
+        if (!$account || $account['VaiTro'] !== 'KhachHang') {
+            return 'not_customer';
+        }
+        if ($account['TrangThai'] !== 'HoatDong') {
+            return 'inactive';
+        }
+        if (mb_strtolower((string) $account['Email']) !== mb_strtolower($email)) {
+            return 'email_mismatch';
+        }
+
+        $stmt = Database::connection()->prepare(
+            'UPDATE TaiKhoan SET GoogleID = :googleId
+             WHERE MaTK = :id AND (GoogleID IS NULL OR GoogleID = :sameGoogleId)'
+        );
+        $stmt->execute(['googleId' => $googleId, 'sameGoogleId' => $googleId, 'id' => $accountId]);
+        if ($stmt->rowCount() === 1) {
+            return 'linked';
+        }
+
+        $current = $this->findForGoogleLogin($googleId);
+
+        return $current && $current['MaTK'] === $accountId ? 'linked' : 'already_linked';
+    }
+
     // Kiểm tra tên đăng nhập đã tồn tại chưa.
     public function usernameExists(string $username): bool
     {

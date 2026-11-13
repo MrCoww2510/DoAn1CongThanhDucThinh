@@ -38,6 +38,17 @@
 			<button type="submit" class="auth-submit">Đăng nhập</button>
 		</form>
 
+		<div class="google-auth" data-google-auth
+			data-client-id="<?php echo htmlspecialchars($googleClientId ?? '', ENT_QUOTES, 'UTF-8'); ?>"
+			data-endpoint="<?php echo htmlspecialchars($baseUrl.'/auth/google/login', ENT_QUOTES, 'UTF-8'); ?>"
+			data-csrf="<?php echo htmlspecialchars($csrfToken, ENT_QUOTES, 'UTF-8'); ?>">
+			<div class="google-divider"><span>hoặc</span></div>
+			<div class="google-button" data-google-button></div>
+			<p class="google-message" data-google-message role="status" aria-live="polite"></p>
+		</div>
+		<script src="https://accounts.google.com/gsi/client" async defer></script>
+		<script src="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/js/google-auth.js" defer></script>
+
 		<p class="auth-footer">
 			Chưa có tài khoản?
 			<a href="<?php echo htmlspecialchars($baseUrl.'/register', ENT_QUOTES, 'UTF-8'); ?>">

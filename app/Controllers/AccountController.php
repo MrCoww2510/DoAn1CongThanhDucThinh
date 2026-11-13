@@ -63,6 +63,7 @@ final class AccountController extends Controller
         }
 
         $_SESSION['_csrf'] ??= bin2hex(random_bytes(32));
+        $googleConfig = require BASE_PATH.'/config/google.php';
         $flash = $_SESSION['_account_flash'] ?? null;
         unset($_SESSION['_account_flash']);
 
@@ -74,6 +75,7 @@ final class AccountController extends Controller
 
         $this->view('account/index', [
             'pageTitle' => 'Quản lý tài khoản',
+            'user' => $user,
             'profile' => $profile,
             'form' => $form,
             'addresses' => $role === 'KhachHang'
@@ -83,6 +85,7 @@ final class AccountController extends Controller
             'addressDraft' => null,
             'flash' => $flash,
             'csrfToken' => $_SESSION['_csrf'],
+            'googleClientId' => (string) ($googleConfig['client_id'] ?? ''),
         ]);
     }
 

@@ -64,6 +64,9 @@ CREATE TABLE TaiKhoan (
     MatKhau VARCHAR(255) NOT NULL,
     VaiTro VARCHAR(20) NOT NULL,
     TrangThai VARCHAR(30) NOT NULL DEFAULT 'HoatDong',
+    GoogleID VARCHAR(255) NULL,
+
+    UNIQUE KEY UQ_TaiKhoan_GoogleID (GoogleID),
 
     CONSTRAINT FK_TaiKhoan_NguoiDung
         FOREIGN KEY (MaND)

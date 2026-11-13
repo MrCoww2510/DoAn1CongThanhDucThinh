@@ -8,9 +8,143 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 use App\Models\Account;
+use Google\Client as GoogleClient;
 
 final class AuthController extends Controller
 {
+    /** Xác minh ID Token tại backend bằng Google API Client và đúng audience của ứng dụng. */
+    private function verifiedGoogleIdentity(): ?array
+    {
+        $token = (string) ($_POST['credential'] ?? '');
+        $csrf = (string) ($_POST['_csrf'] ?? '');
+        $sessionCsrf = (string) ($_SESSION['_csrf'] ?? '');
+        if ($token === '' || strlen($token) > 12000 || $csrf === '' || $sessionCsrf === ''
+            || !hash_equals($sessionCsrf, $csrf)) {
+            return null;
+        }
+
+        $googleConfig = require BASE_PATH.'/config/google.php';
+        $clientId = (string) ($googleConfig['client_id'] ?? '');
+        if ($clientId === '' || !is_file(BASE_PATH.'/vendor/autoload.php')) {
+            return null;
+        }
+        require_once BASE_PATH.'/vendor/autoload.php';
+        $client = new GoogleClient(['client_id' => $clientId]);
+        try {
+            $payload = $client->verifyIdToken($token);
+        } catch (\Throwable $exception) {
+            error_log('[GoogleToken] '.$exception->getMessage());
+
+            return null;
+        }
+        if (!is_array($payload)
+            || empty($payload['sub'])
+            || empty($payload['email'])
+            || !in_array($payload['email_verified'] ?? false, [true, 1, '1', 'true'], true)
+            || !filter_var($payload['email'], FILTER_VALIDATE_EMAIL)
+            || mb_strlen((string) $payload['email']) > 100) {
+            return null;
+        }
+
+        return [
+            'sub' => (string) $payload['sub'],
+            'email' => mb_strtolower(trim((string) $payload['email'])),
+            'name' => trim((string) ($payload['name'] ?? '')),
+            'picture' => filter_var((string) ($payload['picture'] ?? ''), FILTER_VALIDATE_URL)
+                ? (string) $payload['picture'] : '',
+        ];
+    }
+
+    /** Gửi kết quả JSON cho GIS frontend mà không tiết lộ lỗi nội bộ. */
+    private function googleJson(array $payload, int $status = 200): never
+    {
+        http_response_code($status);
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        exit;
+    }
+
+    /** Đăng nhập hoặc tạo khách hàng từ ID Token đã xác minh. */
+    public function googleLogin(): void
+    {
+        if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
+            $this->googleJson(['message' => 'Phương thức không được hỗ trợ.'], 405);
+        }
+        try {
+            $identity = $this->verifiedGoogleIdentity();
+            if ($identity === null) {
+                $this->googleJson(['message' => 'Không thể xác minh tài khoản Google. Vui lòng thử lại.'], 400);
+            }
+
+            $model = new Account();
+            $account = $model->findForGoogleLogin($identity['sub']);
+            if ($account === null) {
+                $emailAccount = $model->findByEmail($identity['email']);
+                if ($emailAccount !== null) {
+                    $message = $emailAccount['TrangThai'] !== 'HoatDong'
+                        ? 'Tài khoản hiện không hoạt động.'
+                        : ($emailAccount['VaiTro'] === 'KhachHang'
+                        ? 'Email này đã có tài khoản. Hãy đăng nhập bằng mật khẩu trước, sau đó liên kết Google tại trang tài khoản.'
+                        : 'Email này đã được sử dụng cho một tài khoản không thể đăng nhập bằng Google.');
+                    $this->googleJson(['message' => $message], 409);
+                }
+                $result = $model->registerGoogle($identity['sub'], $identity['name'] ?: $identity['email'], $identity['email']);
+                if ($result['status'] === 'existing') {
+                    $this->googleJson(['message' => 'Email này đã có tài khoản. Hãy đăng nhập bằng mật khẩu rồi liên kết Google tại trang tài khoản.'], 409);
+                }
+                $account = $result['account'];
+            }
+
+            if (!is_array($account) || ($account['VaiTro'] ?? '') !== 'KhachHang') {
+                $this->googleJson(['message' => 'Tài khoản này không được phép đăng nhập bằng Google.'], 403);
+            }
+            if (($account['TrangThai'] ?? '') !== 'HoatDong') {
+                $this->googleJson(['message' => 'Tài khoản hiện không hoạt động.'], 403);
+            }
+
+            session_regenerate_id(true);
+            $account['GooglePicture'] = $identity['picture'];
+            $_SESSION['user'] = $account;
+            $_SESSION['_csrf'] = bin2hex(random_bytes(32));
+            $app = require BASE_PATH.'/config/app.php';
+            $this->googleJson(['redirect' => rtrim((string) ($app['base_url'] ?? ''), '/').'/']);
+        } catch (\Throwable $exception) {
+            error_log('[GoogleLogin] '.$exception->getMessage());
+            $this->googleJson(['message' => 'Đăng nhập Google chưa thể hoàn tất. Vui lòng thử lại sau.'], 503);
+        }
+    }
+
+    /** Liên kết Google chỉ sau khi người dùng đã đăng nhập tài khoản hiện hữu. */
+    public function linkGoogle(): void
+    {
+        if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
+            $this->googleJson(['message' => 'Phương thức không được hỗ trợ.'], 405);
+        }
+        $user = $_SESSION['user'] ?? null;
+        if (!is_array($user) || empty($user['MaTK']) || ($user['VaiTro'] ?? '') !== 'KhachHang') {
+            $this->googleJson(['message' => 'Hãy đăng nhập tài khoản khách hàng trước khi liên kết Google.'], 401);
+        }
+        try {
+            $identity = $this->verifiedGoogleIdentity();
+            if ($identity === null) {
+                $this->googleJson(['message' => 'Không thể xác minh tài khoản Google hoặc phiên đã hết hạn.'], 400);
+            }
+            $result = (new Account())->linkGoogle((string) $user['MaTK'], $identity['sub'], $identity['email']);
+            $messages = [
+                'linked' => 'Đã liên kết tài khoản Google thành công.',
+                'email_mismatch' => 'Email Google phải trùng với email của tài khoản đang đăng nhập.',
+                'already_linked' => 'Tài khoản Google này đã được liên kết với tài khoản khác.',
+                'inactive' => 'Tài khoản hiện không hoạt động.',
+                'not_customer' => 'Chỉ tài khoản khách hàng mới được liên kết Google.',
+            ];
+            $success = $result === 'linked';
+            $this->googleJson(['message' => $messages[$result] ?? 'Không thể liên kết tài khoản Google.', 'success' => $success], $success ? 200 : 409);
+        } catch (\Throwable $exception) {
+            error_log('[GoogleLink] '.$exception->getMessage());
+            $this->googleJson(['message' => 'Không thể liên kết Google lúc này. Vui lòng thử lại sau.'], 503);
+        }
+    }
+
     // Xác thực thông tin đăng nhập và tạo phiên người dùng.
     public function login(): void
     {
@@ -60,12 +194,14 @@ final class AuthController extends Controller
         }
 
         $_SESSION['_csrf'] ??= bin2hex(random_bytes(32));
+        $googleConfig = require BASE_PATH.'/config/google.php';
 
         $this->view('auth/login', [
             'pageTitle' => 'Đăng nhập',
             'error' => $error,
             'identity' => $identity,
             'csrfToken' => $_SESSION['_csrf'],
+            'googleClientId' => (string) ($googleConfig['client_id'] ?? ''),
         ]);
     }
 

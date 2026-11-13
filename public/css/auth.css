@@ -144,6 +144,44 @@
 	transform: translateY(0);
 }
 
+.google-auth {
+	margin-top: 18px;
+	text-align: center;
+}
+
+.google-divider {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin: 0 0 16px;
+	color: var(--muted);
+	font-size: 13px;
+}
+
+.google-divider::before,
+.google-divider::after {
+	content: "";
+	flex: 1;
+	height: 1px;
+	background: var(--border);
+}
+
+.google-button {
+	display: flex;
+	justify-content: center;
+	min-height: 40px;
+}
+
+.google-message {
+	min-height: 20px;
+	margin: 9px 0 0;
+	font-size: 13px;
+	line-height: 1.5;
+}
+
+.google-message.is-error { color: #b91c1c; }
+.google-message.is-success { color: #166534; }
+
 .auth-footer {
 	margin: 24px 0 0;
 	color: var(--muted);
