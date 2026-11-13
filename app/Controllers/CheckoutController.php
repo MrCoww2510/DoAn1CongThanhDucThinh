@@ -90,8 +90,8 @@ final class CheckoutController extends Controller
             exit('Phương thức không được hỗ trợ.');
         }
 
-        $this->verifyCsrf();
         $user = $this->requireCustomer();
+        $this->verifyCsrf();
         $address = trim((string) ($_POST['newAddress'] ?? ''));
         $cart = (new Cart())->findItems((string) $user['MaND']);
         $form = [
@@ -158,8 +158,8 @@ final class CheckoutController extends Controller
             exit('Phương thức không được hỗ trợ.');
         }
 
-        $this->verifyCsrf();
         $user = $this->requireCustomer();
+        $this->verifyCsrf();
 
         $form = [
             'recipientName' => trim((string) ($_POST['recipientName'] ?? '')),
