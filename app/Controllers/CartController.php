@@ -84,8 +84,8 @@ final class CartController extends Controller
     public function add(): void
     {
         $this->postOnly();
-        $this->verifyCsrf();
         $user = $this->requireCustomer();
+        $this->verifyCsrf();
 
         $maSP = trim((string) ($_POST['maSP'] ?? ''));
         $quantity = filter_var(
@@ -119,8 +119,8 @@ final class CartController extends Controller
     public function buyNow(): void
     {
         $this->postOnly();
-        $this->verifyCsrf();
         $user = $this->requireCustomer();
+        $this->verifyCsrf();
 
         $maSP = trim((string) ($_POST['maSP'] ?? ''));
         $quantity = filter_var(
@@ -155,8 +155,8 @@ final class CartController extends Controller
     public function update(): void
     {
         $this->postOnly();
-        $this->verifyCsrf();
         $user = $this->requireCustomer();
+        $this->verifyCsrf();
 
         $maSP = trim((string) ($_POST['maSP'] ?? ''));
         $quantity = filter_var(
@@ -190,8 +190,8 @@ final class CartController extends Controller
     public function remove(): void
     {
         $this->postOnly();
-        $this->verifyCsrf();
         $user = $this->requireCustomer();
+        $this->verifyCsrf();
 
         $maSP = trim((string) ($_POST['maSP'] ?? ''));
 
@@ -215,8 +215,8 @@ final class CartController extends Controller
     public function clear(): void
     {
         $this->postOnly();
-        $this->verifyCsrf();
         $user = $this->requireCustomer();
+        $this->verifyCsrf();
 
         try {
             (new Cart())->clear((string) $user['MaND']);
