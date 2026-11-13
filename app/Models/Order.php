@@ -1,6 +1,6 @@
 <?php
-// Model tạo đơn hàng và thực hiện các thao tác nghiệp vụ trên đơn.
 
+// Model tạo đơn hàng và thực hiện các thao tác nghiệp vụ trên đơn.
 
 declare(strict_types=1);
 
@@ -109,9 +109,7 @@ final class Order
                     || preg_match('/\A0+(?:\.0+)?\z/', $total) === 1
                 )
             ) {
-                throw new \RuntimeException(
-                    'Thanh toán SePay yêu cầu tổng tiền VND là số nguyên lớn hơn 0.'
-                );
+                throw new \RuntimeException('Thanh toán SePay yêu cầu tổng tiền VND là số nguyên lớn hơn 0.');
             }
 
             $orderId = 'DH'.strtoupper(bin2hex(random_bytes(9)));
@@ -276,9 +274,7 @@ final class Order
             ]);
 
             if ($stmt->rowCount() !== 1) {
-                throw new \RuntimeException(
-                    'Trạng thái đơn hàng đã thay đổi trước khi ghi nhận thanh toán.'
-                );
+                throw new \RuntimeException('Trạng thái đơn hàng đã thay đổi trước khi ghi nhận thanh toán.');
             }
 
             $this->db->commit();
@@ -496,9 +492,7 @@ final class Order
                 'Đang giao hàng' => ['Hoàn thành', 'Giao hàng thất bại'],
             ];
             if (!in_array($targetStatus, $transitions[$currentStatus] ?? [], true)) {
-                throw new RuntimeException(
-                    'Trạng thái hiện tại không cho phép thực hiện thao tác này.'
-                );
+                throw new RuntimeException('Trạng thái hiện tại không cho phép thực hiện thao tác này.');
             }
 
             if ($currentStatus === 'Chờ xác nhận') {
@@ -514,16 +508,12 @@ final class Order
                 $items = $stmt->fetchAll();
 
                 if ($items === []) {
-                    throw new RuntimeException(
-                        'Đơn hàng không có sản phẩm để xác nhận.'
-                    );
+                    throw new RuntimeException('Đơn hàng không có sản phẩm để xác nhận.');
                 }
 
                 foreach ($items as $item) {
                     if ((int) $item['SoLuong'] < 1 || (int) $item['SoLuongTon'] < 0) {
-                        throw new RuntimeException(
-                            'Không thể xác nhận vì tồn kho sản phẩm "'.$item['TenSP'].'" không hợp lệ.'
-                        );
+                        throw new RuntimeException('Không thể xác nhận vì tồn kho sản phẩm "'.$item['TenSP'].'" không hợp lệ.');
                     }
                 }
             }
@@ -541,9 +531,7 @@ final class Order
             ]);
 
             if ($stmt->rowCount() !== 1) {
-                throw new RuntimeException(
-                    'Trạng thái đơn hàng đã thay đổi. Vui lòng tải lại trang.'
-                );
+                throw new RuntimeException('Trạng thái đơn hàng đã thay đổi. Vui lòng tải lại trang.');
             }
 
             $this->db->commit();
@@ -576,9 +564,7 @@ final class Order
                 throw new RuntimeException('Không tìm thấy đơn hàng.');
             }
             if ($order['TrangThaiDH'] !== 'Giao hàng thất bại') {
-                throw new RuntimeException(
-                    'Chỉ có thể xác nhận hàng hoàn về kho cho đơn giao thất bại.'
-                );
+                throw new RuntimeException('Chỉ có thể xác nhận hàng hoàn về kho cho đơn giao thất bại.');
             }
             if ((int) $order['DaHoanKho'] === 1) {
                 throw new RuntimeException('Hàng của đơn này đã được hoàn về kho.');
@@ -595,9 +581,7 @@ final class Order
             $items = $stmt->fetchAll();
 
             if ($items === []) {
-                throw new RuntimeException(
-                    'Đơn hàng không có sản phẩm để hoàn trả tồn kho.'
-                );
+                throw new RuntimeException('Đơn hàng không có sản phẩm để hoàn trả tồn kho.');
             }
 
             $this->restoreOrderStock($items, $staffUserId);
@@ -616,9 +600,7 @@ final class Order
             ]);
 
             if ($stmt->rowCount() !== 1) {
-                throw new RuntimeException(
-                    'Trạng thái hoàn kho đã thay đổi. Vui lòng tải lại trang.'
-                );
+                throw new RuntimeException('Trạng thái hoàn kho đã thay đổi. Vui lòng tải lại trang.');
             }
 
             $this->db->commit();
@@ -651,9 +633,7 @@ final class Order
             $order = $stmt->fetch();
 
             if ($order === false) {
-                throw new RuntimeException(
-                    'Đơn hàng không tồn tại hoặc không thuộc tài khoản của bạn.'
-                );
+                throw new RuntimeException('Đơn hàng không tồn tại hoặc không thuộc tài khoản của bạn.');
             }
 
             $status = (string) $order['TrangThaiDH'];
@@ -662,15 +642,11 @@ final class Order
             }
 
             if ($order['TrangThaiTT'] === 'Đã thanh toán') {
-                throw new RuntimeException(
-                    'Đơn hàng đã thanh toán không thể hủy trực tiếp. Vui lòng liên hệ cửa hàng.'
-                );
+                throw new RuntimeException('Đơn hàng đã thanh toán không thể hủy trực tiếp. Vui lòng liên hệ cửa hàng.');
             }
 
             if ($status !== 'Chờ xác nhận') {
-                throw new RuntimeException(
-                    'Chỉ có thể hủy đơn hàng đang ở trạng thái Chờ xác nhận.'
-                );
+                throw new RuntimeException('Chỉ có thể hủy đơn hàng đang ở trạng thái Chờ xác nhận.');
             }
 
             $stmt = $this->db->prepare(
@@ -700,9 +676,7 @@ final class Order
             ]);
 
             if ($stmt->rowCount() !== 1) {
-                throw new RuntimeException(
-                    'Trạng thái đơn hàng đã thay đổi. Vui lòng tải lại trang.'
-                );
+                throw new RuntimeException('Trạng thái đơn hàng đã thay đổi. Vui lòng tải lại trang.');
             }
 
             $this->db->commit();
@@ -735,9 +709,7 @@ final class Order
             ]);
 
             if ($stmt->rowCount() !== 1) {
-                throw new RuntimeException(
-                    'Không thể hoàn trả tồn kho cho sản phẩm trong đơn hàng.'
-                );
+                throw new RuntimeException('Không thể hoàn trả tồn kho cho sản phẩm trong đơn hàng.');
             }
 
             $historyId = 'LS'.strtoupper(bin2hex(random_bytes(9)));

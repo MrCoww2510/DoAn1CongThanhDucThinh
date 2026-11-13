@@ -1,6 +1,6 @@
 <?php
-// Controller xử lý quy trình đặt hàng và thanh toán tại bước checkout.
 
+// Controller xử lý quy trình đặt hàng và thanh toán tại bước checkout.
 
 declare(strict_types=1);
 

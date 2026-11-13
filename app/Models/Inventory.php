@@ -1,6 +1,6 @@
 <?php
-// Model cập nhật tồn kho và ghi nhận lịch sử thao tác kho.
 
+// Model cập nhật tồn kho và ghi nhận lịch sử thao tác kho.
 
 declare(strict_types=1);
 
@@ -19,18 +19,26 @@ final class Inventory
             $stmt = $pdo->prepare('SELECT SoLuongTon FROM SanPham WHERE MaSP = :id FOR UPDATE');
             $stmt->execute(['id' => $productId]);
             $current = $stmt->fetchColumn();
-            if ($current === false) throw new \RuntimeException('Không tìm thấy sản phẩm.');
+            if ($current === false) {
+                throw new \RuntimeException('Không tìm thấy sản phẩm.');
+            }
             $current = (int) $current;
             if ($operation === 'NhapKho') {
-                if ($quantity < 1) throw new \InvalidArgumentException('Số lượng nhập phải lớn hơn 0.');
+                if ($quantity < 1) {
+                    throw new \InvalidArgumentException('Số lượng nhập phải lớn hơn 0.');
+                }
                 $delta = $quantity;
                 $target = $current + $delta;
             } else {
-                if ($quantity < 0) throw new \InvalidArgumentException('Tồn kho mới không thể âm.');
+                if ($quantity < 0) {
+                    throw new \InvalidArgumentException('Tồn kho mới không thể âm.');
+                }
                 $target = $quantity;
                 $delta = $target - $current;
             }
-            if ($delta === 0) throw new \InvalidArgumentException('Số lượng tồn kho không thay đổi.');
+            if ($delta === 0) {
+                throw new \InvalidArgumentException('Số lượng tồn kho không thay đổi.');
+            }
             $stmt = $pdo->prepare('UPDATE SanPham SET SoLuongTon = :quantity WHERE MaSP = :id');
             $stmt->execute(['quantity' => $target, 'id' => $productId]);
             $stmt = $pdo->prepare('INSERT INTO LichSuKho (MaLS, MaSP, SoLuongThayDoi, LoaiThaoTac, MaND) VALUES (:id, :product, :delta, :operation, :user)');
@@ -40,7 +48,9 @@ final class Inventory
             ]);
             $pdo->commit();
         } catch (\Throwable $exception) {
-            if ($pdo->inTransaction()) $pdo->rollBack();
+            if ($pdo->inTransaction()) {
+                $pdo->rollBack();
+            }
             throw $exception;
         }
     }

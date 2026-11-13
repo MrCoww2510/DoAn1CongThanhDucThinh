@@ -1,13 +1,142 @@
 <?php
 // Giao diện thống kê đơn hàng và doanh thu theo khoảng ngày.
- $escape = static fn (mixed $v): string => htmlspecialchars((string) $v, ENT_QUOTES, 'UTF-8'); ?>
+$escape = static fn (mixed $v): string => htmlspecialchars((string) $v, ENT_QUOTES, 'UTF-8'); ?>
 <section class="admin-page">
-    <p class="admin-eyebrow"><a href="<?php echo $escape($baseUrl.'/admin'); ?>">Quản trị</a> / UC15</p><h1>Thống kê kinh doanh</h1>
-    <?php if ($error !== '') { ?><p class="admin-message error" role="alert"><?php echo $escape($error); ?></p><?php } ?>
-    <form class="admin-search" method="get" action="<?php echo $escape($baseUrl.'/admin/statistics'); ?>"><label>Từ ngày <input type="date" name="from" required value="<?php echo $escape($from); ?>"></label><label>Đến ngày <input type="date" name="to" required value="<?php echo $escape($to); ?>"></label><button type="submit">Xem thống kê</button></form>
-    <p>Dữ liệu đơn hàng từ <?php echo $escape($from); ?> đến <?php echo $escape($to); ?>. Doanh thu tính từ các đơn đã hoàn thành.</p>
-    <div class="admin-stats"><article><strong><?php echo number_format((int) ($summary['total_orders'] ?? 0)); ?></strong><span>Tổng đơn hàng</span></article><article><strong><?php echo number_format((int) ($summary['completed_orders'] ?? 0)); ?></strong><span>Đơn hoàn thành</span></article><article><strong><?php echo number_format((float) ($summary['revenue'] ?? 0), 0, ',', '.'); ?> ₫</strong><span>Doanh thu ghi nhận</span></article><article><strong><?php echo number_format((int) ($summary['cancelled_orders'] ?? 0)); ?></strong><span>Đơn đã hủy</span></article></div>
-    <h2>Đơn hàng theo trạng thái</h2><div class="admin-table-wrap"><table><thead><tr><th>Trạng thái</th><th>Số đơn</th></tr></thead><tbody><?php foreach ($statuses as $row) { ?><tr><td><?php echo $escape($row['TrangThaiDH']); ?></td><td><?php echo number_format((int) $row['SoDon']); ?></td></tr><?php } ?><?php if ($statuses === []) { ?><tr><td colspan="2">Không có đơn hàng trong khoảng thời gian này.</td></tr><?php } ?></tbody></table></div>
-    <h2>Sản phẩm bán chạy (đơn hoàn thành)</h2><div class="admin-table-wrap"><table><thead><tr><th>Mã</th><th>Sản phẩm</th><th>Số lượng bán</th><th>Doanh thu</th></tr></thead><tbody><?php foreach ($topProducts as $product) { ?><tr><td><?php echo $escape($product['MaSP']); ?></td><td><?php echo $escape($product['TenSP']); ?></td><td><?php echo number_format((int) $product['SoLuongBan']); ?></td><td><?php echo number_format((float) $product['DoanhThu'], 0, ',', '.'); ?> ₫</td></tr><?php } ?><?php if ($topProducts === []) { ?><tr><td colspan="4">Chưa có sản phẩm bán ra trong kỳ.</td></tr><?php } ?></tbody></table></div>
-    <h2>Cảnh báo tồn kho (5 sản phẩm trở xuống)</h2><div class="admin-table-wrap"><table><thead><tr><th>Mã</th><th>Sản phẩm</th><th>Danh mục</th><th>Tồn kho</th></tr></thead><tbody><?php foreach ($lowStock as $product) { ?><tr><td><?php echo $escape($product['MaSP']); ?></td><td><?php echo $escape($product['TenSP']); ?></td><td><?php echo $escape($product['TenDM']); ?></td><td><?php echo $escape($product['SoLuongTon']); ?></td></tr><?php } ?><?php if ($lowStock === []) { ?><tr><td colspan="4">Không có sản phẩm tồn thấp.</td></tr><?php } ?></tbody></table></div>
+	<p class="admin-eyebrow"><a href="<?php echo $escape($baseUrl.'/admin'); ?>">Quản trị</a> / UC15</p>
+	<h1>Thống kê kinh doanh</h1>
+	<?php if ($error !== '') { ?><p class="admin-message error" role="alert"><?php echo $escape($error); ?></p>
+	<?php } ?>
+	<form class="admin-search" method="get" action="<?php echo $escape($baseUrl.'/admin/statistics'); ?>">
+		<label>Từ ngày <input type="date" name="from" required value="<?php echo $escape($from); ?>">
+		</label>
+		<label>Đến ngày <input type="date" name="to" required value="<?php echo $escape($to); ?>">
+		</label>
+		<button type="submit">Xem thống kê</button>
+	</form>
+	<p>Dữ liệu đơn hàng từ <?php echo $escape($from); ?> đến <?php echo $escape($to); ?>. Doanh thu tính từ các đơn đã
+		hoàn thành.</p>
+	<div class="admin-stats">
+		<article>
+			<strong>
+				<?php echo number_format((int) ($summary['total_orders'] ?? 0)); ?>
+			</strong>
+			<span>Tổng đơn hàng</span>
+		</article>
+		<article>
+			<strong>
+				<?php echo number_format((int) ($summary['completed_orders'] ?? 0)); ?>
+			</strong>
+			<span>Đơn hoàn thành</span>
+		</article>
+		<article>
+			<strong>
+				<?php echo number_format((float) ($summary['revenue'] ?? 0), 0, ',', '.'); ?> ₫</strong>
+			<span>Doanh thu ghi nhận</span>
+		</article>
+		<article>
+			<strong>
+				<?php echo number_format((int) ($summary['cancelled_orders'] ?? 0)); ?>
+			</strong>
+			<span>Đơn đã hủy</span>
+		</article>
+	</div>
+	<h2>Đơn hàng theo trạng thái</h2>
+	<div class="admin-table-wrap">
+		<table>
+			<thead>
+				<tr>
+					<th>Trạng thái</th>
+					<th>Số đơn</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php foreach ($statuses as $row) { ?>
+				<tr>
+					<td>
+						<?php echo $escape($row['TrangThaiDH']); ?>
+					</td>
+					<td>
+						<?php echo number_format((int) $row['SoDon']); ?>
+					</td>
+				</tr>
+				<?php } ?>
+				<?php if ($statuses === []) { ?>
+				<tr>
+					<td colspan="2">Không có đơn hàng trong khoảng thời gian này.</td>
+				</tr>
+				<?php } ?>
+			</tbody>
+		</table>
+	</div>
+	<h2>Sản phẩm bán chạy (đơn hoàn thành)</h2>
+	<div class="admin-table-wrap">
+		<table>
+			<thead>
+				<tr>
+					<th>Mã</th>
+					<th>Sản phẩm</th>
+					<th>Số lượng bán</th>
+					<th>Doanh thu</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php foreach ($topProducts as $product) { ?>
+				<tr>
+					<td>
+						<?php echo $escape($product['MaSP']); ?>
+					</td>
+					<td>
+						<?php echo $escape($product['TenSP']); ?>
+					</td>
+					<td>
+						<?php echo number_format((int) $product['SoLuongBan']); ?>
+					</td>
+					<td>
+						<?php echo number_format((float) $product['DoanhThu'], 0, ',', '.'); ?> ₫</td>
+				</tr>
+				<?php } ?>
+				<?php if ($topProducts === []) { ?>
+				<tr>
+					<td colspan="4">Chưa có sản phẩm bán ra trong kỳ.</td>
+				</tr>
+				<?php } ?>
+			</tbody>
+		</table>
+	</div>
+	<h2>Cảnh báo tồn kho (5 sản phẩm trở xuống)</h2>
+	<div class="admin-table-wrap">
+		<table>
+			<thead>
+				<tr>
+					<th>Mã</th>
+					<th>Sản phẩm</th>
+					<th>Danh mục</th>
+					<th>Tồn kho</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php foreach ($lowStock as $product) { ?>
+				<tr>
+					<td>
+						<?php echo $escape($product['MaSP']); ?>
+					</td>
+					<td>
+						<?php echo $escape($product['TenSP']); ?>
+					</td>
+					<td>
+						<?php echo $escape($product['TenDM']); ?>
+					</td>
+					<td>
+						<?php echo $escape($product['SoLuongTon']); ?>
+					</td>
+				</tr>
+				<?php } ?>
+				<?php if ($lowStock === []) { ?>
+				<tr>
+					<td colspan="4">Không có sản phẩm tồn thấp.</td>
+				</tr>
+				<?php } ?>
+			</tbody>
+		</table>
+	</div>
 </section>

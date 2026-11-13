@@ -1,6 +1,6 @@
 <?php
-// Controller xử lý đăng ký, đăng nhập và đăng xuất tài khoản.
 
+// Controller xử lý đăng ký, đăng nhập và đăng xuất tài khoản.
 
 declare(strict_types=1);
 

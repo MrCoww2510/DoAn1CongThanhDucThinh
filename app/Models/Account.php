@@ -1,6 +1,6 @@
 <?php
-// Model truy vấn và cập nhật dữ liệu tài khoản người dùng.
 
+// Model truy vấn và cập nhật dữ liệu tài khoản người dùng.
 
 declare(strict_types=1);
 

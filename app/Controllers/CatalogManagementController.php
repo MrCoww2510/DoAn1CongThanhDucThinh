@@ -1,6 +1,6 @@
 <?php
-// Controller quản lý sản phẩm và danh mục trong khu vực quản trị.
 
+// Controller quản lý sản phẩm và danh mục trong khu vực quản trị.
 
 declare(strict_types=1);
 
@@ -31,7 +31,9 @@ final class CatalogManagementController extends Controller
     public function saveProduct(): void
     {
         AdminController::authorize();
-        if (!$this->validCsrf()) $this->fail('Phiên biểu mẫu không hợp lệ. Hãy tải lại trang.');
+        if (!$this->validCsrf()) {
+            $this->fail('Phiên biểu mẫu không hợp lệ. Hãy tải lại trang.');
+        }
         $data = [
             'name' => trim((string) ($_POST['name'] ?? '')), 'category' => trim((string) ($_POST['category'] ?? '')),
             'price' => trim((string) ($_POST['price'] ?? '')), 'type' => trim((string) ($_POST['type'] ?? '')),
@@ -60,10 +62,14 @@ final class CatalogManagementController extends Controller
     public function productStatus(): void
     {
         AdminController::authorize();
-        if (!$this->validCsrf()) $this->fail('Phiên biểu mẫu không hợp lệ. Hãy tải lại trang.');
+        if (!$this->validCsrf()) {
+            $this->fail('Phiên biểu mẫu không hợp lệ. Hãy tải lại trang.');
+        }
         $id = trim((string) ($_POST['product_id'] ?? ''));
         $status = (string) ($_POST['status'] ?? '');
-        if ($id === '' || !in_array($status, ['DangKinhDoanh', 'NgungKinhDoanh'], true) || !(new Product())->changeProductStatus($id, $status)) $this->fail('Không thể cập nhật trạng thái sản phẩm.');
+        if ($id === '' || !in_array($status, ['DangKinhDoanh', 'NgungKinhDoanh'], true) || !(new Product())->changeProductStatus($id, $status)) {
+            $this->fail('Không thể cập nhật trạng thái sản phẩm.');
+        }
         $this->succeed('Đã cập nhật trạng thái sản phẩm.');
     }
 
@@ -84,10 +90,14 @@ final class CatalogManagementController extends Controller
     public function saveCategory(): void
     {
         AdminController::authorize();
-        if (!$this->validCsrf()) $this->fail('Phiên biểu mẫu không hợp lệ. Hãy tải lại trang.');
+        if (!$this->validCsrf()) {
+            $this->fail('Phiên biểu mẫu không hợp lệ. Hãy tải lại trang.');
+        }
         $id = trim((string) ($_POST['category_id'] ?? ''));
         $name = trim((string) ($_POST['name'] ?? ''));
-        if ($name === '' || mb_strlen($name) > 100) $this->fail('Tên danh mục bắt buộc và tối đa 100 ký tự.');
+        if ($name === '' || mb_strlen($name) > 100) {
+            $this->fail('Tên danh mục bắt buộc và tối đa 100 ký tự.');
+        }
         try {
             (new Product())->saveCategory($name, $id !== '' ? $id : null);
             $this->succeed('Đã lưu danh mục.');
@@ -101,10 +111,14 @@ final class CatalogManagementController extends Controller
     public function categoryStatus(): void
     {
         AdminController::authorize();
-        if (!$this->validCsrf()) $this->fail('Phiên biểu mẫu không hợp lệ. Hãy tải lại trang.');
+        if (!$this->validCsrf()) {
+            $this->fail('Phiên biểu mẫu không hợp lệ. Hãy tải lại trang.');
+        }
         $id = trim((string) ($_POST['category_id'] ?? ''));
         $status = (string) ($_POST['status'] ?? '');
-        if ($id === '' || !in_array($status, ['DangKinhDoanh', 'NgungKinhDoanh'], true) || !(new Product())->changeCategoryStatus($id, $status)) $this->fail('Không thể cập nhật trạng thái danh mục.');
+        if ($id === '' || !in_array($status, ['DangKinhDoanh', 'NgungKinhDoanh'], true) || !(new Product())->changeCategoryStatus($id, $status)) {
+            $this->fail('Không thể cập nhật trạng thái danh mục.');
+        }
         $this->succeed('Đã cập nhật trạng thái danh mục.');
     }
 
@@ -112,8 +126,12 @@ final class CatalogManagementController extends Controller
     public function deleteCategory(): void
     {
         AdminController::authorize();
-        if (!$this->validCsrf()) $this->fail('Phiên biểu mẫu không hợp lệ. Hãy tải lại trang.');
-        if (!(new Product())->deleteCategory(trim((string) ($_POST['category_id'] ?? '')))) $this->fail('Danh mục có sản phẩm liên kết hoặc không tồn tại; hãy ngừng kinh doanh thay vì xóa.');
+        if (!$this->validCsrf()) {
+            $this->fail('Phiên biểu mẫu không hợp lệ. Hãy tải lại trang.');
+        }
+        if (!(new Product())->deleteCategory(trim((string) ($_POST['category_id'] ?? '')))) {
+            $this->fail('Danh mục có sản phẩm liên kết hoặc không tồn tại; hãy ngừng kinh doanh thay vì xóa.');
+        }
         $this->succeed('Đã xóa danh mục không còn sản phẩm liên kết.');
     }
 
@@ -121,6 +139,7 @@ final class CatalogManagementController extends Controller
     private function validCsrf(): bool
     {
         $token = (string) ($_POST['_csrf'] ?? '');
+
         return $token !== '' && isset($_SESSION['_csrf']) && hash_equals($_SESSION['_csrf'], $token);
     }
 
@@ -135,6 +154,6 @@ final class CatalogManagementController extends Controller
     private function succeed(string $message): never
     {
         $_SESSION['_catalog_success'] = $message;
-        $this->redirect((str_contains($_SERVER['HTTP_REFERER'] ?? '', '/admin/categories') ? 'admin/categories' : 'admin/products'), 303);
+        $this->redirect(str_contains($_SERVER['HTTP_REFERER'] ?? '', '/admin/categories') ? 'admin/categories' : 'admin/products', 303);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 // Giao diện danh sách và quản lý đơn hàng.
- $escape = static fn (mixed $value): string => htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8'); ?>
+$escape = static fn (mixed $value): string => htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8'); ?>
 <section class="admin-page">
     <p class="admin-eyebrow">KHU VỰC QUẢN LÝ / UC09</p>
     <h1>Quản lý đơn hàng</h1>

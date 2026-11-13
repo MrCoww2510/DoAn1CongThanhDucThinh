@@ -1,6 +1,6 @@
 <?php
-// Controller khởi tạo và tiếp nhận kết quả thanh toán SePay.
 
+// Controller khởi tạo và tiếp nhận kết quả thanh toán SePay.
 
 declare(strict_types=1);
 
@@ -9,8 +9,6 @@ namespace App\Controllers;
 use App\Core\Controller;
 use App\Models\Order;
 use App\Services\SePayPayment;
-use RuntimeException;
-use Throwable;
 
 final class PaymentController extends Controller
 {
@@ -48,7 +46,7 @@ final class PaymentController extends Controller
 
         try {
             $fields = $sepay->createCheckoutFields($details);
-        } catch (RuntimeException $exception) {
+        } catch (\RuntimeException $exception) {
             $this->setOrderFlash($exception->getMessage(), 'error');
             $this->redirect('orders/'.rawurlencode($orderId), 303);
         }
@@ -138,7 +136,7 @@ final class PaymentController extends Controller
 
         try {
             $processed = (new Order())->markOnlineOrderPaid($invoice, $transactionAmount);
-        } catch (Throwable $exception) {
+        } catch (\Throwable $exception) {
             error_log('[SePay IPN] Order '.$invoice.': '.$exception->getMessage());
             $this->sendJson(422, ['error' => 'Payment could not be applied to the order']);
         }

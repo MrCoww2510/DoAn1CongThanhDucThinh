@@ -1,12 +1,12 @@
 <?php
-// Khai báo các tuyến HTTP và ánh xạ chúng tới controller.
 
+// Khai báo các tuyến HTTP và ánh xạ chúng tới controller.
 
 declare(strict_types=1);
 
 use App\Controllers\AboutController;
-use App\Controllers\AdminController;
 use App\Controllers\AccountController;
+use App\Controllers\AdminController;
 use App\Controllers\AuthController;
 use App\Controllers\CartController;
 use App\Controllers\CatalogManagementController;

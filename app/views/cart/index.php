@@ -36,87 +36,68 @@ $baseUrl = rtrim(
 $baseUrlEscaped = $escape($baseUrl);
 ?>
 
-<link
-    rel="stylesheet"
-    href="<?php echo $baseUrlEscaped; ?>/css/cart.css"
->
+<link rel="stylesheet" href="<?php echo $baseUrlEscaped; ?>/css/cart.css">
 
 <section class="cart-page">
 
-    <!-- Tiêu đề -->
-    <div class="cart-heading">
-        <div>
-            <h1>Giỏ hàng của bạn</h1>
-            <p>Kiểm tra sản phẩm trước khi tiếp tục mua sắm.</p>
-        </div>
+	<!-- Tiêu đề -->
+	<div class="cart-heading">
+		<div>
+			<h1>Giỏ hàng của bạn</h1>
+			<p>Kiểm tra sản phẩm trước khi tiếp tục mua sắm.</p>
+		</div>
 
-        <a
-            class="cart-continue"
-            href="<?php echo $baseUrlEscaped; ?>/products"
-        >
-            ← Tiếp tục mua sắm
-        </a>
-    </div>
+		<a class="cart-continue" href="<?php echo $baseUrlEscaped; ?>/products">
+			← Tiếp tục mua sắm
+		</a>
+	</div>
 
-    <!-- Thông báo -->
-    <?php if (!empty($flash)) { ?>
-        <div class="cart-alert <?php echo ($flash['type'] ?? '') === 'error'
+	<!-- Thông báo -->
+	<?php if (!empty($flash)) { ?>
+	<div class="cart-alert <?php echo ($flash['type'] ?? '') === 'error'
             ? 'cart-alert-error'
             : 'cart-alert-success'; ?>">
-            <?php echo $escape($flash['message'] ?? ''); ?>
-        </div>
-    <?php } ?>
+		<?php echo $escape($flash['message'] ?? ''); ?>
+	</div>
+	<?php } ?>
 
-    <?php if (empty($items)) { ?>
+	<?php if (empty($items)) { ?>
 
-        <!-- Giỏ hàng trống -->
-        <div class="cart-empty">
-            <div class="cart-empty-icon">🛒</div>
+	<!-- Giỏ hàng trống -->
+	<div class="cart-empty">
+		<div class="cart-empty-icon">🛒</div>
 
-            <h2>Giỏ hàng đang trống</h2>
+		<h2>Giỏ hàng đang trống</h2>
 
-            <p>Hãy chọn những sản phẩm bạn muốn mua.</p>
+		<p>Hãy chọn những sản phẩm bạn muốn mua.</p>
 
-            <a
-                class="cart-primary-btn"
-                href="<?php echo $baseUrlEscaped; ?>/products"
-            >
-                Khám phá sản phẩm
-            </a>
-        </div>
+		<a class="cart-primary-btn" href="<?php echo $baseUrlEscaped; ?>/products">
+			Khám phá sản phẩm
+		</a>
+	</div>
 
-    <?php } else { ?>
+	<?php } else { ?>
 
-        <div class="cart-layout">
+	<div class="cart-layout">
 
-            <!-- Danh sách sản phẩm -->
-            <div class="cart-products">
+		<!-- Danh sách sản phẩm -->
+		<div class="cart-products">
 
-                <div class="cart-products-header">
-                    <h2>Sản phẩm đã chọn</h2>
+			<div class="cart-products-header">
+				<h2>Sản phẩm đã chọn</h2>
 
-                    <form
-                        method="POST"
-                        action="<?php echo $baseUrlEscaped; ?>/cart/clear"
-                        onsubmit="return confirm('Bạn có chắc muốn xóa toàn bộ giỏ hàng?');"
-                    >
-                        <input
-                            type="hidden"
-                            name="_csrf"
-                            value="<?php echo $csrf; ?>"
-                        >
+				<form method="POST" action="<?php echo $baseUrlEscaped; ?>/cart/clear"
+					onsubmit="return confirm('Bạn có chắc muốn xóa toàn bộ giỏ hàng?');">
+					<input type="hidden" name="_csrf" value="<?php echo $csrf; ?>">
 
-                        <button
-                            class="cart-text-btn"
-                            type="submit"
-                        >
-                            Xóa tất cả
-                        </button>
-                    </form>
-                </div>
+					<button class="cart-text-btn" type="submit">
+						Xóa tất cả
+					</button>
+				</form>
+			</div>
 
-                <?php foreach ($items as $item) { ?>
-                    <?php
+			<?php foreach ($items as $item) { ?>
+			<?php
                     /*
                     |--------------------------------------------------------------------------
                     | Xử lý đường dẫn ảnh
@@ -172,163 +153,120 @@ $baseUrlEscaped = $escape($baseUrl);
                     );
                     ?>
 
-                    <article class="cart-product">
+			<article class="cart-product">
 
-                        <!-- Ảnh sản phẩm -->
-                        <div class="cart-product-image">
-                            <?php if ($imageSrc !== '') { ?>
-                                <img
-                                    src="<?php echo $escape($imageSrc); ?>"
-                                    alt="<?php echo $escape($tenSP); ?>"
-                                    loading="lazy"
-                                >
-                            <?php } else { ?>
-                                <span>PC</span>
-                            <?php } ?>
-                        </div>
+				<!-- Ảnh sản phẩm -->
+				<div class="cart-product-image">
+					<?php if ($imageSrc !== '') { ?>
+					<img src="<?php echo $escape($imageSrc); ?>" alt="<?php echo $escape($tenSP); ?>" loading="lazy">
+					<?php } else { ?>
+					<span>PC</span>
+					<?php } ?>
+				</div>
 
-                        <!-- Thông tin sản phẩm -->
-                        <div class="cart-product-info">
+				<!-- Thông tin sản phẩm -->
+				<div class="cart-product-info">
 
-                            <h3>
-                                <?php echo $escape($tenSP); ?>
-                            </h3>
+					<h3>
+						<?php echo $escape($tenSP); ?>
+					</h3>
 
-                            <p class="cart-product-code">
-                                Mã sản phẩm:
-                                <?php echo $escape($maSP); ?>
-                            </p>
+					<p class="cart-product-code">
+						Mã sản phẩm:
+						<?php echo $escape($maSP); ?>
+					</p>
 
-                            <p class="cart-unit-price">
-                                <?php echo $formatMoney($giaBan); ?>
-                            </p>
+					<p class="cart-unit-price">
+						<?php echo $formatMoney($giaBan); ?>
+					</p>
 
-                            <!-- Cập nhật số lượng -->
-                            <form
-                                method="POST"
-                                action="<?php echo $baseUrlEscaped; ?>/cart/update"
-                                class="cart-quantity-form"
-                            >
-                                <input
-                                    type="hidden"
-                                    name="_csrf"
-                                    value="<?php echo $csrf; ?>"
-                                >
+					<!-- Cập nhật số lượng -->
+					<form method="POST" action="<?php echo $baseUrlEscaped; ?>/cart/update" class="cart-quantity-form">
+						<input type="hidden" name="_csrf" value="<?php echo $csrf; ?>">
 
-                                <input
-                                    type="hidden"
-                                    name="maSP"
-                                    value="<?php echo $escape($maSP); ?>"
-                                >
+						<input type="hidden" name="maSP" value="<?php echo $escape($maSP); ?>">
 
-                                <label for="<?php echo $escape($quantityId); ?>">
-                                    Số lượng
-                                </label>
+						<label for="<?php echo $escape($quantityId); ?>">
+							Số lượng
+						</label>
 
-                                <input
-                                    id="<?php echo $escape($quantityId); ?>"
-                                    type="number"
-                                    name="quantity"
-                                    min="1"
-                                    max="<?php echo $maxQuantity; ?>"
-                                    value="<?php echo $soLuong; ?>"
-                                    required
-                                >
+						<input id="<?php echo $escape($quantityId); ?>" type="number" name="quantity" min="1"
+							max="<?php echo $maxQuantity; ?>" value="<?php echo $soLuong; ?>" required>
 
-                                <button
-                                    type="submit"
-                                    class="cart-update-btn"
-                                >
-                                    Cập nhật
-                                </button>
-                            </form>
+						<button type="submit" class="cart-update-btn">
+							Cập nhật
+						</button>
+					</form>
 
-                            <p class="cart-stock">
-                                Còn <?php echo $soLuongTon; ?> sản phẩm
-                            </p>
+					<p class="cart-stock">
+						Còn <?php echo $soLuongTon; ?> sản phẩm
+					</p>
 
-                        </div>
+				</div>
 
-                        <!-- Thành tiền và nút xóa -->
-                        <div class="cart-product-end">
+				<!-- Thành tiền và nút xóa -->
+				<div class="cart-product-end">
 
-                            <strong>
-                                <?php echo $formatMoney($thanhTien); ?>
-                            </strong>
+					<strong>
+						<?php echo $formatMoney($thanhTien); ?>
+					</strong>
 
-                            <form
-                                method="POST"
-                                action="<?php echo $baseUrlEscaped; ?>/cart/remove"
-                                onsubmit="return confirm('Xóa sản phẩm này khỏi giỏ hàng?');"
-                            >
-                                <input
-                                    type="hidden"
-                                    name="_csrf"
-                                    value="<?php echo $csrf; ?>"
-                                >
+					<form method="POST" action="<?php echo $baseUrlEscaped; ?>/cart/remove"
+						onsubmit="return confirm('Xóa sản phẩm này khỏi giỏ hàng?');">
+						<input type="hidden" name="_csrf" value="<?php echo $csrf; ?>">
 
-                                <input
-                                    type="hidden"
-                                    name="maSP"
-                                    value="<?php echo $escape($maSP); ?>"
-                                >
+						<input type="hidden" name="maSP" value="<?php echo $escape($maSP); ?>">
 
-                                <button
-                                    type="submit"
-                                    class="cart-remove-btn"
-                                >
-                                    Xóa sản phẩm
-                                </button>
-                            </form>
+						<button type="submit" class="cart-remove-btn">
+							Xóa sản phẩm
+						</button>
+					</form>
 
-                        </div>
+				</div>
 
-                    </article>
+			</article>
 
-                <?php } ?>
+			<?php } ?>
 
-            </div>
+		</div>
 
-            <!-- Tóm tắt đơn hàng -->
-            <aside class="cart-summary">
+		<!-- Tóm tắt đơn hàng -->
+		<aside class="cart-summary">
 
-                <h2>Tóm tắt đơn hàng</h2>
+			<h2>Tóm tắt đơn hàng</h2>
 
-                <div class="cart-summary-row">
-                    <span>Số loại sản phẩm</span>
-                    <strong><?php echo count($items); ?></strong>
-                </div>
+			<div class="cart-summary-row">
+				<span>Số loại sản phẩm</span>
+				<strong><?php echo count($items); ?></strong>
+			</div>
 
-                <div class="cart-summary-row">
-                    <span>Tạm tính</span>
-                    <strong><?php echo $formatMoney($total); ?></strong>
-                </div>
+			<div class="cart-summary-row">
+				<span>Tạm tính</span>
+				<strong><?php echo $formatMoney($total); ?></strong>
+			</div>
 
-                <div class="cart-summary-row">
-                    <span>Phí vận chuyển</span>
-                    <strong>Tính khi đặt hàng</strong>
-                </div>
+			<div class="cart-summary-row">
+				<span>Phí vận chuyển</span>
+				<strong>Tính khi đặt hàng</strong>
+			</div>
 
-                <div class="cart-summary-total">
-                    <span>Tổng tiền sản phẩm</span>
-                    <strong><?php echo $formatMoney($total); ?></strong>
-                </div>
+			<div class="cart-summary-total">
+				<span>Tổng tiền sản phẩm</span>
+				<strong><?php echo $formatMoney($total); ?></strong>
+			</div>
 
-                <a
-                    class="cart-checkout-btn"
-                    href="<?php echo $baseUrlEscaped; ?>/checkout"
-                >
-                    Tiến hành đặt hàng
-                </a>
+			<a class="cart-checkout-btn" href="<?php echo $baseUrlEscaped; ?>/checkout">
+				Tiến hành đặt hàng
+			</a>
 
-                <p class="cart-summary-note">
-                    Tồn kho và giá sẽ được kiểm tra lại khi bạn đặt hàng.
-                </p>
+			<p class="cart-summary-note">
+				Tồn kho và giá sẽ được kiểm tra lại khi bạn đặt hàng.
+			</p>
 
-            </aside>
+		</aside>
 
-        </div>
+	</div>
 
-    <?php } ?>
+	<?php } ?>
 
 </section>

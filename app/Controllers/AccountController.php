@@ -1,6 +1,6 @@
 <?php
-// Controller quản lý hồ sơ khách hàng và địa chỉ nhận hàng.
 
+// Controller quản lý hồ sơ khách hàng và địa chỉ nhận hàng.
 
 declare(strict_types=1);
 
@@ -9,9 +9,6 @@ namespace App\Controllers;
 use App\Core\Controller;
 use App\Models\Account;
 use App\Models\DeliveryAddress;
-use PDOException;
-use RuntimeException;
-use Throwable;
 
 final class AccountController extends Controller
 {
@@ -61,6 +58,7 @@ final class AccountController extends Controller
                 'title' => 'Không tìm thấy tài khoản',
                 'message' => 'Không tìm thấy thông tin tài khoản khách hàng.',
             ]);
+
             return;
         }
 
@@ -154,6 +152,7 @@ final class AccountController extends Controller
 
         if ($errors !== []) {
             $this->renderForm($user, $form, $errors);
+
             return;
         }
 
@@ -176,17 +175,17 @@ final class AccountController extends Controller
                 'message' => 'Thông tin tài khoản đã được cập nhật.',
             ];
             $this->redirect('account', 303);
-        } catch (PDOException $exception) {
-            error_log('[Account update] ' . $exception->getMessage());
+        } catch (\PDOException $exception) {
+            error_log('[Account update] '.$exception->getMessage());
             $this->renderForm(
                 $user,
                 $form,
                 ['Không thể cập nhật tài khoản. Vui lòng kiểm tra thông tin và thử lại.']
             );
-        } catch (RuntimeException $exception) {
+        } catch (\RuntimeException $exception) {
             $this->renderForm($user, $form, [$exception->getMessage()]);
-        } catch (Throwable $exception) {
-            error_log('[Account update] ' . $exception->getMessage());
+        } catch (\Throwable $exception) {
+            error_log('[Account update] '.$exception->getMessage());
             $this->renderForm(
                 $user,
                 $form,
@@ -249,6 +248,7 @@ final class AccountController extends Controller
                 [$error],
                 ['id' => $addressId, 'address' => $addressDraftValue]
             );
+
             return;
         }
 
@@ -268,17 +268,17 @@ final class AccountController extends Controller
                         $currentAddress
                     );
                 if (!$updated) {
-                    throw new RuntimeException('Không tìm thấy địa chỉ cần cập nhật.');
+                    throw new \RuntimeException('Không tìm thấy địa chỉ cần cập nhật.');
                 }
             } else {
                 if (!ctype_digit($addressId) || (int) $addressId < 1) {
-                    throw new RuntimeException('Địa chỉ cần thao tác không hợp lệ.');
+                    throw new \RuntimeException('Địa chỉ cần thao tác không hợp lệ.');
                 }
                 $updated = $operation === 'update'
                     ? $addresses->updateForCustomer((int) $addressId, (string) $user['MaND'], $address)
                     : $addresses->deleteForCustomer((int) $addressId, (string) $user['MaND']);
                 if (!$updated) {
-                    throw new RuntimeException('Không tìm thấy địa chỉ trong sổ địa chỉ của bạn.');
+                    throw new \RuntimeException('Không tìm thấy địa chỉ trong sổ địa chỉ của bạn.');
                 }
             }
 
@@ -289,7 +289,7 @@ final class AccountController extends Controller
                     : ($operation === 'update' ? 'Đã cập nhật địa chỉ giao hàng.' : 'Đã xóa địa chỉ giao hàng.'),
             ];
             $this->redirect('account', 303);
-        } catch (PDOException $exception) {
+        } catch (\PDOException $exception) {
             error_log('[Account address] '.$exception->getMessage());
             $this->renderForm(
                 $user,
@@ -297,7 +297,7 @@ final class AccountController extends Controller
                 ['Không thể lưu địa chỉ. Địa chỉ có thể đã tồn tại hoặc thông tin đã thay đổi.'],
                 ['id' => $addressId, 'address' => $addressDraftValue]
             );
-        } catch (RuntimeException $exception) {
+        } catch (\RuntimeException $exception) {
             $this->renderForm($user, [], [$exception->getMessage()], [
                 'id' => $addressId,
                 'address' => $addressDraftValue,
@@ -336,8 +336,7 @@ final class AccountController extends Controller
         array $form,
         array $errors,
         ?array $addressDraft = null
-    ): void
-    {
+    ): void {
         $profile = (new Account())->findCustomerProfile(
             (string) $user['MaND'],
             (string) $user['VaiTro']
@@ -350,6 +349,7 @@ final class AccountController extends Controller
                 'title' => 'Không tìm thấy tài khoản',
                 'message' => 'Không tìm thấy thông tin tài khoản khách hàng.',
             ]);
+
             return;
         }
 

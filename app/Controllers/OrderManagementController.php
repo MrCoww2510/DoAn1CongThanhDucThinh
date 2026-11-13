@@ -1,6 +1,6 @@
 <?php
-// Controller xử lý đơn hàng trong khu vực quản trị.
 
+// Controller xử lý đơn hàng trong khu vực quản trị.
 
 declare(strict_types=1);
 
@@ -9,8 +9,6 @@ namespace App\Controllers;
 use App\Core\Controller;
 use App\Models\Account;
 use App\Models\Order;
-use RuntimeException;
-use Throwable;
 
 final class OrderManagementController extends Controller
 {
@@ -76,6 +74,7 @@ final class OrderManagementController extends Controller
                 'title' => 'Không tìm thấy đơn hàng',
                 'message' => 'Đơn hàng không tồn tại.',
             ]);
+
             return;
         }
 
@@ -116,9 +115,9 @@ final class OrderManagementController extends Controller
                 $targetStatus
             );
             $_SESSION['_order_management_success'] = 'Đã cập nhật trạng thái đơn hàng.';
-        } catch (RuntimeException $exception) {
+        } catch (\RuntimeException $exception) {
             $this->fail($orderId, $exception->getMessage());
-        } catch (Throwable $exception) {
+        } catch (\Throwable $exception) {
             error_log('[Order management status] '.$exception->getMessage());
             $this->fail($orderId, 'Không thể cập nhật đơn hàng lúc này. Vui lòng thử lại.');
         }
@@ -139,9 +138,9 @@ final class OrderManagementController extends Controller
                 (string) $manager['MaND']
             );
             $_SESSION['_order_management_success'] = 'Đã xác nhận hàng hoàn về kho và cập nhật tồn kho.';
-        } catch (RuntimeException $exception) {
+        } catch (\RuntimeException $exception) {
             $this->fail($orderId, $exception->getMessage());
-        } catch (Throwable $exception) {
+        } catch (\Throwable $exception) {
             error_log('[Order management return] '.$exception->getMessage());
             $this->fail($orderId, 'Không thể xác nhận hàng hoàn về kho lúc này. Vui lòng thử lại.');
         }

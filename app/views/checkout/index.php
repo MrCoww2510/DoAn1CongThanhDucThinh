@@ -62,16 +62,16 @@ $checkoutBaseUrl = rtrim((string) ($appConfig['base_url'] ?? ''), '/');
 
                     <?php
                     $selectedAddress = null;
-                    foreach ($addresses as $address) {
-                        if (($form['deliveryAddressId'] ?? '') === $address['id']) {
-                            $selectedAddress = $address;
-                            break;
-                        }
-                    }
-                    if ($selectedAddress === null && $addresses !== []) {
-                        $selectedAddress = $addresses[0];
-                    }
-                    ?>
+        foreach ($addresses as $address) {
+            if (($form['deliveryAddressId'] ?? '') === $address['id']) {
+                $selectedAddress = $address;
+                break;
+            }
+        }
+        if ($selectedAddress === null && $addresses !== []) {
+            $selectedAddress = $addresses[0];
+        }
+        ?>
                     <button
                         class="checkout-selected-address"
                         type="button"
@@ -257,17 +257,17 @@ $checkoutBaseUrl = rtrim((string) ($appConfig['base_url'] ?? ''), '/');
                         </tr>
                     </thead>
                     <tbody>
-                    <?php foreach ($items as $item): ?>
+                    <?php foreach ($items as $item) { ?>
                         <tr>
                             <td class="checkout-item-name">
-                                <?= $escape($item['TenSP'] ?? 'Sản phẩm') ?>
+                                <?php echo $escape($item['TenSP'] ?? 'Sản phẩm'); ?>
                             </td>
                             <td class="checkout-item-quantity">
-                                <?= (int) ($item['SoLuong'] ?? 0) ?>
+                                <?php echo (int) ($item['SoLuong'] ?? 0); ?>
                             </td>
-                            <td class="checkout-item-price"><?= $formatMoney($item['ThanhTien'] ?? 0) ?></td>
+                            <td class="checkout-item-price"><?php echo $formatMoney($item['ThanhTien'] ?? 0); ?></td>
                         </tr>
-                    <?php endforeach; ?>
+                    <?php } ?>
                     </tbody>
                 </table>
 

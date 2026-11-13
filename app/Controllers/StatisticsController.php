@@ -1,6 +1,6 @@
 <?php
-// Controller tổng hợp và hiển thị thống kê kinh doanh.
 
+// Controller tổng hợp và hiển thị thống kê kinh doanh.
 
 declare(strict_types=1);
 
@@ -51,7 +51,10 @@ final class StatisticsController extends Controller
     {
         $parsed = \DateTimeImmutable::createFromFormat('!Y-m-d', $date);
         $errors = \DateTimeImmutable::getLastErrors();
-        if ($parsed === false || ($errors !== false && ($errors['warning_count'] > 0 || $errors['error_count'] > 0)) || $parsed->format('Y-m-d') !== $date) return null;
+        if ($parsed === false || ($errors !== false && ($errors['warning_count'] > 0 || $errors['error_count'] > 0)) || $parsed->format('Y-m-d') !== $date) {
+            return null;
+        }
+
         return $parsed;
     }
 }

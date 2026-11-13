@@ -1,6 +1,6 @@
 <?php
-// Model lưu và truy vấn địa chỉ nhận hàng của khách hàng.
 
+// Model lưu và truy vấn địa chỉ nhận hàng của khách hàng.
 
 declare(strict_types=1);
 

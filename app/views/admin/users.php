@@ -20,7 +20,10 @@ $statuses = ['HoatDong' => 'Hoạt động', 'VoHieuHoa' => 'Bị vô hiệu hó
         <label>Tên đăng nhập <input name="username" maxlength="50" required value="<?php echo $escape($editing['TenDangNhap'] ?? ''); ?>"></label>
         <label>Email <input type="email" name="email" maxlength="100" required value="<?php echo $escape($editing['Email'] ?? ''); ?>"></label>
         <label>Số điện thoại <input name="phone" maxlength="15" value="<?php echo $escape($editing['SDT'] ?? ''); ?>"></label>
-        <?php if (!$editing) { ?><label>Mật khẩu ban đầu <input type="password" name="password" minlength="8" maxlength="255" required autocomplete="new-password"></label><?php } ?>
+        <?php if (!$editing) { ?>
+            <label>Mật khẩu ban đầu <input type="password" name="password" minlength="8" maxlength="255" required autocomplete="new-password">
+            </label>
+            <?php } ?>
         <button type="submit"><?php echo $editing ? 'Lưu thông tin' : 'Tạo nhân viên'; ?></button>
         <?php if ($editing) { ?><a href="<?php echo $escape($baseUrl.'/admin/users'); ?>">Hủy</a><?php } ?>
     </form>
@@ -53,10 +56,13 @@ $statuses = ['HoatDong' => 'Hoạt động', 'VoHieuHoa' => 'Bị vô hiệu hó
                             <form method="post" action="<?php echo $escape($baseUrl.'/admin/users/status'); ?>">
                                 <input type="hidden" name="_csrf" value="<?php echo $escape($csrfToken); ?>">
                                 <input type="hidden" name="account_id" value="<?php echo $escape($account['MaTK']); ?>">
-                                <label class="visually-hidden" for="status-<?php echo $escape($account['MaTK']); ?>">Trạng thái <?php echo $escape($account['TenDangNhap']); ?></label>
+                                <label class="visually-hidden" for="status-<?php echo $escape($account['MaTK']); ?>">Trạng thái <?php echo $escape($account['TenDangNhap']); ?>
+                                    </label>
                                 <select id="status-<?php echo $escape($account['MaTK']); ?>" name="status">
                                     <?php foreach ($statuses as $value => $label) { ?>
-                                        <option value="<?php echo $escape($value); ?>" <?php echo $account['TrangThai'] === $value ? 'selected' : ''; ?>><?php echo $escape($label); ?></option>
+                                        <option value="<?php echo $escape($value); ?>" <?php echo $account['TrangThai'] === $value ? 'selected' : ''; ?>>
+                                            <?php echo $escape($label); ?>
+                                            </option>
                                     <?php } ?>
                                 </select>
                                 <button type="submit">Cập nhật</button>

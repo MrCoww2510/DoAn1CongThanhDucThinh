@@ -1,6 +1,6 @@
 <?php
-// Controller điều phối trang tổng quan và quyền truy cập quản trị.
 
+// Controller điều phối trang tổng quan và quyền truy cập quản trị.
 
 declare(strict_types=1);
 

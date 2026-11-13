@@ -1,12 +1,10 @@
 <?php
-// Dịch vụ tạo và xác minh dữ liệu thanh toán qua SePay.
 
+// Dịch vụ tạo và xác minh dữ liệu thanh toán qua SePay.
 
 declare(strict_types=1);
 
 namespace App\Services;
-
-use RuntimeException;
 
 final class SePayPayment
 {
@@ -39,19 +37,18 @@ final class SePayPayment
 
     /**
      * @param array{MaDH:mixed, TongTien:mixed} $order
+     *
      * @return array<string, string>
      */
     public function createCheckoutFields(array $order): array
     {
         if (!$this->isConfigured()) {
-            throw new RuntimeException(
-                'SePay Sandbox chưa được cấu hình đầy đủ. Hãy cấu hình thông tin trong config/sepay.local.php.'
-            );
+            throw new \RuntimeException('SePay Sandbox chưa được cấu hình đầy đủ. Hãy cấu hình thông tin trong config/sepay.local.php.');
         }
 
         $orderId = (string) ($order['MaDH'] ?? '');
         if (preg_match('/\A[A-Za-z0-9_-]{1,100}\z/', $orderId) !== 1) {
-            throw new RuntimeException('Mã đơn hàng không hợp lệ để gửi sang SePay.');
+            throw new \RuntimeException('Mã đơn hàng không hợp lệ để gửi sang SePay.');
         }
 
         $amount = $this->amountInVnd((string) ($order['TongTien'] ?? ''));
@@ -164,7 +161,7 @@ final class SePayPayment
             preg_match('/\A([0-9]+)(?:\.([0-9]+))?\z/', trim($amount), $matches) !== 1
             || rtrim($matches[2] ?? '', '0') !== ''
         ) {
-            throw new RuntimeException('Tổng tiền đơn hàng không hợp lệ với thanh toán VND.');
+            throw new \RuntimeException('Tổng tiền đơn hàng không hợp lệ với thanh toán VND.');
         }
 
         $whole = ltrim($matches[1], '0');
@@ -175,12 +172,12 @@ final class SePayPayment
             strlen($whole) > strlen($max)
             || (strlen($whole) === strlen($max) && strcmp($whole, $max) > 0)
         ) {
-            throw new RuntimeException('Tổng tiền đơn hàng vượt quá giới hạn của SePay.');
+            throw new \RuntimeException('Tổng tiền đơn hàng vượt quá giới hạn của SePay.');
         }
 
         $amountInVnd = (int) $whole;
         if ($amountInVnd < 1) {
-            throw new RuntimeException('Tổng tiền đơn hàng phải lớn hơn 0.');
+            throw new \RuntimeException('Tổng tiền đơn hàng phải lớn hơn 0.');
         }
 
         return $amountInVnd;

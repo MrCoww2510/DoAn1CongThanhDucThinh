@@ -1,6 +1,6 @@
 <?php
-// Model truy vấn và quản lý dữ liệu sản phẩm, danh mục.
 
+// Model truy vấn và quản lý dữ liệu sản phẩm, danh mục.
 
 declare(strict_types=1);
 
@@ -22,6 +22,7 @@ final class Product
         $sql .= ' ORDER BY sp.MaSP DESC LIMIT 300';
         $stmt = Database::connection()->prepare($sql);
         $stmt->execute($params);
+
         return $stmt->fetchAll();
     }
 
@@ -52,9 +53,12 @@ final class Product
                 }
             }
             $pdo->commit();
+
             return $id;
         } catch (\Throwable $exception) {
-            if ($pdo->inTransaction()) $pdo->rollBack();
+            if ($pdo->inTransaction()) {
+                $pdo->rollBack();
+            }
             throw $exception;
         }
     }
@@ -65,6 +69,7 @@ final class Product
         $stmt = Database::connection()->prepare($this->baseQuery().' WHERE sp.MaSP = :id LIMIT 1');
         $stmt->execute(['id' => $id]);
         $product = $stmt->fetch();
+
         return $product === false ? null : $product;
     }
 
@@ -73,6 +78,7 @@ final class Product
     {
         $stmt = Database::connection()->prepare('UPDATE ChiTietSanPham SET TrangThai = :status WHERE MaSP = :id');
         $stmt->execute(['status' => $status, 'id' => $id]);
+
         return $stmt->rowCount() > 0;
     }
 
@@ -87,6 +93,7 @@ final class Product
     {
         $stmt = Database::connection()->prepare("SELECT 1 FROM DanhMuc WHERE MaDM = :id AND TrangThai = 'DangKinhDoanh'");
         $stmt->execute(['id' => $id]);
+
         return (bool) $stmt->fetchColumn();
     }
 
@@ -98,6 +105,7 @@ final class Product
             $id = $this->nextId($pdo, 'DanhMuc', 'MaDM', 'DM');
             $stmt = $pdo->prepare('INSERT INTO DanhMuc (MaDM, TenDM, TrangThai) VALUES (:id, :name, \'DangKinhDoanh\')');
             $stmt->execute(['id' => $id, 'name' => $name]);
+
             return;
         }
         $stmt = $pdo->prepare('UPDATE DanhMuc SET TenDM = :name WHERE MaDM = :id');
@@ -112,6 +120,7 @@ final class Product
     {
         $stmt = Database::connection()->prepare('UPDATE DanhMuc SET TrangThai = :status WHERE MaDM = :id');
         $stmt->execute(['status' => $status, 'id' => $id]);
+
         return $stmt->rowCount() > 0;
     }
 
@@ -121,9 +130,12 @@ final class Product
         $pdo = Database::connection();
         $check = $pdo->prepare('SELECT COUNT(*) FROM SanPham WHERE MaDM = :id');
         $check->execute(['id' => $id]);
-        if ((int) $check->fetchColumn() > 0) return false;
+        if ((int) $check->fetchColumn() > 0) {
+            return false;
+        }
         $stmt = $pdo->prepare('DELETE FROM DanhMuc WHERE MaDM = :id');
         $stmt->execute(['id' => $id]);
+
         return $stmt->rowCount() > 0;
     }
 
@@ -132,6 +144,7 @@ final class Product
     {
         $stmt = $pdo->prepare('SELECT 1 FROM DanhMuc WHERE MaDM = :id');
         $stmt->execute(['id' => $id]);
+
         return (bool) $stmt->fetchColumn();
     }
 
@@ -141,6 +154,7 @@ final class Product
         $stmt = $pdo->query('SELECT '.$column.' FROM '.$table.' WHERE '.$column.' REGEXP \'^'.$prefix.'[0-9]+$\' ORDER BY CAST(SUBSTRING('.$column.', '.(strlen($prefix) + 1).') AS UNSIGNED) DESC LIMIT 1');
         $current = (string) ($stmt->fetchColumn() ?: '');
         $number = $current === '' ? 1 : ((int) substr($current, strlen($prefix)) + 1);
+
         return $prefix.str_pad((string) $number, 3, '0', STR_PAD_LEFT);
     }
 

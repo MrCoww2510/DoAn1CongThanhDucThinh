@@ -1,6 +1,6 @@
 <?php
-// Controller quản lý tài khoản người dùng trong khu vực quản trị.
 
+// Controller quản lý tài khoản người dùng trong khu vực quản trị.
 
 declare(strict_types=1);
 

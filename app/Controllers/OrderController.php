@@ -1,6 +1,6 @@
 <?php
-// Controller xử lý danh sách, chi tiết và yêu cầu hủy đơn của khách hàng.
 
+// Controller xử lý danh sách, chi tiết và yêu cầu hủy đơn của khách hàng.
 
 declare(strict_types=1);
 
@@ -8,8 +8,6 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 use App\Models\Order;
-use RuntimeException;
-use Throwable;
 
 final class OrderController extends Controller
 {
@@ -93,6 +91,7 @@ final class OrderController extends Controller
                 'title' => 'Không tìm thấy đơn hàng',
                 'message' => 'Đơn hàng không tồn tại hoặc không thuộc tài khoản của bạn.',
             ]);
+
             return;
         }
 
@@ -119,13 +118,13 @@ final class OrderController extends Controller
         try {
             (new Order())->cancelForCustomer($orderId, (string) $user['MaND']);
             $this->flash('Đơn hàng đã được hủy. Số lượng sản phẩm đã được hoàn lại kho.');
-        } catch (RuntimeException $exception) {
+        } catch (\RuntimeException $exception) {
             $this->flash($exception->getMessage(), 'error');
-        } catch (Throwable $exception) {
-            error_log('[Order cancellation] ' . $exception->getMessage());
+        } catch (\Throwable $exception) {
+            error_log('[Order cancellation] '.$exception->getMessage());
             $this->flash('Không thể hủy đơn hàng lúc này. Vui lòng thử lại.', 'error');
         }
 
-        $this->redirect('orders/' . rawurlencode($orderId), 303);
+        $this->redirect('orders/'.rawurlencode($orderId), 303);
     }
 }

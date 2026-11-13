@@ -1,6 +1,6 @@
 <?php
-// Controller chuẩn bị dữ liệu và hiển thị trang chủ.
 
+// Controller chuẩn bị dữ liệu và hiển thị trang chủ.
 
 declare(strict_types=1);
 

@@ -1,6 +1,6 @@
 <?php
-// Controller xử lý nghiệp vụ điều chỉnh và xem tồn kho.
 
+// Controller xử lý nghiệp vụ điều chỉnh và xem tồn kho.
 
 declare(strict_types=1);
 
@@ -40,7 +40,7 @@ final class InventoryController extends Controller
             $this->fail('Thông tin cập nhật kho không hợp lệ.');
         }
         try {
-            (new \App\Models\Inventory())->update($productId, $operation, (int) $rawQuantity, (string) $_SESSION['user']['MaND']);
+            (new Inventory())->update($productId, $operation, (int) $rawQuantity, (string) $_SESSION['user']['MaND']);
             $_SESSION['_inventory_success'] = $operation === 'NhapKho' ? 'Đã nhập kho và ghi lịch sử.' : 'Đã điều chỉnh tồn kho và ghi lịch sử.';
             $this->redirect('admin/inventory', 303);
         } catch (\Throwable $exception) {

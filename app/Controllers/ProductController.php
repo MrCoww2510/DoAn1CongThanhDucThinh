@@ -1,6 +1,6 @@
 <?php
-// Controller hiển thị danh sách và chi tiết sản phẩm.
 
+// Controller hiển thị danh sách và chi tiết sản phẩm.
 
 declare(strict_types=1);
 
