@@ -8,7 +8,8 @@ $formatMoney = static fn ($amount): string =>
 $appConfig = require BASE_PATH . '/config/app.php';
 $baseUrl = rtrim((string) ($appConfig['base_url'] ?? ''), '/');
 $createdAt = strtotime((string) ($order['NgayTao'] ?? ''));
-$canCancel = ($order['TrangThaiDH'] ?? '') === 'Chờ xác nhận';
+$canCancel = ($order['TrangThaiDH'] ?? '') === 'Chờ xác nhận'
+    && ($order['TrangThaiTT'] ?? '') !== 'Đã thanh toán';
 $statusClass = ($order['TrangThaiDH'] ?? '') === 'Đã hủy'
     ? 'order-status-cancelled'
     : 'order-status-active';
@@ -63,7 +64,9 @@ $statusClass = ($order['TrangThaiDH'] ?? '') === 'Đã hủy'
                 </div>
                 <div>
                     <dt>Phương thức thanh toán</dt>
-                    <dd><?= $escape($order['PhuongThucTT']) ?></dd>
+                    <dd><?= $order['PhuongThucTT'] === 'Online'
+                        ? 'Thanh toán QR qua SePay'
+                        : $escape($order['PhuongThucTT']) ?></dd>
                 </div>
                 <div>
                     <dt>Trạng thái thanh toán</dt>
@@ -105,6 +108,19 @@ $statusClass = ($order['TrangThaiDH'] ?? '') === 'Đã hủy'
                 <strong><?= $formatMoney($order['TongTien']) ?></strong>
             </div>
             <p class="orders-muted">Phí giao hàng chưa được tính trong hệ thống.</p>
+
+            <?php if (
+                ($order['PhuongThucTT'] ?? '') === 'Online'
+                && ($order['TrangThaiTT'] ?? '') === 'Chưa thanh toán'
+                && ($order['TrangThaiDH'] ?? '') !== 'Đã hủy'
+            ): ?>
+                <a
+                    class="orders-button"
+                    href="<?= $escape($baseUrl) ?>/payments/sepay/start?id=<?= rawurlencode((string) $order['MaDH']) ?>"
+                >
+                    Thanh toán lại qua SePay
+                </a>
+            <?php endif; ?>
 
             <?php if ($canCancel): ?>
                 <form

@@ -228,13 +228,18 @@ $checkoutBaseUrl = rtrim((string) ($appConfig['base_url'] ?? ''), '/');
                         </span>
                     </label>
 
-                    <div class="payment-option payment-option-disabled">
-                        <input type="radio" disabled>
+                    <label class="payment-option">
+                        <input
+                            type="radio"
+                            name="paymentMethod"
+                            value="Online"
+                            <?php echo ($form['paymentMethod'] ?? '') === 'Online' ? 'checked' : ''; ?>
+                        >
                         <span>
-                            <strong>Thanh toán trực tuyến</strong>
-                            <small>Chưa khả dụng vì dự án chưa tích hợp cổng thanh toán.</small>
+                            <strong>Thanh toán QR qua SePay</strong>
+                            <small>Quét mã QR chuyển khoản trên cổng thanh toán SePay Sandbox.</small>
                         </span>
-                    </div>
+                    </label>
                 </section>
             </div>
 
@@ -274,7 +279,7 @@ $checkoutBaseUrl = rtrim((string) ($appConfig['base_url'] ?? ''), '/');
                 </p>
 
                 <button class="checkout-submit" type="submit">
-                    Đặt hàng — thanh toán khi nhận
+                    Đặt hàng
                 </button>
             </aside>
         </form>

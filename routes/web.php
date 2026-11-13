@@ -13,6 +13,7 @@ use App\Controllers\HomeController;
 use App\Controllers\InventoryController;
 use App\Controllers\OrderController;
 use App\Controllers\OrderManagementController;
+use App\Controllers\PaymentController;
 use App\Controllers\ProductController;
 use App\Controllers\StatisticsController;
 use App\Controllers\UserManagementController;
@@ -69,6 +70,12 @@ $router->get('/checkout', [CheckoutController::class, 'index']);
 $router->post('/checkout/address', [CheckoutController::class, 'addAddress']);
 $router->post('/checkout', [CheckoutController::class, 'placeOrder']);
 $router->get('/checkout/success', [CheckoutController::class, 'success']);
+
+$router->get('/payments/sepay/start', [PaymentController::class, 'start']);
+$router->get('/payments/sepay/success', [PaymentController::class, 'success']);
+$router->get('/payments/sepay/error', [PaymentController::class, 'error']);
+$router->get('/payments/sepay/cancel', [PaymentController::class, 'cancel']);
+$router->post('/payments/sepay/ipn', [PaymentController::class, 'ipn']);
 
 $router->get('/orders', [OrderController::class, 'index']);
 $router->get('/orders/{orderId}', [OrderController::class, 'show']);

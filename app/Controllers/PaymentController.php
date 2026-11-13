@@ -1,0 +1,217 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Controllers;
+
+use App\Core\Controller;
+use App\Models\Order;
+use App\Services\SePayPayment;
+use RuntimeException;
+use Throwable;
+
+final class PaymentController extends Controller
+{
+    public function start(): void
+    {
+        $user = $this->requireCustomer();
+        $orderId = $this->queryOrderId();
+        $order = $orderId === ''
+            ? null
+            : (new Order())->findForCustomer($orderId, (string) $user['MaND']);
+
+        if ($order === null) {
+            $this->redirect('orders', 303);
+        }
+
+        $details = $order['order'];
+        if (
+            $details['PhuongThucTT'] !== 'Online'
+            || $details['TrangThaiDH'] === 'Đã hủy'
+            || $details['TrangThaiTT'] !== 'Chưa thanh toán'
+        ) {
+            $this->setOrderFlash('Đơn hàng không còn đủ điều kiện để thanh toán.', 'error');
+            $this->redirect('orders/'.rawurlencode($orderId), 303);
+        }
+
+        $sepay = new SePayPayment();
+        if (!$sepay->isConfigured()) {
+            $this->setOrderFlash(
+                'SePay Sandbox chưa được cấu hình. Hãy hoàn tất cấu hình cục bộ trước khi thanh toán.',
+                'error'
+            );
+            $this->redirect('orders/'.rawurlencode($orderId), 303);
+        }
+
+        try {
+            $fields = $sepay->createCheckoutFields($details);
+        } catch (RuntimeException $exception) {
+            $this->setOrderFlash($exception->getMessage(), 'error');
+            $this->redirect('orders/'.rawurlencode($orderId), 303);
+        }
+
+        header('Content-Type: text/html; charset=UTF-8');
+        echo $sepay->renderCheckoutForm($fields);
+    }
+
+    public function success(): void
+    {
+        $this->handleReturn('success');
+    }
+
+    public function error(): void
+    {
+        $this->handleReturn('error');
+    }
+
+    public function cancel(): void
+    {
+        $this->handleReturn('cancel');
+    }
+
+    public function ipn(): void
+    {
+        if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
+            $this->sendJson(405, ['error' => 'Method not allowed']);
+        }
+
+        $sepay = new SePayPayment();
+        $ipnSecret = $sepay->ipnSecretKey();
+        if ($ipnSecret === '') {
+            $this->sendJson(503, ['error' => 'IPN authentication is not configured']);
+        }
+
+        $providedSecret = (string) ($_SERVER['HTTP_X_SECRET_KEY'] ?? '');
+        if ($providedSecret === '' || !hash_equals($ipnSecret, $providedSecret)) {
+            $this->sendJson(401, ['error' => 'Unauthorized']);
+        }
+
+        $rawBody = file_get_contents('php://input');
+        if (is_string($rawBody) && strlen($rawBody) > 65536) {
+            $this->sendJson(413, ['error' => 'IPN payload is too large']);
+        }
+
+        $payload = is_string($rawBody) ? json_decode($rawBody, true) : null;
+        if (!is_array($payload)) {
+            $this->sendJson(400, ['error' => 'Invalid JSON payload']);
+        }
+
+        $notificationType = $payload['notification_type'] ?? '';
+        if ($notificationType === 'TRANSACTION_VOID') {
+            $this->sendJson(200, ['received' => true, 'processed' => false]);
+        }
+        if ($notificationType !== 'ORDER_PAID') {
+            $this->sendJson(200, ['received' => true, 'processed' => false]);
+        }
+
+        $order = $payload['order'] ?? null;
+        $transaction = $payload['transaction'] ?? null;
+        if (!is_array($order) || !is_array($transaction)) {
+            $this->sendJson(400, ['error' => 'Missing order or transaction data']);
+        }
+
+        $invoice = $order['order_invoice_number'] ?? null;
+        $orderAmount = $order['order_amount'] ?? null;
+        $transactionAmount = $transaction['transaction_amount'] ?? null;
+
+        if (
+            !is_string($invoice)
+            || $invoice === ''
+            || ($order['order_status'] ?? '') !== 'CAPTURED'
+            || ($order['order_currency'] ?? '') !== 'VND'
+            || ($transaction['transaction_status'] ?? '') !== 'APPROVED'
+            || ($transaction['transaction_type'] ?? '') !== 'PAYMENT'
+            || ($transaction['transaction_currency'] ?? '') !== 'VND'
+            || !is_string($orderAmount)
+            || !is_string($transactionAmount)
+            || !SePayPayment::amountsMatch($orderAmount, $transactionAmount)
+        ) {
+            $this->sendJson(422, ['error' => 'Payment notification did not pass validation']);
+        }
+
+        try {
+            $processed = (new Order())->markOnlineOrderPaid($invoice, $transactionAmount);
+        } catch (Throwable $exception) {
+            error_log('[SePay IPN] Order '.$invoice.': '.$exception->getMessage());
+            $this->sendJson(422, ['error' => 'Payment could not be applied to the order']);
+        }
+
+        if (!$processed) {
+            error_log('[SePay IPN] Ignored payment for ineligible order '.$invoice);
+        }
+
+        $this->sendJson(200, ['received' => true, 'processed' => $processed]);
+    }
+
+    private function handleReturn(string $result): void
+    {
+        $user = $this->requireCustomer();
+        $orderId = $this->queryOrderId();
+        $receipt = $orderId === ''
+            ? null
+            : (new Order())->findForCustomer($orderId, (string) $user['MaND']);
+
+        if ($receipt === null) {
+            $this->redirect('orders', 303);
+        }
+
+        $paymentStatus = (string) $receipt['order']['TrangThaiTT'];
+        $orderStatus = (string) $receipt['order']['TrangThaiDH'];
+        if ($paymentStatus === 'Đã thanh toán') {
+            $message = 'SePay đã xác nhận thanh toán thành công.';
+            $type = 'success';
+        } elseif ($orderStatus === 'Đã hủy') {
+            $message = 'Đơn hàng đã bị hủy và không thể thanh toán.';
+            $type = 'error';
+        } elseif ($result === 'success') {
+            $message = 'Đã quay lại từ SePay. Hệ thống đang chờ IPN xác nhận; trạng thái chưa thanh toán sẽ được giữ nguyên cho đến khi nhận được xác nhận hợp lệ.';
+            $type = 'error';
+        } elseif ($result === 'cancel') {
+            $message = 'Bạn đã hủy thao tác thanh toán. Đơn hàng vẫn chưa được thanh toán và có thể thử lại.';
+            $type = 'error';
+        } else {
+            $message = 'SePay không hoàn tất giao dịch. Đơn hàng vẫn chưa được thanh toán và có thể thử lại.';
+            $type = 'error';
+        }
+
+        $this->setOrderFlash($message, $type);
+        $this->redirect('orders/'.rawurlencode($orderId), 303);
+    }
+
+    private function requireCustomer(): array
+    {
+        $user = $_SESSION['user'] ?? null;
+        if (
+            !is_array($user)
+            || empty($user['MaND'])
+            || ($user['VaiTro'] ?? '') !== 'KhachHang'
+        ) {
+            $this->redirect('login');
+        }
+
+        return $user;
+    }
+
+    private function queryOrderId(): string
+    {
+        $value = $_GET['id'] ?? '';
+
+        return is_string($value) ? trim($value) : '';
+    }
+
+    private function setOrderFlash(string $message, string $type): void
+    {
+        $_SESSION['_order_flash'] = [
+            'message' => $message,
+            'type' => $type,
+        ];
+    }
+
+    private function sendJson(int $status, array $body): never
+    {
+        http_response_code($status);
+        header('Content-Type: application/json; charset=UTF-8');
+        echo json_encode($body, JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+}

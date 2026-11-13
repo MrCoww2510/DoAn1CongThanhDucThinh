@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Core\Database;
+use App\Services\SePayPayment;
 
 final class Order
 {
@@ -16,13 +17,18 @@ final class Order
         $this->db = Database::connection();
     }
 
-    // Tạo đơn COD, lưu chi tiết và trừ tồn kho trong cùng giao dịch.
-    public function placeCodOrder(
+    // Tạo đơn hàng, lưu chi tiết và trừ tồn kho trong cùng giao dịch.
+    public function placeOrder(
         string $customerId,
         string $recipientName,
         string $deliveryAddress,
-        string $recipientPhone
+        string $recipientPhone,
+        string $paymentMethod
     ): array {
+        if (!in_array($paymentMethod, ['COD', 'Online'], true)) {
+            throw new \RuntimeException('Phương thức thanh toán không hợp lệ.');
+        }
+
         $this->db->beginTransaction();
 
         try {
@@ -94,6 +100,18 @@ final class Order
             $stmt->execute(['cartId' => $cartId]);
             $total = (string) $stmt->fetchColumn();
 
+            if (
+                $paymentMethod === 'Online'
+                && (
+                    preg_match('/\A[0-9]+(?:\.0+)?\z/', $total) !== 1
+                    || preg_match('/\A0+(?:\.0+)?\z/', $total) === 1
+                )
+            ) {
+                throw new \RuntimeException(
+                    'Thanh toán SePay yêu cầu tổng tiền VND là số nguyên lớn hơn 0.'
+                );
+            }
+
             $orderId = 'DH'.strtoupper(bin2hex(random_bytes(9)));
             $stmt = $this->db->prepare(
                 'INSERT INTO DonHang
@@ -110,7 +128,7 @@ final class Order
                 'deliveryAddress' => $deliveryAddress,
                 'recipientPhone' => $recipientPhone,
                 'total' => $total,
-                'paymentMethod' => 'COD',
+                'paymentMethod' => $paymentMethod,
                 'orderStatus' => 'Chờ xác nhận',
                 'paymentStatus' => 'Chưa thanh toán',
             ]);
@@ -182,6 +200,87 @@ final class Order
                 'MaDH' => $orderId,
                 'TongTien' => $total,
             ];
+        } catch (\Throwable $exception) {
+            if ($this->db->inTransaction()) {
+                $this->db->rollBack();
+            }
+
+            throw $exception;
+        }
+    }
+
+    public function markOnlineOrderPaid(string $orderId, string $transactionAmount): bool
+    {
+        $this->db->beginTransaction();
+
+        try {
+            $stmt = $this->db->prepare(
+                'SELECT TongTien, PhuongThucTT, TrangThaiDH, TrangThaiTT
+                 FROM DonHang
+                 WHERE MaDH = :orderId
+                 LIMIT 1
+                 FOR UPDATE'
+            );
+            $stmt->execute(['orderId' => $orderId]);
+            $order = $stmt->fetch();
+
+            if ($order === false) {
+                throw new \RuntimeException('Không tìm thấy đơn hàng của IPN.');
+            }
+
+            if (!SePayPayment::amountsMatch(
+                (string) $order['TongTien'],
+                $transactionAmount
+            )) {
+                throw new \RuntimeException('Số tiền IPN không khớp với đơn hàng.');
+            }
+
+            if ($order['PhuongThucTT'] !== 'Online') {
+                $this->db->commit();
+
+                return false;
+            }
+
+            if ($order['TrangThaiTT'] === 'Đã thanh toán') {
+                $this->db->commit();
+
+                return true;
+            }
+
+            if (
+                $order['TrangThaiDH'] === 'Đã hủy'
+                || $order['TrangThaiTT'] !== 'Chưa thanh toán'
+            ) {
+                $this->db->commit();
+
+                return false;
+            }
+
+            $stmt = $this->db->prepare(
+                'UPDATE DonHang
+                 SET TrangThaiTT = :paidStatus
+                 WHERE MaDH = :orderId
+                   AND PhuongThucTT = :paymentMethod
+                   AND TrangThaiDH <> :cancelledStatus
+                   AND TrangThaiTT = :unpaidStatus'
+            );
+            $stmt->execute([
+                'paidStatus' => 'Đã thanh toán',
+                'orderId' => $orderId,
+                'paymentMethod' => 'Online',
+                'cancelledStatus' => 'Đã hủy',
+                'unpaidStatus' => 'Chưa thanh toán',
+            ]);
+
+            if ($stmt->rowCount() !== 1) {
+                throw new \RuntimeException(
+                    'Trạng thái đơn hàng đã thay đổi trước khi ghi nhận thanh toán.'
+                );
+            }
+
+            $this->db->commit();
+
+            return true;
         } catch (\Throwable $exception) {
             if ($this->db->inTransaction()) {
                 $this->db->rollBack();
@@ -530,7 +629,7 @@ final class Order
 
         try {
             $stmt = $this->db->prepare(
-                'SELECT TrangThaiDH
+                'SELECT TrangThaiDH, TrangThaiTT
                  FROM DonHang
                  WHERE MaDH = :orderId AND MaND = :customerId
                  LIMIT 1
@@ -540,16 +639,23 @@ final class Order
                 'orderId' => $orderId,
                 'customerId' => $customerId,
             ]);
-            $status = $stmt->fetchColumn();
+            $order = $stmt->fetch();
 
-            if ($status === false) {
+            if ($order === false) {
                 throw new RuntimeException(
                     'Đơn hàng không tồn tại hoặc không thuộc tài khoản của bạn.'
                 );
             }
 
+            $status = (string) $order['TrangThaiDH'];
             if ($status === 'Đã hủy') {
                 throw new RuntimeException('Đơn hàng này đã được hủy trước đó.');
+            }
+
+            if ($order['TrangThaiTT'] === 'Đã thanh toán') {
+                throw new RuntimeException(
+                    'Đơn hàng đã thanh toán không thể hủy trực tiếp. Vui lòng liên hệ cửa hàng.'
+                );
             }
 
             if ($status !== 'Chờ xác nhận') {

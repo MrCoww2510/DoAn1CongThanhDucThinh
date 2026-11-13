@@ -9,6 +9,7 @@ use App\Models\Account;
 use App\Models\Cart;
 use App\Models\DeliveryAddress;
 use App\Models\Order;
+use App\Services\SePayPayment;
 
 final class CheckoutController extends Controller
 {
@@ -146,7 +147,7 @@ final class CheckoutController extends Controller
         }
     }
 
-    // Kiểm tra dữ liệu nhận hàng và tạo đơn hàng COD.
+    // Kiểm tra dữ liệu nhận hàng và tạo đơn hàng theo phương thức đã chọn.
     public function placeOrder(): void
     {
         if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
@@ -198,8 +199,13 @@ final class CheckoutController extends Controller
             $errors[] = 'Vui lòng chọn địa chỉ giao hàng hợp lệ hoặc thêm địa chỉ mới.';
         }
 
-        if ($form['paymentMethod'] !== 'COD') {
-            $errors[] = 'Thanh toán trực tuyến chưa được tích hợp. Vui lòng chọn thanh toán khi nhận hàng (COD).';
+        if (!in_array($form['paymentMethod'], ['COD', 'Online'], true)) {
+            $errors[] = 'Phương thức thanh toán không hợp lệ.';
+        } elseif (
+            $form['paymentMethod'] === 'Online'
+            && !(new SePayPayment())->isConfigured()
+        ) {
+            $errors[] = 'SePay Sandbox chưa được cấu hình đầy đủ. Vui lòng thử lại sau.';
         }
 
         $cart = (new Cart())->findItems((string) $user['MaND']);
@@ -215,12 +221,20 @@ final class CheckoutController extends Controller
         }
 
         try {
-            $order = (new Order())->placeCodOrder(
+            $order = (new Order())->placeOrder(
                 (string) $user['MaND'],
                 $form['recipientName'],
                 (string) $deliveryAddress,
-                $form['recipientPhone']
+                $form['recipientPhone'],
+                $form['paymentMethod']
             );
+
+            if ($form['paymentMethod'] === 'Online') {
+                $this->redirect(
+                    'payments/sepay/start?id='.rawurlencode($order['MaDH']),
+                    303
+                );
+            }
 
             $this->redirect(
                 'checkout/success?id='.rawurlencode($order['MaDH']),

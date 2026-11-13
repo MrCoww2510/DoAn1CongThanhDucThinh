@@ -17,7 +17,7 @@ $createdAt = strtotime((string) ($order['NgayTao'] ?? ''));
         <p class="checkout-eyebrow">ĐẶT HÀNG THÀNH CÔNG</p>
         <h1>Cảm ơn bạn đã đặt hàng!</h1>
         <p>
-            Đơn hàng đang chờ xác nhận. Bạn thanh toán khi nhận hàng;
+            Đơn hàng đang chờ xác nhận;
             trạng thái thanh toán hiện là
             <strong><?php echo $escape($order['TrangThaiTT']); ?></strong>.
         </p>
@@ -37,7 +37,9 @@ $createdAt = strtotime((string) ($order['NgayTao'] ?? ''));
             </div>
             <div>
                 <dt>Phương thức thanh toán</dt>
-                <dd>Thanh toán khi nhận hàng (COD)</dd>
+                <dd><?php echo $order['PhuongThucTT'] === 'Online'
+                    ? 'Thanh toán QR qua SePay'
+                    : 'Thanh toán khi nhận hàng (COD)'; ?></dd>
             </div>
             <div>
                 <dt>Trạng thái đơn hàng</dt>
