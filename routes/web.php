@@ -34,6 +34,7 @@ $router->post('/register', [AuthController::class, 'register']);
 $router->get('/login', [AuthController::class, 'login']);
 $router->post('/login', [AuthController::class, 'login']);
 $router->post('/logout', [AuthController::class, 'logout']);
+// Hai endpoint POST nhận ID Token để đăng nhập mới hoặc liên kết phiên khách đã xác thực.
 $router->post('/auth/google/login', [AuthController::class, 'googleLogin']);
 $router->post('/auth/google/link', [AuthController::class, 'linkGoogle']);
 

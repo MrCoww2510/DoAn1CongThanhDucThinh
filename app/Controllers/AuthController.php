@@ -15,6 +15,7 @@ final class AuthController extends Controller
     /** Xác minh ID Token tại backend bằng Google API Client và đúng audience của ứng dụng. */
     private function verifiedGoogleIdentity(): ?array
     {
+        // GIS gửi ID Token trong POST; giới hạn kích thước và xác thực CSRF trước khi gọi Google.
         $token = (string) ($_POST['credential'] ?? '');
         $csrf = (string) ($_POST['_csrf'] ?? '');
         $sessionCsrf = (string) ($_SESSION['_csrf'] ?? '');
@@ -23,6 +24,7 @@ final class AuthController extends Controller
             return null;
         }
 
+        // verifyIdToken kiểm tra chữ ký, hạn dùng và audience theo Client ID cấu hình.
         $googleConfig = require BASE_PATH.'/config/google.php';
         $clientId = (string) ($googleConfig['client_id'] ?? '');
         if ($clientId === '' || !is_file(BASE_PATH.'/vendor/autoload.php')) {
@@ -37,6 +39,7 @@ final class AuthController extends Controller
 
             return null;
         }
+        // Chỉ dùng email đã được Google xác minh; dữ liệu profile từ trình duyệt không được tin cậy.
         if (!is_array($payload)
             || empty($payload['sub'])
             || empty($payload['email'])
@@ -76,6 +79,7 @@ final class AuthController extends Controller
                 $this->googleJson(['message' => 'Không thể xác minh tài khoản Google. Vui lòng thử lại.'], 400);
             }
 
+            // Ưu tiên tìm theo Google sub; nếu email đã có thì yêu cầu đăng nhập cũ rồi liên kết thủ công.
             $model = new Account();
             $account = $model->findForGoogleLogin($identity['sub']);
             if ($account === null) {
@@ -102,6 +106,7 @@ final class AuthController extends Controller
                 $this->googleJson(['message' => 'Tài khoản hiện không hoạt động.'], 403);
             }
 
+            // Không cho Google cấp role; phiên chỉ được tạo sau khi xác nhận đây là khách đang hoạt động.
             session_regenerate_id(true);
             $account['GooglePicture'] = $identity['picture'];
             $_SESSION['user'] = $account;
@@ -120,6 +125,7 @@ final class AuthController extends Controller
         if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
             $this->googleJson(['message' => 'Phương thức không được hỗ trợ.'], 405);
         }
+        // Chỉ phiên khách hàng đã đăng nhập mới được yêu cầu liên kết tài khoản.
         $user = $_SESSION['user'] ?? null;
         if (!is_array($user) || empty($user['MaTK']) || ($user['VaiTro'] ?? '') !== 'KhachHang') {
             $this->googleJson(['message' => 'Hãy đăng nhập tài khoản khách hàng trước khi liên kết Google.'], 401);

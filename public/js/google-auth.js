@@ -1,6 +1,7 @@
 (() => {
     'use strict';
 
+    // Cùng một script phục vụ nút đăng nhập và nút liên kết trên trang tài khoản.
     const widgets = [...document.querySelectorAll('[data-google-auth]')];
     if (!widgets.length) return;
 
@@ -17,6 +18,7 @@
         setMessage(widget, 'Đang xác minh tài khoản Google…');
         button?.setAttribute('aria-busy', 'true');
         try {
+            // Gửi nguyên ID Token về PHP; không giải mã hay tin claim ở phía trình duyệt.
             const body = new URLSearchParams({
                 credential,
                 _csrf: widget.dataset.csrf || '',
@@ -40,6 +42,7 @@
     };
 
     const initialize = (attempt = 0) => {
+        // GIS được tải async nên chờ thư viện sẵn sàng trước khi dựng nút.
         if (!window.google?.accounts?.id) {
             if (attempt < 50) window.setTimeout(() => initialize(attempt + 1), 200);
             else widgets.forEach(widget => setMessage(widget, 'Không tải được dịch vụ Google. Vui lòng tải lại trang.', true));

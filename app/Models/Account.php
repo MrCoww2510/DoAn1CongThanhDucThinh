@@ -322,7 +322,7 @@ final class Account
             FROM TaiKhoan tk
             INNER JOIN NguoiDung nd ON nd.MaND = tk.MaND
             WHERE tk.TenDangNhap = :username
-               OR nd.Email = :email
+                OR nd.Email = :email
             LIMIT 1
         ';
 
@@ -340,6 +340,7 @@ final class Account
     /** Tìm tài khoản bằng mã định danh ổn định do Google cấp. */
     public function findForGoogleLogin(string $googleId): ?array
     {
+        // Google sub là định danh ổn định; không dùng email làm khóa đăng nhập Google.
         $stmt = Database::connection()->prepare(
             'SELECT tk.MaTK, tk.MaND, tk.TenDangNhap, tk.VaiTro, tk.TrangThai,
                     nd.HoTen, nd.Email, nd.SDT
@@ -373,6 +374,7 @@ final class Account
     public function registerGoogle(string $googleId, string $name, string $email): array
     {
         $pdo = Database::connection();
+        // Khóa theo email chuẩn hóa để hai yêu cầu Google đồng thời không tạo trùng hồ sơ.
         $lockName = 'ttg_'.substr(hash('sha256', mb_strtolower($email)), 0, 60);
         $lock = $pdo->prepare('SELECT GET_LOCK(:name, 10)');
         $lock->execute(['name' => $lockName]);
@@ -389,6 +391,7 @@ final class Account
                 return ['status' => 'existing', 'account' => $existing];
             }
 
+            // Tạo username duy nhất theo quy ước hiện tại; mật khẩu chỉ là hash của chuỗi ngẫu nhiên.
             $localPart = strstr($email, '@', true) ?: 'google-user';
             $base = substr((string) preg_replace('/[^a-zA-Z0-9_.-]/', '', $localPart), 0, 35);
             $base = strlen($base) >= 4 ? $base : 'googleuser';
@@ -432,10 +435,12 @@ final class Account
     /** Liên kết chỉ đúng tài khoản đang có session; email phải khớp và GoogleID chưa được gán nơi khác. */
     public function linkGoogle(string $accountId, string $googleId, string $email): string
     {
+        // Không cho phép một Google sub đã liên kết bị chuyển sang tài khoản khác.
         $alreadyLinked = $this->findForGoogleLogin($googleId);
         if ($alreadyLinked !== null && $alreadyLinked['MaTK'] !== $accountId) {
             return 'already_linked';
         }
+        // Chỉ liên kết nếu email Google khớp email hồ sơ và tài khoản hiện vẫn hoạt động.
         $stmt = Database::connection()->prepare(
             'SELECT tk.MaTK, tk.VaiTro, tk.TrangThai, nd.Email
              FROM TaiKhoan tk INNER JOIN NguoiDung nd ON nd.MaND = tk.MaND

@@ -34,6 +34,7 @@ spl_autoload_register(static function (string $class): void {
 });
 
 if (session_status() !== PHP_SESSION_ACTIVE) {
+    // Bảo vệ cookie session; chỉ bật Secure khi request hiện tại chạy qua HTTPS.
     $https = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== '' && $_SERVER['HTTPS'] !== 'off';
     session_set_cookie_params([
         'httponly' => true,
