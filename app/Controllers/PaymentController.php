@@ -1,7 +1,5 @@
 <?php
 
-// Controller khởi tạo và tiếp nhận kết quả thanh toán SePay.
-
 declare(strict_types=1);
 
 namespace App\Controllers;
@@ -9,10 +7,11 @@ namespace App\Controllers;
 use App\Core\Controller;
 use App\Models\Order;
 use App\Services\SePayPayment;
+use RuntimeException;
+use Throwable;
 
 final class PaymentController extends Controller
 {
-    // Khởi tạo quy trình thanh toán cho đơn hàng.
     public function start(): void
     {
         $user = $this->requireCustomer();
@@ -46,7 +45,7 @@ final class PaymentController extends Controller
 
         try {
             $fields = $sepay->createCheckoutFields($details);
-        } catch (\RuntimeException $exception) {
+        } catch (RuntimeException $exception) {
             $this->setOrderFlash($exception->getMessage(), 'error');
             $this->redirect('orders/'.rawurlencode($orderId), 303);
         }
@@ -55,25 +54,21 @@ final class PaymentController extends Controller
         echo $sepay->renderCheckoutForm($fields);
     }
 
-    // Hiển thị kết quả đặt hàng thành công.
     public function success(): void
     {
         $this->handleReturn('success');
     }
 
-    // Hiển thị hoặc xử lý kết quả thanh toán thất bại.
     public function error(): void
     {
         $this->handleReturn('error');
     }
 
-    // Xử lý yêu cầu hủy giao dịch hoặc đơn hàng.
     public function cancel(): void
     {
         $this->handleReturn('cancel');
     }
 
-    // Tiếp nhận và xác minh thông báo thanh toán từ cổng thanh toán.
     public function ipn(): void
     {
         if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
@@ -118,7 +113,6 @@ final class PaymentController extends Controller
         $invoice = $order['order_invoice_number'] ?? null;
         $orderAmount = $order['order_amount'] ?? null;
         $transactionAmount = $transaction['transaction_amount'] ?? null;
-        $gatewayTransactionId = $transaction['transaction_id'] ?? $transaction['id'] ?? null;
 
         if (
             !is_string($invoice)
@@ -130,17 +124,14 @@ final class PaymentController extends Controller
             || ($transaction['transaction_currency'] ?? '') !== 'VND'
             || !is_string($orderAmount)
             || !is_string($transactionAmount)
-            || (!is_string($gatewayTransactionId) && !is_int($gatewayTransactionId))
-            || trim((string) $gatewayTransactionId) === ''
-            || strlen((string) $gatewayTransactionId) > 100
             || !SePayPayment::amountsMatch($orderAmount, $transactionAmount)
         ) {
             $this->sendJson(422, ['error' => 'Payment notification did not pass validation']);
         }
 
         try {
-            $processed = (new Order())->markOnlineOrderPaid($invoice, $transactionAmount, (string) $gatewayTransactionId);
-        } catch (\Throwable $exception) {
+            $processed = (new Order())->markOnlineOrderPaid($invoice, $transactionAmount);
+        } catch (Throwable $exception) {
             error_log('[SePay IPN] Order '.$invoice.': '.$exception->getMessage());
             $this->sendJson(422, ['error' => 'Payment could not be applied to the order']);
         }
@@ -152,7 +143,6 @@ final class PaymentController extends Controller
         $this->sendJson(200, ['received' => true, 'processed' => $processed]);
     }
 
-    // Xử lý kết quả trả về từ cổng thanh toán.
     private function handleReturn(string $result): void
     {
         $user = $this->requireCustomer();
@@ -188,7 +178,6 @@ final class PaymentController extends Controller
         $this->redirect('orders/'.rawurlencode($orderId), 303);
     }
 
-    // Đảm bảo yêu cầu được gửi bởi khách hàng đã đăng nhập.
     private function requireCustomer(): array
     {
         $user = $_SESSION['user'] ?? null;
@@ -203,7 +192,6 @@ final class PaymentController extends Controller
         return $user;
     }
 
-    // Lấy mã đơn hàng từ tham số yêu cầu hợp lệ.
     private function queryOrderId(): string
     {
         $value = $_GET['id'] ?? '';
@@ -211,7 +199,6 @@ final class PaymentController extends Controller
         return is_string($value) ? trim($value) : '';
     }
 
-    // Lưu thông báo gắn với đơn hàng để hiển thị sau chuyển hướng.
     private function setOrderFlash(string $message, string $type): void
     {
         $_SESSION['_order_flash'] = [
@@ -220,7 +207,6 @@ final class PaymentController extends Controller
         ];
     }
 
-    // Trả phản hồi JSON với mã trạng thái HTTP được chỉ định.
     private function sendJson(int $status, array $body): never
     {
         http_response_code($status);
