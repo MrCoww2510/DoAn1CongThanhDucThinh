@@ -8,7 +8,9 @@ if ($baseUrl !== '' && str_starts_with($requestPath, $baseUrl)) {
     $requestPath = substr($requestPath, strlen($baseUrl)) ?: '/';
 }
 $requestPath = '/'.trim($requestPath, '/');
-if ($requestPath === '//') { $requestPath = '/'; }
+if ($requestPath === '//') {
+    $requestPath = '/';
+}
 $currentRole = (string) ($_SESSION['user']['VaiTro'] ?? '');
 $roleLayoutClass = match ($currentRole) {
     'QuanTriVien' => 'app-admin',
@@ -165,9 +167,12 @@ $roleLayoutClass = match ($currentRole) {
 			<div class="nav-inner" id="mainMenu">
 
 				<?php if (!in_array($_SESSION['user']['VaiTro'] ?? '', ['NhanVien', 'QuanTriVien'], false)) { ?>
-				<a href="<?php echo htmlspecialchars($baseUrl.'/', ENT_QUOTES, 'UTF-8'); ?>"<?php echo $requestPath === '/' ? ' aria-current="page"' : ''; ?>>Trang chủ</a>
-				<a href="<?php echo htmlspecialchars($baseUrl.'/about', ENT_QUOTES, 'UTF-8'); ?>"<?php echo $requestPath === '/about' ? ' aria-current="page"' : ''; ?>>Giới thiệu</a>
-				<a href="<?php echo htmlspecialchars($baseUrl.'/products', ENT_QUOTES, 'UTF-8'); ?>"<?php echo $requestPath === '/products' ? ' aria-current="page"' : ''; ?>>Sản phẩm</a>
+				<a href="<?php echo htmlspecialchars($baseUrl.'/', ENT_QUOTES, 'UTF-8'); ?>"
+					<?php echo $requestPath === '/' ? ' aria-current="page"' : ''; ?>>Trang chủ</a>
+				<a href="<?php echo htmlspecialchars($baseUrl.'/about', ENT_QUOTES, 'UTF-8'); ?>"
+					<?php echo $requestPath === '/about' ? ' aria-current="page"' : ''; ?>>Giới thiệu</a>
+				<a href="<?php echo htmlspecialchars($baseUrl.'/products', ENT_QUOTES, 'UTF-8'); ?>"
+					<?php echo $requestPath === '/products' ? ' aria-current="page"' : ''; ?>>Sản phẩm</a>
 				<?php } ?>
 
 				<?php if (!in_array($_SESSION['user']['VaiTro'] ?? '', ['NhanVien', 'QuanTriVien'], true)) { ?>
@@ -227,13 +232,18 @@ $roleLayoutClass = match ($currentRole) {
 			<div class="footer-col">
 				<h4>Về chúng tôi</h4>
 				<ul class="footer-list">
-					<li><a href="<?php echo htmlspecialchars($baseUrl.'/', ENT_QUOTES, 'UTF-8'); ?>"<?php echo $requestPath === '/' ? ' aria-current="page"' : ''; ?>>Trang chủ</a></li>
-					<li><a href="<?php echo htmlspecialchars($baseUrl.'/about', ENT_QUOTES, 'UTF-8'); ?>"<?php echo $requestPath === '/about' ? ' aria-current="page"' : ''; ?>>Giới thiệu</a>
+					<li><a href="<?php echo htmlspecialchars($baseUrl.'/', ENT_QUOTES, 'UTF-8'); ?>"
+							<?php echo $requestPath === '/' ? ' aria-current="page"' : ''; ?>>Trang chủ</a></li>
+					<li><a href="<?php echo htmlspecialchars($baseUrl.'/about', ENT_QUOTES, 'UTF-8'); ?>"
+							<?php echo $requestPath === '/about' ? ' aria-current="page"' : ''; ?>>Giới thiệu</a>
 					</li>
-					<li><a href="<?php echo htmlspecialchars($baseUrl.'/products', ENT_QUOTES, 'UTF-8'); ?>"<?php echo $requestPath === '/products' ? ' aria-current="page"' : ''; ?>>Sản
+					<li><a href="<?php echo htmlspecialchars($baseUrl.'/products', ENT_QUOTES, 'UTF-8'); ?>"
+							<?php echo $requestPath === '/products' ? ' aria-current="page"' : ''; ?>>Sản
 							phẩm</a></li>
-					<li><a href="<?php echo htmlspecialchars($baseUrl.'/promotions', ENT_QUOTES, 'UTF-8'); ?>">Khuyến mãi</a></li>
-					<li><a href="<?php echo htmlspecialchars($baseUrl.'/tech-news', ENT_QUOTES, 'UTF-8'); ?>">Tin tức công nghệ</a></li>
+					<li><a href="<?php echo htmlspecialchars($baseUrl.'/promotions', ENT_QUOTES, 'UTF-8'); ?>">Khuyến
+							mãi</a></li>
+					<li><a href="<?php echo htmlspecialchars($baseUrl.'/tech-news', ENT_QUOTES, 'UTF-8'); ?>">Tin tức
+							công nghệ</a></li>
 				</ul>
 			</div>
 
