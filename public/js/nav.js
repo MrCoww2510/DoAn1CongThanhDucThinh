@@ -6,21 +6,6 @@ document.addEventListener("DOMContentLoaded", function () {
 	const mainNav = document.querySelector(".main-nav");
 	const closeBtn = document.querySelector(".mobile-menu-close");
 	const backdrop = document.querySelector(".mobile-menu-backdrop");
-	const currentPath = window.location.pathname.replace(/\/$/, "") || "/";
-
-	if (mainMenu) {
-		mainMenu.querySelectorAll("a[href]").forEach(function (link) {
-			link.removeAttribute("aria-current");
-
-			const linkPath = new URL(link.href, window.location.href).pathname.replace(/\/$/, "") || "/";
-			const isCurrent = currentPath === linkPath || (linkPath !== "/" && currentPath.startsWith(linkPath + "/"));
-
-			if (isCurrent) {
-				link.setAttribute("aria-current", "page");
-			}
-		});
-	}
-
 	function setMenuOpen(isOpen) {
 		if (!toggleBtn || !mainMenu || !mainNav) return;
 

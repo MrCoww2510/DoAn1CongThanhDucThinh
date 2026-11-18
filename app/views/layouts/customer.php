@@ -112,7 +112,8 @@ $roleLayoutClass = match ($currentRole) {
 					<?php if ($canOpenAccount) { ?>
 					<a class="header-account-profile-link header-account-icon-link" aria-label="Tài khoản"
 						title="Tài khoản"
-						href="<?php echo htmlspecialchars($baseUrl.'/account', ENT_QUOTES, 'UTF-8'); ?>">
+						href="<?php echo htmlspecialchars($baseUrl.'/account', ENT_QUOTES, 'UTF-8'); ?>"
+						<?php echo $requestPath === '/account' ? ' aria-current="page"' : ''; ?>>
 						<?php echo $accountIcon; ?>
 					</a>
 					<?php } else { ?>
@@ -128,10 +129,12 @@ $roleLayoutClass = match ($currentRole) {
 					</form>
 					<?php } ?>
 					<?php } else { ?>
-					<a href="<?php echo htmlspecialchars($baseUrl.'/login', ENT_QUOTES, 'UTF-8'); ?>">
+					<a href="<?php echo htmlspecialchars($baseUrl.'/login', ENT_QUOTES, 'UTF-8'); ?>"
+						<?php echo $requestPath === '/login' ? ' aria-current="page"' : ''; ?>>
 						Đăng nhập
 					</a>
-					<a href="<?php echo htmlspecialchars($baseUrl.'/register', ENT_QUOTES, 'UTF-8'); ?>">
+					<a href="<?php echo htmlspecialchars($baseUrl.'/register', ENT_QUOTES, 'UTF-8'); ?>"
+						<?php echo $requestPath === '/register' ? ' aria-current="page"' : ''; ?>>
 						Đăng ký
 					</a>
 					<?php } ?>
@@ -168,34 +171,47 @@ $roleLayoutClass = match ($currentRole) {
 				<?php } ?>
 
 				<?php if (!in_array($_SESSION['user']['VaiTro'] ?? '', ['NhanVien', 'QuanTriVien'], true)) { ?>
-				<a href="<?php echo htmlspecialchars($baseUrl.'/cart', ENT_QUOTES, 'UTF-8'); ?>">Giỏ hàng</a>
-				<a href="<?php echo htmlspecialchars($baseUrl.'/orders', ENT_QUOTES, 'UTF-8'); ?>">Theo dõi đơn hàng</a>
+				<a href="<?php echo htmlspecialchars($baseUrl.'/cart', ENT_QUOTES, 'UTF-8'); ?>"
+					<?php echo $requestPath === '/cart' ? ' aria-current="page"' : ''; ?>>Giỏ hàng</a>
+				<a href="<?php echo htmlspecialchars($baseUrl.'/orders', ENT_QUOTES, 'UTF-8'); ?>"
+					<?php echo str_starts_with($requestPath, '/orders') ? ' aria-current="page"' : ''; ?>>Theo dõi đơn hàng</a>
 				<?php } ?>
 
 				<?php if (($_SESSION['user']['VaiTro'] ?? '') === 'NhanVien') { ?>
-				<a href="<?php echo htmlspecialchars($baseUrl.'/admin/orders', ENT_QUOTES, 'UTF-8'); ?>">Quản lý đơn
+				<a href="<?php echo htmlspecialchars($baseUrl.'/admin/orders', ENT_QUOTES, 'UTF-8'); ?>"
+					<?php echo str_starts_with($requestPath, '/admin/orders') ? ' aria-current="page"' : ''; ?>>Quản lý đơn
 					hàng</a>
-				<a href="<?php echo htmlspecialchars($baseUrl.'/admin/inventory', ENT_QUOTES, 'UTF-8'); ?>">Kiểm tra tồn
+				<a href="<?php echo htmlspecialchars($baseUrl.'/admin/inventory', ENT_QUOTES, 'UTF-8'); ?>"
+					<?php echo $requestPath === '/admin/inventory' ? ' aria-current="page"' : ''; ?>>Kiểm tra tồn
 					kho</a>
 				<?php } ?>
 
 				<?php if (($_SESSION['user']['VaiTro'] ?? '') === 'QuanTriVien') { ?>
-				<a href="<?php echo htmlspecialchars($baseUrl.'/admin', ENT_QUOTES, 'UTF-8'); ?>">Tổng quan quản trị</a>
-				<a href="<?php echo htmlspecialchars($baseUrl.'/admin/products', ENT_QUOTES, 'UTF-8'); ?>">Quản lý sản
+				<a href="<?php echo htmlspecialchars($baseUrl.'/admin', ENT_QUOTES, 'UTF-8'); ?>"
+					<?php echo $requestPath === '/admin' ? ' aria-current="page"' : ''; ?>>Tổng quan quản trị</a>
+				<a href="<?php echo htmlspecialchars($baseUrl.'/admin/products', ENT_QUOTES, 'UTF-8'); ?>"
+					<?php echo $requestPath === '/admin/products' ? ' aria-current="page"' : ''; ?>>Quản lý sản
 					phẩm</a>
-				<a href="<?php echo htmlspecialchars($baseUrl.'/admin/categories', ENT_QUOTES, 'UTF-8'); ?>">Quản lý
+				<a href="<?php echo htmlspecialchars($baseUrl.'/admin/categories', ENT_QUOTES, 'UTF-8'); ?>"
+					<?php echo $requestPath === '/admin/categories' ? ' aria-current="page"' : ''; ?>>Quản lý
 					danh mục</a>
-				<a href="<?php echo htmlspecialchars($baseUrl.'/admin/orders', ENT_QUOTES, 'UTF-8'); ?>">Quản lý đơn
+				<a href="<?php echo htmlspecialchars($baseUrl.'/admin/orders', ENT_QUOTES, 'UTF-8'); ?>"
+					<?php echo str_starts_with($requestPath, '/admin/orders') ? ' aria-current="page"' : ''; ?>>Quản lý đơn
 					hàng</a>
-				<a href="<?php echo htmlspecialchars($baseUrl.'/admin/inventory', ENT_QUOTES, 'UTF-8'); ?>">Quản lý
+				<a href="<?php echo htmlspecialchars($baseUrl.'/admin/inventory', ENT_QUOTES, 'UTF-8'); ?>"
+					<?php echo $requestPath === '/admin/inventory' ? ' aria-current="page"' : ''; ?>>Quản lý
 					kho</a>
-				<a href="<?php echo htmlspecialchars($baseUrl.'/admin/statistics', ENT_QUOTES, 'UTF-8'); ?>">Thống
+				<a href="<?php echo htmlspecialchars($baseUrl.'/admin/statistics', ENT_QUOTES, 'UTF-8'); ?>"
+					<?php echo $requestPath === '/admin/statistics' ? ' aria-current="page"' : ''; ?>>Thống
 					kê</a>
-				<a href="<?php echo htmlspecialchars($baseUrl.'/admin/promotions', ENT_QUOTES, 'UTF-8'); ?>">Chương
+				<a href="<?php echo htmlspecialchars($baseUrl.'/admin/promotions', ENT_QUOTES, 'UTF-8'); ?>"
+					<?php echo $requestPath === '/admin/promotions' ? ' aria-current="page"' : ''; ?>>Chương
 					trình giảm giá</a>
-				<a href="<?php echo htmlspecialchars($baseUrl.'/admin/vouchers', ENT_QUOTES, 'UTF-8'); ?>">Quản lý
+				<a href="<?php echo htmlspecialchars($baseUrl.'/admin/vouchers', ENT_QUOTES, 'UTF-8'); ?>"
+					<?php echo $requestPath === '/admin/vouchers' ? ' aria-current="page"' : ''; ?>>Quản lý
 					voucher</a>
-				<a href="<?php echo htmlspecialchars($baseUrl.'/admin/users', ENT_QUOTES, 'UTF-8'); ?>">Quản lý người
+				<a href="<?php echo htmlspecialchars($baseUrl.'/admin/users', ENT_QUOTES, 'UTF-8'); ?>"
+					<?php echo $requestPath === '/admin/users' ? ' aria-current="page"' : ''; ?>>Quản lý người
 					dùng</a>
 				<?php } ?>
 			</div>
