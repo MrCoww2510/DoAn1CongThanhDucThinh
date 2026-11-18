@@ -3,14 +3,6 @@
 
 $appConfig = require BASE_PATH.'/config/app.php';
 $baseUrl = rtrim($appConfig['base_url'] ?? '', '/');
-$requestPath = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
-if ($baseUrl !== '' && str_starts_with($requestPath, $baseUrl)) {
-    $requestPath = substr($requestPath, strlen($baseUrl)) ?: '/';
-}
-$requestPath = '/'.trim($requestPath, '/');
-if ($requestPath === '//') {
-    $requestPath = '/';
-}
 $currentRole = (string) ($_SESSION['user']['VaiTro'] ?? '');
 $roleLayoutClass = match ($currentRole) {
     'QuanTriVien' => 'app-admin',

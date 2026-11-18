@@ -24,6 +24,7 @@ final class View
 
         $appConfig = require dirname(__DIR__, 2).'/config/app.php';
         $baseUrl = rtrim((string) ($appConfig['base_url'] ?? ''), '/');
+        $requestPath = (string) ($_SERVER['APP_REQUEST_PATH'] ?? '/');
 
         extract($data, EXTR_SKIP);
 

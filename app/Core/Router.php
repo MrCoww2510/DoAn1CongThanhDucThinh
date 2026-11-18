@@ -61,6 +61,12 @@ final class Router
             $path = substr($path, strlen($baseUrl)) ?: '/';
         }
 
+        $path = '/'.trim($path, '/');
+        if ($path === '//') {
+            $path = '/';
+        }
+        $_SERVER['APP_REQUEST_PATH'] = $path;
+
         foreach ($this->routes as $route) {
             if ($route['method'] !== strtoupper($method)) {
                 continue;
