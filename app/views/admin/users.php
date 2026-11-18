@@ -43,7 +43,7 @@ $statuses = ['HoatDong' => 'Hoạt động', 'VoHieuHoa' => 'Bị vô hiệu hó
 		<button type="submit">Tìm</button>
 	</form>
 
-	<div style="overflow-x:auto">
+	<div class="table-container" role="region" aria-label="Danh sách tài khoản" tabindex="0">
 		<table>
 			<thead>
 				<tr>

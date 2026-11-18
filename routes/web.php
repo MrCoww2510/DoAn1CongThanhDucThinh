@@ -19,6 +19,7 @@ use App\Controllers\PaymentController;
 use App\Controllers\ProductController;
 use App\Controllers\PromotionManagementController;
 use App\Controllers\StatisticsController;
+use App\Controllers\SupportController;
 use App\Controllers\UserManagementController;
 use App\Core\Router;
 
@@ -98,3 +99,9 @@ $router->post('/admin/orders/{orderId}/status', [OrderManagementController::clas
 $router->post('/admin/orders/{orderId}/return', [OrderManagementController::class, 'confirmReturn']);
 
 $router->get('/about', [AboutController::class, 'index']);
+
+$router->get('/support/shopping-guide', [SupportController::class, 'shoppingGuide']);
+$router->get('/support/warranty', [SupportController::class, 'warranty']);
+$router->get('/support/returns', [SupportController::class, 'returns']);
+$router->get('/support/shipping', [SupportController::class, 'shipping']);
+$router->get('/support/faq', [SupportController::class, 'faq']);

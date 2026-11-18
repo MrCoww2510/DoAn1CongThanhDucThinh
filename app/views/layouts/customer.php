@@ -5,9 +5,9 @@ $appConfig = require BASE_PATH.'/config/app.php';
 $baseUrl = rtrim($appConfig['base_url'] ?? '', '/');
 $currentRole = (string) ($_SESSION['user']['VaiTro'] ?? '');
 $roleLayoutClass = match ($currentRole) {
-	'QuanTriVien' => 'app-admin',
-	'NhanVien' => 'app-staff',
-	default => 'app-customer',
+    'QuanTriVien' => 'app-admin',
+    'NhanVien' => 'app-staff',
+    default => 'app-customer',
 };
 ?>
 <!doctype html>
@@ -18,18 +18,31 @@ $roleLayoutClass = match ($currentRole) {
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title><?php echo htmlspecialchars(($pageTitle ?? 'T&T Computer').' | T&T Computer', ENT_QUOTES, 'UTF-8'); ?>
 	</title>
-	<link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/base.css?v=20261118-ui-redesign">
-	<link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/home.css?v=20261118-ui-redesign">
-	<link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/auth.css?v=20261118-ui-redesign">
-	<link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/header.css?v=20261118-mobile-header">
-	<link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/products.css?v=20261118-catalog-redesign">
-	<link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/about.css?v=20261118-ui-redesign">
+	<link rel="stylesheet"
+		href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/base.css?v=20261118-ui-redesign">
+	<link rel="stylesheet"
+		href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/home.css?v=20261118-ui-redesign">
+	<link rel="stylesheet"
+		href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/auth.css?v=20261118-ui-redesign">
+	<link rel="stylesheet"
+		href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/header.css?v=20261118-mobile-header">
+	<link rel="stylesheet"
+		href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/products.css?v=20261118-catalog-redesign">
+	<link rel="stylesheet"
+		href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/about.css?v=20261118-ui-redesign">
+	<link rel="stylesheet"
+		href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/support.css?v=20261118-support-pages">
 	<?php if (in_array($currentRole, ['NhanVien', 'QuanTriVien'], true)) { ?>
-	<link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/users.css?v=20261118-ui-redesign">
-	<link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/admin.css?v=20261118-ui-redesign">
+	<link rel="stylesheet"
+		href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/users.css?v=20261118-ui-redesign">
+	<link rel="stylesheet"
+		href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/admin.css?v=20261118-ui-redesign">
 	<?php } ?>
-	<link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/components.css?v=20261118-mobile-header">
-	<script src="<?php echo htmlspecialchars($baseUrl ?? '', ENT_QUOTES, 'UTF-8'); ?>/js/nav.js?v=20261118-mobile-header"></script>
+	<link rel="stylesheet"
+		href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/components.css?v=20261118-mobile-header">
+	<script
+		src="<?php echo htmlspecialchars($baseUrl ?? '', ENT_QUOTES, 'UTF-8'); ?>/js/nav.js?v=20261118-mobile-header">
+	</script>
 </head>
 
 <body class="<?php echo htmlspecialchars($roleLayoutClass, ENT_QUOTES, 'UTF-8'); ?>">
@@ -40,10 +53,10 @@ $roleLayoutClass = match ($currentRole) {
 
 			<!-- Logo -->
 			<a class="brand" href="<?php echo htmlspecialchars(
-                $baseUrl.(($_SESSION['user']['VaiTro'] ?? '') === 'QuanTriVien' ? '/admin' : '/'),
-                ENT_QUOTES,
-                'UTF-8'
-            ); ?>">
+			    $baseUrl.(($_SESSION['user']['VaiTro'] ?? '') === 'QuanTriVien' ? '/admin' : '/'),
+			    ENT_QUOTES,
+			    'UTF-8'
+			); ?>">
 				T&amp;T <span>COMPUTER</span>
 			</a>
 
@@ -58,11 +71,11 @@ $roleLayoutClass = match ($currentRole) {
 			<form class="header-search" method="get"
 				action="<?php echo htmlspecialchars($baseUrl.'/products', ENT_QUOTES, 'UTF-8'); ?>">
 				<input type="search" name="q" placeholder="Tìm sản phẩm..." aria-label="Tìm kiếm sản phẩm" value="<?php
-                    echo htmlspecialchars(
-                        (string) ($_GET['q'] ?? ''),
-                        ENT_QUOTES,
-                        'UTF-8'
-                    );
+			        echo htmlspecialchars(
+			            (string) ($_GET['q'] ?? ''),
+			            ENT_QUOTES,
+			            'UTF-8'
+			        );
 ?>">
 
 				<button type="submit" aria-label="Tìm kiếm">
@@ -75,48 +88,53 @@ $roleLayoutClass = match ($currentRole) {
 				</button>
 			</form>
 			<div class="header-actions">
-				<button type="button" class="mobile-menu-toggle" aria-label="Mở menu" aria-controls="mainMenu" aria-expanded="false">
+				<button type="button" class="mobile-menu-toggle" aria-label="Mở menu" aria-controls="mainMenu"
+					aria-expanded="false">
 					<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-						<path d="M4 6h16M4 12h16M4 18h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+						<path d="M4 6h16M4 12h16M4 18h16" fill="none" stroke="currentColor" stroke-width="2"
+							stroke-linecap="round"></path>
 					</svg>
 				</button>
 				<!-- Tài khoản -->
 				<div class="header-account">
-				<?php if (isset($_SESSION['user'])) { ?>
-				<?php
-                $greetingName = htmlspecialchars(
-                    (string) (
-                        $_SESSION['user']['HoTen']
-                        ?? $_SESSION['user']['TenDangNhap']
-                        ?? 'Khách hàng'
-                    ),
-                    ENT_QUOTES,
-                    'UTF-8'
-                );
-                ?>
-				<?php if (in_array($_SESSION['user']['VaiTro'] ?? '', ['KhachHang', 'QuanTriVien'], true)) { ?>
-				<a class="header-account-profile-link"
-					href="<?php echo htmlspecialchars($baseUrl.'/account', ENT_QUOTES, 'UTF-8'); ?>">
-					Xin chào, <?php echo $greetingName; ?>
-				</a>
-				<?php } else { ?>
-				<span class="header-greeting">Xin chào, <?php echo $greetingName; ?></span>
-				<?php } ?>
-				<?php if (($_SESSION['user']['VaiTro'] ?? '') !== 'KhachHang') { ?>
-				<form method="post" action="<?php echo htmlspecialchars($baseUrl.'/logout', ENT_QUOTES, 'UTF-8'); ?>">
-					<input type="hidden" name="_csrf"
-						value="<?php echo htmlspecialchars($_SESSION['_csrf'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
-					<button class="header-account-button" type="submit">Đăng xuất</button>
-				</form>
-				<?php } ?>
-				<?php } else { ?>
-				<a href="<?php echo htmlspecialchars($baseUrl.'/login', ENT_QUOTES, 'UTF-8'); ?>">
-					Đăng nhập
-				</a>
-				<a href="<?php echo htmlspecialchars($baseUrl.'/register', ENT_QUOTES, 'UTF-8'); ?>">
-					Đăng ký
-				</a>
-				<?php } ?>
+					<?php if (isset($_SESSION['user'])) { ?>
+					<?php
+                $user = $_SESSION['user'];
+					    $canOpenAccount = in_array($user['VaiTro'] ?? '', ['KhachHang', 'QuanTriVien'], true);
+					    $googlePicture = filter_var(
+					        (string) ($user['GooglePicture'] ?? ''),
+					        FILTER_VALIDATE_URL
+					    ) ?: '';
+					    $accountIcon = $googlePicture !== ''
+					        ? '<img class="header-account-avatar" src="'.htmlspecialchars($googlePicture, ENT_QUOTES, 'UTF-8').'" alt="" aria-hidden="true">'
+					        : '<svg class="header-account-user-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="4"></circle><path d="M5 21a7 7 0 0 1 14 0"></path></svg>';
+					    ?>
+					<?php if ($canOpenAccount) { ?>
+					<a class="header-account-profile-link header-account-icon-link" aria-label="Tài khoản"
+						title="Tài khoản"
+						href="<?php echo htmlspecialchars($baseUrl.'/account', ENT_QUOTES, 'UTF-8'); ?>">
+						<?php echo $accountIcon; ?>
+					</a>
+					<?php } else { ?>
+					<span class="header-account-icon" aria-label="Tài khoản" title="Tài khoản">
+						<?php echo $accountIcon; ?>
+					</span>
+					<?php } ?>
+					<?php if (($_SESSION['user']['VaiTro'] ?? '') !== 'KhachHang') { ?>
+					<form method="post"
+						action="<?php echo htmlspecialchars($baseUrl.'/logout', ENT_QUOTES, 'UTF-8'); ?>">
+						<input type="hidden" name="_csrf"
+							value="<?php echo htmlspecialchars($_SESSION['_csrf'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
+					</form>
+					<?php } ?>
+					<?php } else { ?>
+					<a href="<?php echo htmlspecialchars($baseUrl.'/login', ENT_QUOTES, 'UTF-8'); ?>">
+						Đăng nhập
+					</a>
+					<a href="<?php echo htmlspecialchars($baseUrl.'/register', ENT_QUOTES, 'UTF-8'); ?>">
+						Đăng ký
+					</a>
+					<?php } ?>
 				</div>
 			</div>
 		</div>
@@ -131,7 +149,8 @@ $roleLayoutClass = match ($currentRole) {
 				<span>Danh mục</span>
 				<button type="button" class="mobile-menu-close" aria-label="Đóng menu">
 					<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-						<path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+						<path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2"
+							stroke-linecap="round"></path>
 					</svg>
 				</button>
 			</div>
@@ -153,7 +172,8 @@ $roleLayoutClass = match ($currentRole) {
 				<?php if (($_SESSION['user']['VaiTro'] ?? '') === 'NhanVien') { ?>
 				<a href="<?php echo htmlspecialchars($baseUrl.'/admin/orders', ENT_QUOTES, 'UTF-8'); ?>">Quản lý đơn
 					hàng</a>
-				<a href="<?php echo htmlspecialchars($baseUrl.'/admin/inventory', ENT_QUOTES, 'UTF-8'); ?>">Kiểm tra tồn kho</a>
+				<a href="<?php echo htmlspecialchars($baseUrl.'/admin/inventory', ENT_QUOTES, 'UTF-8'); ?>">Kiểm tra tồn
+					kho</a>
 				<?php } ?>
 
 				<?php if (($_SESSION['user']['VaiTro'] ?? '') === 'QuanTriVien') { ?>
@@ -168,8 +188,10 @@ $roleLayoutClass = match ($currentRole) {
 					kho</a>
 				<a href="<?php echo htmlspecialchars($baseUrl.'/admin/statistics', ENT_QUOTES, 'UTF-8'); ?>">Thống
 					kê</a>
-				<a href="<?php echo htmlspecialchars($baseUrl.'/admin/promotions', ENT_QUOTES, 'UTF-8'); ?>">Chương trình giảm giá</a>
-				<a href="<?php echo htmlspecialchars($baseUrl.'/admin/vouchers', ENT_QUOTES, 'UTF-8'); ?>">Quản lý voucher</a>
+				<a href="<?php echo htmlspecialchars($baseUrl.'/admin/promotions', ENT_QUOTES, 'UTF-8'); ?>">Chương
+					trình giảm giá</a>
+				<a href="<?php echo htmlspecialchars($baseUrl.'/admin/vouchers', ENT_QUOTES, 'UTF-8'); ?>">Quản lý
+					voucher</a>
 				<a href="<?php echo htmlspecialchars($baseUrl.'/admin/users', ENT_QUOTES, 'UTF-8'); ?>">Quản lý người
 					dùng</a>
 				<?php } ?>
@@ -180,7 +202,7 @@ $roleLayoutClass = match ($currentRole) {
 	<main class="container main-content">
 		<?php echo $content ?? ''; ?>
 	</main>
-
+	<?php if (!in_array($_SESSION['user']['VaiTro'] ?? '', ['NhanVien', 'QuanTriVien'], false)) { ?>
 	<footer class="site-footer">
 		<div class="container footer-top">
 			<!-- Cột 1: Thông tin thương hiệu -->
@@ -213,11 +235,17 @@ $roleLayoutClass = match ($currentRole) {
 			<div class="footer-col">
 				<h4>Hỗ trợ khách hàng</h4>
 				<ul class="footer-list">
-					<li><a href="#">Hướng dẫn mua hàng</a></li>
-					<li><a href="#">Chính sách bảo hành</a></li>
-					<li><a href="#">Chính sách đổi trả</a></li>
-					<li><a href="#">Chính sách vận chuyển</a></li>
-					<li><a href="#">Câu hỏi thường gặp (FAQ)</a></li>
+					<li><a
+							href="<?php echo htmlspecialchars($baseUrl.'/support/shopping-guide', ENT_QUOTES, 'UTF-8'); ?>">Hướng
+							dẫn mua hàng</a></li>
+					<li><a href="<?php echo htmlspecialchars($baseUrl.'/support/warranty', ENT_QUOTES, 'UTF-8'); ?>">Chính
+							sách bảo hành</a></li>
+					<li><a href="<?php echo htmlspecialchars($baseUrl.'/support/returns', ENT_QUOTES, 'UTF-8'); ?>">Chính
+							sách đổi trả</a></li>
+					<li><a href="<?php echo htmlspecialchars($baseUrl.'/support/shipping', ENT_QUOTES, 'UTF-8'); ?>">Chính
+							sách vận chuyển</a></li>
+					<li><a href="<?php echo htmlspecialchars($baseUrl.'/support/faq', ENT_QUOTES, 'UTF-8'); ?>">Câu hỏi
+							thường gặp (FAQ)</a></li>
 				</ul>
 			</div>
 
@@ -241,6 +269,7 @@ $roleLayoutClass = match ($currentRole) {
 			</div>
 		</div>
 	</footer>
+	<?php } ?>
 	<button onclick="scrollToTop()" id="backToTop">↑</button>
 	<script>
 	let backToTop = document.getElementById("backToTop");

@@ -201,3 +201,49 @@
 	white-space: nowrap !important;
 	border: 0 !important;
 }
+
+/* Keep long account details readable without letting the table cover other content. */
+.user-management .table-container {
+	max-width: 100%;
+	margin-top: 10px;
+	overflow-x: auto;
+	overscroll-behavior-x: contain;
+	border: 1px solid #e5e7eb;
+	border-radius: 8px;
+}
+
+.user-management table {
+	width: 100%;
+	min-width: 980px;
+	table-layout: fixed;
+	margin: 0;
+}
+
+.user-management th,
+.user-management td {
+	vertical-align: top;
+	white-space: normal;
+}
+
+.user-management td {
+	overflow-wrap: anywhere;
+	word-break: normal;
+}
+
+.user-management td:last-child {
+	width: 25%;
+}
+
+.user-management td form {
+	flex-wrap: wrap;
+	max-width: 100%;
+}
+
+.user-management td select {
+	min-width: min(100%, 170px);
+	max-width: 100%;
+}
+
+.user-management td button {
+	max-width: 100%;
+}

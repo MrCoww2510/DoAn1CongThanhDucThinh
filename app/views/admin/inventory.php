@@ -2,8 +2,6 @@
 // Giao diện xem và điều chỉnh tồn kho.
 $escape = static fn (mixed $v): string => htmlspecialchars((string) $v, ENT_QUOTES, 'UTF-8'); ?>
 <section class="admin-page">
-	<p class="admin-eyebrow">UC10<?php if ($canManage) { ?> · <a href="<?php echo $escape($baseUrl.'/admin'); ?>">Quản
-			trị</a> / UC14<?php } ?></p>
 	<h1><?php echo $canManage ? 'Quản lý kho' : 'Kiểm tra tồn kho'; ?></h1>
 	<?php if ($error !== '') { ?><p class="admin-message error" role="alert"><?php echo $escape($error); ?></p>
 	<?php } ?>

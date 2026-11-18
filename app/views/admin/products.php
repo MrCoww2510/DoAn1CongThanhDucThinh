@@ -5,7 +5,6 @@ $escape = static fn (mixed $v): string => htmlspecialchars((string) $v, ENT_QUOT
 $editing = $editing ?? null;
 ?>
 <section class="admin-page">
-	<p class="admin-eyebrow"><a href="<?php echo $escape($baseUrl.'/admin'); ?>">Quản trị</a> / UC11</p>
 	<h1>Quản lý sản phẩm</h1>
 	<?php if ($error !== '') { ?><p class="admin-message error" role="alert"><?php echo $escape($error); ?></p>
 	<?php } ?>

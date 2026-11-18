@@ -11,8 +11,6 @@ $canCompleteOrFail = $status === 'Đang giao hàng';
 $canConfirmReturn = $status === 'Giao hàng thất bại' && (int) ($order['DaHoanKho'] ?? 0) !== 1;
 ?>
 <section class="admin-page">
-	<p class="admin-eyebrow"><a href="<?php echo $escape($baseUrl.'/admin/orders'); ?>">UC09 / Danh sách đơn hàng</a>
-	</p>
 	<h1>Chi tiết đơn hàng <?php echo $escape($order['MaDH']); ?></h1>
 
 	<?php if ($error !== '') { ?><p class="admin-message error" role="alert"><?php echo $escape($error); ?></p>

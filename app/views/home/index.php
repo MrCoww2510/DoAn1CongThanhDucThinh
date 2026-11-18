@@ -162,11 +162,11 @@ $categories = $categories ?? [];
 </section>
 
 <!-- SẢN PHẨM NỔI BẬT -->
-<section class="home-section home-featured-section">
+<section class="home-section home-featured-section" aria-labelledby="home-featured-title">
 	<div class="home-section-heading">
 		<div>
 			<span class="home-section-eyebrow">LỰA CHỌN DÀNH CHO BẠN</span>
-			<h2>Sản phẩm nổi bật</h2>
+			<h2 id="home-featured-title">Sản phẩm nổi bật</h2>
 			<p>Khám phá các sản phẩm đang có trong hệ thống.</p>
 		</div>
 
@@ -176,7 +176,7 @@ $categories = $categories ?? [];
 	</div>
 
 	<?php if ($featuredProducts !== []) { ?>
-	<div class="product-grid home-featured-grid">
+	<div class="home-featured-grid">
 		<?php foreach ($featuredProducts as $product) { ?>
 		<?php require dirname(__DIR__).'/products/_card.php'; ?>
 		<?php } ?>
