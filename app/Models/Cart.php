@@ -90,7 +90,7 @@ final class Cart
         );
 
         $stmt->execute(['maGH' => $maGH]);
-        $items = $stmt->fetchAll();
+        $items = (new Promotion())->applyEffectivePrices($stmt->fetchAll());
 
         $total = 0;
 
@@ -260,7 +260,7 @@ final class Cart
              ORDER BY ct.MaCTGH DESC'
         );
         $stmt->execute(['maGH' => $maGH]);
-        $items = $stmt->fetchAll();
+        $items = (new Promotion())->applyEffectivePrices($stmt->fetchAll());
         $total = 0;
 
         foreach ($items as $item) {

@@ -19,6 +19,14 @@ entity "NguoiDung" as ND {
     DiaChiNhanHang : VARCHAR(255) <<NULL>>
 }
 
+entity "DiaChiNhanHang" as ADDR {
+    * MaDiaChi : INT UNSIGNED <<PK, AUTO_INCREMENT>>
+    --
+    * MaND : VARCHAR(20) <<FK>>
+    * DiaChi : VARCHAR(255)
+    UNIQUE (MaND, DiaChi)
+}
+
 entity "TaiKhoan" as TK {
     * MaTK : VARCHAR(20) <<PK>>
     --
@@ -27,12 +35,14 @@ entity "TaiKhoan" as TK {
     * MatKhau : VARCHAR(255)
     * VaiTro : VARCHAR(20)
     * TrangThai : VARCHAR(30) <<DEFAULT 'HoatDong'>>
+    GoogleID : VARCHAR(255) <<NULL, UNIQUE>>
 }
 
 entity "DanhMuc" as DM {
     * MaDM : VARCHAR(20) <<PK>>
     --
     * TenDM : VARCHAR(100) <<UNIQUE>>
+    * TrangThai : VARCHAR(30) <<DEFAULT 'DangKinhDoanh'>>
 }
 
 entity "SanPham" as SP {
@@ -85,6 +95,9 @@ entity "DonHang" as DH {
     * PhuongThucTT : VARCHAR(20)
     * TrangThaiDH : VARCHAR(50)
     * TrangThaiTT : VARCHAR(50)
+    MaVoucherCode : VARCHAR(50) <<NULL>>
+    * GiamGiaVoucher : DECIMAL(18,2) <<DEFAULT 0>>
+    * DaHoanKho : TINYINT(1) <<DEFAULT 0>>
     * NgayTao : DATETIME <<DEFAULT CURRENT_TIMESTAMP>>
 }
 
@@ -101,9 +114,52 @@ entity "GiaoDichThanhToan" as GDTT {
     * MaGD : VARCHAR(50) <<PK>>
     --
     * MaDH : VARCHAR(20) <<FK>>
+    MaGatewayTxn : VARCHAR(100) <<NULL, UNIQUE>>
     * SoTien : DECIMAL(18,2)
     * TrangThai : VARCHAR(30)
     ThoiGianGiaoDich : DATETIME <<NULL>>
+}
+
+entity "ChuongTrinhGiamGia" as PROMO {
+    * MaCTGG : VARCHAR(20) <<PK>>
+    --
+    * TenCTGG : VARCHAR(100)
+    * PhamVi : VARCHAR(20)
+    * LoaiGiam : VARCHAR(20)
+    * GiaTri : DECIMAL(18,2)
+    * NgayBatDau : DATETIME
+    * NgayKetThuc : DATETIME
+    * TrangThai : VARCHAR(20)
+}
+
+entity "ChuongTrinhGiamGiaSanPham" as PROMOPROD {
+    * MaCTGG : VARCHAR(20) <<PK, FK>>
+    * MaSP : VARCHAR(20) <<PK, FK>>
+}
+
+entity "Voucher" as VCH {
+    * MaVoucher : VARCHAR(20) <<PK>>
+    --
+    * MaCode : VARCHAR(50) <<UNIQUE>>
+    * LoaiGiam : VARCHAR(20)
+    * GiaTri : DECIMAL(18,2)
+    * NgayBatDau : DATETIME
+    * NgayKetThuc : DATETIME
+    * DonToiThieu : DECIMAL(18,2)
+    GiamToiDa : DECIMAL(18,2) <<NULL>>
+    TongLuotToiDa : INT UNSIGNED <<NULL>>
+    LuotMoiKhachToiDa : INT UNSIGNED <<NULL>>
+    * TrangThai : VARCHAR(20)
+}
+
+entity "VoucherSuDung" as VUSED {
+    * MaSuDung : VARCHAR(40) <<PK>>
+    --
+    * MaVoucher : VARCHAR(20) <<FK>>
+    * MaDH : VARCHAR(20) <<FK, UNIQUE>>
+    * MaND : VARCHAR(20) <<FK>>
+    * SoTienGiam : DECIMAL(18,2)
+    * ThoiGian : DATETIME
 }
 
 entity "LichSuKho" as LSK {
@@ -118,6 +174,7 @@ entity "LichSuKho" as LSK {
 
 ' Cardinality theo NULL, UNIQUE và FK đã khai báo trong database.sql.
 ND ||--o| TK : FK_TaiKhoan_NguoiDung
+ND ||--o{ ADDR : FK_DiaChiNhanHang_NguoiDung
 DM ||--o{ SP : FK_SanPham_DanhMuc
 SP ||--o| CTSP : FK_ChiTietSanPham_SanPham
 ND ||--o| GH : FK_GioHang_NguoiDung
@@ -128,6 +185,11 @@ ND |o--o{ DH : FK_DonHang_NhanVien (MaNV)
 DH ||--o{ CTDH : FK_ChiTietDonHang_DonHang\nON DELETE CASCADE
 SP ||--o{ CTDH : FK_ChiTietDonHang_SanPham
 DH ||--o{ GDTT : FK_GiaoDichThanhToan_DonHang
+PROMO ||--o{ PROMOPROD : FK_CTGGSanPham_ChuongTrinh
+SP ||--o{ PROMOPROD : FK_CTGGSanPham_SanPham
+VCH ||--o{ VUSED : FK_VoucherSuDung_Voucher
+DH ||--o| VUSED : FK_VoucherSuDung_DonHang
+ND ||--o{ VUSED : FK_VoucherSuDung_NguoiDung
 SP ||--o{ LSK : FK_LichSuKho_SanPham
 ND ||--o{ LSK : FK_LichSuKho_NguoiDung
 
@@ -153,6 +215,7 @@ end note
 
 note bottom of DH
   CHECK CK_DonHang_TongTien: TongTien >= 0
+  CHECK CK_DonHang_GiamGiaVoucher: GiamGiaVoucher >= 0
   CHECK CK_DonHang_PhuongThucTT: PhuongThucTT IN ('COD', 'Online')
   CHECK CK_DonHang_TrangThaiDH: HEX(TrangThaiDH) IN
   ('4368E1BB9D2078C3A163206E68E1BAAD6E',

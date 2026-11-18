@@ -104,9 +104,12 @@ $statusClass = ($order['TrangThaiDH'] ?? '') === 'Đã hủy'
 			</table>
 			<?php } ?>
 			<div class="order-grand-total">
-				<span>Tổng tiền sản phẩm</span>
+				<span><?php echo !empty($order['MaVoucherCode']) ? 'Tổng thanh toán sau voucher' : 'Tổng tiền sản phẩm'; ?></span>
 				<strong><?php echo $formatMoney($order['TongTien']); ?></strong>
 			</div>
+			<?php if ((float) ($order['GiamGiaVoucher'] ?? 0) > 0) { ?>
+			<p>Voucher <?php echo $escape($order['MaVoucherCode']); ?>: giảm <?php echo $formatMoney($order['GiamGiaVoucher']); ?></p>
+			<?php } ?>
 			<p class="orders-muted">Phí giao hàng chưa được tính trong hệ thống.</p>
 
 			<?php if (

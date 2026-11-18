@@ -29,8 +29,7 @@
 .product-filter {
 	display: grid;
 	grid-template-columns:
-		minmax(200px, 1fr) minmax(180px, 260px) minmax(140px, 180px)
-		auto auto;
+		minmax(200px, 1.4fr) repeat(4, minmax(125px, 1fr));
 	align-items: center;
 	gap: 12px;
 	padding: 20px;
@@ -39,6 +38,14 @@
 	border: 1px solid #e2e8f0;
 	border-radius: 12px;
 	box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+}
+
+.product-filter label {
+	display: grid;
+	gap: 5px;
+	font-size: 13px;
+	font-weight: 600;
+	color: #475569;
 }
 
 .product-filter input,

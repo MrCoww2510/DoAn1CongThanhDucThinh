@@ -276,6 +276,27 @@ $checkoutBaseUrl = rtrim((string) ($appConfig['base_url'] ?? ''), '/');
                     <strong><?php echo $formatMoney($total); ?></strong>
                 </div>
 
+                <section class="checkout-voucher">
+                    <label for="checkout-voucher-code">Mã voucher</label>
+                    <input id="checkout-voucher-code" name="voucher_code" maxlength="50"
+                        value="<?php echo $escape($voucher['code'] ?? ''); ?>" autocomplete="off">
+                    <button class="checkout-address-add-button" type="submit" formaction="<?php echo $escape($checkoutBaseUrl); ?>/checkout/voucher" formmethod="post" formnovalidate>
+                        Áp dụng voucher
+                    </button>
+                    <?php if (($voucher['code'] ?? '') !== '') { ?>
+                        <button class="checkout-address-cancel-button" type="submit" name="voucher_action" value="clear" formaction="<?php echo $escape($checkoutBaseUrl); ?>/checkout/voucher" formmethod="post" formnovalidate>
+                            Gỡ voucher
+                        </button>
+                        <p>Mã <?php echo $escape($voucher['code']); ?> giảm <?php echo $formatMoney($voucher['discount']); ?></p>
+                    <?php } ?>
+                    <?php if (($voucher['error'] ?? '') !== '') { ?><p role="status"><?php echo $escape($voucher['error']); ?></p><?php } ?>
+                </section>
+
+                <?php if ((float) ($voucher['discount'] ?? 0) > 0) { ?>
+                    <div class="checkout-total"><span>Giảm voucher</span><strong>−<?php echo $formatMoney($voucher['discount']); ?></strong></div>
+                    <div class="checkout-total"><span>Cần thanh toán</span><strong><?php echo $formatMoney($voucher['total']); ?></strong></div>
+                <?php } ?>
+
                 <p class="checkout-shipping-note">
                     Phí giao hàng chưa được tính trong hệ thống và sẽ được xác nhận riêng.
                 </p>

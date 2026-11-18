@@ -37,6 +37,19 @@ $sort = $sort ?? 'default';
 		<?php } ?>
 	</select>
 
+	<label>Thương hiệu
+		<select name="brand"><option value="">Tất cả thương hiệu</option>
+		<?php foreach ($brands as $brandOption) { ?><option value="<?php echo htmlspecialchars((string) $brandOption, ENT_QUOTES, 'UTF-8'); ?>" <?php echo $brand === $brandOption ? 'selected' : ''; ?>><?php echo htmlspecialchars((string) $brandOption, ENT_QUOTES, 'UTF-8'); ?></option><?php } ?>
+		</select>
+	</label>
+	<label>Loại sản phẩm
+		<select name="type"><option value="">Tất cả loại</option>
+		<?php foreach ($types as $typeOption) { ?><option value="<?php echo htmlspecialchars((string) $typeOption, ENT_QUOTES, 'UTF-8'); ?>" <?php echo $type === $typeOption ? 'selected' : ''; ?>><?php echo htmlspecialchars((string) $typeOption, ENT_QUOTES, 'UTF-8'); ?></option><?php } ?>
+		</select>
+	</label>
+	<label>Giá từ <input type="number" name="min_price" min="0" step="1" value="<?php echo htmlspecialchars((string) $minPrice, ENT_QUOTES, 'UTF-8'); ?>"></label>
+	<label>Đến <input type="number" name="max_price" min="0" step="1" value="<?php echo htmlspecialchars((string) $maxPrice, ENT_QUOTES, 'UTF-8'); ?>"></label>
+
 	<!-- Sắp xếp sản phẩm -->
 	<select name="sort">
 		<option value="default" <?php echo $sort === 'default' ? 'selected' : ''; ?>>
@@ -64,7 +77,7 @@ $sort = $sort ?? 'default';
 		Áp dụng
 	</button>
 
-	<!-- Xóa tìm kiếm, danh mục và sắp xếp -->
+	<!-- Xóa toàn bộ bộ lọc -->
 	<a class="reset-link" href="<?php echo htmlspecialchars(
             $baseUrl.'/products',
             ENT_QUOTES,
@@ -76,7 +89,7 @@ $sort = $sort ?? 'default';
 
 <!-- Số lượng sản phẩm tìm được -->
 <p class="result-count">
-	Tìm thấy <?php echo count($products); ?> sản phẩm
+	Tìm thấy <?php echo (int) ($totalProducts ?? count($products)); ?> sản phẩm
 </p>
 
 <?php if ($products === []) { ?>
@@ -94,4 +107,12 @@ $sort = $sort ?? 'default';
 	<?php } ?>
 </div>
 
+<?php } ?>
+
+<?php if (($totalPages ?? 1) > 1) { ?>
+<nav class="catalog-pagination" aria-label="Phân trang sản phẩm">
+	<?php for ($pageNumber = 1; $pageNumber <= $totalPages; $pageNumber++) { $pageQuery = $_GET; $pageQuery['page'] = $pageNumber; ?>
+		<a href="<?php echo htmlspecialchars($baseUrl.'/products?'.http_build_query($pageQuery), ENT_QUOTES, 'UTF-8'); ?>" <?php echo $pageNumber === $currentPage ? 'aria-current="page"' : ''; ?>><?php echo $pageNumber; ?></a>
+	<?php } ?>
+</nav>
 <?php } ?>

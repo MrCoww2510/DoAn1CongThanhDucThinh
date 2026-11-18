@@ -1,0 +1,163 @@
+/* Shared controls and surfaces. Loaded after page styles to unify states without
+   changing the classes used by PHP templates or JavaScript. */
+:where(button, input, select, textarea) {
+	font: inherit;
+}
+
+:where(button, input[type="submit"], input[type="button"], input[type="reset"],
+	.primary-link, .primary-button, .auth-submit, .checkout-submit,
+	.account-save-button, .orders-button, .about-btn, .home-btn,
+	.btn-add-cart, .detail-add-cart, .admin-form button, .admin-search button,
+	.inline-form button) {
+	transition: color 160ms ease, background-color 160ms ease,
+		border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+:where(button, input[type="submit"], input[type="button"], input[type="reset"]) {
+	min-height: 40px;
+	border-radius: var(--radius-sm);
+}
+
+:where(button, input[type="submit"], input[type="button"], input[type="reset"]):not(:disabled) {
+	cursor: pointer;
+}
+
+:where(button, input[type="submit"], input[type="button"], input[type="reset"], a):focus-visible {
+	outline: 3px solid rgba(211, 47, 47, 0.28);
+	outline-offset: 2px;
+}
+
+:where(button, input[type="submit"], input[type="button"], input[type="reset"]):disabled {
+	cursor: not-allowed;
+	filter: grayscale(0.2);
+}
+
+:where(input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]), select, textarea) {
+	max-width: 100%;
+	border-color: var(--border);
+}
+
+:where(input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]), select, textarea):focus-visible {
+	border-color: var(--primary);
+	outline: 0;
+	box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.12);
+}
+
+:where(input, textarea, select)::placeholder {
+	color: #858585;
+	opacity: 1;
+}
+
+.admin-page {
+	color: var(--text-primary);
+}
+
+.admin-page a,
+.admin-eyebrow {
+	color: var(--primary-dark);
+}
+
+.admin-stats article,
+.admin-form,
+.admin-card,
+.admin-table-wrap {
+	border-color: var(--border);
+	box-shadow: var(--shadow-sm);
+}
+
+.admin-card {
+	margin-block: 20px;
+	padding: 20px;
+	border: 1px solid var(--border);
+	border-radius: var(--radius-md);
+	background: var(--surface);
+}
+
+.admin-page th {
+	background: #f5f5f5;
+}
+
+.admin-page tbody tr:hover {
+	background: #fffafa;
+}
+
+.order-status-active {
+	color: var(--primary-dark);
+	background: var(--primary-light);
+}
+
+.admin-page button:not(.danger-button),
+.admin-page input[type="submit"] {
+	background-color: var(--primary);
+}
+
+.admin-page button:not(.danger-button):hover,
+.admin-page input[type="submit"]:hover {
+	background-color: var(--primary-dark);
+}
+
+.admin-page .danger-button {
+	background-color: var(--primary-dark);
+}
+
+.admin-message.error,
+.form-error {
+	border-color: #ffcdd2;
+	background: var(--primary-light);
+	color: var(--primary-dark);
+}
+
+.admin-message.success,
+.form-success {
+	border-color: #c8e6c9;
+	background: #edf7ee;
+	color: var(--success);
+}
+
+.admin-table-wrap,
+.cart-table-wrap,
+.orders-table-wrap {
+	max-width: 100%;
+	overflow-x: auto;
+}
+
+.site-footer {
+	background: #242424;
+}
+
+.footer-bottom {
+	background: #191919;
+}
+
+#backToTop {
+	background: var(--primary);
+	box-shadow: var(--shadow-md);
+}
+
+#backToTop:hover {
+	background: var(--primary-dark);
+}
+
+@media (max-width: 600px) {
+	:where(.auth-card, .admin-form, .status-panel) {
+		padding: 20px;
+	}
+
+	#backToTop {
+		right: 16px;
+		bottom: 16px;
+		width: 44px;
+		height: 44px;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		scroll-behavior: auto;
+		transition-duration: 0.01ms;
+		animation-duration: 0.01ms;
+		animation-iteration-count: 1;
+	}
+}

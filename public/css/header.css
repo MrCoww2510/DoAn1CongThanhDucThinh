@@ -99,8 +99,8 @@
 }
 
 .header-account a:last-of-type:hover {
-	border-color: #2563eb;
-	color: #2563eb;
+	border-color: var(--primary-dark);
+	color: var(--primary-dark);
 }
 
 .header-account form {

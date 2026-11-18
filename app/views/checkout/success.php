@@ -82,9 +82,12 @@ $createdAt = strtotime((string) ($order['NgayTao'] ?? ''));
 		</table>
 
 		<div class="checkout-total">
-			<span>Tổng tiền sản phẩm</span>
+			<span><?php echo !empty($order['MaVoucherCode']) ? 'Tổng thanh toán sau voucher' : 'Tổng tiền sản phẩm'; ?></span>
 			<strong><?php echo $formatMoney($order['TongTien']); ?></strong>
 		</div>
+		<?php if ((float) ($order['GiamGiaVoucher'] ?? 0) > 0) { ?>
+		<p>Voucher <?php echo $escape($order['MaVoucherCode']); ?>: giảm <?php echo $formatMoney($order['GiamGiaVoucher']); ?></p>
+		<?php } ?>
 		<p class="checkout-shipping-note">
 			Phí giao hàng chưa được tính trong hệ thống.
 		</p>

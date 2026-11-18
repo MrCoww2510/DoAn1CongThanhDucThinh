@@ -38,6 +38,12 @@ package "app/Controllers" {
         + index() : void
         + show() : void
     }
+    class CatalogManagementController
+    class PromotionManagementController
+    class InventoryController
+    class OrderManagementController
+    class StatisticsController
+    class PaymentController
     class AuthController {
         + login() : void
         + register() : void
@@ -63,6 +69,7 @@ package "app/Controllers" {
     }
     class CheckoutController {
         + index() : void
+        + applyVoucher() : void
         + placeOrder() : void
         + success() : void
     }
@@ -99,6 +106,17 @@ package "app/Models" {
         + emailExists(email : string) : bool
         + register(name : string, username : string, email : string, phone : string, password : string) : void
     }
+    class Promotion {
+        + applyEffectivePrices(items : array) : array
+        + previewVoucher(code : string, customerId : string, subtotal : float) : array
+        + lockAndValidateVoucher(pdo : PDO, code : string, customerId : string, subtotal : float) : array
+        + saveCampaign(data : array, id : ?string) : void
+        + saveVoucher(data : array, id : ?string) : void
+    }
+    class Inventory
+    class Statistics {
+        + forPeriod(start : string, end : string) : array
+    }
     class Cart {
         - db : PDO
         + __construct()
@@ -113,11 +131,15 @@ package "app/Models" {
     class Order {
         - db : PDO
         + __construct()
-        + placeCodOrder(customerId : string, recipientName : string, deliveryAddress : string, recipientPhone : string) : array
+        + placeOrder(customerId : string, recipientName : string, deliveryAddress : string, recipientPhone : string, paymentMethod : string, voucherCode : string, quotedTotal : string) : array
         + findForCustomer(orderId : string, customerId : string) : ?array
         + findAllForCustomer(customerId : string) : array
         + cancelForCustomer(orderId : string, customerId : string) : void
     }
+}
+
+package "app/Services" {
+    class SePayPayment
 }
 
 ' Kế thừa theo khai báo PHP.
@@ -129,6 +151,13 @@ Controller <|-- UserManagementController
 Controller <|-- CartController
 Controller <|-- CheckoutController
 Controller <|-- OrderController
+Controller <|-- AboutController
+Controller <|-- CatalogManagementController
+Controller <|-- PromotionManagementController
+Controller <|-- InventoryController
+Controller <|-- OrderManagementController
+Controller <|-- StatisticsController
+Controller <|-- PaymentController
 
 ' Phụ thuộc theo lời gọi Model và thành phần hỗ trợ trong mã nguồn.
 Router ..> HomeController : gọi theo route
@@ -140,6 +169,12 @@ Router ..> CartController : gọi theo route
 Router ..> CheckoutController : gọi theo route
 Router ..> OrderController : gọi theo route
 Router ..> AboutController : gọi theo route
+Router ..> CatalogManagementController : gọi theo route
+Router ..> PromotionManagementController : gọi theo route
+Router ..> InventoryController : gọi theo route
+Router ..> OrderManagementController : gọi theo route
+Router ..> StatisticsController : gọi theo route
+Router ..> PaymentController : gọi theo route
 Controller ..> View : render
 HomeController ..> Product
 ProductController ..> Product
@@ -150,15 +185,19 @@ CartController ..> Cart
 CheckoutController ..> Cart
 CheckoutController ..> Account
 CheckoutController ..> Order
+CheckoutController ..> Promotion
+Order ..> Promotion
+Product ..> Promotion
+Cart ..> Promotion
+PaymentController ..> SePayPayment
+PaymentController ..> Order
+StatisticsController ..> Statistics
+InventoryController ..> Inventory
 OrderController ..> Order
 Account ..> Database
 Product ..> Database
 Cart ..> Database
 Order ..> Database
-
-note right of AboutController
-  Lớp này không kế thừa Controller trong mã nguồn.
-end note
 
 note bottom of Product
   Tên lớp PHP khác tên bảng SQL.
@@ -176,8 +215,8 @@ note bottom of View
 end note
 
 note bottom of Order
-  Đặt hàng hiện triển khai COD; chưa thấy luồng sử dụng
-  GiaoDichThanhToan hoặc tích hợp thanh toán trực tuyến.
+  Đặt hàng hỗ trợ COD và Online; giá campaign được chụp vào
+  ChiTietDonHang. Mã và discount voucher được chụp vào DonHang.
 end note
 
 @enduml

@@ -136,7 +136,8 @@ $baseUrlEscaped = $escape($baseUrl);
 
                     $maSP = (string) ($item['MaSP'] ?? '');
                     $tenSP = (string) ($item['TenSP'] ?? 'Sản phẩm');
-                    $giaBan = (float) ($item['GiaBan'] ?? 0);
+                    $giaBan = (float) ($item['GiaBanHieuLuc'] ?? $item['GiaBan'] ?? 0);
+                    $giaGoc = (float) ($item['GiaGoc'] ?? $item['GiaBan'] ?? 0);
                     $soLuong = (int) ($item['SoLuong'] ?? 1);
                     $soLuongTon = (int) ($item['SoLuongTon'] ?? 0);
                     $thanhTien = (float) (
@@ -177,6 +178,7 @@ $baseUrlEscaped = $escape($baseUrl);
 					</p>
 
 					<p class="cart-unit-price">
+						<?php if ($giaGoc > $giaBan) { ?><del><?php echo $formatMoney($giaGoc); ?></del> <?php } ?>
 						<?php echo $formatMoney($giaBan); ?>
 					</p>
 

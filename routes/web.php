@@ -17,6 +17,7 @@ use App\Controllers\OrderController;
 use App\Controllers\OrderManagementController;
 use App\Controllers\PaymentController;
 use App\Controllers\ProductController;
+use App\Controllers\PromotionManagementController;
 use App\Controllers\StatisticsController;
 use App\Controllers\UserManagementController;
 use App\Core\Router;
@@ -61,6 +62,10 @@ $router->post('/admin/categories/delete', [CatalogManagementController::class, '
 $router->get('/admin/inventory', [InventoryController::class, 'index']);
 $router->post('/admin/inventory/update', [InventoryController::class, 'update']);
 $router->get('/admin/statistics', [StatisticsController::class, 'index']);
+$router->get('/admin/promotions', [PromotionManagementController::class, 'campaigns']);
+$router->post('/admin/promotions/save', [PromotionManagementController::class, 'saveCampaign']);
+$router->get('/admin/vouchers', [PromotionManagementController::class, 'vouchers']);
+$router->post('/admin/vouchers/save', [PromotionManagementController::class, 'saveVoucher']);
 
 // Giỏ hàng
 $router->get('/cart', [CartController::class, 'index']);
@@ -73,6 +78,7 @@ $router->post('/cart/clear', [CartController::class, 'clear']);
 // Đặt hàng và thanh toán khi nhận hàng.
 $router->get('/checkout', [CheckoutController::class, 'index']);
 $router->post('/checkout/address', [CheckoutController::class, 'addAddress']);
+$router->post('/checkout/voucher', [CheckoutController::class, 'applyVoucher']);
 $router->post('/checkout', [CheckoutController::class, 'placeOrder']);
 $router->get('/checkout/success', [CheckoutController::class, 'success']);
 

@@ -51,7 +51,8 @@ $e = static fn ($value): string => htmlspecialchars((string) $value, ENT_QUOTES,
 		</h3>
 
 		<p class="product-price">
-			<?php echo number_format((float) $product['GiaBan'], 0, ',', '.'); ?> ₫
+			<?php if ((float) ($product['GiamGiaChuongTrinh'] ?? 0) > 0) { ?><del><?php echo number_format((float) $product['GiaGoc'], 0, ',', '.'); ?> ₫</del> <?php } ?>
+			<?php echo number_format((float) ($product['GiaBanHieuLuc'] ?? $product['GiaBan']), 0, ',', '.'); ?> ₫
 		</p>
 
 		<p class="product-stock">

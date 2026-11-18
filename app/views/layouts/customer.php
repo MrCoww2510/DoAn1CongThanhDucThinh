@@ -20,6 +20,7 @@ $baseUrl = rtrim($appConfig['base_url'] ?? '', '/');
 	<link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/about.css">
 	<link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/users.css">
 	<link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/admin.css">
+	<link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/components.css">
 	<script src="<?php echo htmlspecialchars($baseUrl ?? '', ENT_QUOTES, 'UTF-8'); ?>/js/nav.js"></script>
 </head>
 
@@ -133,6 +134,7 @@ $baseUrl = rtrim($appConfig['base_url'] ?? '', '/');
 				<?php if (($_SESSION['user']['VaiTro'] ?? '') === 'NhanVien') { ?>
 				<a href="<?php echo htmlspecialchars($baseUrl.'/admin/orders', ENT_QUOTES, 'UTF-8'); ?>">Quản lý đơn
 					hàng</a>
+				<a href="<?php echo htmlspecialchars($baseUrl.'/admin/inventory', ENT_QUOTES, 'UTF-8'); ?>">Kiểm tra tồn kho</a>
 				<?php } ?>
 
 				<?php if (($_SESSION['user']['VaiTro'] ?? '') === 'QuanTriVien') { ?>
@@ -147,6 +149,8 @@ $baseUrl = rtrim($appConfig['base_url'] ?? '', '/');
 					kho</a>
 				<a href="<?php echo htmlspecialchars($baseUrl.'/admin/statistics', ENT_QUOTES, 'UTF-8'); ?>">Thống
 					kê</a>
+				<a href="<?php echo htmlspecialchars($baseUrl.'/admin/promotions', ENT_QUOTES, 'UTF-8'); ?>">Chương trình giảm giá</a>
+				<a href="<?php echo htmlspecialchars($baseUrl.'/admin/vouchers', ENT_QUOTES, 'UTF-8'); ?>">Quản lý voucher</a>
 				<a href="<?php echo htmlspecialchars($baseUrl.'/admin/users', ENT_QUOTES, 'UTF-8'); ?>">Quản lý người
 					dùng</a>
 				<?php } ?>

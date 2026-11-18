@@ -11,6 +11,7 @@ use App\Models\Account;
 use App\Models\Cart;
 use App\Models\DeliveryAddress;
 use App\Models\Order;
+use App\Models\Promotion;
 use App\Services\SePayPayment;
 
 final class CheckoutController extends Controller
@@ -65,6 +66,18 @@ final class CheckoutController extends Controller
         );
         unset($_SESSION['_checkout_selected_address_id']);
 
+        $form = array_merge([
+            'recipientName' => (string) ($profile['HoTen'] ?? $user['HoTen'] ?? ''),
+            'recipientPhone' => (string) ($profile['SDT'] ?? $user['SDT'] ?? ''),
+            'deliveryAddressId' => $selectedAddressId,
+            'newAddress' => '',
+            'paymentMethod' => 'COD',
+        ], is_array($_SESSION['_checkout_form'] ?? null) ? $_SESSION['_checkout_form'] : []);
+        unset($_SESSION['_checkout_form']);
+
+        $voucherDisplay = $this->voucherDisplay((string) $user['MaND'], (float) $cart['total']);
+        $_SESSION['_checkout_quoted_total'] = number_format((float) $voucherDisplay['total'], 2, '.', '');
+        $_SESSION['_checkout_quote_customer'] = (string) $user['MaND'];
         $this->view('checkout/index', [
             'pageTitle' => 'Thanh toán',
             'items' => $cart['items'],
@@ -72,14 +85,46 @@ final class CheckoutController extends Controller
             'csrfToken' => $_SESSION['_csrf'],
             'errors' => [],
             'addresses' => $addresses,
-            'form' => [
-                'recipientName' => (string) ($profile['HoTen'] ?? $user['HoTen'] ?? ''),
-                'recipientPhone' => (string) ($profile['SDT'] ?? $user['SDT'] ?? ''),
-                'deliveryAddressId' => $selectedAddressId,
-                'newAddress' => '',
-                'paymentMethod' => 'COD',
-            ],
+            'form' => $form,
+            'voucher' => $voucherDisplay,
         ]);
+    }
+
+    // Áp dụng hoặc gỡ voucher; số giảm chỉ được dùng làm hiển thị, đơn hàng sẽ tính lại.
+    public function applyVoucher(): void
+    {
+        if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
+            http_response_code(405);
+            exit('Phương thức không được hỗ trợ.');
+        }
+        $user = $this->requireCustomer();
+        $this->verifyCsrf();
+        $customerId = (string) $user['MaND'];
+        $form = [
+            'recipientName' => trim((string) ($_POST['recipientName'] ?? '')),
+            'recipientPhone' => trim((string) ($_POST['recipientPhone'] ?? '')),
+            'deliveryAddressId' => trim((string) ($_POST['deliveryAddressId'] ?? '')),
+            'newAddress' => '',
+            'paymentMethod' => trim((string) ($_POST['paymentMethod'] ?? 'COD')),
+        ];
+        $_SESSION['_checkout_form'] = $form;
+        $_SESSION['_checkout_selected_address_id'] = $form['deliveryAddressId'];
+        $cart = (new Cart())->findItems($customerId);
+        $errors = [];
+        if ((string) ($_POST['voucher_action'] ?? '') === 'clear') {
+            unset($_SESSION['_checkout_voucher'], $_SESSION['_checkout_voucher_customer']);
+        } else {
+            $code = strtoupper(trim((string) ($_POST['voucher_code'] ?? '')));
+            try {
+                (new Promotion())->previewVoucher($code, $customerId, (float) $cart['total']);
+                $_SESSION['_checkout_voucher'] = $code;
+                $_SESSION['_checkout_voucher_customer'] = $customerId;
+            } catch (\RuntimeException $exception) {
+                unset($_SESSION['_checkout_voucher'], $_SESSION['_checkout_voucher_customer']);
+                $errors[] = $exception->getMessage();
+            }
+        }
+        $this->renderCheckout($cart, $form, $errors, $customerId);
     }
 
     // Lưu địa chỉ giao hàng mới trong quá trình thanh toán.
@@ -229,8 +274,13 @@ final class CheckoutController extends Controller
                 $form['recipientName'],
                 (string) $deliveryAddress,
                 $form['recipientPhone'],
-                $form['paymentMethod']
+                $form['paymentMethod'],
+                (string) ($_SESSION['_checkout_voucher'] ?? ''),
+                (($_SESSION['_checkout_quote_customer'] ?? '') === (string) $user['MaND'])
+                    ? (string) ($_SESSION['_checkout_quoted_total'] ?? '')
+                    : ''
             );
+            unset($_SESSION['_checkout_voucher'], $_SESSION['_checkout_voucher_customer'], $_SESSION['_checkout_form'], $_SESSION['_checkout_quoted_total'], $_SESSION['_checkout_quote_customer']);
 
             if ($form['paymentMethod'] === 'Online') {
                 $this->redirect(
@@ -246,14 +296,14 @@ final class CheckoutController extends Controller
         } catch (\PDOException $exception) {
             error_log('[Checkout] '.$exception->getMessage());
             $this->renderCheckout(
-                $cart,
+                (new Cart())->findItems((string) $user['MaND']),
                 $form,
                 ['Không thể tạo đơn hàng lúc này. Vui lòng thử lại.'],
                 (string) $user['MaND']
             );
         } catch (\RuntimeException $exception) {
             $this->renderCheckout(
-                $cart,
+                (new Cart())->findItems((string) $user['MaND']),
                 $form,
                 [$exception->getMessage()],
                 (string) $user['MaND']
@@ -261,7 +311,7 @@ final class CheckoutController extends Controller
         } catch (\Throwable $exception) {
             error_log('[Checkout] '.$exception->getMessage());
             $this->renderCheckout(
-                $cart,
+                (new Cart())->findItems((string) $user['MaND']),
                 $form,
                 ['Không thể tạo đơn hàng lúc này. Vui lòng thử lại.'],
                 (string) $user['MaND']
@@ -308,6 +358,9 @@ final class CheckoutController extends Controller
     ): void {
         $profile = (new Account())->findCustomerProfile($customerId);
 
+        $voucherDisplay = $this->voucherDisplay($customerId, (float) ($cart['total'] ?? 0));
+        $_SESSION['_checkout_quoted_total'] = number_format((float) $voucherDisplay['total'], 2, '.', '');
+        $_SESSION['_checkout_quote_customer'] = $customerId;
         $this->view('checkout/index', [
             'pageTitle' => 'Thanh toán',
             'items' => $cart['items'],
@@ -319,7 +372,30 @@ final class CheckoutController extends Controller
                 (string) ($profile['DiaChiNhanHang'] ?? '')
             ),
             'form' => $form,
+            'voucher' => $voucherDisplay,
         ]);
+    }
+
+    private function voucherDisplay(string $customerId, float $subtotal): array
+    {
+        if (isset($_SESSION['_checkout_quote_customer'])
+            && (string) $_SESSION['_checkout_quote_customer'] !== $customerId) {
+            unset($_SESSION['_checkout_quoted_total'], $_SESSION['_checkout_quote_customer'], $_SESSION['_checkout_form']);
+        }
+        if (isset($_SESSION['_checkout_voucher_customer'])
+            && (string) $_SESSION['_checkout_voucher_customer'] !== $customerId) {
+            unset($_SESSION['_checkout_voucher'], $_SESSION['_checkout_voucher_customer'], $_SESSION['_checkout_quoted_total']);
+        }
+        $code = (string) ($_SESSION['_checkout_voucher'] ?? '');
+        if ($code === '') {
+            return ['code' => '', 'discount' => 0.0, 'total' => $subtotal, 'error' => ''];
+        }
+        try {
+            return (new Promotion())->previewVoucher($code, $customerId, $subtotal) + ['error' => ''];
+        } catch (\RuntimeException $exception) {
+            unset($_SESSION['_checkout_voucher'], $_SESSION['_checkout_voucher_customer']);
+            return ['code' => '', 'discount' => 0.0, 'total' => $subtotal, 'error' => $exception->getMessage()];
+        }
     }
 
     /**

@@ -148,14 +148,22 @@ final class Product
         return (bool) $stmt->fetchColumn();
     }
 
-    // Tạo mã tiếp theo dựa trên tiền tố và mã hiện có.
+    // Cấp ID ngẫu nhiên có tiền tố để tránh va chạm khi tạo đồng thời.
     private function nextId(\PDO $pdo, string $table, string $column, string $prefix): string
     {
-        $stmt = $pdo->query('SELECT '.$column.' FROM '.$table.' WHERE '.$column.' REGEXP \'^'.$prefix.'[0-9]+$\' ORDER BY CAST(SUBSTRING('.$column.', '.(strlen($prefix) + 1).') AS UNSIGNED) DESC LIMIT 1');
-        $current = (string) ($stmt->fetchColumn() ?: '');
-        $number = $current === '' ? 1 : ((int) substr($current, strlen($prefix)) + 1);
+        if (!in_array([$table, $column], [['SanPham', 'MaSP'], ['ChiTietSanPham', 'MaCTSP'], ['DanhMuc', 'MaDM']], true)) {
+            throw new \InvalidArgumentException('Unsupported identifier target.');
+        }
+        $stmt = $pdo->prepare('SELECT 1 FROM '.$table.' WHERE '.$column.' = :id LIMIT 1');
+        for ($attempt = 0; $attempt < 5; $attempt++) {
+            $id = $prefix.strtoupper(bin2hex(random_bytes(6)));
+            $stmt->execute(['id' => $id]);
+            if (!$stmt->fetchColumn()) {
+                return $id;
+            }
+        }
 
-        return $prefix.str_pad((string) $number, 3, '0', STR_PAD_LEFT);
+        throw new \RuntimeException('Unable to allocate a unique identifier.');
     }
 
     /**
@@ -168,9 +176,8 @@ final class Product
         $sql = $this->baseQuery()
             ." WHERE ct.TrangThai IN ('DangKinhDoanh', 'Đang bán') AND dm.TrangThai = 'DangKinhDoanh' ORDER BY sp.MaSP DESC LIMIT ".$limit;
 
-        return Database::connection()
-            ->query($sql)
-            ->fetchAll();
+        $products = Database::connection()->query($sql)->fetchAll();
+        return (new Promotion())->applyEffectivePrices($products);
     }
 
     /**
@@ -221,7 +228,61 @@ final class Product
         $stmt = Database::connection()->prepare($sql);
         $stmt->execute($params);
 
-        return $stmt->fetchAll();
+        return (new Promotion())->applyEffectivePrices($stmt->fetchAll());
+    }
+
+    /** @return array{items: array, total: int, page: int, perPage: int, totalPages: int} */
+    public function searchCatalog(array $filters, int $page = 1, int $perPage = 24): array
+    {
+        $conditions = ["ct.TrangThai IN ('DangKinhDoanh', 'Đang bán')", "dm.TrangThai = 'DangKinhDoanh'"];
+        $params = [];
+        foreach (['keyword' => ['sp.TenSP LIKE :keyword', '%'.$filters['keyword'].'%'],
+                  'category' => ['sp.MaDM = :category', $filters['category']],
+                  'brand' => ['ct.ThuongHieu = :brand', $filters['brand']],
+                  'type' => ['ct.LoaiSP = :type', $filters['type']]] as $key => [$condition, $value]) {
+            if ($value !== '') {
+                $conditions[] = $condition;
+                $params[$key] = $value;
+            }
+        }
+        $effectivePrice = "(sp.GiaBan - LEAST(sp.GiaBan, COALESCE((SELECT MAX(CASE WHEN c.LoaiGiam = 'PhanTram' THEN sp.GiaBan * c.GiaTri / 100 ELSE c.GiaTri END) FROM ChuongTrinhGiamGia c LEFT JOIN ChuongTrinhGiamGiaSanPham cp ON cp.MaCTGG = c.MaCTGG WHERE c.TrangThai = 'HoatDong' AND c.NgayBatDau <= NOW() AND c.NgayKetThuc > NOW() AND (c.PhamVi = 'ToanTrang' OR cp.MaSP = sp.MaSP)), 0)))";
+        if ($filters['minPrice'] !== '') {
+            $conditions[] = $effectivePrice.' >= :minPrice';
+            $params['minPrice'] = $filters['minPrice'];
+        }
+        if ($filters['maxPrice'] !== '') {
+            $conditions[] = $effectivePrice.' <= :maxPrice';
+            $params['maxPrice'] = $filters['maxPrice'];
+        }
+        $where = ' WHERE '.implode(' AND ', $conditions);
+        $pdo = Database::connection();
+        $count = $pdo->prepare('SELECT COUNT(DISTINCT sp.MaSP) FROM SanPham sp INNER JOIN DanhMuc dm ON dm.MaDM = sp.MaDM LEFT JOIN ChiTietSanPham ct ON ct.MaSP = sp.MaSP'.$where);
+        $count->execute($params);
+        $total = (int) $count->fetchColumn();
+        $sortOptions = ['default' => 'sp.MaSP DESC', 'name_asc' => 'sp.TenSP ASC', 'name_desc' => 'sp.TenSP DESC', 'price_asc' => $effectivePrice.' ASC', 'price_desc' => $effectivePrice.' DESC'];
+        $orderBy = $sortOptions[$filters['sort']] ?? $sortOptions['default'];
+        $page = max(1, $page);
+        $perPage = max(1, min(60, $perPage));
+        $page = min($page, max(1, (int) ceil($total / $perPage)));
+        $stmt = $pdo->prepare($this->baseQuery().$where.' ORDER BY '.$orderBy.' LIMIT :limit OFFSET :offset');
+        foreach ($params as $name => $value) {
+            $stmt->bindValue(':'.$name, $value);
+        }
+        $stmt->bindValue(':limit', $perPage, \PDO::PARAM_INT);
+        $stmt->bindValue(':offset', ($page - 1) * $perPage, \PDO::PARAM_INT);
+        $stmt->execute();
+        $items = (new Promotion())->applyEffectivePrices($stmt->fetchAll());
+
+        return ['items' => $items, 'total' => $total, 'page' => $page, 'perPage' => $perPage, 'totalPages' => (int) ceil($total / $perPage)];
+    }
+
+    public function catalogFilterOptions(): array
+    {
+        $pdo = Database::connection();
+        $brands = $pdo->query("SELECT DISTINCT ct.ThuongHieu FROM ChiTietSanPham ct WHERE ct.TrangThai IN ('DangKinhDoanh', 'Đang bán') AND ct.ThuongHieu IS NOT NULL AND ct.ThuongHieu <> '' ORDER BY ct.ThuongHieu")->fetchAll(\PDO::FETCH_COLUMN);
+        $types = $pdo->query("SELECT DISTINCT ct.LoaiSP FROM ChiTietSanPham ct WHERE ct.TrangThai IN ('DangKinhDoanh', 'Đang bán') AND ct.LoaiSP IS NOT NULL AND ct.LoaiSP <> '' ORDER BY ct.LoaiSP")->fetchAll(\PDO::FETCH_COLUMN);
+
+        return ['brands' => $brands, 'types' => $types];
     }
 
     /**
@@ -254,7 +315,7 @@ final class Product
 
         $product = $stmt->fetch();
 
-        return $product === false ? null : $product;
+        return $product === false ? null : (new Promotion())->applyEffectivePrices([$product])[0];
     }
 
     /**

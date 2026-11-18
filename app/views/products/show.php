@@ -36,7 +36,8 @@ if ($image !== '') {
 		<h1><?php echo htmlspecialchars($product['TenSP'], ENT_QUOTES, 'UTF-8'); ?></h1>
 
 		<p class="detail-price">
-			<?php echo number_format((float) $product['GiaBan'], 0, ',', '.'); ?> ₫
+			<?php if ((float) ($product['GiamGiaChuongTrinh'] ?? 0) > 0) { ?><del><?php echo number_format((float) $product['GiaGoc'], 0, ',', '.'); ?> ₫</del> <?php } ?>
+			<?php echo number_format((float) ($product['GiaBanHieuLuc'] ?? $product['GiaBan']), 0, ',', '.'); ?> ₫
 		</p>
 
 		<p>

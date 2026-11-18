@@ -2,10 +2,10 @@
 // Giao diện xem và điều chỉnh tồn kho.
 $escape = static fn (mixed $v): string => htmlspecialchars((string) $v, ENT_QUOTES, 'UTF-8'); ?>
 <section class="admin-page">
-    <p class="admin-eyebrow"><a href="<?php echo $escape($baseUrl.'/admin'); ?>">Quản trị</a> / UC14</p><h1>Quản lý kho</h1>
+    <p class="admin-eyebrow">UC10<?php if ($canManage) { ?> · <a href="<?php echo $escape($baseUrl.'/admin'); ?>">Quản trị</a> / UC14<?php } ?></p><h1><?php echo $canManage ? 'Quản lý kho' : 'Kiểm tra tồn kho'; ?></h1>
     <?php if ($error !== '') { ?><p class="admin-message error" role="alert"><?php echo $escape($error); ?></p><?php } ?>
     <?php if ($success !== '') { ?><p class="admin-message success" role="status"><?php echo $escape($success); ?></p><?php } ?>
-    <section class="admin-form">
+    <?php if ($canManage) { ?><section class="admin-form">
         <h2>Nhập kho hoặc điều chỉnh tồn</h2>
         <p>Nhập kho sẽ cộng số lượng. Điều chỉnh sẽ đặt tồn kho bằng số lượng thực tế đã kiểm kê. Mỗi thao tác được lưu vào lịch sử.</p>
         <form method="post" action="<?php echo $escape($baseUrl.'/admin/inventory/update'); ?>">
@@ -23,7 +23,7 @@ $escape = static fn (mixed $v): string => htmlspecialchars((string) $v, ENT_QUOT
             <label>Số lượng <input type="number" name="quantity" min="0" step="1" required></label>
             <div><button type="submit">Cập nhật tồn kho</button></div>
         </form>
-    </section>
+    </section><?php } ?>
     <h2>Tồn kho hiện tại</h2><div class="admin-table-wrap"><table><thead><tr><th>Mã</th><th>Sản phẩm</th><th>Danh mục</th><th>Tồn</th><th>Cảnh báo</th></tr></thead><tbody>
     <?php foreach ($products as $product) { ?>
         <tr>
@@ -46,7 +46,7 @@ $escape = static fn (mixed $v): string => htmlspecialchars((string) $v, ENT_QUOT
         <?php } ?>
     <?php if ($products === []) { ?><tr><td colspan="5">Chưa có sản phẩm.</td></tr><?php } ?>
     </tbody></table></div>
-    <h2>Lịch sử kho gần đây</h2>
+    <?php if ($canManage) { ?><h2>Lịch sử kho gần đây</h2>
         <div class="admin-table-wrap">
         <table>
         <thead>
@@ -81,5 +81,5 @@ $escape = static fn (mixed $v): string => htmlspecialchars((string) $v, ENT_QUOT
         </tr>
         <?php } ?>
     <?php if ($history === []) { ?><tr><td colspan="5">Chưa có giao dịch kho.</td></tr><?php } ?>
-    </tbody></table></div>
+    </tbody></table></div><?php } ?>
 </section>

@@ -25,7 +25,9 @@ final class Order
         string $recipientName,
         string $deliveryAddress,
         string $recipientPhone,
-        string $paymentMethod
+        string $paymentMethod,
+        string $voucherCode = '',
+        string $quotedTotal = ''
     ): array {
         if (!in_array($paymentMethod, ['COD', 'Online'], true)) {
             throw new \RuntimeException('Phương thức thanh toán không hợp lệ.');
@@ -70,6 +72,8 @@ final class Order
                 throw new \RuntimeException('Giỏ hàng đang trống.');
             }
 
+            $pricing = new Promotion();
+            $items = $pricing->applyEffectivePrices($items);
             foreach ($items as $item) {
                 if ((int) $item['SoLuong'] < 1) {
                     throw new \RuntimeException('Số lượng sản phẩm trong giỏ hàng không hợp lệ.');
@@ -93,14 +97,19 @@ final class Order
                 }
             }
 
-            $stmt = $this->db->prepare(
-                'SELECT COALESCE(SUM(sp.GiaBan * ct.SoLuong), 0)
-                 FROM ChiTietGioHang ct
-                 INNER JOIN SanPham sp ON sp.MaSP = ct.MaSP
-                 WHERE ct.MaGH = :cartId'
-            );
-            $stmt->execute(['cartId' => $cartId]);
-            $total = (string) $stmt->fetchColumn();
+            $subtotal = 0.0;
+            foreach ($items as $item) {
+                $subtotal += (float) $item['GiaBanHieuLuc'] * (int) $item['SoLuong'];
+            }
+            $subtotal = round($subtotal, 2);
+            $voucher = $voucherCode !== ''
+                ? $pricing->lockAndValidateVoucher($this->db, $voucherCode, $customerId, $subtotal)
+                : null;
+            $total = round(max(0, $subtotal - (float) ($voucher['discount'] ?? 0)), 2);
+
+            if ($quotedTotal === '' || !is_numeric($quotedTotal) || abs((float) $quotedTotal - $total) > 0.001) {
+                throw new \RuntimeException('Giỏ hàng hoặc giá đã thay đổi. Vui lòng kiểm tra tổng tiền mới rồi xác nhận lại đơn hàng.');
+            }
 
             if (
                 $paymentMethod === 'Online'
@@ -116,10 +125,10 @@ final class Order
             $stmt = $this->db->prepare(
                 'INSERT INTO DonHang
                     (MaDH, MaND, MaNV, TenNguoiNhan, DiaChiGiao, SDTNhan,
-                     TongTien, PhuongThucTT, TrangThaiDH, TrangThaiTT)
+                     TongTien, PhuongThucTT, TrangThaiDH, TrangThaiTT, MaVoucherCode, GiamGiaVoucher)
                  VALUES
                     (:orderId, :customerId, NULL, :recipientName, :deliveryAddress,
-                     :recipientPhone, :total, :paymentMethod, :orderStatus, :paymentStatus)'
+                     :recipientPhone, :total, :paymentMethod, :orderStatus, :paymentStatus, :voucherCode, :voucherDiscount)'
             );
             $stmt->execute([
                 'orderId' => $orderId,
@@ -131,6 +140,8 @@ final class Order
                 'paymentMethod' => $paymentMethod,
                 'orderStatus' => 'Chờ xác nhận',
                 'paymentStatus' => 'Chưa thanh toán',
+                'voucherCode' => $voucher['code'] ?? null,
+                'voucherDiscount' => $voucher['discount'] ?? 0,
             ]);
 
             foreach ($items as $item) {
@@ -165,7 +176,7 @@ final class Order
                     'orderId' => $orderId,
                     'productId' => $productId,
                     'quantity' => $quantity,
-                    'unitPrice' => $item['GiaBan'],
+                    'unitPrice' => $item['GiaBanHieuLuc'],
                 ]);
 
                 $historyId = 'LS'.strtoupper(bin2hex(random_bytes(9)));
@@ -184,6 +195,20 @@ final class Order
                 ]);
             }
 
+            if ($voucher !== null) {
+                $usage = $this->db->prepare(
+                    'INSERT INTO VoucherSuDung (MaSuDung, MaVoucher, MaDH, MaND, SoTienGiam)
+                     VALUES (:id, :voucher, :order, :customer, :discount)'
+                );
+                $usage->execute([
+                    'id' => 'VS'.strtoupper(bin2hex(random_bytes(12))),
+                    'voucher' => $voucher['id'],
+                    'order' => $orderId,
+                    'customer' => $customerId,
+                    'discount' => $voucher['discount'],
+                ]);
+            }
+
             $stmt = $this->db->prepare(
                 'DELETE FROM ChiTietGioHang WHERE MaGH = :cartId'
             );
@@ -199,6 +224,7 @@ final class Order
             return [
                 'MaDH' => $orderId,
                 'TongTien' => $total,
+                'GiamGiaVoucher' => $voucher['discount'] ?? 0,
             ];
         } catch (\Throwable $exception) {
             if ($this->db->inTransaction()) {
@@ -209,8 +235,9 @@ final class Order
         }
     }
 
+
     // Đối chiếu số tiền giao dịch rồi ghi nhận thanh toán trực tuyến.
-    public function markOnlineOrderPaid(string $orderId, string $transactionAmount): bool
+    public function markOnlineOrderPaid(string $orderId, string $transactionAmount, string $gatewayTransactionId): bool
     {
         $this->db->beginTransaction();
 
@@ -236,6 +263,34 @@ final class Order
                 throw new \RuntimeException('Số tiền IPN không khớp với đơn hàng.');
             }
 
+            $stmt = $this->db->prepare(
+                'SELECT MaDH, SoTien, TrangThai FROM GiaoDichThanhToan
+                 WHERE MaGatewayTxn = :transactionId LIMIT 1'
+            );
+            $stmt->execute(['transactionId' => $gatewayTransactionId]);
+            $existingTransaction = $stmt->fetch();
+            if ($existingTransaction !== false) {
+                if ($existingTransaction['MaDH'] !== $orderId
+                    || !SePayPayment::amountsMatch((string) $existingTransaction['SoTien'], $transactionAmount)
+                    || $existingTransaction['TrangThai'] !== 'ThanhCong') {
+                    throw new \RuntimeException('Mã giao dịch SePay đã được ghi nhận với dữ liệu khác.');
+                }
+                $this->db->commit();
+                return true;
+            }
+
+            $transaction = $this->db->prepare(
+                'INSERT INTO GiaoDichThanhToan (MaGD, MaDH, MaGatewayTxn, SoTien, TrangThai, ThoiGianGiaoDich)
+                 VALUES (:id, :orderId, :gatewayId, :amount, :status, CURRENT_TIMESTAMP)'
+            );
+            $transaction->execute([
+                'id' => 'GD'.strtoupper(bin2hex(random_bytes(16))),
+                'orderId' => $orderId,
+                'gatewayId' => $gatewayTransactionId,
+                'amount' => $transactionAmount,
+                'status' => 'ThanhCong',
+            ]);
+
             if ($order['PhuongThucTT'] !== 'Online') {
                 $this->db->commit();
 
@@ -245,7 +300,7 @@ final class Order
             if ($order['TrangThaiTT'] === 'Đã thanh toán') {
                 $this->db->commit();
 
-                return true;
+                return false;
             }
 
             if (
@@ -302,6 +357,8 @@ final class Order
                 PhuongThucTT,
                 TrangThaiDH,
                 TrangThaiTT,
+                MaVoucherCode,
+                GiamGiaVoucher,
                 NgayTao
              FROM DonHang
              WHERE MaDH = :orderId AND MaND = :customerId
@@ -368,6 +425,8 @@ final class Order
                 dh.TongTien,
                 dh.TrangThaiDH,
                 dh.TrangThaiTT,
+                dh.MaVoucherCode,
+                dh.GiamGiaVoucher,
                 dh.NgayTao,
                 nd.HoTen AS TenKhachHang,
                 (

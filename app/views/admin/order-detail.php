@@ -44,6 +44,9 @@ $canConfirmReturn = $status === 'Giao hàng thất bại' && (int) ($order['DaHo
 				<dd><?php echo $escape($order['TenNhanVien'] ?? 'Chưa có'); ?></dd>
 				<dt>Tổng tiền</dt>
 				<dd><strong><?php echo $formatMoney($order['TongTien']); ?></strong></dd>
+				<?php if ((float) ($order['GiamGiaVoucher'] ?? 0) > 0) { ?>
+				<dt>Voucher <?php echo $escape($order['MaVoucherCode']); ?></dt><dd>−<?php echo $formatMoney($order['GiamGiaVoucher']); ?></dd>
+				<?php } ?>
 			</dl>
 		</section>
 
