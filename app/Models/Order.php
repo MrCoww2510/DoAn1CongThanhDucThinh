@@ -113,10 +113,7 @@ final class Order
 
             if (
                 $paymentMethod === 'Online'
-                && (
-                    preg_match('/\A[0-9]+(?:\.0+)?\z/', $total) !== 1
-                    || preg_match('/\A0+(?:\.0+)?\z/', $total) === 1
-                )
+                && ($total <= 0 || floor($total) !== $total)
             ) {
                 throw new \RuntimeException('Thanh toán SePay yêu cầu tổng tiền VND là số nguyên lớn hơn 0.');
             }

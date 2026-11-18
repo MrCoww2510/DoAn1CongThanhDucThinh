@@ -113,6 +113,7 @@ final class PaymentController extends Controller
         $invoice = $order['order_invoice_number'] ?? null;
         $orderAmount = $order['order_amount'] ?? null;
         $transactionAmount = $transaction['transaction_amount'] ?? null;
+        $transactionId = $transaction['transaction_id'] ?? null;
 
         if (
             !is_string($invoice)
@@ -124,13 +125,14 @@ final class PaymentController extends Controller
             || ($transaction['transaction_currency'] ?? '') !== 'VND'
             || !is_string($orderAmount)
             || !is_string($transactionAmount)
+            || (!is_string($transactionId) && !is_int($transactionId))
             || !SePayPayment::amountsMatch($orderAmount, $transactionAmount)
         ) {
             $this->sendJson(422, ['error' => 'Payment notification did not pass validation']);
         }
 
         try {
-            $processed = (new Order())->markOnlineOrderPaid($invoice, $transactionAmount);
+            $processed = (new Order())->markOnlineOrderPaid($invoice, $transactionAmount, (string) $transactionId);
         } catch (Throwable $exception) {
             error_log('[SePay IPN] Order '.$invoice.': '.$exception->getMessage());
             $this->sendJson(422, ['error' => 'Payment could not be applied to the order']);
