@@ -7,11 +7,6 @@ $escape = static fn ($value): string => htmlspecialchars((string) $value, ENT_QU
 
 <main class="support-page">
 	<div class="support-shell">
-		<nav class="support-breadcrumb" aria-label="Đường dẫn">
-			<a href="<?php echo $escape($baseUrl); ?>/">Trang chủ</a>
-			<span aria-hidden="true">/</span>
-			<span aria-current="page"><?php echo $escape($supportPage['title']); ?></span>
-		</nav>
 
 		<header class="support-hero">
 			<span class="support-eyebrow">T&amp;T COMPUTER · HỖ TRỢ KHÁCH HÀNG</span>

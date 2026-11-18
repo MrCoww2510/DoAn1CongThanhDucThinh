@@ -105,3 +105,5 @@ $router->get('/support/warranty', [SupportController::class, 'warranty']);
 $router->get('/support/returns', [SupportController::class, 'returns']);
 $router->get('/support/shipping', [SupportController::class, 'shipping']);
 $router->get('/support/faq', [SupportController::class, 'faq']);
+$router->get('/promotions', [SupportController::class, 'promotions']);
+$router->get('/tech-news', [SupportController::class, 'techNews']);

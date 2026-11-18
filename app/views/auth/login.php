@@ -2,7 +2,6 @@
 
 <div class="auth-page">
 	<section class="auth-card">
-		<p class="eyebrow">T&amp;T COMPUTER</p>
 		<h1>Đăng nhập</h1>
 		<p class="auth-subtitle">
 			Đăng nhập để tiếp tục mua sắm và quản lý đơn hàng.

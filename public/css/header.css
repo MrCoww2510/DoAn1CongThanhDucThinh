@@ -776,7 +776,12 @@
 		text-decoration: none;
 	}
 
-	.nav-inner a:hover,
+	.nav-inner a:hover {
+		background: rgba(255, 255, 255, 0.15);
+		color: #ffffff;
+		text-decoration: none;
+	}
+
 	.nav-inner a[aria-current="page"] {
 		background: var(--primary-light);
 		color: var(--primary-dark);

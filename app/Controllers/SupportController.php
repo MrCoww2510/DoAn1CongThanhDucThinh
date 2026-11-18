@@ -33,6 +33,16 @@ final class SupportController extends Controller
         $this->showPage('faq');
     }
 
+    public function promotions(): void
+    {
+        $this->showPage('promotions');
+    }
+
+    public function techNews(): void
+    {
+        $this->showPage('tech-news');
+    }
+
     private function showPage(string $slug): void
     {
         $pages = [
@@ -139,6 +149,42 @@ final class SupportController extends Controller
                     [
                         'title' => 'Liên hệ T&T Computer bằng cách nào?',
                         'body' => 'Gửi email đến support@ttcomputer.com hoặc sử dụng thông tin liên hệ ở cuối trang.',
+                    ],
+                ],
+            ],
+            'promotions' => [
+                'title' => 'Khuyến mãi',
+                'intro' => 'Cập nhật các ưu đãi và chương trình mua sắm đang được giới thiệu tại T&T Computer.',
+                'sections' => [
+                    [
+                        'title' => 'Ưu đãi linh kiện máy tính',
+                        'body' => 'Khám phá các sản phẩm máy tính, linh kiện và thiết bị văn phòng với mức giá cạnh tranh. Ưu đãi cụ thể được cập nhật tại trang sản phẩm.',
+                    ],
+                    [
+                        'title' => 'Mã giảm giá và quà tặng',
+                        'body' => 'Một số chương trình có thể áp dụng mã voucher hoặc quà tặng kèm. Vui lòng kiểm tra điều kiện sử dụng và thời hạn của từng ưu đãi trước khi đặt hàng.',
+                    ],
+                    [
+                        'title' => 'Cách xem ưu đãi',
+                        'body' => 'Truy cập danh mục sản phẩm để xem giá bán và thông tin khuyến mãi hiện có. Chương trình có thể thay đổi tùy sản phẩm và thời điểm.',
+                    ],
+                ],
+            ],
+            'tech-news' => [
+                'title' => 'Tin tức công nghệ',
+                'intro' => 'Góc thông tin về máy tính, linh kiện và những xu hướng công nghệ dành cho bạn đọc T&T Computer.',
+                'sections' => [
+                    [
+                        'title' => 'Chọn cấu hình máy tính phù hợp',
+                        'body' => 'Khi chọn máy tính, hãy xác định nhu cầu chính như học tập, làm việc văn phòng, thiết kế hay chơi game. Từ đó cân đối bộ xử lý, bộ nhớ, card đồ họa và ngân sách.',
+                    ],
+                    [
+                        'title' => 'Mẹo nâng cấp máy tính',
+                        'body' => 'Nâng cấp SSD có thể giúp máy khởi động và mở ứng dụng nhanh hơn; bổ sung RAM phù hợp giúp xử lý nhiều tác vụ cùng lúc. Hãy kiểm tra khả năng tương thích trước khi chọn linh kiện.',
+                    ],
+                    [
+                        'title' => 'Cập nhật nội dung',
+                        'body' => 'Các bài viết mới sẽ được bổ sung tại đây. Bạn có thể tham khảo danh mục sản phẩm để tìm hiểu thêm về các thiết bị đang kinh doanh.',
                     ],
                 ],
             ],
