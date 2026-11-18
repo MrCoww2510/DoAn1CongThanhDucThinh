@@ -38,13 +38,7 @@
 	gap: 36px;
 	min-height: 560px;
 	padding: 80px max(6%, calc((100% - 1240px) / 2));
-	background:
-		radial-gradient(
-			circle at 80% 40%,
-			rgba(211, 47, 47, 0.22),
-			transparent 34%
-		),
-		linear-gradient(125deg, #3a0d12, #8f171f 65%, #5b1017);
+	background: var(--primary-dark);
 	color: var(--about-text);
 }
 
@@ -448,13 +442,7 @@
 	position: relative;
 	padding: 76px 32px;
 	overflow: hidden;
-	background:
-		radial-gradient(
-			circle at 90% 20%,
-			rgba(255, 160, 160, 0.22),
-			transparent 35%
-		),
-		linear-gradient(120deg, #3a0d12, #941b24);
+	background: var(--primary-dark);
 	color: #ffffff;
 	text-align: center;
 }

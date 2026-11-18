@@ -3,6 +3,12 @@
 
 $appConfig = require BASE_PATH.'/config/app.php';
 $baseUrl = rtrim($appConfig['base_url'] ?? '', '/');
+$currentRole = (string) ($_SESSION['user']['VaiTro'] ?? '');
+$roleLayoutClass = match ($currentRole) {
+	'QuanTriVien' => 'app-admin',
+	'NhanVien' => 'app-staff',
+	default => 'app-customer',
+};
 ?>
 <!doctype html>
 <html lang="vi">
@@ -12,19 +18,21 @@ $baseUrl = rtrim($appConfig['base_url'] ?? '', '/');
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title><?php echo htmlspecialchars(($pageTitle ?? 'T&T Computer').' | T&T Computer', ENT_QUOTES, 'UTF-8'); ?>
 	</title>
-	<link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/base.css">
-	<link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/home.css">
-	<link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/auth.css">
-	<link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/header.css">
-	<link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/products.css">
-	<link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/about.css">
-	<link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/users.css">
-	<link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/admin.css">
-	<link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/components.css">
-	<script src="<?php echo htmlspecialchars($baseUrl ?? '', ENT_QUOTES, 'UTF-8'); ?>/js/nav.js"></script>
+	<link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/base.css?v=20261118-ui-redesign">
+	<link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/home.css?v=20261118-ui-redesign">
+	<link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/auth.css?v=20261118-ui-redesign">
+	<link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/header.css?v=20261118-mobile-header">
+	<link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/products.css?v=20261118-catalog-redesign">
+	<link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/about.css?v=20261118-ui-redesign">
+	<?php if (in_array($currentRole, ['NhanVien', 'QuanTriVien'], true)) { ?>
+	<link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/users.css?v=20261118-ui-redesign">
+	<link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/admin.css?v=20261118-ui-redesign">
+	<?php } ?>
+	<link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/components.css?v=20261118-mobile-header">
+	<script src="<?php echo htmlspecialchars($baseUrl ?? '', ENT_QUOTES, 'UTF-8'); ?>/js/nav.js?v=20261118-mobile-header"></script>
 </head>
 
-<body>
+<body class="<?php echo htmlspecialchars($roleLayoutClass, ENT_QUOTES, 'UTF-8'); ?>">
 
 
 	<header class="site-header">
@@ -49,7 +57,7 @@ $baseUrl = rtrim($appConfig['base_url'] ?? '', '/');
 			<!-- Thanh tìm kiếm sản phẩm -->
 			<form class="header-search" method="get"
 				action="<?php echo htmlspecialchars($baseUrl.'/products', ENT_QUOTES, 'UTF-8'); ?>">
-				<input type="search" name="q" placeholder="Tìm kiếm sản phẩm..." aria-label="Tìm kiếm sản phẩm" value="<?php
+				<input type="search" name="q" placeholder="Tìm sản phẩm..." aria-label="Tìm kiếm sản phẩm" value="<?php
                     echo htmlspecialchars(
                         (string) ($_GET['q'] ?? ''),
                         ENT_QUOTES,
@@ -66,8 +74,14 @@ $baseUrl = rtrim($appConfig['base_url'] ?? '', '/');
 					</svg>
 				</button>
 			</form>
-			<!-- Tài khoản -->
-			<div class="header-account">
+			<div class="header-actions">
+				<button type="button" class="mobile-menu-toggle" aria-label="Mở menu" aria-controls="mainMenu" aria-expanded="false">
+					<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+						<path d="M4 6h16M4 12h16M4 18h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+					</svg>
+				</button>
+				<!-- Tài khoản -->
+				<div class="header-account">
 				<?php if (isset($_SESSION['user'])) { ?>
 				<?php
                 $greetingName = htmlspecialchars(
@@ -103,6 +117,7 @@ $baseUrl = rtrim($appConfig['base_url'] ?? '', '/');
 					Đăng ký
 				</a>
 				<?php } ?>
+				</div>
 			</div>
 		</div>
 	</header>
@@ -110,12 +125,16 @@ $baseUrl = rtrim($appConfig['base_url'] ?? '', '/');
 
 
 	<nav class="main-nav" aria-label="Điều hướng chính">
+		<button class="mobile-menu-backdrop" type="button" aria-label="Đóng menu"></button>
 		<div class="container nav-container">
-			<!-- Nút Hamburger (Chỉ hiện trên điện thoại) -->
-			<button type="button" class="mobile-menu-toggle" aria-label="Mở menu">
-				&#9776;
-				<!-- Mã HTML của biểu tượng ☰ -->
-			</button>
+			<div class="mobile-menu-heading">
+				<span>Danh mục</span>
+				<button type="button" class="mobile-menu-close" aria-label="Đóng menu">
+					<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+						<path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+					</svg>
+				</button>
+			</div>
 
 			<!-- Danh sách menu -->
 			<div class="nav-inner" id="mainMenu">

@@ -6,9 +6,9 @@
 
 :root {
 	--brand-red: #d32f2f;
-	--text: #172033;
-	--muted: #64748b;
-	--page-bg: #f5f7fb;
+	--text: #222222;
+	--muted: #666666;
+	--page-bg: #f8f8f8;
 }
 
 body {
