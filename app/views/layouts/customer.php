@@ -41,7 +41,7 @@ $roleLayoutClass = match ($currentRole) {
 	<link rel="stylesheet"
 		href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/components.css?v=20261118-mobile-header">
 	<script
-		src="<?php echo htmlspecialchars($baseUrl ?? '', ENT_QUOTES, 'UTF-8'); ?>/js/nav.js?v=20261118-mobile-header">
+		src="<?php echo htmlspecialchars($baseUrl ?? '', ENT_QUOTES, 'UTF-8'); ?>/js/nav.js?v=20261119-active-nav-fix">
 	</script>
 </head>
 

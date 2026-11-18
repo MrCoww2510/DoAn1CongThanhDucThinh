@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 	if (mainMenu) {
 		mainMenu.querySelectorAll("a[href]").forEach(function (link) {
+			link.removeAttribute("aria-current");
+
 			const linkPath = new URL(link.href, window.location.href).pathname.replace(/\/$/, "") || "/";
 			const isCurrent = currentPath === linkPath || (linkPath !== "/" && currentPath.startsWith(linkPath + "/"));
 
