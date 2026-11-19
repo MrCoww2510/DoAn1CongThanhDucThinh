@@ -26,6 +26,36 @@ final class View
         $baseUrl = rtrim((string) ($appConfig['base_url'] ?? ''), '/');
         $requestPath = (string) ($_SERVER['APP_REQUEST_PATH'] ?? '/');
 
+        // Chỉ tải stylesheet dành riêng cho view đang render.
+        $pageCss = [
+            'home/index' => ['home.css'],
+            'auth/login' => ['auth.css'],
+            'auth/register' => ['auth.css'],
+            'products/index' => ['products.css'],
+            'products/show' => ['products.css'],
+            'products/not-found' => ['products.css'],
+            'pages/about' => ['about.css'],
+            'pages/support' => ['support.css'],
+            'cart/index' => ['cart.css'],
+            'checkout/index' => ['checkout.css'],
+            'checkout/success' => ['checkout.css'],
+            'orders/index' => ['orders.css'],
+            'orders/show' => ['orders.css'],
+            'account/index' => ['account.css'],
+            'errors/404' => ['errors404.css'],
+            'admin/dashboard' => ['admin.css'],
+            'admin/products' => ['admin.css'],
+            'admin/categories' => ['admin.css'],
+            'admin/orders' => ['admin.css'],
+            'admin/order-detail' => ['admin.css'],
+            'admin/inventory' => ['admin.css'],
+            'admin/promotions' => ['admin.css'],
+            'admin/vouchers' => ['admin.css'],
+            'admin/statistics' => ['admin.css'],
+            'admin/users' => ['admin.css', 'users.css'],
+        ];
+        $pageCss = $pageCss[trim($view, '/')] ?? [];
+
         extract($data, EXTR_SKIP);
 
         ob_start();

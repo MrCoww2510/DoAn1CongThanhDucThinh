@@ -11,7 +11,7 @@ $baseUrl = rtrim($appConfig['base_url'] ?? '', '/');
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>404 - T&amp;T Computer</title>
-	<link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/errors404.css?v=20261118-ui-redesign">
+	<link rel="stylesheet" href="<?php echo htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8'); ?>/css/errors404.css">
 </head>
 
 <body>

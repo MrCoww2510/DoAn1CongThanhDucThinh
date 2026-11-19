@@ -7,10 +7,6 @@ $appConfig = require BASE_PATH.'/config/app.php';
 $checkoutBaseUrl = rtrim((string) ($appConfig['base_url'] ?? ''), '/');
 ?>
 
-<link
-    rel="stylesheet"
-    href="<?php echo $escape($checkoutBaseUrl); ?>/css/checkout.css?v=20261106-address-layout"
->
 <script
     src="<?php echo $escape($checkoutBaseUrl); ?>/js/checkout-address.js"
     defer
