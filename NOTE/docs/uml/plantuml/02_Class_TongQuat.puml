@@ -1,0 +1,67 @@
+@startuml
+title T&T COMPUTER - Class Diagram tổng quát
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam classAttributeIconSize 0
+package "Core" {
+ class Router
+ class Controller
+ class View
+ class Database
+}
+package "Controllers" {
+ class AuthController
+ class ProductController
+ class CartController
+ class CheckoutController
+ class PaymentController
+ class OrderController
+ class OrderManagementController
+ class CatalogManagementController
+ class InventoryController
+ class PromotionManagementController
+ class StatisticsController
+ class AccountController
+ class UserManagementController
+}
+package "Models" {
+ class Account
+ class Product
+ class Cart
+ class Order
+ class Inventory
+ class DeliveryAddress
+ class Promotion
+ class Statistics
+}
+class SePayPayment
+Router ..> Controller : dispatches
+Router ..> AuthController : handler class
+Router ..> ProductController
+Router ..> CheckoutController
+Router ..> OrderManagementController
+AuthController --|> Controller
+ProductController --|> Controller
+CartController --|> Controller
+CheckoutController --|> Controller
+PaymentController --|> Controller
+OrderController --|> Controller
+OrderManagementController --|> Controller
+AccountController --|> Controller
+CheckoutController ..> Cart
+CheckoutController ..> Order
+CheckoutController ..> Promotion
+CheckoutController ..> DeliveryAddress
+CheckoutController ..> Account
+PaymentController ..> Order
+PaymentController ..> SePayPayment
+OrderManagementController ..> Order
+CatalogManagementController ..> Product
+InventoryController ..> Inventory
+PromotionManagementController ..> Promotion
+StatisticsController ..> Statistics
+AuthController ..> Account
+note bottom: Controller gọi Model trực tiếp; không tìm thấy Repository hoặc framework ORM.
+@enduml

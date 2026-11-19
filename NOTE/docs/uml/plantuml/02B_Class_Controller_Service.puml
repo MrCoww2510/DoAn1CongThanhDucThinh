@@ -1,0 +1,52 @@
+@startuml
+title T&T COMPUTER - Controller, Service và Core
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam classAttributeIconSize 0
+class Controller {
+ #view(view, data, layout): void
+ #redirect(path, statusCode): never
+}
+class Router {
+ -routes: array
+ +get(path, handler): void
+ +post(path, handler): void
+ +dispatch(method, uri): void
+}
+class View {
+ +render(view, data, layout): void
+}
+class Database {
+ -connection: ?PDO
+ +connection(): PDO
+}
+class AuthController
+class CheckoutController
+class PaymentController
+class OrderManagementController
+class CatalogManagementController
+class InventoryController
+class PromotionManagementController
+class StatisticsController
+class SePayPayment {
+ -config: array
+ +isConfigured(): bool
+ +createCheckoutFields(order): array
+ +renderCheckoutForm(fields): string
+ +amountsMatch(left, right): bool
+}
+Controller <|-- AuthController
+Controller <|-- CheckoutController
+Controller <|-- PaymentController
+Controller <|-- OrderManagementController
+Controller <|-- CatalogManagementController
+Controller <|-- InventoryController
+Controller <|-- PromotionManagementController
+Controller <|-- StatisticsController
+Router ..> Controller : dispatch
+Controller ..> View
+SePayPayment ..> config : config/sepay.php
+note bottom: Không có middleware riêng; phân quyền và CSRF được xử lý trong controller.
+@enduml

@@ -1,0 +1,25 @@
+@startuml
+title Xem thống kê
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultFontName Arial
+actor Admin
+boundary "statistics view" as V
+control Router as R
+control StatisticsController as C
+entity Statistics as M
+database MySQL as DB
+Admin -> V: chọn ngày bắt đầu/kết thúc
+V -> R: GET /admin/statistics?from&to
+R -> C: index()
+C -> C: kiểm quyền admin, validate ngày/khoảng
+alt ngày không hợp lệ
+ C --> V: thông báo lỗi / kỳ mặc định theo code
+else hợp lệ
+ C -> M: forPeriod(start, end)
+ M -> DB: truy vấn tổng hợp đơn/doanh thu theo kỳ
+ DB --> M: dữ liệu tổng hợp
+ M --> C: metrics
+ C --> V: render statistics
+end
+@enduml

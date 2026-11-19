@@ -1,0 +1,40 @@
+@startuml
+title T&T COMPUTER - Use Case khách hàng
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+left to right direction
+actor "Khách vãng lai" as Guest
+actor "Khách hàng" as Customer
+actor "Google Identity" as Google
+actor "SePay" as SePay
+rectangle "Website" {
+ usecase "Đăng ký" as Reg
+ usecase "Đăng nhập / đăng xuất" as Login
+ usecase "Đăng nhập / liên kết Google" as GoogleLogin
+ usecase "Xem, tìm kiếm, lọc sản phẩm" as Browse
+ usecase "Quản lý giỏ hàng" as Cart
+ usecase "Đặt hàng" as Order
+ usecase "Preview voucher" as Voucher
+ usecase "Thanh toán COD / Online" as Pay
+ usecase "Theo dõi / hủy đơn" as Track
+ usecase "Sửa hồ sơ / quản lý địa chỉ" as Account
+}
+Guest --> Reg
+Guest --> Login
+Guest --> Browse
+Customer --> Login
+Customer --> GoogleLogin
+Customer --> Browse
+Customer --> Cart
+Customer --> Order
+Customer --> Voucher
+Customer --> Pay
+Customer --> Track
+Customer --> Account
+Google --> GoogleLogin
+SePay --> Pay
+Voucher ..> Order : <<extend>>\n[khách nhập voucher]
+note bottom: Thao tác giỏ, checkout, đơn và hồ sơ yêu cầu session KhachHang theo controller.
+@enduml

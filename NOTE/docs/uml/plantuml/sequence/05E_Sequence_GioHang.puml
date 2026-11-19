@@ -1,0 +1,33 @@
+@startuml
+title Thao tác giỏ hàng
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultFontName Arial
+actor KhachHang as U
+boundary "cart/product view" as V
+control Router as R
+control CartController as C
+entity Cart as M
+database MySQL as DB
+U -> V: thêm / sửa số lượng / xóa
+V -> R: POST /cart/{add|update|remove|clear} + CSRF
+R -> C: action()
+C -> C: yêu cầu customer + kiểm CSRF / quantity
+alt không hợp lệ hoặc thiếu tồn khi add/update
+ C --> V: flash lỗi, redirect
+else hợp lệ
+ C -> M: addItem / updateItem / removeItem / clear
+ M -> DB: kiểm tra tồn, ghi chi tiết giỏ và tổng tiền
+ DB --> M: kết quả
+ M --> C: hoàn tất
+ C --> V: flash kết quả, redirect giỏ
+end
+U -> V: xem giỏ hàng
+V -> R: GET /cart
+R -> C: index()
+C -> M: findItems(customerId)
+M -> DB: đọc dòng giỏ, sản phẩm và tổng
+DB --> M: dữ liệu
+M --> C: cart
+C --> V: render cart/index
+@enduml

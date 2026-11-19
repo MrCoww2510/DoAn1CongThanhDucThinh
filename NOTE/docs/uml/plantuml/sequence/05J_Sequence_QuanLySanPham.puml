@@ -1,0 +1,26 @@
+@startuml
+title Quản lý sản phẩm
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultFontName Arial
+actor Admin
+boundary "admin products view" as V
+control Router as R
+control CatalogManagementController as C
+entity Product as M
+database MySQL as DB
+Admin -> V: nhập thông tin sản phẩm
+V -> R: POST /admin/products/save + CSRF
+R -> C: saveProduct()
+C -> C: kiểm quyền admin, CSRF, validate trường
+alt dữ liệu không hợp lệ
+ C --> V: thông báo lỗi
+else hợp lệ
+ C -> M: saveManaged(data, id?)
+ M -> DB: INSERT hoặc UPDATE SanPham / ChiTietSanPham
+ DB --> M: kết quả
+ M --> C: product id
+ C --> V: thông báo thành công
+end
+note bottom: Không có bước upload file được xác minh trong form/controller; HinhAnh là trường dữ liệu sản phẩm.
+@enduml

@@ -1,0 +1,41 @@
+@startuml
+title Nhân viên / admin xử lý đơn hàng
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultFontName Arial
+actor "Nhân viên/Admin" as U
+boundary "admin order view" as V
+control Router as R
+control OrderManagementController as C
+entity Order as M
+database MySQL as DB
+U -> V: xem đơn / cập nhật trạng thái
+V -> R: GET hoặc POST /admin/orders
+R -> C: index/show/updateStatus
+C -> C: requireOrderManager + CSRF (POST)
+C -> M: findAllForManagement / findForManagement
+M -> DB: SELECT đơn và chi tiết
+DB --> V: hiển thị danh sách / chi tiết
+U -> V: gửi targetStatus
+V -> R: POST /admin/orders/{id}/status
+R -> C: updateStatus(id)
+C -> M: updateStatusForManagement(id, staffId, target)
+M -> DB: BEGIN; khóa đơn; kiểm tra transition
+alt xác nhận từ Chờ xác nhận
+ M -> DB: khóa chi tiết + sản phẩm, kiểm tra tồn hợp lệ
+end
+alt chuyển trạng thái hợp lệ
+ M -> DB: UPDATE status, MaNV; COMMIT
+ C --> V: flash thành công
+else transition không hợp lệ
+ M -> DB: ROLLBACK
+ C --> V: flash lỗi
+end
+opt đơn Giao hàng thất bại
+ U -> R: POST /admin/orders/{id}/return
+ R -> C: confirmReturn()
+ C -> M: confirmReturnForManagement
+ M -> DB: cộng tồn một lần + ghi lịch sử + DaHoanKho=1
+end
+note bottom: Source transition: Chờ xác nhận → Đang chuẩn bị hàng → Đang giao hàng → Hoàn thành/Giao hàng thất bại.
+@enduml

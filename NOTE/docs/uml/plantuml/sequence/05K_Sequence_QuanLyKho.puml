@@ -1,0 +1,26 @@
+@startuml
+title Điều chỉnh kho
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultFontName Arial
+actor Admin
+boundary "admin inventory view" as V
+control Router as R
+control InventoryController as C
+entity Inventory as M
+database MySQL as DB
+Admin -> V: chọn sản phẩm, nhập loại và số lượng
+V -> R: POST /admin/inventory/update + CSRF
+R -> C: update()
+C -> C: requireInventoryViewer + validate input
+alt dữ liệu sai
+ C --> V: lỗi validation
+else dữ liệu hợp lệ
+ C -> M: update(productId, operation, quantity, userId)
+ M -> DB: transaction cập nhật SoLuongTon
+ M -> DB: INSERT LichSuKho
+ DB --> M: commit
+ M --> C: hoàn tất
+ C --> V: flash kết quả
+end
+@enduml

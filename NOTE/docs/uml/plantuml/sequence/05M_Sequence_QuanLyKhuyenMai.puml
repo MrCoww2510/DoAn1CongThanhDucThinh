@@ -1,0 +1,29 @@
+@startuml
+title Quản lý campaign và voucher
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultFontName Arial
+actor Admin
+boundary "admin promotion view" as V
+control Router as R
+control PromotionManagementController as C
+entity Promotion as M
+database MySQL as DB
+Admin -> V: tạo / sửa campaign hoặc voucher
+V -> R: POST /admin/promotions/save hoặc /admin/vouchers/save + CSRF
+R -> C: saveCampaign() / saveVoucher()
+C -> C: kiểm quyền admin, CSRF, validate thời gian / loại / giá trị
+alt campaign có phạm vi sản phẩm
+ C -> M: validateProducts(productIds)
+ M -> DB: kiểm tra sản phẩm tồn tại
+end
+alt dữ liệu không hợp lệ
+ C --> V: validation error
+else hợp lệ
+ C -> M: saveCampaign(data, id?) / saveVoucher(data, id?)
+ M -> DB: INSERT/UPDATE campaign và mapping sản phẩm hoặc voucher
+ DB --> M: kết quả
+ C --> V: flash kết quả
+end
+note bottom: Cấu hình campaign/voucher được lưu; giá hiệu lực áp dụng qua Promotion khi đọc sản phẩm/đặt hàng.
+@enduml

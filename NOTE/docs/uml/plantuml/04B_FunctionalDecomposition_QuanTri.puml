@@ -1,0 +1,16 @@
+@startwbs
+title T&T COMPUTER - Phân rã chức năng quản trị
+* Chức năng quản trị
+** Xử lý đơn (admin / staff)
+*** Tìm danh sách / xem chi tiết
+*** Kiểm tra tồn khi xác nhận
+*** Chuyển trạng thái hợp lệ
+*** Xác nhận hoàn kho đơn giao thất bại
+** Quản trị viên
+*** Sản phẩm / danh mục
+*** Tài khoản nhân viên
+*** Điều chỉnh kho / xem lịch sử
+*** Campaign / voucher
+*** Thống kê theo kỳ
+*** Dashboard
+@endwbs

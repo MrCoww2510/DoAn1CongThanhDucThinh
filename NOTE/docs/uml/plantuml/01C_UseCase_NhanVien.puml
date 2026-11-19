@@ -1,0 +1,20 @@
+@startuml
+title T&T COMPUTER - Use Case nhân viên
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+left to right direction
+actor "Nhân viên" as Staff
+rectangle "Quản lý đơn hàng" {
+ usecase "Xem danh sách / chi tiết đơn" as View
+ usecase "Xác nhận đơn và kiểm tra tồn" as Confirm
+ usecase "Cập nhật trạng thái đơn" as Status
+ usecase "Xác nhận hoàn hàng về kho" as Return
+}
+Staff --> View
+Staff --> Confirm
+Staff --> Status
+Staff --> Return
+note bottom: confirmReturnForManagement chỉ nhận đơn giao thất bại chưa hoàn kho.
+@enduml

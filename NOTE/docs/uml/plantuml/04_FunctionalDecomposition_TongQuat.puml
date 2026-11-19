@@ -1,0 +1,35 @@
+@startwbs
+title T&T COMPUTER - Phân rã chức năng hiện trạng
+* Website T&T COMPUTER
+** Tài khoản và xác thực
+*** Đăng ký / đăng nhập / đăng xuất
+*** Google login / liên kết tài khoản
+*** Hồ sơ / địa chỉ nhận hàng
+*** Quản lý tài khoản nhân viên (admin)
+** Danh mục sản phẩm
+*** Xem, tìm kiếm, lọc / phân trang
+*** Xem chi tiết / giá khuyến mãi
+*** Thêm / sửa / đổi trạng thái sản phẩm
+*** Thêm / sửa / đổi trạng thái / xóa danh mục
+** Giỏ hàng và checkout
+*** Thêm / mua ngay / cập nhật / xóa / xóa giỏ
+*** Chọn địa chỉ nhận hàng
+*** Preview voucher
+*** Đặt COD hoặc Online
+** Thanh toán và đơn hàng
+*** SePay start / return / IPN
+*** Xem danh sách / chi tiết đơn khách
+*** Hủy đơn đang chờ xác nhận
+*** Quản trị transition trạng thái / kiểm tra tồn
+*** Hoàn kho đơn giao thất bại
+** Kho (admin)
+*** Xem tồn / lịch sử
+*** Điều chỉnh tồn
+** Khuyến mại (admin)
+*** Quản lý campaign
+*** Quản lý voucher
+** Thống kê (admin)
+*** Chọn kỳ / tổng hợp số liệu
+** Nội dung hỗ trợ
+*** Giới thiệu / hướng dẫn / bảo hành / đổi trả / vận chuyển / FAQ / tin công nghệ
+@endwbs

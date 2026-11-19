@@ -1,0 +1,44 @@
+@startuml
+title Thanh toán SePay và COD
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultFontName Arial
+actor KhachHang as U
+control Router as R
+control CheckoutController as Checkout
+control PaymentController as C
+participant SePayPayment as Service
+participant SePay as Gateway
+entity Order as M
+database MySQL as DB
+U -> R: POST /checkout chọn COD hoặc Online
+R -> Checkout: placeOrder()
+Checkout -> M: placeOrder(..., method)
+M -> DB: tạo đơn, chi tiết, trừ tồn
+DB --> U: đơn tạo thành công
+alt COD
+ U -> R: GET /checkout/success?id
+ R -> Checkout: success() (đọc đơn sở hữu)
+ Checkout --> U: biên nhận COD
+else Online
+ U -> R: GET /payments/sepay/start?id
+ R -> C: start()
+ C -> M: findForCustomer / kiểm trạng thái chưa thanh toán
+ M -> DB: SELECT đơn theo owner
+ C -> Service: createCheckoutFields(order)
+ C --> Gateway: form thanh toán
+ Gateway --> U: kết quả / return URL
+ U -> R: success/error/cancel return
+ R -> C: handleReturn(result)
+ C --> U: hiển thị trạng thái chờ xác nhận server
+ Gateway -> R: POST /payments/sepay/ipn
+ R -> C: ipn()
+ C -> Service: xác minh IPN secret / payload
+ C -> M: markOnlineOrderPaid(order, amount, gatewayTxn)
+ M -> DB: khóa đơn; kiểm số tiền/idempotency; ghi giao dịch; cập nhật trạng thái
+ DB --> M: commit hoặc từ chối
+ M --> C: kết quả
+ C --> Gateway: JSON ACK/error
+end
+note over C,DB: IPN là căn cứ ghi nhận thanh toán; return URL riêng không xác nhận giao dịch.
+@enduml

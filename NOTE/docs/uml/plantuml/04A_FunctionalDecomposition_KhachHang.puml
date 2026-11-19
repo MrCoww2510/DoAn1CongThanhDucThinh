@@ -1,0 +1,19 @@
+@startwbs
+title T&T COMPUTER - Phân rã chức năng khách hàng
+* Chức năng phía khách hàng
+** Tài khoản
+*** Đăng ký / đăng nhập / Google
+*** Cập nhật hồ sơ / mật khẩu
+*** Thêm / sửa / xóa địa chỉ
+** Tra cứu sản phẩm
+*** Duyệt / tìm / lọc / phân trang
+*** Xem chi tiết
+** Giỏ hàng
+*** Thêm / mua ngay
+*** Sửa số lượng / xóa dòng / xóa giỏ
+** Đặt và theo dõi đơn
+*** Chọn địa chỉ / phương thức COD hoặc Online
+*** Preview voucher
+*** Theo dõi / hủy khi còn chờ xác nhận
+*** Xem chi tiết đơn
+@endwbs

@@ -1,0 +1,35 @@
+@startuml
+title T&T COMPUTER - Phụ thuộc nghiệp vụ
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+left to right direction
+class CheckoutController
+class Cart
+class Account
+class DeliveryAddress
+class Promotion
+class Order
+class PaymentController
+class SePayPayment
+class OrderManagementController
+class InventoryController
+class Product
+class Inventory
+class StatisticsController
+class Statistics
+CheckoutController ..> Cart : loads cart
+CheckoutController ..> Account : profile
+CheckoutController ..> DeliveryAddress : address selection
+CheckoutController ..> Promotion : voucher preview
+CheckoutController ..> Order : placeOrder
+CheckoutController ..> SePayPayment : configuration check
+PaymentController ..> Order : lookup / IPN result
+PaymentController ..> SePayPayment : build / verify
+OrderManagementController ..> Order : status / return
+InventoryController ..> Inventory : adjustment / history
+Product ..> Promotion : effective price
+StatisticsController ..> Statistics : period query
+note bottom: Dependency là class được gọi trong code, không ngụ ý aggregation/composition.
+@enduml

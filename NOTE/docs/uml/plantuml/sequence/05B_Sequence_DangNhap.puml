@@ -1,0 +1,32 @@
+@startuml
+title Đăng nhập bằng mật khẩu
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultFontName Arial
+actor Khach as U
+boundary "login view" as V
+control Router as R
+control AuthController as C
+entity Account as M
+database MySQL as DB
+U -> V: nhập username/email và mật khẩu
+V -> R: POST /login + CSRF
+R -> C: login()
+C -> C: kiểm tra CSRF / trường bắt buộc
+C -> M: findForLogin(identity)
+M -> DB: SELECT account + user
+DB --> M: account hoặc rỗng
+M --> C: account
+alt không tìm thấy / mật khẩu sai
+ C --> V: thông báo đăng nhập thất bại
+else mật khẩu đúng
+ C -> C: password_verify + kiểm tra trạng thái
+ alt tài khoản vô hiệu
+  C --> V: từ chối đăng nhập
+ else hoạt động
+  C -> C: session_regenerate_id; lưu user; tạo CSRF
+  C -> C: redirectByRole
+  C --> U: redirect theo vai trò
+ end
+end
+@enduml

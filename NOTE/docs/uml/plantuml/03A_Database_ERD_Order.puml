@@ -1,0 +1,23 @@
+@startuml
+title T&T COMPUTER - ERD đơn hàng / thanh toán / voucher
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+entity NguoiDung { *MaND : VARCHAR(20) <<PK>> }
+entity DonHang { *MaDH : VARCHAR(20) <<PK>>\nMaND : VARCHAR(20) <<FK>>\nMaNV : VARCHAR(20) <<FK, NULL>>\nTenNguoiNhan : VARCHAR(100)\nDiaChiGiao : VARCHAR(255)\nSDTNhan : VARCHAR(15)\nTongTien : DECIMAL(18,2)\nPhuongThucTT : VARCHAR(20)\nTrangThaiDH : VARCHAR(50)\nTrangThaiTT : VARCHAR(50)\nMaVoucherCode : VARCHAR(50) <<NULL, no FK>>\nGiamGiaVoucher : DECIMAL(18,2)\nDaHoanKho : TINYINT(1)\nNgayTao : DATETIME }
+entity ChiTietDonHang { *MaCTDH : VARCHAR(20) <<PK>>\nMaDH : VARCHAR(20) <<FK>>\nMaSP : VARCHAR(20) <<FK>>\nSoLuong : INT\nDonGia : DECIMAL(18,2) }
+entity SanPham { *MaSP : VARCHAR(20) <<PK>> }
+entity GiaoDichThanhToan { *MaGD : VARCHAR(50) <<PK>>\nMaDH : VARCHAR(20) <<FK>>\nMaGatewayTxn : VARCHAR(100) <<UQ, NULL>>\nSoTien : DECIMAL(18,2)\nTrangThai : VARCHAR(30)\nThoiGianGiaoDich : DATETIME <<NULL>> }
+entity Voucher { *MaVoucher : VARCHAR(20) <<PK>>\nMaCode : VARCHAR(50) <<UQ>> }
+entity VoucherSuDung { *MaSuDung : VARCHAR(40) <<PK>>\nMaVoucher : VARCHAR(20) <<FK>>\nMaDH : VARCHAR(20) <<FK, UQ>>\nMaND : VARCHAR(20) <<FK>>\nSoTienGiam : DECIMAL(18,2) }
+NguoiDung ||--o{ DonHang : buyer
+NguoiDung o|--o{ DonHang : staff
+DonHang ||--o{ ChiTietDonHang
+SanPham ||--o{ ChiTietDonHang
+DonHang ||--o{ GiaoDichThanhToan
+Voucher ||--o{ VoucherSuDung
+DonHang ||--o| VoucherSuDung
+NguoiDung ||--o{ VoucherSuDung
+note bottom: Schema không đặt FK cho MaVoucherCode; VoucherSuDung là quan hệ ghi nhận sử dụng độc lập.
+@enduml
