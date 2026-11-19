@@ -10,6 +10,12 @@ use App\Core\Database;
 
 final class Statistics
 {
+    /**
+     * Tổng hợp số liệu thống kê trong khoảng ngày bắt đầu và kết thúc đã chọn.
+     * @param $start Thời điểm bắt đầu chương trình hoặc khoảng thống kê.
+     * @param $end Thời điểm kết thúc chương trình hoặc khoảng thống kê.
+     * @return array Mảng dữ liệu theo cấu trúc được xây dựng trong phương thức.
+     */
     public function forPeriod(string $start, string $end): array
     {
         $pdo = Database::connection();

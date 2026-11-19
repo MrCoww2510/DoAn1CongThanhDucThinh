@@ -189,7 +189,7 @@
 	background-color: #e53935;
 }
 
-/* Ẩn nhãn cho trợ năng (Accessibility) */
+/* Ẩn nhãn trực quan nhưng vẫn giữ nội dung cho công nghệ hỗ trợ */
 .visually-hidden {
 	position: absolute !important;
 	width: 1px !important;
@@ -202,7 +202,7 @@
 	border: 0 !important;
 }
 
-/* Keep long account details readable without letting the table cover other content. */
+/* Cho phép đọc thông tin tài khoản dài mà không để bảng tràn khỏi khung. */
 .user-management .table-container {
 	max-width: 100%;
 	margin-top: 10px;

@@ -1,5 +1,8 @@
-/* Shared controls and surfaces. Loaded after page styles to unify states without
-   changing the classes used by PHP templates or JavaScript. */
+/* ==========================================
+   THÀNH PHẦN DÙNG CHUNG
+   Chuẩn hóa trạng thái nút, thông báo, bề mặt nội dung và điều hướng quản trị.
+   Tệp được nạp sau kiểu trang để giữ nguyên bố cục riêng của từng trang.
+   ========================================== */
 :where(button, input, select, textarea) {
 	font: inherit;
 }
@@ -48,6 +51,7 @@
 	opacity: 1;
 }
 
+/* Đồng nhất bảng, biểu mẫu và thông báo trong khu vực quản trị */
 .admin-page {
 	color: var(--text-primary);
 }
@@ -220,7 +224,7 @@
 	background: #242424;
 }
 
-/* Authenticated back-office navigation is presented as a compact sidebar. */
+/* Điều hướng của nhân viên và quản trị viên theo dạng thanh bên gọn */
 body.app-admin,
 body.app-staff {
 	display: grid;

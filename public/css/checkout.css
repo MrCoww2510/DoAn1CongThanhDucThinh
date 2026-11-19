@@ -1,4 +1,7 @@
-/* Kiểu dáng cho trang xác nhận đơn hàng. */
+/* ==========================================
+   THANH TOÁN VÀ KẾT QUẢ ĐẶT HÀNG
+   Biểu mẫu nhận hàng, chọn địa chỉ, phương thức thanh toán và biên nhận.
+   ========================================== */
 .checkout-page {
     max-width: 1120px;
     margin: 0 auto;
@@ -99,6 +102,7 @@
     resize: vertical;
 }
 
+/* Thẻ địa chỉ đang chọn và hộp thoại quản lý địa chỉ */
 .checkout-selected-address {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
@@ -370,6 +374,7 @@
     font-weight: 700;
 }
 
+/* Lựa chọn phương thức thanh toán và phần tổng kết đơn */
 .payment-option {
     display: flex;
     align-items: flex-start;
@@ -514,6 +519,7 @@
 }
 
 .checkout-empty,
+/* Trạng thái đặt hàng thành công và thông tin biên nhận */
 .checkout-success-card {
     max-width: 760px;
     margin: 0 auto;

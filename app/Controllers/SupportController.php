@@ -8,41 +8,74 @@ use App\Core\Controller;
 
 final class SupportController extends Controller
 {
+    /**
+     * Hiển thị trang hướng dẫn mua hàng.
+     * @return Không trả về giá trị.
+     */
     public function shoppingGuide(): void
     {
         $this->showPage('shopping-guide');
     }
 
+    /**
+     * Hiển thị trang chính sách bảo hành.
+     * @return Không trả về giá trị.
+     */
     public function warranty(): void
     {
         $this->showPage('warranty');
     }
 
+    /**
+     * Hiển thị trang chính sách đổi trả.
+     * @return Không trả về giá trị.
+     */
     public function returns(): void
     {
         $this->showPage('returns');
     }
 
+    /**
+     * Hiển thị trang thông tin giao hàng.
+     * @return Không trả về giá trị.
+     */
     public function shipping(): void
     {
         $this->showPage('shipping');
     }
 
+    /**
+     * Hiển thị trang câu hỏi thường gặp.
+     * @return Không trả về giá trị.
+     */
     public function faq(): void
     {
         $this->showPage('faq');
     }
 
+    /**
+     * Hiển thị trang thông tin khuyến mãi.
+     * @return Không trả về giá trị.
+     */
     public function promotions(): void
     {
         $this->showPage('promotions');
     }
 
+    /**
+     * Hiển thị trang tin tức công nghệ.
+     * @return Không trả về giá trị.
+     */
     public function techNews(): void
     {
         $this->showPage('tech-news');
     }
 
+    /**
+     * Tải nội dung hỗ trợ theo slug được cung cấp; slug được dùng để chọn trang hiển thị.
+     * @param $slug Mã định danh trang hỗ trợ cần hiển thị.
+     * @return Không trả về giá trị.
+     */
     private function showPage(string $slug): void
     {
         $pages = [

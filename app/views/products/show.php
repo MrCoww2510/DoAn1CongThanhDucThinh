@@ -36,8 +36,9 @@ if ($image !== '') {
 		<h1><?php echo htmlspecialchars($product['TenSP'], ENT_QUOTES, 'UTF-8'); ?></h1>
 
 		<p class="detail-price">
-			<?php if ((float) ($product['GiamGiaChuongTrinh'] ?? 0) > 0) { ?><del><?php echo number_format((float) $product['GiaGoc'], 0, ',', '.'); ?> ₫</del> <?php } ?>
 			<?php echo number_format((float) ($product['GiaBanHieuLuc'] ?? $product['GiaBan']), 0, ',', '.'); ?> ₫
+			<?php if ((float) ($product['GiamGiaChuongTrinh'] ?? 0) > 0) { ?><del><?php echo number_format((float) $product['GiaGoc'], 0, ',', '.'); ?>
+				₫</del><?php } ?>
 		</p>
 
 		<p>
@@ -97,19 +98,19 @@ $csrfToken = $_SESSION['_csrf'] ?? '';
 		<div class="detail-description">
 			<h2>Mô tả sản phẩm</h2>
 			<p><?php echo nl2br(htmlspecialchars(
-                $product['MoTa'] ?: 'Chưa có mô tả sản phẩm.',
-                ENT_QUOTES,
-                'UTF-8'
-            )); ?></p>
+			    $product['MoTa'] ?: 'Chưa có mô tả sản phẩm.',
+			    ENT_QUOTES,
+			    'UTF-8'
+			)); ?></p>
 		</div>
 
 		<div class="detail-description">
 			<h2>Thông số kỹ thuật</h2>
 			<p><?php echo nl2br(htmlspecialchars(
-                $product['ThongSoKT'] ?: 'Chưa cập nhật thông số kỹ thuật.',
-                ENT_QUOTES,
-                'UTF-8'
-            )); ?></p>
+			    $product['ThongSoKT'] ?: 'Chưa cập nhật thông số kỹ thuật.',
+			    ENT_QUOTES,
+			    'UTF-8'
+			)); ?></p>
 		</div>
 
 		<a class="primary-link" href="<?php echo htmlspecialchars($baseUrl.'/products', ENT_QUOTES, 'UTF-8'); ?>">

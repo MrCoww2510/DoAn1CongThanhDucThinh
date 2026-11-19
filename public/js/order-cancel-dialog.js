@@ -16,20 +16,24 @@
         return;
     }
 
+    /** Mở hộp thoại để khách xem lại trước khi gửi yêu cầu hủy đơn. */
     openButton.addEventListener('click', () => {
         dialog.showModal();
     });
 
+    /** Đóng hộp thoại và trả tiêu điểm về nút đã mở hộp thoại. */
     closeButton.addEventListener('click', () => {
         dialog.close();
         openButton.focus();
     });
 
+    /** Gửi biểu mẫu hủy đơn sau khi đóng hộp thoại xác nhận. */
     confirmButton.addEventListener('click', () => {
         dialog.close();
         form.requestSubmit();
     });
 
+    /** Khôi phục tiêu điểm bàn phím khi hộp thoại đóng bằng bất kỳ cách nào. */
     dialog.addEventListener('close', () => {
         openButton.focus();
     });

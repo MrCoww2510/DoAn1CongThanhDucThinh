@@ -19,6 +19,7 @@ if (($appConfig['debug'] ?? false) === true) {
     error_reporting(E_ALL);
 }
 
+/** Tự động nạp lớp trong namespace App từ thư mục app theo tên lớp. */
 spl_autoload_register(static function (string $class): void {
     $prefix = 'App\\';
     if (!str_starts_with($class, $prefix)) {
@@ -45,6 +46,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
 }
 
+/** Ghi log ngoại lệ và trả trang lỗi phù hợp với chế độ debug đang bật hay tắt. */
 set_exception_handler(static function (Throwable $exception) use ($appConfig): void {
     error_log((string) $exception);
 

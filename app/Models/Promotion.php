@@ -55,6 +55,13 @@ final class Promotion
         return $items;
     }
 
+    /**
+     * Kiểm tra khả năng áp dụng voucher cho khách và tổng tiền hiện tại; trả về mức giảm và số tiền sau giảm.
+     * @param $code Mã voucher cần kiểm tra.
+     * @param $customerId Mã khách hàng dùng để giới hạn dữ liệu.
+     * @param $subtotal Tổng tiền hàng trước khi áp dụng voucher.
+     * @return array Mảng dữ liệu theo cấu trúc được xây dựng trong phương thức.
+     */
     public function previewVoucher(string $code, string $customerId, float $subtotal): array
     {
         $voucher = $this->findEligibleVoucher(Database::connection(), $code, $customerId, $subtotal, false);
@@ -72,6 +79,10 @@ final class Promotion
         return ['id' => (string) $voucher['MaVoucher'], 'code' => (string) $voucher['MaCode'], 'discount' => $discount];
     }
 
+    /**
+     * Lấy danh sách chiến dịch khuyến mãi phục vụ trang quản trị.
+     * @return array Mảng dữ liệu theo cấu trúc được xây dựng trong phương thức.
+     */
     public function listCampaigns(): array
     {
         return Database::connection()->query(
@@ -82,6 +93,10 @@ final class Promotion
         )->fetchAll();
     }
 
+    /**
+     * Lấy danh sách voucher phục vụ trang quản trị.
+     * @return array Mảng dữ liệu theo cấu trúc được xây dựng trong phương thức.
+     */
     public function listVouchers(): array
     {
         return Database::connection()->query(
@@ -91,6 +106,11 @@ final class Promotion
         )->fetchAll();
     }
 
+    /**
+     * Tìm một chiến dịch theo mã; trả về null nếu không tồn tại.
+     * @param $id Mã bản ghi cần tìm hoặc cập nhật.
+     * @return array|null Mảng kết quả hoặc null nếu không tìm thấy.
+     */
     public function findCampaign(string $id): ?array
     {
         $stmt = Database::connection()->prepare(
@@ -104,6 +124,11 @@ final class Promotion
         return $row === false ? null : $row;
     }
 
+    /**
+     * Tìm một voucher theo mã; trả về null nếu không tồn tại.
+     * @param $id Mã bản ghi cần tìm hoặc cập nhật.
+     * @return array|null Mảng kết quả hoặc null nếu không tìm thấy.
+     */
     public function findVoucher(string $id): ?array
     {
         $stmt = Database::connection()->prepare('SELECT * FROM Voucher WHERE MaVoucher = :id LIMIT 1');
@@ -113,6 +138,12 @@ final class Promotion
         return $row === false ? null : $row;
     }
 
+    /**
+     * Xác thực dữ liệu biểu mẫu rồi tạo mới hoặc cập nhật chiến dịch khuyến mãi.
+     * @param $data Dữ liệu biểu mẫu đã nhận.
+     * @param $id Mã bản ghi cần tìm hoặc cập nhật.
+     * @return Không trả về giá trị.
+     */
     public function saveCampaign(array $data, ?string $id = null): void
     {
         $pdo = Database::connection();
@@ -158,6 +189,12 @@ final class Promotion
         }
     }
 
+    /**
+     * Xác thực dữ liệu biểu mẫu rồi tạo mới hoặc cập nhật voucher.
+     * @param $data Dữ liệu biểu mẫu đã nhận.
+     * @param $id Mã bản ghi cần tìm hoặc cập nhật.
+     * @return Không trả về giá trị.
+     */
     public function saveVoucher(array $data, ?string $id = null): void
     {
         $this->validatePeriod($data['start'], $data['end']);
@@ -195,6 +232,15 @@ final class Promotion
         $stmt->execute($values);
     }
 
+    /**
+     * Truy vấn voucher và kiểm tra điều kiện khách hàng, giá trị đơn, thời hạn, lượt dùng; có thể khóa bản ghi trong giao dịch.
+     * @param $pdo Kết nối PDO dùng cho truy vấn.
+     * @param $code Mã voucher cần kiểm tra.
+     * @param $customerId Mã khách hàng dùng để giới hạn dữ liệu.
+     * @param $subtotal Tổng tiền hàng trước khi áp dụng voucher.
+     * @param $lock Có khóa bản ghi voucher trong giao dịch hay không.
+     * @return array Mảng dữ liệu theo cấu trúc được xây dựng trong phương thức.
+     */
     private function findEligibleVoucher(PDO $pdo, string $code, string $customerId, float $subtotal, bool $lock): array
     {
         $normalized = strtoupper(trim($code));
@@ -237,6 +283,12 @@ final class Promotion
         return $voucher;
     }
 
+    /**
+     * Tính số tiền được giảm theo voucher và tổng tiền hàng; không vượt quá giá trị hợp lệ của đơn.
+     * @param $voucher Dữ liệu voucher đã được truy vấn.
+     * @param $subtotal Tổng tiền hàng trước khi áp dụng voucher.
+     * @return float Số tiền giảm sau khi áp dụng giới hạn của voucher và đơn hàng.
+     */
     private function voucherDiscount(array $voucher, float $subtotal): float
     {
         $discount = $this->discountAmount($subtotal, $voucher['LoaiGiam'], (float) $voucher['GiaTri']);
@@ -247,11 +299,24 @@ final class Promotion
         return round(min($subtotal, max(0, $discount)), 2);
     }
 
+    /**
+     * Tính mức giảm theo loại giảm giá và giá trị cấu hình.
+     * @param $base Số tiền làm căn cứ tính giảm giá.
+     * @param $type Loại giảm giá được cấu hình.
+     * @param $value Giá trị cần chuẩn hóa hoặc kiểm tra.
+     * @return float Số tiền giảm đã làm tròn theo quy tắc hiện tại.
+     */
     private function discountAmount(float $base, string $type, float $value): float
     {
         return round($type === 'PhanTram' ? $base * $value / 100 : $value, 2);
     }
 
+    /**
+     * Kiểm tra ngày bắt đầu và kết thúc của chương trình; ném ngoại lệ nếu khoảng thời gian không hợp lệ.
+     * @param $start Thời điểm bắt đầu chương trình hoặc khoảng thống kê.
+     * @param $end Thời điểm kết thúc chương trình hoặc khoảng thống kê.
+     * @return Không trả về giá trị.
+     */
     private function validatePeriod(string $start, string $end): void
     {
         $startTime = strtotime($start);
@@ -261,6 +326,12 @@ final class Promotion
         }
     }
 
+    /**
+     * Kiểm tra các mã sản phẩm được gắn với chương trình có tồn tại trong cơ sở dữ liệu.
+     * @param $pdo Kết nối PDO dùng cho truy vấn.
+     * @param $productIds Danh sách mã sản phẩm cần kiểm tra.
+     * @return Không trả về giá trị.
+     */
     private function validateProducts(PDO $pdo, array $productIds): void
     {
         if ($productIds === []) {

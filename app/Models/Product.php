@@ -276,6 +276,10 @@ final class Product
         return ['items' => $items, 'total' => $total, 'page' => $page, 'perPage' => $perPage, 'totalPages' => (int) ceil($total / $perPage)];
     }
 
+    /**
+     * Lấy các lựa chọn danh mục và bộ lọc đang dùng cho trang danh mục sản phẩm.
+     * @return array Mảng dữ liệu theo cấu trúc được xây dựng trong phương thức.
+     */
     public function catalogFilterOptions(): array
     {
         $pdo = Database::connection();

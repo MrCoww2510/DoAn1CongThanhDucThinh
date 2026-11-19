@@ -15,6 +15,11 @@ final class Account
      *
      * @return array<int, array<string, mixed>>
      */
+    /**
+     * Tìm tài khoản phục vụ màn hình quản trị; từ khóa rỗng cho phép lấy danh sách không lọc.
+     * @param $query Từ khóa lọc tài khoản.
+     * @return array Mảng dữ liệu theo cấu trúc được xây dựng trong phương thức.
+     */
     public function searchForManagement(string $query = ''): array
     {
         $sql = '

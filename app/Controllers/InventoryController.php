@@ -27,6 +27,10 @@ final class InventoryController extends Controller
         unset($_SESSION['_inventory_error'], $_SESSION['_inventory_success']);
     }
 
+    /**
+     * Kiểm tra session và vai trò có quyền xem, cập nhật tồn kho; trả về thông tin người dùng đã xác thực hoặc chuyển hướng.
+     * @return array Mảng dữ liệu theo cấu trúc được xây dựng trong phương thức.
+     */
     private function requireInventoryViewer(): array
     {
         $sessionUser = $_SESSION['user'] ?? null;

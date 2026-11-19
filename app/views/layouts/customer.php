@@ -286,6 +286,7 @@ foreach (array_unique($stylesheets) as $stylesheet) {
 	<script>
 	let backToTop = document.getElementById("backToTop");
 
+	// Chỉ hiện nút quay lên đầu trang sau khi người dùng cuộn đủ xa.
 	window.onscroll = function() {
 		if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
 			backToTop.style.display = "block";

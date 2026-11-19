@@ -376,6 +376,12 @@ final class CheckoutController extends Controller
         ]);
     }
 
+    /**
+     * Tính dữ liệu voucher cần hiển thị cho khách; kiểm tra chủ sở hữu dữ liệu trong session và bỏ voucher không còn hợp lệ.
+     * @param $customerId Mã khách hàng dùng để giới hạn dữ liệu.
+     * @param $subtotal Tổng tiền hàng trước khi áp dụng voucher.
+     * @return array Mảng dữ liệu theo cấu trúc được xây dựng trong phương thức.
+     */
     private function voucherDisplay(string $customerId, float $subtotal): array
     {
         if (isset($_SESSION['_checkout_quote_customer'])

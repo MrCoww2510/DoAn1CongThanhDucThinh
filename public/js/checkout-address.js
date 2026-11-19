@@ -41,23 +41,28 @@
     const addressOptions = Array.from(
         list.querySelectorAll('input[name="deliveryAddressId"]')
     );
+    /** Cập nhật thông tin người nhận ở phần xem trước và trong từng lựa chọn địa chỉ. */
     const syncContactDetails = () => {
         const name = recipientInput.value.trim() || 'Người nhận';
         const phone = phoneInput.value.trim();
         recipientDisplay.textContent = name;
         phoneDisplay.textContent = phone;
 
+        // Hiển thị cùng một tên người nhận trong toàn bộ các lựa chọn của hộp thoại.
         list.querySelectorAll('[data-dialog-recipient]').forEach((element) => {
             element.textContent = name;
         });
+        // Đồng bộ số điện thoại vào các dòng thông tin liên hệ tương ứng.
         list.querySelectorAll('[data-dialog-phone]').forEach((element) => {
             element.textContent = phone;
         });
     };
 
+    /** Đồng bộ địa chỉ được chọn với phần xem trước và trạng thái đánh dấu trên danh sách. */
     const syncSelectedAddress = () => {
         const selected = addressOptions.find((option) => option.checked);
 
+        // Đánh dấu trực quan đúng lựa chọn đang được chọn.
         addressOptions.forEach((option) => {
             option.closest('.checkout-address-option')
                 ?.classList.toggle('is-selected', option.checked);
@@ -68,6 +73,7 @@
         }
     };
 
+    /** Chuyển hộp thoại về chế độ chọn địa chỉ đã lưu. */
     const showAddressList = () => {
         list.hidden = false;
         listActions.hidden = false;
@@ -76,6 +82,7 @@
         dialogTitle.textContent = 'Chọn địa chỉ nhận hàng';
     };
 
+    /** Chuyển hộp thoại sang nhập địa chỉ mới và đặt con trỏ vào ô địa chỉ. */
     const showNewAddressForm = () => {
         list.hidden = true;
         listActions.hidden = true;
@@ -85,17 +92,20 @@
         newAddressFields.querySelector('textarea')?.focus();
     };
 
+    /** Mở hộp thoại ở chế độ chọn địa chỉ đã lưu. */
     openButton.addEventListener('click', () => {
         showAddressList();
         dialog.showModal();
     });
 
+    /** Đóng hộp thoại mà không thay đổi lựa chọn hiện tại. */
     closeButton.addEventListener('click', () => {
         dialog.close();
     });
 
     showNewAddressButton.addEventListener('click', showNewAddressForm);
     cancelNewAddressButton.addEventListener('click', showAddressList);
+    /** Đóng hộp thoại sau khi đồng bộ địa chỉ đang chọn lên biểu mẫu thanh toán. */
     confirmAddressButton.addEventListener('click', () => {
         syncSelectedAddress();
         dialog.close();

@@ -63,7 +63,7 @@ a {
 	margin-inline: auto;
 }
 
-/* MAIN CONTENT & HERO (Các khối dùng chung) */
+/* Nội dung chính và phần giới thiệu dùng chung */
 .main-content {
 	min-height: 60vh;
 	padding-block: clamp(24px, 3vw, 38px) 48px;
@@ -249,7 +249,7 @@ code {
 	}
 }
 
-/* Back */
+/* Nút quay về đầu trang */
 #backToTop {
 	position: fixed;
 	bottom: 40px;

@@ -533,7 +533,7 @@
 	}
 }
 
-/* Compact header and drawer navigation for tablet and mobile. */
+/* Thu gọn phần đầu trang và dùng ngăn điều hướng trên máy tính bảng, điện thoại. */
 @media (max-width: 900px) {
 	.header-inner {
 		display: grid;

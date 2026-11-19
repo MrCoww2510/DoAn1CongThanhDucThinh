@@ -1,3 +1,7 @@
+/* ==========================================
+   TRANG HỖ TRỢ
+   Breadcrumb, phần giới thiệu, nội dung hướng dẫn và liên hệ.
+   ========================================== */
 .support-page {
 	min-height: 58vh;
 	padding: 32px 20px 72px;
@@ -88,6 +92,7 @@
 	line-height: 1.75;
 }
 
+/* Khu vực thông tin liên hệ hỗ trợ */
 .support-contact {
 	display: flex;
 	flex-wrap: wrap;
@@ -110,6 +115,7 @@
 	text-decoration: underline;
 }
 
+/* Điện thoại: thu gọn khoảng cách và bố cục nội dung */
 @media (max-width: 600px) {
 	.support-page {
 		padding: 22px 14px 48px;

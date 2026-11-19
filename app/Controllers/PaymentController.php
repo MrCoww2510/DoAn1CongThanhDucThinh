@@ -12,6 +12,10 @@ use Throwable;
 
 final class PaymentController extends Controller
 {
+    /**
+     * Khởi tạo yêu cầu thanh toán SePay cho đơn hàng hợp lệ và chuyển khách tới biểu mẫu thanh toán.
+     * @return Không trả về giá trị.
+     */
     public function start(): void
     {
         $user = $this->requireCustomer();
@@ -54,27 +58,44 @@ final class PaymentController extends Controller
         echo $sepay->renderCheckoutForm($fields);
     }
 
+    /**
+     * Xử lý URL trả về thành công từ cổng thanh toán và xác minh trạng thái đơn hàng.
+     * @return Không trả về giá trị.
+     */
     public function success(): void
     {
         $this->handleReturn('success');
     }
 
+    /**
+     * Hiển thị kết quả lỗi khi cổng thanh toán trả khách về.
+     * @return Không trả về giá trị.
+     */
     public function error(): void
     {
         $this->handleReturn('error');
     }
 
+    /**
+     * Xử lý trường hợp khách hủy hoặc rời khỏi luồng thanh toán.
+     * @return Không trả về giá trị.
+     */
     public function cancel(): void
     {
         $this->handleReturn('cancel');
     }
 
+    /**
+     * Nhận và xác minh thông báo IPN từ SePay trước khi cập nhật trạng thái thanh toán.
+     * @return Không trả về giá trị.
+     */
     public function ipn(): void
     {
         if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
             $this->sendJson(405, ['error' => 'Method not allowed']);
         }
 
+        // Chỉ chấp nhận IPN có khóa bí mật hợp lệ trước khi đọc và xử lý nội dung.
         $sepay = new SePayPayment();
         $ipnSecret = $sepay->ipnSecretKey();
         if ($ipnSecret === '') {
@@ -86,6 +107,7 @@ final class PaymentController extends Controller
             $this->sendJson(401, ['error' => 'Unauthorized']);
         }
 
+        // Giới hạn kích thước payload trước khi giải mã JSON để tránh xử lý nội dung quá lớn.
         $rawBody = file_get_contents('php://input');
         if (is_string($rawBody) && strlen($rawBody) > 65536) {
             $this->sendJson(413, ['error' => 'IPN payload is too large']);
@@ -97,6 +119,7 @@ final class PaymentController extends Controller
         }
 
         $notificationType = $payload['notification_type'] ?? '';
+        // Bỏ qua loại thông báo không thể hiện thanh toán thành công.
         if ($notificationType === 'TRANSACTION_VOID') {
             $this->sendJson(200, ['received' => true, 'processed' => false]);
         }
@@ -115,6 +138,7 @@ final class PaymentController extends Controller
         $transactionAmount = $transaction['transaction_amount'] ?? null;
         $transactionId = $transaction['transaction_id'] ?? null;
 
+        // Đối chiếu trạng thái, tiền tệ và số tiền của cả đơn lẫn giao dịch trước khi ghi nhận thanh toán.
         if (
             !is_string($invoice)
             || $invoice === ''
@@ -145,6 +169,11 @@ final class PaymentController extends Controller
         $this->sendJson(200, ['received' => true, 'processed' => $processed]);
     }
 
+    /**
+     * Xử lý kết quả trả về từ cổng thanh toán, kiểm tra quyền sở hữu đơn và hiển thị trạng thái tương ứng.
+     * @param $result Kết quả trả về từ cổng thanh toán.
+     * @return Không trả về giá trị.
+     */
     private function handleReturn(string $result): void
     {
         $user = $this->requireCustomer();
@@ -180,6 +209,10 @@ final class PaymentController extends Controller
         $this->redirect('orders/'.rawurlencode($orderId), 303);
     }
 
+    /**
+     * Kiểm tra session để chỉ cho phép khách hàng truy cập các thao tác thanh toán.
+     * @return array Mảng dữ liệu theo cấu trúc được xây dựng trong phương thức.
+     */
     private function requireCustomer(): array
     {
         $user = $_SESSION['user'] ?? null;
@@ -194,6 +227,10 @@ final class PaymentController extends Controller
         return $user;
     }
 
+    /**
+     * Đọc và chuẩn hóa mã đơn hàng từ tham số truy vấn của yêu cầu hiện tại.
+     * @return string Chuỗi đã chuẩn hóa hoặc mã định danh tương ứng.
+     */
     private function queryOrderId(): string
     {
         $value = $_GET['id'] ?? '';
@@ -201,6 +238,12 @@ final class PaymentController extends Controller
         return is_string($value) ? trim($value) : '';
     }
 
+    /**
+     * Lưu thông báo kết quả thanh toán vào session để hiển thị sau khi chuyển hướng.
+     * @param $message Nội dung thông báo cần lưu hoặc gửi.
+     * @param $type Phân loại thông báo được lưu cùng nội dung.
+     * @return Không trả về giá trị.
+     */
     private function setOrderFlash(string $message, string $type): void
     {
         $_SESSION['_order_flash'] = [
@@ -209,6 +252,12 @@ final class PaymentController extends Controller
         ];
     }
 
+    /**
+     * Gửi phản hồi JSON với mã HTTP và nội dung đã cung cấp, sau đó kết thúc yêu cầu.
+     * @param $status Mã trạng thái HTTP của phản hồi.
+     * @param $body Dữ liệu JSON cần gửi về trình duyệt.
+     * @return Không trả về; phương thức kết thúc yêu cầu.
+     */
     private function sendJson(int $status, array $body): never
     {
         http_response_code($status);

@@ -13,6 +13,10 @@ use Throwable;
 
 final class PromotionManagementController extends Controller
 {
+    /**
+     * Tải và hiển thị danh sách chiến dịch khuyến mãi trong trang quản trị.
+     * @return Không trả về giá trị.
+     */
     public function campaigns(): void
     {
         AdminController::authorize();
@@ -31,6 +35,10 @@ final class PromotionManagementController extends Controller
         unset($_SESSION['_promotion_error'], $_SESSION['_promotion_success']);
     }
 
+    /**
+     * Xác thực dữ liệu biểu mẫu rồi tạo mới hoặc cập nhật chiến dịch khuyến mãi.
+     * @return Không trả về giá trị.
+     */
     public function saveCampaign(): void
     {
         AdminController::authorize();
@@ -65,6 +73,10 @@ final class PromotionManagementController extends Controller
         }
     }
 
+    /**
+     * Tải và hiển thị danh sách voucher trong trang quản trị.
+     * @return Không trả về giá trị.
+     */
     public function vouchers(): void
     {
         AdminController::authorize();
@@ -82,6 +94,10 @@ final class PromotionManagementController extends Controller
         unset($_SESSION['_voucher_error'], $_SESSION['_voucher_success']);
     }
 
+    /**
+     * Xác thực dữ liệu biểu mẫu rồi tạo mới hoặc cập nhật voucher.
+     * @return Không trả về giá trị.
+     */
     public function saveVoucher(): void
     {
         AdminController::authorize();
@@ -124,23 +140,43 @@ final class PromotionManagementController extends Controller
         }
     }
 
+    /**
+     * So sánh token gửi từ biểu mẫu với token trong session để chống giả mạo yêu cầu.
+     * @return bool Kết quả kiểm tra hoặc thao tác.
+     */
     private function validCsrf(): bool
     {
         $token = (string) ($_POST['_csrf'] ?? '');
         return $token !== '' && isset($_SESSION['_csrf']) && hash_equals($_SESSION['_csrf'], $token);
     }
 
+    /**
+     * Chuẩn hóa giá trị ngày nhận từ biểu mẫu theo định dạng được lưu trong hệ thống.
+     * @param $value Giá trị cần chuẩn hóa hoặc kiểm tra.
+     * @return string Chuỗi đã chuẩn hóa hoặc mã định danh tương ứng.
+     */
     private function dateValue(string $value): string
     {
         $date = \DateTimeImmutable::createFromFormat('!Y-m-d\TH:i', $value);
         return $date ? $date->format('Y-m-d H:i:s') : '';
     }
 
+    /**
+     * Kiểm tra giới hạn sử dụng voucher; giá trị rỗng biểu thị không đặt giới hạn.
+     * @param $value Giá trị cần chuẩn hóa hoặc kiểm tra.
+     * @return bool Kết quả kiểm tra hoặc thao tác.
+     */
     private function validLimit(?string $value): bool
     {
         return $value === null || (ctype_digit($value) && (int) $value > 0 && (float) $value <= 4294967295);
     }
 
+    /**
+     * Lưu thông báo lỗi và chuyển về đường dẫn đã chọn mà không tiếp tục thao tác ghi.
+     * @param $key Tên khóa session dùng để lưu thông báo lỗi.
+     * @param $message Nội dung thông báo cần lưu hoặc gửi.
+     * @return Không trả về; phương thức kết thúc yêu cầu.
+     */
     private function fail(string $key, string $message, string $path): never
     {
         $_SESSION[$key] = $message;

@@ -10,6 +10,7 @@ if (!is_array($localConfig)) {
     throw new RuntimeException('config/sepay.local.php phải trả về một mảng cấu hình.');
 }
 
+/** Lấy cấu hình cục bộ hoặc từ biến môi trường và chuẩn hóa thành chuỗi. */
 $readValue = static function (string $key, string $environmentName) use ($localConfig): string {
     $value = $localConfig[$key] ?? getenv($environmentName);
 

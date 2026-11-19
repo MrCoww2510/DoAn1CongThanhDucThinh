@@ -40,6 +40,7 @@ final class SePayPayment
      *
      * @return array<string, string>
      */
+    /** Tạo các trường biểu mẫu thanh toán từ mã đơn, tổng tiền và cấu hình SePay hiện tại. */
     public function createCheckoutFields(array $order): array
     {
         if (!$this->isConfigured()) {
