@@ -20,7 +20,7 @@ final class AccountController extends Controller
         if (
             !is_array($user)
             || empty($user['MaND'])
-            || !in_array($user['VaiTro'] ?? '', ['KhachHang', 'QuanTriVien'], true)
+            || !in_array($user['VaiTro'] ?? '', ['KhachHang', 'NhanVien', 'QuanTriVien'], true)
         ) {
             $this->redirect('login');
         }

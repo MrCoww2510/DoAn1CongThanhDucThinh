@@ -90,7 +90,7 @@ foreach (array_unique($stylesheets) as $stylesheet) {
 					<?php if (isset($_SESSION['user'])) { ?>
 					<?php
                 $user = $_SESSION['user'];
-					    $canOpenAccount = in_array($user['VaiTro'] ?? '', ['KhachHang', 'QuanTriVien'], true);
+					    $canOpenAccount = in_array($user['VaiTro'] ?? '', ['KhachHang', 'NhanVien', 'QuanTriVien'], true);
 					    $googlePicture = filter_var(
 					        (string) ($user['GooglePicture'] ?? ''),
 					        FILTER_VALIDATE_URL
