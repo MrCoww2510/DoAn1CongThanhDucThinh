@@ -366,7 +366,7 @@ final class AuthController extends Controller
         }
 
         if ($role === 'NhanVien') {
-            $this->redirect('');
+            $this->redirect('admin/orders');
         }
 
         $this->redirect('');

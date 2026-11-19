@@ -43,7 +43,11 @@ foreach (array_unique($stylesheets) as $stylesheet) {
 
 			<!-- Logo -->
 			<a class="brand" href="<?php echo htmlspecialchars(
-			    $baseUrl.(($_SESSION['user']['VaiTro'] ?? '') === 'QuanTriVien' ? '/admin' : '/'),
+			    $baseUrl.match ($currentRole) {
+			        'QuanTriVien' => '/admin',
+			        'NhanVien' => '/admin/orders',
+			        default => '/',
+			    },
 			    ENT_QUOTES,
 			    'UTF-8'
 			); ?>">
