@@ -6,6 +6,7 @@ Bộ này mô tả hiện trạng source tại thời điểm khảo sát. Ngu�
 
 - `01_UseCase_TongQuat.puml`, `01A_UseCase_KhachHang.puml`, `01B_UseCase_QuanTri.puml`, `01C_UseCase_NhanVien.puml`: actor và chức năng đã kiểm tra trong route/controller.
 - `02_Class_TongQuat.puml`, `02A_Class_Model_Entity.puml`, `02B_Class_Controller_Service.puml`, `02C_Class_QuanHeNghiepVu.puml`: class PHP thực tế và phụ thuộc trực tiếp.
+- `02D_Class_Diagram_Full.puml`: sơ đồ lớp tổng hợp theo mô hình nghiệp vụ, tham khảo bố cục class diagram được cung cấp.
 - `03_Database_ERD_TongQuat.puml`, `03A_Database_ERD_Order.puml`, `03B_Database_ERD_Product.puml`, `03C_Database_ERD_User.puml`: schema `NOTE/database.sql` và migration.
 - `04_FunctionalDecomposition_TongQuat.puml`, `04A_FunctionalDecomposition_KhachHang.puml`, `04B_FunctionalDecomposition_QuanTri.puml`: phân rã chức năng triển khai.
 - `sequence/05A_Sequence_DangKy.puml` đến `sequence/05N_Sequence_ThongKe.puml`: các luồng theo controller/model thực tế.

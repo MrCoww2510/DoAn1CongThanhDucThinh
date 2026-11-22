@@ -3,7 +3,7 @@ title Đăng nhập bằng mật khẩu
 skinparam backgroundColor white
 skinparam shadowing false
 skinparam defaultFontName Arial
-actor Khach as U
+actor Khachvanglai as U
 boundary "login view" as V
 control Router as R
 control AuthController as C

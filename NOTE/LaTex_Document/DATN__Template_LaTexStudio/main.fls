@@ -1,6 +1,6 @@
-PWD C:\xampp\htdocs\DoAn1CongThanhDucThinh\LaTex_Document\DATN__Template_LaTexStudio
+PWD C:\xampp\htdocs\DoAn1CongThanhDucThinh\NOTE\LaTex_Document\DATN__Template_LaTexStudio
 INPUT C:\Users\PC\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
-INPUT c:\xampp\htdocs\DoAn1CongThanhDucThinh\LaTex_Document\DATN__Template_LaTexStudio\main.tex
+INPUT c:\xampp\htdocs\DoAn1CongThanhDucThinh\NOTE\LaTex_Document\DATN__Template_LaTexStudio\main.tex
 OUTPUT main.log
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\base\report.cls
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\base\report.cls
@@ -179,51 +179,10 @@ INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\tools\xspace.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\tools\xspace.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\relsize\relsize.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\relsize\relsize.sty
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\biblatex\biblatex.sty
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\biblatex\biblatex.sty
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\kvoptions\kvoptions.sty
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\kvoptions\kvoptions.sty
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\kvsetkeys\kvsetkeys.sty
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\kvsetkeys\kvsetkeys.sty
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\logreq\logreq.sty
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\logreq\logreq.sty
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\logreq\logreq.def
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\logreq\logreq.def
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\logreq\logreq.def
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\url\url.sty
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\url\url.sty
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\biblatex\blx-dm.def
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\biblatex\blx-dm.def
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\biblatex\blx-dm.def
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\biblatex\blx-compat.def
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\biblatex\blx-compat.def
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\biblatex\blx-compat.def
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\biblatex\biblatex.def
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\biblatex\biblatex.def
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\biblatex\biblatex.def
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\biblatex\bbx\numeric.bbx
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\biblatex\bbx\numeric.bbx
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\biblatex\bbx\numeric.bbx
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\biblatex\bbx\standard.bbx
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\biblatex\bbx\standard.bbx
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\biblatex\bbx\standard.bbx
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\biblatex-ieee\ieee.cbx
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\biblatex-ieee\ieee.cbx
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\biblatex-ieee\ieee.cbx
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\biblatex\cbx\numeric-verb.cbx
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\biblatex\cbx\numeric-verb.cbx
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\biblatex\cbx\numeric-verb.cbx
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\biblatex\biblatex.cfg
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\biblatex\biblatex.cfg
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\biblatex\biblatex.cfg
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\biblatex\lbx\english.lbx
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\biblatex\lbx\english.lbx
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\biblatex\blx-case-expl3.sty
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\biblatex\blx-case-expl3.sty
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\l3packages\xparse\xparse.sty
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\l3packages\xparse\xparse.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\hyperref\hyperref.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\hyperref\hyperref.sty
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\kvsetkeys\kvsetkeys.sty
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\kvsetkeys\kvsetkeys.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\generic\kvdefinekeys\kvdefinekeys.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\generic\kvdefinekeys\kvdefinekeys.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\generic\pdfescape\pdfescape.sty
@@ -236,6 +195,8 @@ INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\refcount\refcount.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\refcount\refcount.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\generic\gettitlestring\gettitlestring.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\generic\gettitlestring\gettitlestring.sty
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\kvoptions\kvoptions.sty
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\kvoptions\kvoptions.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\generic\stringenc\stringenc.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\generic\stringenc\stringenc.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\hyperref\pd1enc.def
@@ -246,6 +207,8 @@ INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\generic\intcalc\intcalc.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\hyperref\puenc.def
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\hyperref\puenc.def
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\hyperref\puenc.def
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\url\url.sty
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\url\url.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\generic\bitset\bitset.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\generic\bitset\bitset.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\generic\bigintcalc\bigintcalc.sty
@@ -284,13 +247,6 @@ INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmr10.tfm
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\translations\dicts\translations-basic-dictionary-english.trsl
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\translations\dicts\translations-basic-dictionary-english.trsl
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\translations\dicts\translations-basic-dictionary-english.trsl
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\biblatex\lbx\english.lbx
-OUTPUT main.bcf
-INPUT main.bbl
-INPUT .\main.bbl
-INPUT .\main.bbl
-INPUT .\main.bbl
-INPUT main.bbl
 INPUT .\main.out
 INPUT .\main.out
 INPUT main.out
@@ -413,10 +369,6 @@ INPUT .\main.lof
 INPUT .\main.lof
 INPUT main.lof
 OUTPUT main.lof
-INPUT .\main.lot
-INPUT .\main.lot
-INPUT main.lot
-OUTPUT main.lot
 INPUT .\LoiMoDau\LoiMoDau_main.tex
 INPUT .\LoiMoDau\LoiMoDau_main.tex
 INPUT .\LoiMoDau\LoiMoDau_main.tex
@@ -439,11 +391,61 @@ INPUT .\Chapter_2\Chuong2_main.tex
 INPUT .\Chapter_2\Chuong2_main.tex
 INPUT .\Chapter_2\Chuong2_main.tex
 INPUT Chapter_2\Chuong2_main.tex
+INPUT .\Chapter_2\Images_c2\So_do_UC_tong_quan.png
+INPUT .\Chapter_2\Images_c2\So_do_UC_tong_quan.png
+INPUT .\Chapter_2\Images_c2\So_do_UC_tong_quan.png
+INPUT .\Chapter_2\Images_c2\So_do_UC_tong_quan.png
+INPUT .\Chapter_2\Images_c2\So_do_UC_tong_quan.png
+INPUT .\Chapter_2\Images_c2\So_do_UC_tong_quan.png
+INPUT .\Chapter_2\Images_c2\So_do_UC_tong_quan.png
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\fonts\tfm\vntex\urwvn\utmri8v.tfm
+INPUT .\Chapter_2\images_c2\db.png
+INPUT .\Chapter_2\images_c2\db.png
+INPUT .\Chapter_2\images_c2\db.png
+INPUT .\Chapter_2\images_c2\db.png
+INPUT .\Chapter_2\images_c2\db.png
+INPUT .\Chapter_2\images_c2\db.png
+INPUT .\Chapter_2\images_c2\db.png
+INPUT .\Chapter_4\image\Sơ đồ class.png
+INPUT .\Chapter_4\image\Sơ đồ class.png
+INPUT .\Chapter_4\image\Sơ đồ class.png
+INPUT .\Chapter_4\image\Sơ đồ class.png
+INPUT .\Chapter_4\image\Sơ đồ class.png
+INPUT .\Chapter_4\image\Sơ đồ class.png
+INPUT .\Chapter_4\image\Sơ đồ class.png
 INPUT .\Chapter_3\Chuong3_main.tex
 INPUT .\Chapter_3\Chuong3_main.tex
 INPUT .\Chapter_3\Chuong3_main.tex
 INPUT .\Chapter_3\Chuong3_main.tex
 INPUT Chapter_3\Chuong3_main.tex
+INPUT .\Chapter_3\images_Usecase\đăng ký.png
+INPUT .\Chapter_3\images_Usecase\đăng ký.png
+INPUT .\Chapter_3\images_Usecase\đăng ký.png
+INPUT .\Chapter_3\images_Usecase\đăng ký.png
+INPUT .\Chapter_3\images_Usecase\đăng ký.png
+INPUT .\Chapter_3\images_Usecase\đăng ký.png
+INPUT .\Chapter_3\images_Usecase\đăng ký.png
+INPUT .\Chapter_3\images_Usecase\loginGoogle.png
+INPUT .\Chapter_3\images_Usecase\loginGoogle.png
+INPUT .\Chapter_3\images_Usecase\loginGoogle.png
+INPUT .\Chapter_3\images_Usecase\loginGoogle.png
+INPUT .\Chapter_3\images_Usecase\loginGoogle.png
+INPUT .\Chapter_3\images_Usecase\loginGoogle.png
+INPUT .\Chapter_3\images_Usecase\loginGoogle.png
+INPUT .\Chapter_3\images_Usecase\Thanh_toán.png
+INPUT .\Chapter_3\images_Usecase\Thanh_toán.png
+INPUT .\Chapter_3\images_Usecase\Thanh_toán.png
+INPUT .\Chapter_3\images_Usecase\Thanh_toán.png
+INPUT .\Chapter_3\images_Usecase\Thanh_toán.png
+INPUT .\Chapter_3\images_Usecase\Thanh_toán.png
+INPUT .\Chapter_3\images_Usecase\Thanh_toán.png
+INPUT .\Chapter_3\images_Usecase\qlykho.png
+INPUT .\Chapter_3\images_Usecase\qlykho.png
+INPUT .\Chapter_3\images_Usecase\qlykho.png
+INPUT .\Chapter_3\images_Usecase\qlykho.png
+INPUT .\Chapter_3\images_Usecase\qlykho.png
+INPUT .\Chapter_3\images_Usecase\qlykho.png
+INPUT .\Chapter_3\images_Usecase\qlykho.png
 INPUT .\Chapter_4\Chuong4_main.tex
 INPUT .\Chapter_4\Chuong4_main.tex
 INPUT .\Chapter_4\Chuong4_main.tex
@@ -453,16 +455,9 @@ INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\vntex\t5cmtt.fd
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\vntex\t5cmtt.fd
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\vntex\t5cmtt.fd
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\fonts\tfm\vntex\vnr\vntt12.tfm
-INPUT .\Appendix\PhuLuc_main.tex
-INPUT .\Appendix\PhuLuc_main.tex
-INPUT .\Appendix\PhuLuc_main.tex
-INPUT .\Appendix\PhuLuc_main.tex
-INPUT Appendix\PhuLuc_main.tex
 INPUT main.aux
 INPUT .\main.out
 INPUT .\main.out
-INPUT main.run.xml
-OUTPUT main.run.xml
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\fonts\type1\vntex\urwvn\utmb8v.pfb
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\fonts\type1\vntex\urwvn\utmb8v.pfb
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\fonts\type1\urw\times\utmr8a.pfb

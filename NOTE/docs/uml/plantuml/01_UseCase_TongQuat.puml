@@ -1,5 +1,4 @@
-@startuml
-title T&T COMPUTER - Use Case hiện trạng
+@startumlrạ
 skinparam backgroundColor white
 skinparam shadowing false
 skinparam roundcorner 8
@@ -11,24 +10,23 @@ actor "Khách hàng" as Customer
 actor "Nhân viên" as Staff
 actor "Quản trị viên" as Admin
 actor "Google Identity" as Google
-actor "SePay" as SePay
-rectangle "Website T&T COMPUTER" {
+actor "Cổng Thanh Toán" as SePay
+rectangle "Sơ đồ Use Case tổng quát" {
  usecase "Đăng ký" as UC01
- usecase "Đăng nhập / đăng xuất" as UC02
- usecase "Đăng nhập / liên kết Google" as UCG
+ usecase "Đăng nhập / đăng nhập Google" as UC02
  usecase "Xem, tìm kiếm, lọc sản phẩm" as UC03
  usecase "Quản lý giỏ hàng" as UC04
  usecase "Đặt hàng" as UC05
  usecase "Áp dụng voucher" as UC18
  usecase "Thanh toán COD / Online" as UC06
  usecase "Theo dõi / hủy đơn" as UC07
- usecase "Quản lý tài khoản, địa chỉ" as UC08
- usecase "Quản lý đơn / trạng thái" as UC09
- usecase "Kiểm tra tồn khi xác nhận" as UC10
+ usecase "Quản lý tài khoản" as UC08
+ usecase "Quản lý đơn hàng" as UC09
+ usecase "Kiểm tra tồn kho" as UC10
  usecase "Quản lý sản phẩm" as UC11
  usecase "Quản lý danh mục" as UC12
- usecase "Quản lý tài khoản nhân viên" as UC13
- usecase "Điều chỉnh kho / lịch sử" as UC14
+ usecase "Quản lý tài khoản người dùng" as UC13
+ usecase "Quản lý kho" as UC14
  usecase "Xem thống kê" as UC15
  usecase "Quản lý chương trình giảm giá" as UC16
  usecase "Quản lý voucher" as UC17
@@ -36,20 +34,18 @@ rectangle "Website T&T COMPUTER" {
 Guest --> UC01
 Guest --> UC02
 Guest --> UC03
-Customer --> UC02
 Customer --> UC03
 Customer --> UC04
 Customer --> UC05
 Customer --> UC06
 Customer --> UC07
 Customer --> UC08
-Customer --> UCG
-Google --> UCG
+Customer --> UC18
+Google --> UC02
 SePay --> UC06
 Staff --> UC09
 Staff --> UC10
-Admin --> UC09
-Admin --> UC10
+Admin --> Staff
 Admin --> UC11
 Admin --> UC12
 Admin --> UC13
@@ -58,12 +54,5 @@ Admin --> UC15
 Admin --> UC16
 Admin --> UC17
 UC18 ..> UC05 : <<extend>>\n[khách nhập voucher]
-note bottom of UC10
-Kiểm tra tồn được xác minh trong bước xác nhận đơn;
-không có màn hình use case độc lập.
-end note
-note bottom of UC06
-SePay Online có start/return/IPN;
-COD không gọi cổng ngoài.
-end note
+
 @enduml

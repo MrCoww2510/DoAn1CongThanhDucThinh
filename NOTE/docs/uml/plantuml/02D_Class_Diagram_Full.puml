@@ -1,0 +1,211 @@
+@startuml
+title CLASS DIAGRAM - T&T COMPUTER
+
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+
+package "Nguoi dung va tai khoan" {
+  class NguoiDung {
+    -MaND : String
+    -HoTen : String
+    -SDT : String
+    -Email : String
+    -DiaChiNhanHang : String
+    +xemThongTin() : void
+    +capNhatThongTin() : void
+  }
+
+  class TaiKhoan {
+    -MaTK : String
+    -MaND : String
+    -TenDangNhap : String
+    -MatKhau : String
+    -VaiTro : String
+    -TrangThai : String
+    -GoogleID : String
+    +dangNhap() : boolean
+    +dangXuat() : void
+    +doiMatKhau() : boolean
+  }
+
+  class DiaChiNhanHang {
+    -MaDiaChi : Integer
+    -MaND : String
+    -DiaChi : String
+  }
+}
+
+package "San pham va kho" {
+  class DanhMuc {
+    -MaDM : String
+    -TenDM : String
+    -TrangThai : String
+    +themDanhMuc() : void
+    +suaDanhMuc() : void
+    +xoaDanhMuc() : boolean
+  }
+
+  class SanPham {
+    -MaSP : String
+    -MaDM : String
+    -TenSP : String
+    -GiaBan : Decimal
+    -SoLuongTon : Integer
+    +themSanPham() : void
+    +suaSanPham() : void
+    +capNhatTonKho() : void
+  }
+
+  class ChiTietSanPham {
+    -MaCTSP : String
+    -MaSP : String
+    -LoaiSP : String
+    -ThongSoKT : String
+    -ThuongHieu : String
+    -HinhAnh : String
+    -MoTa : String
+    -TrangThai : String
+    +xemChiTiet() : void
+  }
+
+  class LichSuKho {
+    -MaLS : String
+    -MaSP : String
+    -SoLuongThayDoi : Integer
+    -LoaiThaoTac : String
+    -MaND : String
+    -ThoiGian : DateTime
+    +ghiNhanThayDoi() : void
+  }
+}
+
+package "Gio hang va don hang" {
+  class GioHang {
+    -MaGH : String
+    -MaND : String
+    -TongTien : Decimal
+    +themSanPham() : void
+    +suaSanPham() : void
+    +xoaSanPham() : void
+    +capNhatTongTien() : void
+  }
+
+  class ChiTietGioHang {
+    -MaCTGH : String
+    -MaGH : String
+    -MaSP : String
+    -SoLuong : Integer
+    +capNhatSoLuong() : void
+  }
+
+  class DonHang {
+    -MaDH : String
+    -MaND : String
+    -MaNV : String
+    -TenNguoiNhan : String
+    -DiaChiGiao : String
+    -SDTNhan : String
+    -TongTien : Decimal
+    -PhuongThucTT : String
+    -TrangThaiDH : String
+    -TrangThaiTT : String
+    -MaVoucherCode : String
+    -GiamGiaVoucher : Decimal
+    -DaHoanKho : Boolean
+    -NgayTao : DateTime
+    +taoDonHang() : void
+    +xemChiTiet() : void
+    +huyDonHang() : boolean
+    +capNhatTrangThai() : void
+  }
+
+  class ChiTietDonHang {
+    -MaCTDH : String
+    -MaDH : String
+    -MaSP : String
+    -SoLuong : Integer
+    -DonGia : Decimal
+    +tinhThanhTien() : Decimal
+  }
+
+  class GiaoDichThanhToan {
+    -MaGD : String
+    -MaDH : String
+    -MaGatewayTxn : String
+    -SoTien : Decimal
+    -TrangThai : String
+    -ThoiGianGiaoDich : DateTime
+    +taoGiaoDich() : void
+    +capNhatTrangThai() : boolean
+  }
+}
+
+package "Khuyen mai" {
+  class ChuongTrinhGiamGia {
+    -MaCTGG : String
+    -TenCTGG : String
+    -PhamVi : String
+    -LoaiGiam : String
+    -GiaTri : Decimal
+    -NgayBatDau : DateTime
+    -NgayKetThuc : DateTime
+    -TrangThai : String
+  }
+
+  class ChuongTrinhGiamGiaSanPham {
+    -MaCTGG : String
+    -MaSP : String
+  }
+
+  class Voucher {
+    -MaVoucher : String
+    -MaCode : String
+    -LoaiGiam : String
+    -GiaTri : Decimal
+    -NgayBatDau : DateTime
+    -NgayKetThuc : DateTime
+    -DonToiThieu : Decimal
+    -GiamToiDa : Decimal
+    -TongLuotToiDa : Integer
+    -LuotMoiKhachToiDa : Integer
+    -TrangThai : String
+  }
+
+  class VoucherSuDung {
+    -MaSuDung : String
+    -MaVoucher : String
+    -MaDH : String
+    -MaND : String
+    -SoTienGiam : Decimal
+    -ThoiGian : DateTime
+  }
+}
+
+NguoiDung "1" -- "0..1" TaiKhoan : co
+NguoiDung "1" -- "0..*" DiaChiNhanHang : dat
+NguoiDung "1" -- "0..1" GioHang : so huu
+GioHang "1" *-- "0..*" ChiTietGioHang : chua
+SanPham "1" -- "0..*" ChiTietGioHang : duoc them vao
+
+DanhMuc "1" -- "0..*" SanPham : phan loai
+SanPham "1" -- "0..1" ChiTietSanPham : thong tin
+SanPham "1" -- "0..*" LichSuKho : lich su
+NguoiDung "1" -- "0..*" LichSuKho : thuc hien
+
+NguoiDung "1" -- "0..*" DonHang : dat
+NguoiDung "0..1" -- "0..*" DonHang : nhan vien xu ly
+DonHang "1" *-- "1..*" ChiTietDonHang : gom
+SanPham "1" -- "0..*" ChiTietDonHang : xem
+DonHang "1" -- "0..*" GiaoDichThanhToan : thanh toan
+
+ChuongTrinhGiamGia "1" -- "0..*" ChuongTrinhGiamGiaSanPham : ap dung
+SanPham "1" -- "0..*" ChuongTrinhGiamGiaSanPham : tham gia
+Voucher "1" -- "0..*" VoucherSuDung : duoc su dung
+DonHang "1" -- "0..1" VoucherSuDung : ap dung
+NguoiDung "1" -- "0..*" VoucherSuDung : su dung
+
+@enduml

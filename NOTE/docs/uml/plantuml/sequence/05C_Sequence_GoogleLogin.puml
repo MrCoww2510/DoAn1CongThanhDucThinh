@@ -1,9 +1,9 @@
 @startuml
-title Google Login / link
+title Đăng nhập bằng Google
 skinparam backgroundColor white
 skinparam shadowing false
 skinparam defaultFontName Arial
-actor Khach as U
+actor Khachvanglai as U
 participant "Google Identity JS" as GJS
 participant "Google Identity" as G
 control Router as R
