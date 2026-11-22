@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1795352740.97793 "c:/xampp/htdocs/DoAn1CongThanhDucThinh/NOTE/LaTex_Document/DATN__Template_LaTexStudio/main.tex" "main.pdf" "main" 1795352747.86005 0
+["pdflatex"] 1795353039.97007 "c:/xampp/htdocs/DoAn1CongThanhDucThinh/NOTE/LaTex_Document/DATN__Template_LaTexStudio/main.tex" "main.pdf" "main" 1795353046.13483 0
   "C:/Users/PC/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1792572256.14438 89969 e95579120a3aa0ebc21d2737ca2ba701 ""
   "C:/Users/PC/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1792572093.21819 13332036 521e3aa81e1b0b2e1258546738e6c4ff ""
   "C:/Users/PC/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc" 1458473887 4993 1194fb36dfcb11d9ae9802f2b00b60a3 ""
@@ -153,12 +153,12 @@
   "Chapter_3/images_Usecase/đăng ký.png" 1795249421.26233 117888 7d3d1eba01698e5e16f10d1ed52d724f ""
   "Chapter_4/Chuong4_main.tex" 1795352224.82339 7827 3cfc32750731fc88ecd099605910961b ""
   "Chapter_4/image/Sơ đồ class.png" 1795334165.36756 89982 99f41144ad73a8a3a9327434c4da86da ""
-  "LoiMoDau/LoiMoDau_main.tex" 1795352739.79925 5708 5323a08fab57dd462b0b642c2bbddb09 ""
+  "LoiMoDau/LoiMoDau_main.tex" 1795353031.88581 5669 7bc9db87f0debf6afa68916c9e4f91e2 ""
   "c:/xampp/htdocs/DoAn1CongThanhDucThinh/NOTE/LaTex_Document/DATN__Template_LaTexStudio/main.tex" 1795352389.61932 9581 644dfa858028c55266a8bdddb3bf306c ""
-  "main.aux" 1795352747.2681 10563 82315fe3c1051ff27140c85f090b6c96 "pdflatex"
-  "main.lof" 1795352747.27889 960 14e82f8593d33103e8ebd56fa69fb7a7 "pdflatex"
-  "main.out" 1795352747.27313 10201 2a3098e18e345a0ae308fdd410d86275 "pdflatex"
-  "main.toc" 1795352747.27814 5069 a0bd1161b51642c752d83ea0a0266c69 "pdflatex"
+  "main.aux" 1795353045.63905 10560 96ce2bb774be4cf5a599b3d9b29a4791 "pdflatex"
+  "main.lof" 1795353045.65009 960 14e82f8593d33103e8ebd56fa69fb7a7 "pdflatex"
+  "main.out" 1795353045.64604 10191 67395248a99a95605c272d8d8c73ca2e "pdflatex"
+  "main.toc" 1795353045.65009 5066 4957ead046b285ecb1cf894fc12e53ac "pdflatex"
   (generated)
   "main.aux"
   "main.lof"
