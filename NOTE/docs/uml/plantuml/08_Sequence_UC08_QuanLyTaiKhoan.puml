@@ -1,0 +1,81 @@
+@startuml
+title Quản lý tài khoản
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequenceMessageAlign center
+hide footbox
+
+actor "Khách hàng" as Customer
+boundary "account page" as AccountPage
+participant Router
+control AccountController
+entity Account
+entity DeliveryAddress
+database MySQL as DB
+
+opt Cập nhật thông tin cá nhân / mật khẩu
+    Customer -> AccountPage: Sửa thông tin, nhấn Lưu
+    AccountPage -> Router: POST /account
+    Router -> AccountController: update()
+    AccountController -> AccountController: Kiểm tra CSRF, dữ liệu\nvà điều kiện đổi mật khẩu
+    alt CSRF không hợp lệ
+        AccountController --> AccountPage: HTTP 403
+    else Dữ liệu không hợp lệ
+        AccountController --> AccountPage: Hiển thị form và lỗi
+    else Dữ liệu hợp lệ
+        AccountController -> Account: updateCustomerProfile(...)
+        Account -> DB: BEGIN; khóa tài khoản;\nkiểm tra email không trùng
+        Account -> Account: Đối chiếu mật khẩu hiện tại nếu yêu cầu đổi
+        alt Email trùng / mật khẩu hiện tại không đúng
+            Account -> DB: ROLLBACK
+            Account --> AccountController: RuntimeException
+            AccountController --> AccountPage: Flash lỗi, không lưu
+        else Thông tin hợp lệ
+            opt Có yêu cầu đổi mật khẩu
+                Account -> DB: UPDATE mật khẩu đã băm
+                DB --> Account: Thành công
+            end
+            Account -> DB: UPDATE hồ sơ; COMMIT
+            DB --> Account: Thành công
+            Account --> AccountController: Thành công
+            AccountController --> AccountPage: Flash thành công;\nRedirect 303 /account
+        end
+    end
+end
+
+opt Quản lý sổ địa chỉ giao hàng
+    Customer -> AccountPage: Thêm / sửa / xóa địa chỉ
+    AccountPage -> Router: POST /account/addresses/add|update|delete
+    Router -> AccountController: addAddress() / updateAddress() / deleteAddress()
+    AccountController -> AccountController: Kiểm tra CSRF, vai trò\nKhách hàng và dữ liệu
+    alt CSRF không hợp lệ / không phải khách hàng
+        AccountController --> AccountPage: HTTP 403
+    else Dữ liệu không hợp lệ
+        AccountController --> AccountPage: Hiển thị form và lỗi
+    else Dữ liệu hợp lệ
+        AccountController -> DeliveryAddress: Thực hiện thao tác với MaND hiện tại
+        alt Thêm địa chỉ
+            DeliveryAddress -> DB: BEGIN; xác nhận khách hàng;\nthêm nếu chưa có; đặt mặc định nếu còn trống
+        else Sửa địa chỉ
+            DeliveryAddress -> DB: Xác nhận quyền sở hữu;\ncập nhật địa chỉ và hồ sơ mặc định
+        else Xóa địa chỉ
+            DeliveryAddress -> DB: Xác nhận quyền sở hữu;\nxóa địa chỉ và bỏ mặc định nếu khớp
+        end
+        DB --> DeliveryAddress: Kết quả thao tác
+        alt Thao tác thành công
+            DeliveryAddress --> AccountController: Thành công
+            AccountController --> AccountPage: Flash thành công;\nRedirect 303 /account
+        else Địa chỉ không thuộc khách hàng / lỗi lưu
+            DeliveryAddress --> AccountController: Từ chối / lỗi
+            AccountController --> AccountPage: Flash lỗi, không lưu
+        end
+    end
+end
+
+note over Customer, DB
+  Điều kiện trước: khách hàng đã đăng nhập.
+  Mọi thao tác địa chỉ giới hạn theo MaND của khách hàng hiện tại.
+  Sửa/xóa địa chỉ không làm thay đổi địa chỉ đã lưu trên đơn hàng cũ.
+end note
+@enduml

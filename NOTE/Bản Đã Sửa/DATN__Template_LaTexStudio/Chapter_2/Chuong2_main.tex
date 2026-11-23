@@ -27,7 +27,7 @@
 \subsection{Yêu cầu phi chức năng}
 Thông tin đầu vào cần được kiểm tra trước khi xử lý; thao tác thay đổi dữ liệu cần được thực hiện qua các luồng có kiểm soát. Dữ liệu tài khoản và đơn hàng được lưu trong cơ sở dữ liệu MySQL. Giao diện cần trình bày các chức năng rõ ràng trên trình duyệt máy tính và có thể sử dụng các tương tác JavaScript hiện có.
 
-\section{Tác nhân và quy trình nghiệp vụ}
+\section{Tác nhân và quy tắc nghiệp vụ}
 \subsection{Tác nhân}
 \begin{usecasetable}
     \textbf{Khách vãng lai:} & Là người truy cập website nhưng chưa được xác thực đăng nhập vào hệ thống. Khách vãng lai có thể đã có hoặc chưa có tài khoản. Tác nhân này chỉ có quyền đăng ký, đăng nhập, xem, tìm kiếm và lọc sản phẩm. Nếu muốn thực hiện thao tác với giỏ hàng hoặc mua hàng, hệ thống sẽ yêu cầu Khách vãng lai phải đăng nhập để chuyển thành Khách hàng. \\ \hline
@@ -38,12 +38,84 @@ Thông tin đầu vào cần được kiểm tra trước khi xử lý; thao tá
     \textbf{Google Identity:} & Là dịch vụ xác thực của Google cho phép người dùng đăng nhập vào hệ thống bằng tài khoản Google của họ. \\ \hline
 \end{usecasetable}
 
-\subsection{Quy trình đặt hàng}
-Khách hàng chọn sản phẩm và số lượng để đưa vào giỏ hàng. Khi tiến hành đặt hàng, hệ thống kiểm tra dữ liệu đơn hàng và các mặt hàng trong giỏ, tạo đơn cùng chi tiết đơn, cập nhật số lượng tồn kho và xóa các dòng giỏ hàng đã đặt. Các thao tác liên quan được xử lý trong giao dịch cơ sở dữ liệu. Đơn hàng trong phạm vi đồ án sử dụng hình thức COD.
+\subsection{Quy trình xử lý đơn hàng}
 
-\subsection{Quy trình hủy đơn}
-Khách hàng gửi yêu cầu hủy đơn từ danh sách đơn hàng. Hệ thống kiểm tra quyền sở hữu và trạng thái đơn trước khi xử lý; nếu đủ điều kiện, thông tin đơn được cập nhật và số lượng hàng được hoàn lại kho.
+Quy trình xử lý đơn hàng trong hệ thống được xác định như sau:
 
+\begin{center}
+Chờ xác nhận $\rightarrow$ Đang chuẩn bị hàng $\rightarrow$ Đang giao hàng $\rightarrow$ Hoàn thành / Giao hàng thất bại
+\end{center}
+
+Ngoài luồng xử lý chính, đơn hàng có thể chuyển từ trạng thái \textbf{Chờ xác nhận} sang \textbf{Đã hủy} khi khách hàng thực hiện hủy đơn theo điều kiện cho phép, hoặc hệ thống tự động hủy do thanh toán không thành công hoặc quá thời gian thanh toán quy định.
+
+\subsection{Quy tắc chuyển trạng thái đơn hàng}
+
+\begin{itemize}
+\item \textbf{Chờ xác nhận $\rightarrow$ Đang chuẩn bị hàng:} Nhân viên hoặc Quản trị viên xác nhận đơn hàng sau khi kiểm tra thông tin hợp lệ.
+
+\item \textbf{Chờ xác nhận $\rightarrow$ Đã hủy:} Khách hàng được phép hủy đơn khi đơn hàng chưa được xác nhận; hệ thống tự động hủy đơn khi giao dịch thanh toán không thành công hoặc quá thời gian thanh toán quy định.
+
+\item \textbf{Đang chuẩn bị hàng $\rightarrow$ Đang giao hàng:} Đơn hàng đã được chuẩn bị và chuyển sang quá trình giao hàng.
+
+\item \textbf{Đang giao hàng $\rightarrow$ Hoàn thành:} Đơn hàng hoàn tất quá trình giao hàng thành công.
+
+\item \textbf{Đang giao hàng $\rightarrow$ Giao hàng thất bại:} Giao hàng không thành công, chẳng hạn khách hàng từ chối nhận hàng hoặc shipper không thể liên lạc; đơn hàng được xử lý hoàn về kho.
+
+\item Không cho phép chuyển trạng thái tùy ý; trạng thái mới phải phù hợp với quy trình xử lý đơn hàng.
+
+\item Đơn hàng đã ở trạng thái \textbf{Đã hủy}, \textbf{Giao hàng thất bại} hoặc \textbf{Hoàn thành} không được chuyển sang trạng thái xử lý khác.
+\end{itemize}
+\subsection{Quy tắc hủy đơn hàng}
+\begin{itemize}
+    \item Khách hàng chỉ được phép hủy đơn khi đơn hàng đang ở trạng thái \textbf{Chờ xác nhận}.
+    \item Khách hàng không được phép tự hủy đơn khi đơn hàng đang ở trạng thái \textbf{Đang chuẩn bị hàng}, \textbf{Đang giao hàng} hoặc \textbf{Hoàn thành}.
+    \item Đơn hàng đã ở trạng thái \textbf{Đã hủy} không thể thực hiện thao tác hủy lại.
+\end{itemize}
+
+\subsection{Quy tắc quản lý tồn kho}
+
+\begin{itemize}
+\item Khi khách hàng đặt hàng thành công (tạo đơn hàng), hệ thống sẽ ngay lập tức \textbf{tạm trừ (giữ chỗ)} số lượng tồn kho của các sản phẩm tương ứng.
+\item Không cho phép tạo đơn hàng nếu số lượng tồn kho hiện tại không đủ đáp ứng số lượng trong giỏ hàng.
+\item Nếu đơn hàng chuyển sang trạng thái \textbf{Đã hủy} (do khách hàng hủy hoặc hệ thống tự động hủy do quá hạn thanh toán), hệ thống sẽ tự động \textbf{cộng trả lại} số lượng tồn kho đã tạm trừ.
+\item Nếu đơn hàng chuyển sang trạng thái \textbf{Giao hàng thất bại}, hệ thống sẽ \textbf{cộng trả lại} số lượng tồn kho sau khi xác nhận hàng hoàn về kho.
+\item Việc kiểm tra và tạm trừ tồn kho ngay tại thời điểm khách hàng đặt hàng giúp tránh tình trạng nhiều khách hàng cùng đặt một sản phẩm trong khi số lượng tồn kho có hạn.
+\item Hệ thống không cho phép số lượng tồn kho nhỏ hơn 0.
+\end{itemize}
+
+
+\subsection{Quy tắc thanh toán}
+
+Hệ thống hỗ trợ hai phương thức thanh toán cơ bản:
+
+\begin{itemize}
+    \item \textbf{Thanh toán khi nhận hàng (COD):} Khi đơn hàng được tạo, trạng thái thanh toán được ghi nhận là \textbf{Chưa thanh toán}. Khách hàng thực hiện thanh toán khi nhận hàng. Khi giao dịch COD được hoàn tất thành công, trạng thái thanh toán của đơn hàng được cập nhật thành \textbf{Đã thanh toán}.
+
+    \item \textbf{Thanh toán trực tuyến:} Hệ thống gửi yêu cầu giao dịch đến Cổng thanh toán. Chỉ khi nhận được kết quả giao dịch hợp lệ và thành công, hệ thống mới cập nhật trạng thái thanh toán thành \textbf{Đã thanh toán}.
+\end{itemize}
+
+Trạng thái thanh toán gồm:
+
+\begin{itemize}
+    \item \textbf{Chưa thanh toán:} Đơn hàng chưa ghi nhận thanh toán thành công.
+    \item \textbf{Đã thanh toán:} Đơn hàng đã ghi nhận thanh toán thành công.
+\end{itemize}
+
+\subsection{Quy tắc xử lý thanh toán trực tuyến thất bại}
+
+\begin{itemize}
+    \item Nếu giao dịch trực tuyến thất bại hoặc bị khách hàng hủy, hệ thống giữ trạng thái thanh toán là \textbf{Chưa thanh toán} và thông báo kết quả cho khách hàng.
+
+    \item Đối với đơn hàng vẫn còn hiệu lực và đang ở trạng thái chưa thanh toán, khách hàng được phép thực hiện lại thao tác thanh toán trực tuyến.
+
+    \item Hệ thống không tự động chuyển trạng thái thanh toán thành \textbf{Đã thanh toán} nếu chưa nhận được kết quả giao dịch thành công hợp lệ từ Cổng thanh toán.
+
+    \item Đơn hàng đã ở trạng thái \textbf{Đã thanh toán} không được thực hiện thanh toán lại.
+
+    \item Đơn hàng đã ở trạng thái \textbf{Đã hủy} không được thực hiện thanh toán.
+
+    \item Việc chuyển đổi từ thanh toán trực tuyến sang COD chỉ được thực hiện nếu hệ thống có hỗ trợ chức năng thay đổi phương thức thanh toán.
+\end{itemize}
 \section{Thiết kế kiến trúc}
 Hệ thống được tổ chức quanh front controller và router. Router chuyển yêu cầu đến controller tương ứng; controller gọi model để thực hiện nghiệp vụ và lấy dữ liệu; view nhận dữ liệu để hiển thị trang. Các model kết nối MySQL thông qua PDO. Cấu trúc này giữ phần giao diện tách biệt tương đối với xử lý nghiệp vụ và truy vấn dữ liệu.
 

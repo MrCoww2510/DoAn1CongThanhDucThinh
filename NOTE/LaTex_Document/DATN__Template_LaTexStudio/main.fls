@@ -391,6 +391,10 @@ INPUT .\Chapter_2\Chuong2_main.tex
 INPUT .\Chapter_2\Chuong2_main.tex
 INPUT .\Chapter_2\Chuong2_main.tex
 INPUT Chapter_2\Chuong2_main.tex
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\zptmcm7y.vf
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmsy10.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\symbol\psyr.tfm
+INPUT C:\Users\PC\AppData\Local\MiKTeX\fonts\tfm\public\rsfs\rsfs10.tfm
 INPUT .\Chapter_2\Images_c2\So_do_UC_tong_quan.png
 INPUT .\Chapter_2\Images_c2\So_do_UC_tong_quan.png
 INPUT .\Chapter_2\Images_c2\So_do_UC_tong_quan.png
@@ -458,6 +462,8 @@ INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\fonts\tfm\vntex\vnr\vntt12.tfm
 INPUT main.aux
 INPUT .\main.out
 INPUT .\main.out
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy10.pfb
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy10.pfb
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\fonts\type1\vntex\urwvn\utmb8v.pfb
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\fonts\type1\vntex\urwvn\utmb8v.pfb
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\fonts\type1\urw\times\utmr8a.pfb

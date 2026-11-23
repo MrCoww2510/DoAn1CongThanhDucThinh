@@ -1,0 +1,116 @@
+@startuml
+title Quản lý người dùng
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequenceMessageAlign center
+hide footbox
+
+actor "Quản trị viên" as Admin
+boundary "admin/users page" as UsersPage
+participant Router
+control UserManagementController
+entity Account
+database MySQL as DB
+
+Admin -> UsersPage: Mở danh sách / nhập từ khóa tìm kiếm
+UsersPage -> Router: GET /admin/users?q
+Router -> UserManagementController: index()
+UserManagementController -> Account: searchForManagement(query)
+Account -> DB: SELECT tài khoản và hồ sơ\nlọc tên đăng nhập, họ tên hoặc email
+DB --> Account: Danh sách tối đa 200 tài khoản
+Account --> UserManagementController: accounts
+UserManagementController --> UsersPage: Hiển thị danh sách, form và CSRF
+alt Có kết quả
+    UsersPage --> Admin: Danh sách tài khoản và thao tác
+else Không có kết quả
+    UsersPage --> Admin: Thông báo không tìm thấy tài khoản
+end
+
+opt Tạo tài khoản nhân viên
+    Admin -> UsersPage: Nhập thông tin nhân viên
+    UsersPage -> Router: POST /admin/users/create-staff
+    Router -> UserManagementController: createStaff()
+    UserManagementController -> UserManagementController: Kiểm tra CSRF, thông tin bắt buộc,\nđịnh dạng và độ dài mật khẩu
+    UserManagementController -> Account: Kiểm tra trùng tên đăng nhập / email
+    Account -> DB: SELECT kiểm tra tên đăng nhập và email
+    DB --> Account: Chưa dùng / đã tồn tại
+    alt CSRF, dữ liệu không hợp lệ hoặc thông tin đã dùng
+        UserManagementController --> UsersPage: Flash lỗi, redirect /admin/users
+    else Dữ liệu hợp lệ
+        UserManagementController -> Account: createStaff(...)
+        Account -> DB: BEGIN; INSERT hồ sơ người dùng;\nINSERT tài khoản nhân viên Hoạt động với mật khẩu đã băm
+        alt Ghi dữ liệu thành công
+            Account -> DB: COMMIT
+            DB --> Account: Thành công
+            Account --> UserManagementController: Thành công
+            UserManagementController --> UsersPage: Flash thành công,\nredirect /admin/users
+        else Lỗi lưu / trùng dữ liệu
+            Account -> DB: ROLLBACK
+            Account --> UserManagementController: PDOException
+            UserManagementController --> UsersPage: Flash lỗi,\nredirect /admin/users
+        end
+    end
+end
+
+opt Cập nhật thông tin nhân viên
+    Admin -> UsersPage: Sửa thông tin nhân viên
+    UsersPage -> Router: POST /admin/users/update-staff
+    Router -> UserManagementController: updateStaff()
+    UserManagementController -> UserManagementController: Kiểm tra CSRF, MaTK,\nthông tin và định dạng
+    UserManagementController -> Account: Kiểm tra trùng tên đăng nhập / email\nngoại trừ tài khoản đang sửa
+    Account -> DB: SELECT kiểm tra tên đăng nhập và email
+    DB --> Account: Chưa dùng / đã tồn tại
+    alt CSRF, dữ liệu không hợp lệ hoặc thông tin đã dùng
+        UserManagementController --> UsersPage: Flash lỗi,\nredirect /admin/users
+    else Dữ liệu hợp lệ
+        UserManagementController -> Account: updateStaff(MaTK, ...)
+        Account -> DB: BEGIN; tìm và khóa tài khoản có vai trò Nhân viên
+        DB --> Account: Tìm thấy / không tìm thấy
+        alt Là nhân viên hiện có
+            Account -> DB: UPDATE hồ sơ và tên đăng nhập; COMMIT
+            DB --> Account: Thành công
+            Account --> UserManagementController: Thành công
+            UserManagementController --> UsersPage: Flash thành công,\nredirect /admin/users
+        else Không tồn tại hoặc không phải nhân viên
+            Account -> DB: ROLLBACK
+            Account --> UserManagementController: Thất bại
+            UserManagementController --> UsersPage: Từ chối cập nhật,\nredirect /admin/users
+        end
+    end
+end
+
+opt Thay đổi trạng thái tài khoản
+    Admin -> UsersPage: Chọn trạng thái mới
+    UsersPage -> Router: POST /admin/users/status
+    Router -> UserManagementController: changeStatus()
+    UserManagementController -> UserManagementController: Kiểm tra CSRF, MaTK,\ntrạng thái hợp lệ và không tự khóa tài khoản hiện tại
+    alt Dữ liệu không hợp lệ / tự thay đổi trạng thái
+        UserManagementController --> UsersPage: Flash lỗi,\nredirect /admin/users
+    else Yêu cầu hợp lệ
+        UserManagementController -> Account: changeStatus(MaTK, trạng thái)
+        Account -> DB: BEGIN; khóa danh sách quản trị viên\nvà tài khoản cần đổi trạng thái
+        DB --> Account: Trạng thái tài khoản mục tiêu
+        alt Không tìm thấy tài khoản
+            Account -> DB: ROLLBACK
+            Account --> UserManagementController: missing
+            UserManagementController --> UsersPage: Flash lỗi,\nredirect /admin/users
+        else Vô hiệu hóa quản trị viên cuối cùng đang hoạt động
+            Account -> DB: ROLLBACK
+            Account --> UserManagementController: last_admin
+            UserManagementController --> UsersPage: Flash lỗi,\nredirect /admin/users
+        else Có thể cập nhật
+            Account -> DB: UPDATE TrangThai; COMMIT
+            DB --> Account: Thành công
+            Account --> UserManagementController: updated
+            UserManagementController --> UsersPage: Flash thành công,\nredirect /admin/users
+        end
+    end
+end
+
+note over Admin, DB
+  Điều kiện trước: quản trị viên đã đăng nhập.
+  Chỉ tạo/cập nhật tài khoản Nhân viên; trạng thái có thể đổi cho tài khoản khác.
+  Không xóa cứng tài khoản; không được vô hiệu hóa quản trị viên cuối cùng.
+end note
+@enduml

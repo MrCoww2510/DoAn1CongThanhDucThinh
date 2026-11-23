@@ -1,0 +1,84 @@
+@startuml
+title Quản lý chương trình giảm giá
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequenceMessageAlign center
+hide footbox
+
+actor "Quản trị viên" as Admin
+boundary "promotions page" as PromotionsPage
+participant Router
+control PromotionManagementController
+entity Promotion
+entity Product
+database MySQL as DB
+
+Admin -> PromotionsPage: Mở trang / chọn sửa chương trình
+PromotionsPage -> Router: GET /admin/promotions[?edit=MaCTGG]
+Router -> PromotionManagementController: campaigns()
+PromotionManagementController -> Promotion: listCampaigns()
+Promotion -> DB: SELECT chương trình và sản phẩm áp dụng
+DB --> Promotion: Danh sách chương trình
+Promotion --> PromotionManagementController: campaigns
+opt Có mã chương trình cần sửa
+    PromotionManagementController -> Promotion: findCampaign(MaCTGG)
+    Promotion -> DB: SELECT chương trình và danh sách sản phẩm
+    DB --> Promotion: Thông tin chương trình
+    Promotion --> PromotionManagementController: campaign
+end
+PromotionManagementController -> Product: allForManagement()
+Product -> DB: SELECT danh sách sản phẩm
+DB --> Product: Danh sách sản phẩm
+Product --> PromotionManagementController: products
+PromotionManagementController --> PromotionsPage: Hiển thị danh sách, biểu mẫu và CSRF
+alt Có chương trình
+    PromotionsPage --> Admin: Danh sách và trạng thái chương trình
+else Chưa có chương trình
+    PromotionsPage --> Admin: Thông báo chưa có chương trình giảm giá
+end
+
+opt Tạo mới hoặc cập nhật chương trình
+    Admin -> PromotionsPage: Nhập tên, phạm vi, sản phẩm,\nloại/mức giảm, thời gian và trạng thái
+    PromotionsPage -> Router: POST /admin/promotions/save
+    Router -> PromotionManagementController: saveCampaign()
+    PromotionManagementController -> PromotionManagementController: Kiểm tra CSRF, tên, phạm vi,\nloại/mức giảm, ngày và trạng thái
+    alt CSRF hoặc dữ liệu biểu mẫu không hợp lệ
+        PromotionManagementController --> PromotionsPage: Flash lỗi,\nredirect /admin/promotions
+    else Dữ liệu biểu mẫu hợp lệ
+        PromotionManagementController -> Promotion: saveCampaign(data, MaCTGG?)
+        Promotion -> Promotion: Kiểm tra phạm vi, mức phần trăm\nvà thời hạn
+        Promotion -> DB: Kiểm tra các mã sản phẩm tồn tại
+        DB --> Promotion: Kết quả kiểm tra
+        alt Phạm vi sản phẩm thiếu sản phẩm,\nsản phẩm không tồn tại hoặc điều kiện không hợp lệ
+            Promotion --> PromotionManagementController: RuntimeException
+            PromotionManagementController --> PromotionsPage: Flash lỗi,\nredirect /admin/promotions
+        else Điều kiện hợp lệ
+            Promotion -> DB: BEGIN; INSERT hoặc cập nhật chương trình
+            Promotion -> DB: Xóa liên kết sản phẩm cũ
+            opt Phạm vi áp dụng sản phẩm
+                loop Mỗi sản phẩm được chọn
+                    Promotion -> DB: INSERT liên kết chương trình - sản phẩm
+                end
+            end
+            alt Lưu thành công
+                Promotion -> DB: COMMIT
+                DB --> Promotion: Thành công
+                Promotion --> PromotionManagementController: Thành công
+                PromotionManagementController --> PromotionsPage: Flash thành công,\nredirect 303 /admin/promotions
+            else Lỗi khi lưu
+                Promotion -> DB: ROLLBACK
+                Promotion --> PromotionManagementController: Exception
+                PromotionManagementController --> PromotionsPage: Flash lỗi,\nredirect 303 /admin/promotions
+            end
+        end
+    end
+end
+
+note over Admin, DB
+  Điều kiện trước: quản trị viên đã đăng nhập và sản phẩm mục tiêu đã tồn tại.
+  Phạm vi toàn trang không cần chọn sản phẩm; phạm vi sản phẩm cần chọn ít nhất một sản phẩm.
+  Giá hiệu lực áp dụng theo thời gian/trạng thái; nếu nhiều chương trình cùng phù hợp,
+  chỉ áp dụng mức giảm lớn nhất, không cộng dồn.
+end note
+@enduml
