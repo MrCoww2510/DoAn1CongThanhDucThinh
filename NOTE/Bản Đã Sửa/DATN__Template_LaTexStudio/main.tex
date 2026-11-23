@@ -226,11 +226,7 @@
 \renewcommand{\contentsname}{MỤC LỤC}
 \renewcommand{\cfttoctitlefont}{\hfill\fontsize{16pt}{19.2pt}\selectfont\bfseries}
 \renewcommand{\cftaftertoctitle}{\hfill}
-% Mọi cấp mục lục bắt đầu cùng lề; số trang và dấu chấm dẫn theo mặc định tocloft.
-\setlength{\cftchapindent}{0pt}
-\setlength{\cftsecindent}{0pt}
-\setlength{\cftsubsecindent}{0pt}
-\setlength{\cftsubsubsecindent}{0pt}
+% Giữ lề thụt mặc định của tocloft theo cấp mục.
 \renewcommand{\cftchapfont}{\bfseries}
 \renewcommand{\cftsecfont}{\bfseries}
 \renewcommand{\cftsubsecfont}{\normalfont}
@@ -266,9 +262,6 @@
 \newlength{\mylen}
 \settowidth{\mylen}{\bfseries{\detokenize{CHƯƠNG} 1:}}
 \addtolength{\cftchapnumwidth}{\mylen}
-% Căn phần tên mục cùng một cột sau nhãn chương.
-\setlength{\cftsecnumwidth}{\cftchapnumwidth}
-\setlength{\cftsubsecnumwidth}{\cftchapnumwidth}
 \renewcommand{\cftchappresnum}{CHƯƠNG }
 \renewcommand{\cftchapaftersnum}{:}
 

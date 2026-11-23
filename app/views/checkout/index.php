@@ -276,7 +276,7 @@ $checkoutBaseUrl = rtrim((string) ($appConfig['base_url'] ?? ''), '/');
                     <label for="checkout-voucher-code">Mã voucher</label>
                     <input id="checkout-voucher-code" name="voucher_code" maxlength="50"
                         value="<?php echo $escape($voucher['code'] ?? ''); ?>" autocomplete="off">
-                    <button class="checkout-address-add-button" type="submit" formaction="<?php echo $escape($checkoutBaseUrl); ?>/checkout/voucher" formmethod="post" formnovalidate>
+                    <button class="checkout-voucher-apply" type="submit" formaction="<?php echo $escape($checkoutBaseUrl); ?>/checkout/voucher" formmethod="post" formnovalidate>
                         Áp dụng voucher
                     </button>
                     <?php if (($voucher['code'] ?? '') !== '') { ?>

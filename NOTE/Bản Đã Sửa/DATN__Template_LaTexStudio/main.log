@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex 2026.8.17)  24 NOV 2026 02:45
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex 2026.8.17)  24 NOV 2026 03:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -917,11 +917,11 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip135
 )
-Package hyperref Info: Option `colorlinks' set `false' on input line 304.
+Package hyperref Info: Option `colorlinks' set `false' on input line 297.
 Package translations Info: No language package found. I am going to use `englis
-h' as default language. on input line 312.
-LaTeX Font Info:    Trying to load font information for T5+ptm on input line 31
-2.
+h' as default language. on input line 305.
+LaTeX Font Info:    Trying to load font information for T5+ptm on input line 30
+5.
 
 (C:\Users\mrcow\AppData\Local\Programs\MiKTeX\tex/latex/vntex\t5ptm.fd
 File: t5utm.fd 2005/08/24 Fontinst v1.929 font definitions for T5/ptm.
@@ -929,26 +929,26 @@ File: t5utm.fd 2005/08/24 Fontinst v1.929 font definitions for T5/ptm.
 (main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 312.
-LaTeX Font Info:    ... okay on input line 312.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 312.
-LaTeX Font Info:    ... okay on input line 312.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 312.
-LaTeX Font Info:    ... okay on input line 312.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 312.
-LaTeX Font Info:    ... okay on input line 312.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 312.
-LaTeX Font Info:    ... okay on input line 312.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 312.
-LaTeX Font Info:    ... okay on input line 312.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 312.
-LaTeX Font Info:    ... okay on input line 312.
-LaTeX Font Info:    Checking defaults for T5/cmr/m/n on input line 312.
-LaTeX Font Info:    ... okay on input line 312.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 312.
-LaTeX Font Info:    ... okay on input line 312.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 312.
-LaTeX Font Info:    ... okay on input line 312.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 305.
+LaTeX Font Info:    ... okay on input line 305.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 305.
+LaTeX Font Info:    ... okay on input line 305.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 305.
+LaTeX Font Info:    ... okay on input line 305.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 305.
+LaTeX Font Info:    ... okay on input line 305.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 305.
+LaTeX Font Info:    ... okay on input line 305.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 305.
+LaTeX Font Info:    ... okay on input line 305.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 305.
+LaTeX Font Info:    ... okay on input line 305.
+LaTeX Font Info:    Checking defaults for T5/cmr/m/n on input line 305.
+LaTeX Font Info:    ... okay on input line 305.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 305.
+LaTeX Font Info:    ... okay on input line 305.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 305.
+LaTeX Font Info:    ... okay on input line 305.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1016,13 +1016,13 @@ File: translations-basic-dictionary-english.trsl (english translation file `tra
 nslations-basic-dictionary')
 )
 Package translations Info: loading dictionary `translations-basic-dictionary' f
-or `english'. on input line 312.
+or `english'. on input line 305.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
 \c@lstlisting=\count365
-Package hyperref Info: Link coloring OFF on input line 312.
+Package hyperref Info: Link coloring OFF on input line 305.
  (main.out) (main.out)
 \@outlinefile=\write3
 \openout3 = `main.out'.
@@ -1308,39 +1308,37 @@ File: Chapter_3/Images_sequence/TrinhTuUC18.png Graphic file (type png)
 Package pdftex.def Info: Chapter_3/Images_sequence/TrinhTuUC18.png  used on inp
 ut line 739.
 (pdftex.def)             Requested size: 446.13727pt x 194.83035pt.
-) [41] [42 <./Chapter_3/Images_sequence/TrinhTuUC18.png>] [43]
-LaTeX Font Info:    Trying to load font information for T5+cmtt on input line 9
-8.
+) [41] [42 <./Chapter_3/Images_sequence/TrinhTuUC18.png>] [43] [44]
+LaTeX Font Info:    Trying to load font information for T5+cmtt on input line 1
+07.
 
 (C:\Users\mrcow\AppData\Local\Programs\MiKTeX\tex/latex/vntex\t5cmtt.fd
 File: t5cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
-[44] [45]
-<Chapter_2/Images_c2/So_do_UC_tong_quan.png, id=951, 917.4275pt x 1406.25375pt>
-
-File: Chapter_2/Images_c2/So_do_UC_tong_quan.png Graphic file (type png)
-<use Chapter_2/Images_c2/So_do_UC_tong_quan.png>
-Package pdftex.def Info: Chapter_2/Images_c2/So_do_UC_tong_quan.png  used on in
-put line 144.
-(pdftex.def)             Requested size: 327.7763pt x 502.4315pt.
- [46]
+[45] [46]
+<Chapter_2/Images_c2/UMLTONGQUAT.png, id=955, 885.3075pt x 1455.4375pt>
+File: Chapter_2/Images_c2/UMLTONGQUAT.png Graphic file (type png)
+<use Chapter_2/Images_c2/UMLTONGQUAT.png>
+Package pdftex.def Info: Chapter_2/Images_c2/UMLTONGQUAT.png  used on input lin
+e 155.
+(pdftex.def)             Requested size: 327.7763pt x 538.85878pt.
 <Chapter_2/Images_c2/db.png, id=956, 1260.71pt x 1804.7425pt>
 File: Chapter_2/Images_c2/db.png Graphic file (type png)
 <use Chapter_2/Images_c2/db.png>
-Package pdftex.def Info: Chapter_2/Images_c2/db.png  used on input line 152.
+Package pdftex.def Info: Chapter_2/Images_c2/db.png  used on input line 163.
 (pdftex.def)             Requested size: 409.71692pt x 586.50684pt.
- [47 <./Chapter_2/Images_c2/So_do_UC_tong_quan.png>]
-<Chapter_4/image/Sơ đồ class.png, id=962, 2210.2575pt x 929.4725pt>
+ [47 <./Chapter_2/Images_c2/UMLTONGQUAT.png (PNG copy)>]
+<Chapter_4/image/Sơ đồ class.png, id=961, 2210.2575pt x 929.4725pt>
 File: Chapter_4/image/Sơ đồ class.png Graphic file (type png)
 <use Chapter_4/image/Sơ đồ class.png>
 Package pdftex.def Info: Chapter_4/image/Sơ đồ class.png  used on input lin
-e 160.
+e 171.
 (pdftex.def)             Requested size: 409.71692pt x 172.2901pt.
 ) [48 <./Chapter_2/Images_c2/db.png>] [49 <./Chapter_4/image/Sơ đồ class.pn
 g>]
 (Chapter_3/Chuong3_main.tex
 Ch\uhorn \ohorn ng 3.
-<TaiLieu/AnhChuong3/IMG01_trang_chu.png, id=974, 1433.355pt x 810.77907pt>
+<TaiLieu/AnhChuong3/IMG01_trang_chu.png, id=973, 1433.355pt x 810.77907pt>
 File: TaiLieu/AnhChuong3/IMG01_trang_chu.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG01_trang_chu.png>
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG01_trang_chu.png  used on input 
@@ -1349,14 +1347,14 @@ line 15.
 [50
 
  <./TaiLieu/AnhChuong3/IMG01_trang_chu.png>]
-<TaiLieu/AnhChuong3/IMG02_danh_sach_san_pham.png, id=980, 1395.71437pt x 739.26
+<TaiLieu/AnhChuong3/IMG02_danh_sach_san_pham.png, id=979, 1395.71437pt x 739.26
 187pt>
 File: TaiLieu/AnhChuong3/IMG02_danh_sach_san_pham.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG02_danh_sach_san_pham.png>
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG02_danh_sach_san_pham.png  used 
 on input line 28.
 (pdftex.def)             Requested size: 432.47531pt x 229.06728pt.
-<TaiLieu/AnhChuong3/IMG03_tim_kiem_loc_san_pham.png, id=981, 1396.4672pt x 741.
+<TaiLieu/AnhChuong3/IMG03_tim_kiem_loc_san_pham.png, id=980, 1396.4672pt x 741.
 52031pt>
 File: TaiLieu/AnhChuong3/IMG03_tim_kiem_loc_san_pham.png Graphic file (type png
 )
@@ -1364,7 +1362,7 @@ File: TaiLieu/AnhChuong3/IMG03_tim_kiem_loc_san_pham.png Graphic file (type png
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG03_tim_kiem_loc_san_pham.png  us
 ed on input line 34.
 (pdftex.def)             Requested size: 432.4742pt x 229.64262pt.
-<TaiLieu/AnhChuong3/IMG04_chi_tiet_san_pham.png, id=982, 1396.4672pt x 740.7675
+<TaiLieu/AnhChuong3/IMG04_chi_tiet_san_pham.png, id=981, 1396.4672pt x 740.7675
 pt>
 File: TaiLieu/AnhChuong3/IMG04_chi_tiet_san_pham.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG04_chi_tiet_san_pham.png>
@@ -1372,14 +1370,14 @@ Package pdftex.def Info: TaiLieu/AnhChuong3/IMG04_chi_tiet_san_pham.png  used o
 n input line 40.
 (pdftex.def)             Requested size: 432.4742pt x 229.40948pt.
  [51 <./TaiLieu/AnhChuong3/IMG02_danh_sach_san_pham.png>]
-<TaiLieu/AnhChuong3/IMG05_dang_ky_tai_khoan.png, id=988, 1860.9525pt x 987.69pt
+<TaiLieu/AnhChuong3/IMG05_dang_ky_tai_khoan.png, id=987, 1860.9525pt x 987.69pt
 >
 File: TaiLieu/AnhChuong3/IMG05_dang_ky_tai_khoan.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG05_dang_ky_tai_khoan.png>
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG05_dang_ky_tai_khoan.png  used o
 n input line 46.
 (pdftex.def)             Requested size: 386.94972pt x 205.37137pt.
-<TaiLieu/AnhChuong3/IMG06_dang_nhap.png, id=989, 1395.71437pt x 739.26187pt>
+<TaiLieu/AnhChuong3/IMG06_dang_nhap.png, id=988, 1395.71437pt x 739.26187pt>
 File: TaiLieu/AnhChuong3/IMG06_dang_nhap.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG06_dang_nhap.png>
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG06_dang_nhap.png  used on input 
@@ -1387,13 +1385,13 @@ line 52.
 (pdftex.def)             Requested size: 386.96393pt x 204.96147pt.
  [52 <./TaiLieu/AnhChuong3/IMG03_tim_kiem_loc_san_pham.png> <./TaiLieu/AnhChuon
 g3/IMG04_chi_tiet_san_pham.png>]
-<TaiLieu/AnhChuong3/IMG07_gio_hang.png, id=996, 1396.4672pt x 743.02594pt>
+<TaiLieu/AnhChuong3/IMG07_gio_hang.png, id=995, 1396.4672pt x 743.02594pt>
 File: TaiLieu/AnhChuong3/IMG07_gio_hang.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG07_gio_hang.png>
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG07_gio_hang.png  used on input l
 ine 58.
 (pdftex.def)             Requested size: 432.4742pt x 230.1089pt.
-<TaiLieu/AnhChuong3/IMG08_thong_tin_tai_khoan.png, id=997, 1396.4672pt x 740.01
+<TaiLieu/AnhChuong3/IMG08_thong_tin_tai_khoan.png, id=996, 1396.4672pt x 740.01
 47pt>
 File: TaiLieu/AnhChuong3/IMG08_thong_tin_tai_khoan.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG08_thong_tin_tai_khoan.png>
@@ -1402,7 +1400,7 @@ Package pdftex.def Info: TaiLieu/AnhChuong3/IMG08_thong_tin_tai_khoan.png  used
 (pdftex.def)             Requested size: 432.4742pt x 229.17635pt.
  [53 <./TaiLieu/AnhChuong3/IMG05_dang_ky_tai_khoan.png (PNG copy)> <./TaiLieu/A
 nhChuong3/IMG06_dang_nhap.png>]
-<TaiLieu/AnhChuong3/IMG16_nhan_vien_danh_sach_don.png, id=1003, 1396.4672pt x 7
+<TaiLieu/AnhChuong3/IMG16_nhan_vien_danh_sach_don.png, id=1002, 1396.4672pt x 7
 41.52031pt>
 File: TaiLieu/AnhChuong3/IMG16_nhan_vien_danh_sach_don.png Graphic file (type p
 ng)
@@ -1410,7 +1408,7 @@ ng)
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG16_nhan_vien_danh_sach_don.png  
 used on input line 74.
 (pdftex.def)             Requested size: 432.4742pt x 229.64262pt.
-<TaiLieu/AnhChuong3/IMG17_nhan_vien_cap_nhat_trang_thai_don.png, id=1004, 1394.
+<TaiLieu/AnhChuong3/IMG17_nhan_vien_cap_nhat_trang_thai_don.png, id=1003, 1394.
 96156pt x 740.0147pt>
 File: TaiLieu/AnhChuong3/IMG17_nhan_vien_cap_nhat_trang_thai_don.png Graphic fi
 le (type png)
@@ -1420,7 +1418,7 @@ _don.png  used on input line 80.
 (pdftex.def)             Requested size: 432.4762pt x 229.42476pt.
  [54 <./TaiLieu/AnhChuong3/IMG07_gio_hang.png> <./TaiLieu/AnhChuong3/IMG08_thon
 g_tin_tai_khoan.png>]
-<TaiLieu/AnhChuong3/IMG18_nhan_vien_xem_ton_kho.png, id=1011, 1394.96156pt x 74
+<TaiLieu/AnhChuong3/IMG18_nhan_vien_xem_ton_kho.png, id=1010, 1394.96156pt x 74
 0.0147pt>
 File: TaiLieu/AnhChuong3/IMG18_nhan_vien_xem_ton_kho.png Graphic file (type png
 )
@@ -1430,14 +1428,14 @@ ed on input line 86.
 (pdftex.def)             Requested size: 432.4762pt x 229.42476pt.
  [55 <./TaiLieu/AnhChuong3/IMG16_nhan_vien_danh_sach_don.png> <./TaiLieu/AnhChu
 ong3/IMG17_nhan_vien_cap_nhat_trang_thai_don.png>]
-<TaiLieu/AnhChuong3/IMG19_admin_dashboard.png, id=1019, 1397.22pt x 742.27313pt
+<TaiLieu/AnhChuong3/IMG19_admin_dashboard.png, id=1018, 1397.22pt x 742.27313pt
 >
 File: TaiLieu/AnhChuong3/IMG19_admin_dashboard.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG19_admin_dashboard.png>
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG19_admin_dashboard.png  used on 
 input line 96.
 (pdftex.def)             Requested size: 432.47282pt x 229.75117pt.
-<TaiLieu/AnhChuong3/IMG20_admin_quan_ly_san_pham.png, id=1020, 1396.4672pt x 74
+<TaiLieu/AnhChuong3/IMG20_admin_quan_ly_san_pham.png, id=1019, 1396.4672pt x 74
 0.7675pt>
 File: TaiLieu/AnhChuong3/IMG20_admin_quan_ly_san_pham.png Graphic file (type pn
 g)
@@ -1445,7 +1443,7 @@ g)
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG20_admin_quan_ly_san_pham.png  u
 sed on input line 102.
 (pdftex.def)             Requested size: 432.4742pt x 229.40948pt.
-<TaiLieu/AnhChuong3/IMG21_admin_them_sua_san_pham.png, id=1021, 1394.96156pt x 
+<TaiLieu/AnhChuong3/IMG21_admin_them_sua_san_pham.png, id=1020, 1394.96156pt x 
 739.26187pt>
 File: TaiLieu/AnhChuong3/IMG21_admin_them_sua_san_pham.png Graphic file (type p
 ng)
@@ -1455,7 +1453,7 @@ used on input line 108.
 (pdftex.def)             Requested size: 432.4762pt x 229.19136pt.
  [56 <./TaiLieu/AnhChuong3/IMG18_nhan_vien_xem_ton_kho.png> <./TaiLieu/AnhChuon
 g3/IMG19_admin_dashboard.png>]
-<TaiLieu/AnhChuong3/IMG22_admin_quan_ly_danh_muc.png, id=1028, 1395.71437pt x 7
+<TaiLieu/AnhChuong3/IMG22_admin_quan_ly_danh_muc.png, id=1027, 1395.71437pt x 7
 41.52031pt>
 File: TaiLieu/AnhChuong3/IMG22_admin_quan_ly_danh_muc.png Graphic file (type pn
 g)
@@ -1463,7 +1461,7 @@ g)
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG22_admin_quan_ly_danh_muc.png  u
 sed on input line 114.
 (pdftex.def)             Requested size: 432.47531pt x 229.76709pt.
-<TaiLieu/AnhChuong3/IMG23_admin_quan_ly_nguoi_dung.png, id=1029, 1395.71437pt x
+<TaiLieu/AnhChuong3/IMG23_admin_quan_ly_nguoi_dung.png, id=1028, 1395.71437pt x
  740.0147pt>
 File: TaiLieu/AnhChuong3/IMG23_admin_quan_ly_nguoi_dung.png Graphic file (type 
 png)
@@ -1473,7 +1471,7 @@ Package pdftex.def Info: TaiLieu/AnhChuong3/IMG23_admin_quan_ly_nguoi_dung.png
 (pdftex.def)             Requested size: 432.47531pt x 229.30055pt.
  [57 <./TaiLieu/AnhChuong3/IMG20_admin_quan_ly_san_pham.png> <./TaiLieu/AnhChuo
 ng3/IMG21_admin_them_sua_san_pham.png>]
-<TaiLieu/AnhChuong3/IMG24_admin_quan_ly_don_hang.png, id=1036, 1394.96156pt x 7
+<TaiLieu/AnhChuong3/IMG24_admin_quan_ly_don_hang.png, id=1035, 1394.96156pt x 7
 40.7675pt>
 File: TaiLieu/AnhChuong3/IMG24_admin_quan_ly_don_hang.png Graphic file (type pn
 g)
@@ -1481,7 +1479,7 @@ g)
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG24_admin_quan_ly_don_hang.png  u
 sed on input line 126.
 (pdftex.def)             Requested size: 432.4762pt x 229.65816pt.
-<TaiLieu/AnhChuong3/IMG25_admin_chi_tiet_cap_nhat_don.png, id=1037, 1394.96156p
+<TaiLieu/AnhChuong3/IMG25_admin_chi_tiet_cap_nhat_don.png, id=1036, 1394.96156p
 t x 740.7675pt>
 File: TaiLieu/AnhChuong3/IMG25_admin_chi_tiet_cap_nhat_don.png Graphic file (ty
 pe png)
@@ -1491,7 +1489,7 @@ ng  used on input line 132.
 (pdftex.def)             Requested size: 432.4762pt x 229.65816pt.
  [58 <./TaiLieu/AnhChuong3/IMG22_admin_quan_ly_danh_muc.png> <./TaiLieu/AnhChuo
 ng3/IMG23_admin_quan_ly_nguoi_dung.png>]
-<TaiLieu/AnhChuong3/IMG26_admin_quan_ly_ton_kho.png, id=1044, 1394.20876pt x 74
+<TaiLieu/AnhChuong3/IMG26_admin_quan_ly_ton_kho.png, id=1043, 1394.20876pt x 74
 0.0147pt>
 File: TaiLieu/AnhChuong3/IMG26_admin_quan_ly_ton_kho.png Graphic file (type png
 )
@@ -1499,7 +1497,7 @@ File: TaiLieu/AnhChuong3/IMG26_admin_quan_ly_ton_kho.png Graphic file (type png
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG26_admin_quan_ly_ton_kho.png  us
 ed on input line 138.
 (pdftex.def)             Requested size: 432.4768pt x 229.54898pt.
-<TaiLieu/AnhChuong3/IMG27_admin_thong_ke.png, id=1045, 1394.96156pt x 740.0147p
+<TaiLieu/AnhChuong3/IMG27_admin_thong_ke.png, id=1044, 1394.96156pt x 740.0147p
 t>
 File: TaiLieu/AnhChuong3/IMG27_admin_thong_ke.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG27_admin_thong_ke.png>
@@ -1508,7 +1506,7 @@ nput line 144.
 (pdftex.def)             Requested size: 432.4762pt x 229.42476pt.
  [59 <./TaiLieu/AnhChuong3/IMG24_admin_quan_ly_don_hang.png> <./TaiLieu/AnhChuo
 ng3/IMG25_admin_chi_tiet_cap_nhat_don.png>]
-<TaiLieu/AnhChuong3/IMG28_admin_quan_ly_voucher.png, id=1052, 1394.20876pt x 74
+<TaiLieu/AnhChuong3/IMG28_admin_quan_ly_voucher.png, id=1051, 1394.20876pt x 74
 0.0147pt>
 File: TaiLieu/AnhChuong3/IMG28_admin_quan_ly_voucher.png Graphic file (type png
 )
@@ -1531,7 +1529,7 @@ Package pdftex.def Info: Chapter_3/Images_sequence/TrinhTuUC05.png  used on inp
 ut line 172.
 (pdftex.def)             Requested size: 446.13727pt x 258.97499pt.
 <TaiLieu/AnhChuong3/IMG09_checkout_thong_tin_giao_hang_IMG10_checkout_chon_cod.
-png, id=1065, 1394.96156pt x 740.0147pt>
+png, id=1064, 1394.96156pt x 740.0147pt>
 File: TaiLieu/AnhChuong3/IMG09_checkout_thong_tin_giao_hang_IMG10_checkout_chon
 _cod.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG09_checkout_thong_tin_giao_hang_IMG10_checkout_chon_
@@ -1539,7 +1537,7 @@ cod.png>
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG09_checkout_thong_tin_giao_hang_
 IMG10_checkout_chon_cod.png  used on input line 180.
 (pdftex.def)             Requested size: 432.4762pt x 229.42476pt.
-<TaiLieu/AnhChuong3/IMG11_checkout_chon_sepay_sandbox.png, id=1066, 1860.9525pt
+<TaiLieu/AnhChuong3/IMG11_checkout_chon_sepay_sandbox.png, id=1065, 1860.9525pt
  x 986.68625pt>
 File: TaiLieu/AnhChuong3/IMG11_checkout_chon_sepay_sandbox.png Graphic file (ty
 pe png)
@@ -1548,7 +1546,7 @@ Package pdftex.def Info: TaiLieu/AnhChuong3/IMG11_checkout_chon_sepay_sandbox.p
 ng  used on input line 186.
 (pdftex.def)             Requested size: 432.46822pt x 229.29678pt.
  [62]
-<TaiLieu/AnhChuong3/IMG12_dat_hang_thanh_cong_cod.png, id=1071, 1394.96156pt x 
+<TaiLieu/AnhChuong3/IMG12_dat_hang_thanh_cong_cod.png, id=1070, 1394.96156pt x 
 740.0147pt>
 File: TaiLieu/AnhChuong3/IMG12_dat_hang_thanh_cong_cod.png Graphic file (type p
 ng)
@@ -1564,14 +1562,14 @@ File: Chapter_3/Images_sequence/TrinhTuUC07.png Graphic file (type png)
 Package pdftex.def Info: Chapter_3/Images_sequence/TrinhTuUC07.png  used on inp
 ut line 200.
 (pdftex.def)             Requested size: 446.13727pt x 215.71909pt.
-<TaiLieu/AnhChuong3/IMG13_lich_su_don_hang.png, id=1077, 1394.96156pt x 742.273
+<TaiLieu/AnhChuong3/IMG13_lich_su_don_hang.png, id=1076, 1394.96156pt x 742.273
 13pt>
 File: TaiLieu/AnhChuong3/IMG13_lich_su_don_hang.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG13_lich_su_don_hang.png>
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG13_lich_su_don_hang.png  used on
  input line 208.
 (pdftex.def)             Requested size: 432.4762pt x 230.12494pt.
-<TaiLieu/AnhChuong3/IMG14_chi_tiet_theo_doi_don_hang.png, id=1078, 1394.20876pt
+<TaiLieu/AnhChuong3/IMG14_chi_tiet_theo_doi_don_hang.png, id=1077, 1394.20876pt
  x 742.27313pt>
 File: TaiLieu/AnhChuong3/IMG14_chi_tiet_theo_doi_don_hang.png Graphic file (typ
 e png)
@@ -1580,7 +1578,7 @@ Package pdftex.def Info: TaiLieu/AnhChuong3/IMG14_chi_tiet_theo_doi_don_hang.pn
 g  used on input line 214.
 (pdftex.def)             Requested size: 432.4768pt x 230.24953pt.
  [64 <./TaiLieu/AnhChuong3/IMG12_dat_hang_thanh_cong_cod.png>]
-<TaiLieu/AnhChuong3/IMG15_huy_don_chua_thanh_toan_01.png, id=1084, 882.29625pt 
+<TaiLieu/AnhChuong3/IMG15_huy_don_chua_thanh_toan_01.png, id=1083, 882.29625pt 
 x 486.31688pt>
 File: TaiLieu/AnhChuong3/IMG15_huy_don_chua_thanh_toan_01.png Graphic file (typ
 e png)
@@ -1588,7 +1586,7 @@ e png)
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG15_huy_don_chua_thanh_toan_01.pn
 g  used on input line 220.
 (pdftex.def)             Requested size: 432.47704pt x 238.37898pt.
-<TaiLieu/AnhChuong3/IMG15_huy_don_chua_thanh_toan_02.png, id=1085, 882.29625pt 
+<TaiLieu/AnhChuong3/IMG15_huy_don_chua_thanh_toan_02.png, id=1084, 882.29625pt 
 x 514.17094pt>
 File: TaiLieu/AnhChuong3/IMG15_huy_don_chua_thanh_toan_02.png Graphic file (typ
 e png)
@@ -1618,7 +1616,7 @@ Package rerunfilecheck Info: File `main.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  22875 strings out of 467501
- 427608 string characters out of 5408550
+ 427559 string characters out of 5408550
  852873 words of memory out of 5000000
  51360 multiletter control sequences out of 15000+600000
  674920 words of font info for 98 fonts, out of 8000000 for 9000
@@ -1632,9 +1630,9 @@ imes/utmr8a.pfb><C:/Users/mrcow/AppData/Local/Programs/MiKTeX/fonts/type1/vntex
 /urwvn/utmr8v.pfb><C:/Users/mrcow/AppData/Local/Programs/MiKTeX/fonts/type1/vnt
 ex/urwvn/utmri8v.pfb><C:/Users/mrcow/AppData/Local/Programs/MiKTeX/fonts/type1/
 vntex/vnr/vntt12.pfb>
-Output written on main.pdf (85 pages, 4428832 bytes).
+Output written on main.pdf (85 pages, 4536419 bytes).
 PDF statistics:
- 1252 PDF objects out of 1440 (max. 8388607)
+ 1251 PDF objects out of 1440 (max. 8388607)
  387 named destinations out of 1000 (max. 500000)
  814 words of extra memory for PDF output out of 10000 (max. 10000000)
 

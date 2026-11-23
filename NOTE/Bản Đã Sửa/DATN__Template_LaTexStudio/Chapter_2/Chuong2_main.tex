@@ -28,7 +28,16 @@
 \input{Chapter_2/UseCases_Chuong2}
 
 \subsection{Yêu cầu phi chức năng}
-Thông tin đầu vào cần được kiểm tra trước khi xử lý; thao tác thay đổi dữ liệu cần được thực hiện qua các luồng có kiểm soát. Dữ liệu tài khoản và đơn hàng được lưu trong cơ sở dữ liệu MySQL. Giao diện cần trình bày các chức năng rõ ràng trên trình duyệt máy tính và có thể sử dụng các tương tác JavaScript hiện có.
+Các yêu cầu phi chức năng dưới đây được giới hạn cho môi trường đồ án chạy cục bộ bằng Apache, PHP và MySQL. Các ngưỡng thời gian là mục tiêu nghiệm thu đề xuất, chưa phải kết quả đo; cần được xác nhận bằng ca kiểm thử trên môi trường đã nêu.
+
+\begin{itemize}
+    \item \textbf{Bảo mật và phân quyền:} Mọi thao tác thay đổi dữ liệu phải được kiểm tra ở phía máy chủ; route quản trị chỉ cho phép tài khoản đúng vai trò thực hiện. Mật khẩu không lưu dạng văn bản thuần; truy vấn có dữ liệu do người dùng cung cấp phải dùng câu lệnh tham số hóa.
+    \item \textbf{Toàn vẹn dữ liệu:} Tạo đơn, ghi chi tiết đơn, trừ tồn và ghi nhận voucher phải thành công hoặc được hoàn tác cùng nhau khi phát sinh lỗi. Số lượng tồn không được âm; việc hủy đơn không được hoàn kho lặp.
+    \item \textbf{Tính đúng của thanh toán:} Đơn Online chỉ chuyển sang Đã thanh toán sau khi hệ thống xác minh thông báo IPN hợp lệ và đối chiếu đúng đơn, trạng thái, tiền tệ và số tiền. Kết quả quay về trình duyệt không được dùng làm căn cứ duy nhất.
+    \item \textbf{Hiệu năng trong môi trường phát triển:} Với bộ dữ liệu thử nghiệm tối đa 1.000 sản phẩm và một người dùng đồng thời trên máy phát triển, thao tác tải danh sách/tìm kiếm sản phẩm có mục tiêu phản hồi không quá 2 giây. Đây là ngưỡng đề xuất để kiểm tra, không phải số liệu đã đo.
+    \item \textbf{Khả năng sử dụng:} Các luồng xem sản phẩm, quản lý giỏ và đặt hàng phải thao tác được bằng trình duyệt máy tính và màn hình rộng từ 360 px; lỗi nhập liệu phải được thông báo gần trường liên quan và không làm mất dữ liệu hợp lệ đã nhập.
+    \item \textbf{Khả năng kiểm chứng:} Mỗi yêu cầu bảo mật, toàn vẹn và thanh toán phải có ít nhất một ca kiểm thử đạt và một ca kiểm thử lỗi tương ứng; kết quả cần ghi môi trường, dữ liệu đầu vào và kết quả thực tế trước khi kết luận đã đáp ứng.
+\end{itemize}
 
 \section{Tác nhân và quy tắc nghiệp vụ}
 \subsection{Tác nhân}
@@ -135,13 +144,15 @@ Cơ sở dữ liệu được định nghĩa trong \texttt{database/database.sql
 
 Các khóa chính định danh bản ghi; khóa ngoại duy trì liên kết giữa đơn và chi tiết, sản phẩm và lịch sử kho, cũng như voucher/lượt sử dụng. Các ràng buộc kiểm tra trong schema giới hạn giá trị trạng thái và số tiền ở những trường tương ứng.
 
+Một số cột được lưu để phục vụ nghiệp vụ hoặc tương thích với luồng dữ liệu hiện có. \texttt{NguoiDung.DiaChiNhanHang} là địa chỉ mặc định được dùng để điền sẵn biểu mẫu; bảng \texttt{DiaChiNhanHang} lưu sổ địa chỉ, và các thao tác thêm, sửa, xóa địa chỉ mặc định được đồng bộ với trường này trong model \texttt{DeliveryAddress}. Địa chỉ chụp tại thời điểm mua vẫn được lưu riêng trong \texttt{DonHang.DiaChiGiao} để thay đổi hồ sơ sau đó không làm thay đổi đơn cũ. \texttt{GioHang.TongTien} là giá trị tổng hợp được model giỏ hàng cập nhật khi thay đổi chi tiết và đặt lại khi giỏ được làm trống; khi checkout, giá và tổng tiền được tính lại từ dữ liệu phía máy chủ. Vì vậy, các trường tổng hợp này không được xem là nguồn giá độc lập.
+
 \section{Công cụ và môi trường}
 Ứng dụng được xây dựng bằng PHP, MySQL, HTML, CSS và JavaScript; PDO được dùng để kết nối cơ sở dữ liệu. Môi trường triển khai của dự án sử dụng máy chủ web Apache trong bộ XAMPP.
 
 \section{Sơ đồ Use Case tổng quan}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.72\textwidth, keepaspectratio]{Chapter_2/Images_c2/So_do_UC_tong_quan.png}
+    \includegraphics[width=0.72\textwidth, keepaspectratio]{Chapter_2/Images_c2/UMLTONGQUAT.png}
     \caption{Sơ đồ Use Case tổng quát của hệ thống website T\&T Computer}
     \label{fig:use-case-tong-quan}
 \end{figure}

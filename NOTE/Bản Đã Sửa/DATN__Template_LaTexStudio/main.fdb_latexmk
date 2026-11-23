@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1795463110.0041 "main.tex" "main.pdf" "main" 1795463119.44587 0
+["pdflatex"] 1795465672.06093 "main.tex" "main.pdf" "main" 1795465680.89917 0
   "Appendix/PhuLuc_main.tex" 1795462804.37883 1335 4f191aed6f5fa0da8dff8f4196e18de7 ""
   "C:/Users/mrcow/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1795448732.11883 89969 e95579120a3aa0ebc21d2737ca2ba701 ""
   "C:/Users/mrcow/AppData/Local/MiKTeX/fonts/tfm/public/rsfs/rsfs10.tfm" 1795448825.13538 688 37338d6ab346c2f1466b29e195316aa4 ""
@@ -151,8 +151,8 @@
   "Chapter_0/Chapter0_main.tex" 1795451169.1054 983 c6dce9c1b25081e21c62160524f9f9b0 ""
   "Chapter_0/logo.png" 1795437924.69296 138912 93f2aaa62c0d61e2e20abcefd24ae5e2 ""
   "Chapter_1/Chuong1_main.tex" 1795461507.39492 12909 5c0335d78a9da2f740d2f83e87be4665 ""
-  "Chapter_2/Chuong2_main.tex" 1795462716.03336 17848 90d375178edafb2852109d31064e50d9 ""
-  "Chapter_2/Images_c2/So_do_UC_tong_quan.png" 1795437924.69595 50965 1980bbf83e3d291093135d36926a673f ""
+  "Chapter_2/Chuong2_main.tex" 1795465588.1328 20809 c41559fe6df612e1b46834495539eba8 ""
+  "Chapter_2/Images_c2/UMLTONGQUAT.png" 1795465479.62455 146312 95116bcc2bcfd0dbd2f45a66c57acda0 ""
   "Chapter_2/Images_c2/db.png" 1795437924.69795 124089 8b8b474464a5b7b892befdd707516282 ""
   "Chapter_2/UseCases_Chuong2.tex" 1795462716.03836 49322 6c3be67114aff7d36bc6d1d5e5682a52 ""
   "Chapter_3/Chuong3_main.tex" 1795461612.26436 15400 41c6297a5187bab97acfb7fdaa37f299 ""
@@ -212,12 +212,12 @@
   "TaiLieu/AnhChuong3/IMG26_admin_quan_ly_ton_kho.png" 1795459925.49974 86854 ee0c4e2c05115a5df538e5ca794258cd ""
   "TaiLieu/AnhChuong3/IMG27_admin_thong_ke.png" 1795459956.40604 82983 88b46d517796e9f43053471c144781ad ""
   "TaiLieu/AnhChuong3/IMG28_admin_quan_ly_voucher.png" 1795460008.32374 63595 02db74fd6eeca21e095268c4de1aeb70 ""
-  "main.aux" 1795463118.98553 33616 85b5b9c21b6d8b5a71a7aeb60daf8804 "pdflatex"
-  "main.lof" 1795463119.01053 7415 bc012f54d83bb161132d13a53847a091 "pdflatex"
-  "main.lot" 1795463119.01053 2351 497fbfbf5bb2879dce5f3b3b8b638679 "pdflatex"
-  "main.out" 1795463119.0002 14498 a8c125830d3e9e292d0580dbc3c54b44 "pdflatex"
-  "main.tex" 1795462803.66885 13117 1ac986f93032e1d7c69cd487c2330289 ""
-  "main.toc" 1795463119.01053 6516 5438dce4f485bd360843a9718f52945a "pdflatex"
+  "main.aux" 1795465680.4648 33616 cfb885153a9df1d4b63d641ff1cf563c "pdflatex"
+  "main.lof" 1795465680.47918 7415 bc012f54d83bb161132d13a53847a091 "pdflatex"
+  "main.lot" 1795465680.47918 2351 c4a483e269372959e25c50a36fac730f "pdflatex"
+  "main.out" 1795465680.47918 14498 a8c125830d3e9e292d0580dbc3c54b44 "pdflatex"
+  "main.tex" 1795463378.77222 12771 1bb95d16a6b96e8cca8b4bf575da3875 ""
+  "main.toc" 1795465680.47918 6516 4efee9fa87dbc0a4abf5f77988f7386e "pdflatex"
   (generated)
   "main.aux"
   "main.lof"

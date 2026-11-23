@@ -482,6 +482,86 @@
     white-space: nowrap;
 }
 
+.checkout-voucher {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 9px 10px;
+    align-items: center;
+    margin-top: 14px;
+}
+
+.checkout-voucher label {
+    grid-column: 1 / -1;
+    color: #475569;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.checkout-voucher input {
+    min-width: 0;
+    width: 100%;
+    height: 46px;
+    padding: 0 13px;
+    color: #202938;
+    background: #fff;
+    border: 1px solid #d8dee8;
+    border-radius: 9px;
+    outline: none;
+    font: inherit;
+    transition: border-color .18s ease, box-shadow .18s ease;
+}
+
+.checkout-voucher input::placeholder {
+    color: #94a3b8;
+}
+
+.checkout-voucher input:focus {
+    border-color: #e85d3f;
+    box-shadow: 0 0 0 3px rgb(232 93 63 / 14%);
+}
+
+.checkout-voucher-apply {
+    min-height: 46px;
+    padding: 0 15px;
+    color: #d84f35;
+    background: #fff7f4;
+    border: 1px solid #f2a18d;
+    border-radius: 9px;
+    cursor: pointer;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 750;
+    white-space: nowrap;
+    transition: color .18s ease, background .18s ease, border-color .18s ease, transform .18s ease;
+}
+
+.checkout-voucher-apply:hover {
+    color: #fff;
+    background: #df553b;
+    border-color: #df553b;
+}
+
+.checkout-voucher-apply:active {
+    transform: translateY(1px);
+}
+
+.checkout-voucher .checkout-address-cancel-button {
+    grid-column: 2;
+    padding: 8px 12px;
+}
+
+.checkout-voucher p {
+    grid-column: 1 / -1;
+    margin: 0;
+    color: #64748b;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.checkout-voucher p[role="status"] {
+    color: #b42318;
+}
+
 .checkout-shipping-note {
     color: #718096;
     font-size: 12px;
