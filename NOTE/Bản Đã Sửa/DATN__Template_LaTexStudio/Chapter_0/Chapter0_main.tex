@@ -1,8 +1,8 @@
 % ------------------ 1-2_Trang Bia Chinh - Phu --------------------
 \input{Chapter_0/1_2_TrangBia}
 \newpage
-% ------------------- roman number of pages -------
-\pagenumbering{roman} % Start roman numbering
+% ------------------- Hide page numbers in the front matter -------
+\pagenumbering{gobble}
 % ------------------ 3_Chấp thuận của hội đồng --------------------
 % ------------------ 4_LỜI CAM ĐOAN --------------------
 \input{Chapter_0/4_LoiCamDoan}
@@ -21,6 +21,12 @@
 % ------------------- 9_DANH SÁCH HINH -------------
 
 \listoffigures     % Danh sach hinh ve
+
+\newpage
+\renewcommand{\listtablename}{DANH MỤC BẢNG}
+\listoftables
+
+\DanhMucTuVietTat
 
 \newpage
 

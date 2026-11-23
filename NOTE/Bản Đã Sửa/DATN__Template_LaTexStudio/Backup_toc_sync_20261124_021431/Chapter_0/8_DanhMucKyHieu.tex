@@ -1,0 +1,40 @@
+% Lệnh này được khai báo trong phần tiền tố và gọi tại trang danh mục.
+\newcommand{\DanhMucTuVietTat}{%
+  \chapter*{DANH MỤC CÁC TỪ VIẾT TẮT VÀ THUẬT NGỮ}%
+  \addcontentsline{toc}{chapter}{DANH MỤC CÁC TỪ VIẾT TẮT VÀ THUẬT NGỮ}%
+  \vspace{-40pt}%
+  \begin{longtable}{|p{3cm}|p{\dimexpr\textwidth-3cm-4\tabcolsep-3\arrayrulewidth\relax}|}
+    \hline
+    \textbf{Chữ viết tắt} & \textbf{Diễn giải} \\ \hline
+    \endfirsthead
+    \hline
+    \textbf{Chữ viết tắt} & \textbf{Diễn giải} \\ \hline
+    \endhead
+    \hline
+    \endfoot
+    \hline
+    \endlastfoot
+    Actor & Actor -- Tác nhân tương tác với hệ thống trong mô hình ca sử dụng. \\ \hline
+    Apache & Apache HTTP Server -- Phần mềm máy chủ web được sử dụng trong môi trường XAMPP. \\ \hline
+    COD & Cash on Delivery -- Thanh toán khi nhận hàng. \\ \hline
+    CSRF & Cross-Site Request Forgery -- Giả mạo yêu cầu liên trang; loại tấn công mà mã CSRF trong biểu mẫu giúp ngăn chặn. \\ \hline
+    CSS & Cascading Style Sheets -- Ngôn ngữ định dạng và trình bày giao diện trang web. \\ \hline
+    DOM & Document Object Model -- Mô hình đối tượng tài liệu, được JavaScript sử dụng để tương tác với nội dung trang. \\ \hline
+    FK & Foreign Key -- Khóa ngoại liên kết dữ liệu giữa các bảng trong cơ sở dữ liệu. \\ \hline
+    HTML & HyperText Markup Language -- Ngôn ngữ đánh dấu cấu trúc nội dung trang web. \\ \hline
+    HTTP & HyperText Transfer Protocol -- Giao thức truyền tải siêu văn bản dùng trong trao đổi dữ liệu web. \\ \hline
+    IPN & Instant Payment Notification -- Thông báo giao dịch thanh toán từ cổng thanh toán về hệ thống. \\ \hline
+    MVC & Model--View--Controller -- Mô hình tổ chức ứng dụng thành các thành phần dữ liệu, xử lý và giao diện. \\ \hline
+    MySQL & MySQL -- Hệ quản trị cơ sở dữ liệu quan hệ được sử dụng để lưu trữ dữ liệu của website. \\ \hline
+    PDO & PHP Data Objects -- Giao diện của PHP dùng để kết nối và thao tác với cơ sở dữ liệu. \\ \hline
+    PHP & PHP: Hypertext Preprocessor -- Ngôn ngữ lập trình phía máy chủ được sử dụng để xây dựng website. \\ \hline
+    PK & Primary Key -- Khóa chính dùng để định danh duy nhất một bản ghi trong bảng. \\ \hline
+    SePay & SePay -- Dịch vụ cổng thanh toán được tích hợp trong môi trường Sandbox. \\ \hline
+    SQL & Structured Query Language -- Ngôn ngữ truy vấn có cấu trúc dùng để định nghĩa và thao tác dữ liệu quan hệ. \\ \hline
+    UC & Use Case -- Ca sử dụng, mô tả chức năng hệ thống theo tương tác với tác nhân. \\ \hline
+    UQ & Unique Constraint -- Ràng buộc duy nhất, không cho phép giá trị bị trùng trong phạm vi được quy định. \\ \hline
+    URL & Uniform Resource Locator -- Địa chỉ định danh tài nguyên trên mạng. \\ \hline
+    VND & Vietnamese đồng -- Đồng Việt Nam, đơn vị tiền tệ dùng trong giao dịch của hệ thống. \\ \hline
+    XAMPP & Tên bộ môi trường phát triển web tích hợp; trong đồ án, môi trường này cung cấp Apache và PHP để chạy ứng dụng kết nối MySQL. \\ \hline
+  \end{longtable}%
+}

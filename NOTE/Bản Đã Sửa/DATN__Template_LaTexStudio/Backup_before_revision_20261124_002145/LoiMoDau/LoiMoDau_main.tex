@@ -1,0 +1,53 @@
+\addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
+\chapter*{LỜI MỞ ĐẦU}\label{loimodau_intro}
+\addcontentsline{toc}{chapter}{LỜI MỞ ĐẦU}
+\vspace{-40pt}
+
+\renewcommand{\thesection}{\arabic{section}} % Loại bỏ số chương (0) phía trước, chỉ hiện số thứ tự section
+% ------------------------------------------
+\section{Lý do chọn đề tài}
+Máy tính và linh kiện có nhiều chủng loại, mức giá và thông số kỹ thuật cần cân nhắc trước khi mua. Một kênh trực tuyến tập trung thông tin sản phẩm, chức năng tìm kiếm và lọc có thể giúp khách hàng tra cứu thuận tiện hơn; đồng thời hỗ trợ cửa hàng tiếp nhận đơn và quản lý các hoạt động bán hàng trên cùng hệ thống. Bài toán này đòi hỏi các chức năng sản phẩm, tài khoản, giỏ hàng, đơn hàng và tồn kho phối hợp nhất quán.
+
+Từ yêu cầu đó, nhóm lựa chọn đề tài ``Xây dựng website thương mại điện tử bán máy tính và linh kiện máy tính'' cho T\&T Computer. Đề tài vừa hướng đến quy trình mua hàng trực tuyến cơ bản, vừa tạo cơ hội vận dụng kiến thức phân tích yêu cầu, thiết kế cơ sở dữ liệu và xây dựng ứng dụng web vào một hệ thống cụ thể.
+\section{Mục tiêu của đề tài}
+\noindent\textbf{Mục tiêu tổng quát.} Phân tích, thiết kế và xây dựng website thương mại điện tử T\&T Computer để giới thiệu máy tính, linh kiện và hỗ trợ khách hàng thực hiện các bước mua hàng trực tuyến; đồng thời cung cấp một số công cụ quản trị sản phẩm, đơn hàng và dữ liệu bán hàng.
+
+\noindent\textbf{Mục tiêu cụ thể.} Đồ án tập trung vào các mục tiêu sau:
+\begin{itemize}
+    \item Phân tích tác nhân, yêu cầu và quy tắc nghiệp vụ; thiết kế các sơ đồ Use Case, trình tự, lớp và cơ sở dữ liệu.
+    \item Xây dựng chức năng tra cứu, tìm kiếm và lọc sản phẩm, cùng các chức năng đăng ký, đăng nhập, quản lý hồ sơ, địa chỉ và giỏ hàng.
+    \item Kết nối quy trình đặt hàng với kiểm tra giá, khuyến mãi, voucher và tồn kho; hỗ trợ khách theo dõi đơn và hủy đơn theo điều kiện.
+    \item Xây dựng các chức năng quản trị sản phẩm, danh mục, người dùng, tồn kho, đơn hàng, ưu đãi và thống kê phù hợp với vai trò được cấp.
+    \item Tích hợp đăng nhập Google và xây dựng luồng thanh toán trực tuyến ở môi trường SePay Sandbox bên cạnh phương thức COD; đánh giá rõ phạm vi kiểm chứng của các tích hợp này.
+\end{itemize}
+\section{Đối tượng và phạm vi}
+\noindent\textbf{Đối tượng nghiên cứu.} Quy trình giới thiệu và bán máy tính, linh kiện qua website; các nhóm người dùng gồm khách vãng lai, khách hàng, nhân viên và quản trị viên; cùng cách tổ chức dữ liệu và xử lý nghiệp vụ cho ứng dụng web thương mại điện tử.
+
+\noindent\textbf{Phạm vi chức năng và triển khai.} Hệ thống tập trung vào danh mục và thông tin sản phẩm, tìm kiếm/lọc, tài khoản khách hàng, giỏ hàng, địa chỉ nhận hàng, khuyến mãi và voucher, đặt hàng, thanh toán COD, theo dõi/hủy đơn, quản lý tồn kho và các chức năng quản trị liên quan. Mã nguồn có luồng thanh toán SePay Sandbox và đăng nhập Google; hai tích hợp này phụ thuộc cấu hình và dịch vụ bên ngoài. Website được xây dựng bằng PHP, MySQL và PDO, giao diện dùng HTML, CSS, JavaScript; báo cáo xác định môi trường chạy là Apache trong XAMPP.
+
+\noindent\textbf{Giới hạn của đề tài.} Đồ án chưa hướng đến vận hành thương mại chính thức. Chương 1 nêu COD là phương thức được triển khai, trong khi Chương 2 mô tả thanh toán trực tuyến và mã nguồn có luồng SePay Sandbox; do đó chưa thể xem thanh toán trực tuyến là đã được kiểm chứng vận hành. Hệ thống chưa tích hợp hãng vận chuyển để đồng bộ hành trình giao hàng, cũng chưa có quy trình tiếp nhận và xử lý yêu cầu bảo hành/đổi trả của khách hàng. Thống kê hiện tập trung vào doanh thu, trạng thái đơn và tồn kho, chưa có dữ liệu giá vốn để tính lợi nhuận. Quy tắc tự động hủy đơn quá hạn được mô tả trong Chương 2 nhưng chưa thấy tác vụ tự động tương ứng trong mã nguồn. Báo cáo hiện không có nhật ký kiểm thử hay số liệu ca đạt/không đạt, nên chưa thể kết luận về kiểm thử đầu cuối, hiệu năng hoặc độ ổn định khi vận hành thực tế.
+
+
+\section{Phương pháp thực hiện}
+\begin{itemize}
+    \item \textbf{Nghiên cứu và phân tích nghiệp vụ:} Tổng hợp yêu cầu từ bài toán và tài liệu hiện có, xác định người dùng, quyền hạn và các quy tắc liên quan đến sản phẩm, giỏ hàng, đơn hàng, thanh toán và tồn kho.
+    \item \textbf{Phân tích và thiết kế hệ thống:} Đặc tả chức năng bằng Use Case, mô tả các luồng xử lý bằng sơ đồ trình tự, xây dựng sơ đồ lớp và sơ đồ cơ sở dữ liệu, sau đó đối chiếu thiết kế với cấu trúc bảng hiện có.
+    \item \textbf{Xây dựng ứng dụng:} Phát triển các trang giao diện và xử lý nghiệp vụ bằng PHP, HTML, CSS và JavaScript; tổ chức mã nguồn theo front controller, router, controller, model và view; sử dụng PDO để làm việc với MySQL.
+    \item \textbf{Rà soát và kiểm tra:} Đối chiếu các route, controller, model, view và luồng dữ liệu cho những nghiệp vụ chính. Do báo cáo chưa có bộ ca kiểm thử cùng nhật ký kết quả, phần này không đưa ra số lượng ca hoặc tỷ lệ đạt và không thay thế kiểm thử tích hợp trên môi trường vận hành.
+\end{itemize}
+
+
+\section{Cấu trúc báo cáo}
+\begin{itemize}
+    \item \textbf{Chương 1: Tổng quan lý thuyết và cơ sở nghiên cứu} \\
+    Giới thiệu bài toán, website thương mại điện tử và các công nghệ, kiến trúc ứng dụng được sử dụng.
+    
+    \item \textbf{Chương 2: Phân tích và thiết kế hệ thống} \\
+    Trình bày yêu cầu, tác nhân, quy tắc nghiệp vụ, kiến trúc, cơ sở dữ liệu và các sơ đồ phân tích, thiết kế.
+    
+    \item \textbf{Chương 3: Phân tích chức năng Use Case} \\
+    Đặc tả 18 Use Case của khách hàng, nhân viên và quản trị viên, kèm các luồng xử lý và sơ đồ trình tự liên quan.
+    
+    \item \textbf{Chương 4: Kết luận và đề xuất} \\
+    Đánh giá kết quả và mức độ hoàn thành, chỉ ra các giới hạn đã xác định, đồng thời đề xuất hướng phát triển phù hợp.
+\end{itemize}

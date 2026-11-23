@@ -1,0 +1,65 @@
+\addtocontents{toc}{\protect\setcounter{tocdepth}{3}}
+\chapter{TỔNG QUAN LÝ THUYẾT VÀ CƠ SỞ NGHIÊN CỨU}\label{chap1_intro}
+\vspace{-40pt}
+\renewcommand{\thesection}{\thechapter.\arabic{section}}
+\setcounter{section}{0}
+
+\section{Tổng quan bài toán}
+\subsection{Đặc điểm của bài toán}
+Máy tính và linh kiện máy tính có nhiều chủng loại, mức giá và thông số kỹ thuật khác nhau. Khi lựa chọn sản phẩm, khách hàng thường cần xem thông tin về thương hiệu, danh mục, giá bán và đặc điểm sản phẩm để cân nhắc nhu cầu sử dụng. Website bán hàng vì vậy cần tổ chức danh mục rõ ràng, cung cấp chức năng tra cứu và hỗ trợ khách hàng thực hiện các bước mua hàng mà không phải đến cửa hàng trực tiếp.
+
+Trong phạm vi đồ án, website T\&T Computer hướng đến việc kết nối hoạt động giới thiệu sản phẩm với các nghiệp vụ tài khoản, giỏ hàng, đặt hàng, thanh toán và quản lý đơn hàng. Hệ thống đồng thời cần có các chức năng quản trị để nhân viên và quản trị viên cập nhật dữ liệu sản phẩm, xử lý đơn hàng và theo dõi một số thông tin hoạt động.
+
+\subsection{Vấn đề cần giải quyết}
+Nếu thông tin sản phẩm và đơn hàng được quản lý rời rạc, khách hàng khó tra cứu hàng hóa và cửa hàng khó theo dõi xuyên suốt quá trình tiếp nhận, xử lý đơn. Từ đó, bài toán đặt ra là xây dựng một ứng dụng web có dữ liệu tập trung, cho phép khách duyệt và tìm sản phẩm, quản lý giỏ hàng, cung cấp thông tin nhận hàng, tạo và theo dõi đơn; phía quản trị có thể quản lý danh mục, sản phẩm, khách hàng, tồn kho và trạng thái đơn hàng theo quyền được cấp.
+
+Mục tiêu của hệ thống là cung cấp quy trình mua sắm trực tuyến cơ bản, bảo đảm dữ liệu đơn hàng và sản phẩm được xử lý nhất quán trong phạm vi ứng dụng. Báo cáo tập trung trình bày cơ sở hình thành giải pháp; yêu cầu, mô hình và thiết kế chi tiết được trình bày ở Chương 2, còn các chức năng đã xây dựng được mô tả ở Chương 3.
+
+\section{Các giải pháp và hệ thống liên quan}
+Một số website bán lẻ công nghệ công khai các cách tổ chức thông tin sản phẩm có thể dùng để tham khảo. Danh mục laptop của FPT Shop cung cấp các lựa chọn lọc theo những thuộc tính như thương hiệu, mức giá, bộ xử lý, bộ nhớ và lưu trữ; danh mục linh kiện máy tính trên Tiki tổ chức sản phẩm theo nhóm hàng và hỗ trợ lọc, sắp xếp danh sách \cite{fptshop-laptop,tiki-components}. Những ví dụ này cho thấy việc phân loại sản phẩm và hỗ trợ thu hẹp kết quả tra cứu là những thành phần hữu ích với mặt hàng có nhiều lựa chọn kỹ thuật.
+
+T\&T Computer hiện tổ chức sản phẩm theo danh mục và hỗ trợ tra cứu theo từ khóa, thương hiệu, loại sản phẩm, khoảng giá cùng một số tiêu chí sắp xếp. Qua đối chiếu với các danh mục tham khảo, định hướng của đồ án là xây dựng quy trình mua hàng và quản trị phù hợp với phạm vi môn học, đồng thời cung cấp nền tảng để có thể phát triển thêm bộ lọc theo thông số kỹ thuật hoặc chức năng so sánh sản phẩm. Các trang công khai chỉ được dùng để quan sát cách trình bày và tổ chức danh mục; báo cáo không suy luận về kiến trúc nội bộ hay chất lượng vận hành của các hệ thống đó.
+
+\section{Cơ sở lý thuyết}
+\subsection{Mô hình website thương mại điện tử}
+Website thương mại điện tử là ứng dụng web hỗ trợ việc giới thiệu hàng hóa và trao đổi thông tin phục vụ giao dịch giữa người bán và người mua. Với T\&T Computer, luồng nghiệp vụ phía khách hàng gồm duyệt hoặc tìm sản phẩm, xem chi tiết, đưa sản phẩm vào giỏ, nhập thông tin giao nhận, lựa chọn phương thức thanh toán và theo dõi đơn hàng. Ở phía cửa hàng, người có quyền phù hợp quản lý dữ liệu danh mục, sản phẩm, tồn kho và tiếp nhận, cập nhật trạng thái đơn.
+
+Quy trình cần kiểm tra dữ liệu ở phía máy chủ, chẳng hạn số lượng đặt mua và thông tin đơn hàng, thay vì chỉ dựa vào giao diện trình duyệt. Sau khi tạo đơn, dữ liệu đơn hàng và chi tiết hàng hóa cần được lưu để phục vụ tra cứu và xử lý tiếp theo. Hệ thống hiện hỗ trợ thanh toán khi nhận hàng và luồng thanh toán trực tuyến qua SePay Sandbox; việc tích hợp sandbox không đồng nghĩa với việc đã xác nhận vận hành thanh toán thương mại thực tế.
+
+\subsection{Cơ sở dữ liệu quan hệ và tính nhất quán}
+Cơ sở dữ liệu quan hệ lưu dữ liệu trong các bảng có cấu trúc, liên kết với nhau thông qua khóa chính và khóa ngoại. Việc tách thông tin thành các nhóm thực thể như tài khoản, sản phẩm, danh mục, giỏ hàng, đơn hàng và giao dịch giúp hạn chế lặp dữ liệu và biểu diễn được quan hệ giữa các nghiệp vụ. Khi thiết kế, cần xác định kiểu dữ liệu, ràng buộc và quan hệ phù hợp để dữ liệu được lưu nhất quán.
+
+Một số thao tác nghiệp vụ gồm nhiều bước liên quan cần được thực hiện như một giao dịch: hoặc các thay đổi cùng được ghi nhận, hoặc được hoàn tác khi có lỗi. Trong hệ thống, cách tiếp cận này có ý nghĩa với việc tạo đơn và cập nhật dữ liệu liên quan, tránh để lại trạng thái dở dang giữa các bảng. Các bảng và quan hệ cụ thể của T\&T Computer được mô tả trong phần thiết kế cơ sở dữ liệu ở Chương 2.
+
+\subsection{Xác thực, phân quyền và bảo vệ ứng dụng web}
+Xác thực giúp hệ thống xác định người đang sử dụng; phân quyền giới hạn thao tác theo vai trò. T\&T Computer phân biệt khách chưa đăng nhập, khách hàng, nhân viên và quản trị viên, sau đó kiểm tra quyền ở các chức năng tương ứng. Thông tin mật khẩu được lưu dưới dạng băm thông qua cơ chế của PHP thay vì lưu trực tiếp mật khẩu gốc \cite{php-password-hash}.
+
+Các truy vấn có dữ liệu đầu vào cần dùng câu lệnh tham số hóa để giảm nguy cơ chèn lệnh SQL. PDO cung cấp giao diện truy cập cơ sở dữ liệu và hỗ trợ prepared statements trong ứng dụng PHP \cite{php-pdo}. Với thao tác thay đổi dữ liệu gửi từ trình duyệt, mã thông báo CSRF được kiểm tra ở phía máy chủ; đây là biện pháp giảm nguy cơ yêu cầu giả mạo được gửi thay cho người dùng đã đăng nhập \cite{owasp-csrf}. Dữ liệu hiển thị cũng cần được xử lý phù hợp với ngữ cảnh để hạn chế việc chèn nội dung không an toàn.
+
+\subsection{Giao dịch và xử lý thanh toán}
+Giao dịch cơ sở dữ liệu cho phép nhóm các thao tác cần duy trì tính toàn vẹn và xác nhận hoặc hoàn tác chúng theo kết quả xử lý \cite{mysql-transactions}. Đây là cơ sở cần thiết khi ghi nhận đơn hàng, chi tiết đơn và các thay đổi liên quan đến số lượng sản phẩm. Việc kiểm tra lại dữ liệu hiện hành ở máy chủ giúp hạn chế sử dụng thông tin giá hoặc số lượng cũ do trình duyệt gửi lên.
+
+Với thanh toán khi nhận hàng, đơn được ghi nhận trước và thanh toán được xác nhận khi quy trình giao nhận hoàn tất theo nghiệp vụ. Với thanh toán trực tuyến, hệ thống chuyển khách hàng sang luồng SePay Sandbox và chỉ cập nhật kết quả sau khi nhận, kiểm tra thông báo hợp lệ từ dịch vụ. Trạng thái quay về từ trang thanh toán không tự nó được xem là bằng chứng thanh toán thành công. Phần này mô tả nguyên tắc nghiệp vụ có trong mã nguồn; cấu hình sandbox và môi trường thử nghiệm không chứng minh khả năng giao dịch production.
+
+\section{Công nghệ sử dụng}
+\subsection{PHP và tổ chức ứng dụng}
+PHP được dùng để xử lý yêu cầu phía máy chủ, kiểm tra dữ liệu và thực hiện nghiệp vụ. Mã nguồn có bộ định tuyến tiếp nhận yêu cầu rồi điều phối đến controller; controller kết hợp model để truy cập dữ liệu và view để tạo giao diện. Cấu trúc này tách biệt tương đối các phần xử lý, dữ liệu và trình bày, nhưng được xem là cách tổ chức theo hướng MVC một phần, không phải khẳng định dự án sử dụng một framework MVC hoàn chỉnh.
+
+\subsection{MySQL và PDO}
+MySQL lưu dữ liệu nghiệp vụ của website. Ứng dụng PHP kết nối MySQL qua PDO; các model sử dụng câu lệnh tham số hóa để truy vấn và cập nhật dữ liệu. PDO cũng cho phép điều khiển giao dịch trong các luồng cần phối hợp nhiều thao tác cơ sở dữ liệu [3].
+
+\subsection{HTML, CSS và JavaScript}
+HTML mô tả cấu trúc nội dung, CSS định dạng bố cục và giao diện, còn JavaScript hỗ trợ tương tác phía trình duyệt. Website chủ yếu kết xuất trang từ phía máy chủ bằng PHP, kết hợp JavaScript cho một số thao tác giao diện; vì vậy JavaScript không thay thế phần xử lý nghiệp vụ và kiểm tra dữ liệu ở máy chủ.
+
+\subsection{Môi trường và dịch vụ tích hợp}
+Trong môi trường phát triển của đồ án, Apache và MySQL được cung cấp qua XAMPP. Dự án có tích hợp thư viện Google API Client cho luồng xác thực Google và dịch vụ SePay ở chế độ sandbox cho luồng thanh toán trực tuyến. Đây là các thành phần hỗ trợ cụ thể trong mã nguồn; kết quả sử dụng thực tế còn phụ thuộc cấu hình thông tin xác thực và môi trường dịch vụ tương ứng.
+
+\section{Giải pháp và kiến trúc tổng quan}
+Người dùng gửi yêu cầu từ trình duyệt đến ứng dụng PHP. Bộ định tuyến chuyển yêu cầu đến controller phù hợp; controller kiểm tra phiên đăng nhập, quyền truy cập và dữ liệu cần thiết, sau đó gọi model. Model giao tiếp với MySQL thông qua PDO. Kết quả được chuyển đến view để kết xuất trang HTML trả về trình duyệt. Với những luồng cần dịch vụ bên ngoài, ứng dụng trao đổi với Google trong quá trình xác thực hoặc SePay Sandbox trong quá trình thanh toán.
+
+Ở mức tổng quan, khách chưa đăng nhập có thể xem và tìm sản phẩm, còn khách hàng đã xác thực có thể sử dụng các chức năng gắn với tài khoản, giỏ hàng và đơn hàng. Nhân viên xử lý các nghiệp vụ được giao như sản phẩm, tồn kho hoặc đơn hàng; quản trị viên có quyền quản lý rộng hơn, gồm tài khoản và các cấu hình quản trị. Quyền cụ thể được kiểm soát trong ứng dụng, không chỉ bằng cách ẩn hoặc hiện liên kết trên giao diện.
+
+Kiến trúc trên thể hiện các thành phần đã có trong source code, không thay thế sơ đồ phân tích thiết kế chi tiết. Các tác nhân, yêu cầu chức năng, sơ đồ UML và mô hình dữ liệu được trình bày ở Chương 2; chức năng theo từng ca sử dụng được trình bày ở Chương 3.
+
+\section{Tổng kết chương}
+Chương này đã nêu bài toán bán máy tính và linh kiện qua website, tham khảo cách tổ chức danh mục ở một số hệ thống bán lẻ công khai, đồng thời giới thiệu cơ sở dữ liệu quan hệ, xác thực, phân quyền, bảo vệ ứng dụng và xử lý giao dịch có liên quan trực tiếp đến T\&T Computer. Các công nghệ và kiến trúc được trình bày theo những thành phần tìm thấy trong source code. Đây là cơ sở để phân tích yêu cầu và thiết kế hệ thống ở chương tiếp theo.

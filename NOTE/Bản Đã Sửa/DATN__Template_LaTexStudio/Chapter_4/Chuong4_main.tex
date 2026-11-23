@@ -1,65 +1,57 @@
-\chapter{TỔNG KẾT}\label{chap4_intro}
+\chapter{KẾT LUẬN VÀ ĐỀ XUẤT}\label{chap4_intro}
 \vspace{-40pt}
 
-\section{Kết quả đạt được}
+\section{Kết luận và mức độ hoàn thành đề tài}
 
-\subsection{Hoàn thành các chức năng chính của hệ thống}
+\subsection{Tổng hợp kết quả đạt được so với mục tiêu}
 
-Các chức năng đã triển khai bao gồm:
-\begin{itemize}
-    \item Đăng ký, đăng nhập, đăng xuất bằng tài khoản của hệ thống; hỗ trợ đăng nhập và liên kết tài khoản bằng Google.
-    \item Xem trang chủ, danh mục, danh sách sản phẩm, tìm kiếm, lọc và xem thông tin chi tiết sản phẩm.
-    \item Quản lý giỏ hàng theo tài khoản khách hàng, thêm hoặc xóa sản phẩm, thay đổi số lượng và tính lại tổng tiền.
-    \item Quản lý hồ sơ khách hàng và sổ địa chỉ giao hàng; cho phép người dùng cập nhật thông tin cá nhân, mật khẩu và địa chỉ.
-    \item Tạo đơn hàng thanh toán khi nhận hàng (COD), chọn địa chỉ, kiểm tra tồn kho, tạm trừ số lượng khi đặt hàng và xóa các dòng giỏ hàng đã chuyển thành đơn.
-    \item Xem danh sách đơn hàng, xem chi tiết đơn và hủy đơn ở trạng thái cho phép; hoàn lại tồn kho khi đơn được hủy hoặc hàng hoàn về kho theo quy tắc xử lý.
-    \item Tích hợp SePay ở phương thức thanh toán trực tuyến thông qua sandbox, tạo yêu cầu thanh toán và xử lý kết quả thành công, thất bại, hủy giao dịch cùng thông báo IPN.
-    \item Quản lý sản phẩm, danh mục, người dùng, nhân viên, tồn kho, khuyến mãi, voucher, đơn hàng và thống kê kinh doanh trong khu vực quản trị.
-    \item Quản lý trạng thái đơn hàng theo quy trình từ Chờ xác nhận, Đang chuẩn bị hàng, Đang giao hàng đến Hoàn thành hoặc Giao hàng thất bại.
-    \item Ghi nhận lịch sử thay đổi tồn kho, gồm loại thao tác, sản phẩm, số lượng thay đổi, người thực hiện và thời gian.
-\end{itemize}
+Về phân tích và thiết kế, báo cáo đã xác định các tác nhân gồm khách vãng lai, khách hàng, nhân viên, quản trị viên, cổng thanh toán và dịch vụ Google Identity; đồng thời mô tả 18 ca sử dụng cho các nghiệp vụ từ tra cứu sản phẩm đến quản lý voucher. Sơ đồ Use Case tổng quan, các sơ đồ trình tự và sơ đồ cơ sở dữ liệu giúp liên kết yêu cầu với các bước xử lý và dữ liệu chính như tài khoản, sản phẩm, giỏ hàng, đơn hàng, địa chỉ, tồn kho, khuyến mãi và giao dịch thanh toán. Đây là cơ sở phù hợp để tổ chức các chức năng trong phạm vi website bán máy tính và linh kiện.
 
-\subsection{Đáp ứng các yêu cầu về dữ liệu và nghiệp vụ}
+Về xây dựng hệ thống, mã nguồn dùng PHP, MySQL và PDO, với giao diện HTML, CSS và JavaScript; báo cáo xác định môi trường chạy là Apache trong XAMPP. Front controller và router chuyển yêu cầu đến controller, các model xử lý dữ liệu, còn view hiển thị nội dung. Cách tổ chức này đã kết nối các trang dành cho khách hàng với nghiệp vụ và cơ sở dữ liệu, đồng thời tách khu vực quản trị khỏi trải nghiệm mua sắm. Giao diện có các trang danh mục, tìm kiếm, chi tiết sản phẩm, giỏ hàng, thanh toán, tài khoản và quản trị; mã CSS cũng có các quy tắc hiển thị theo kích thước màn hình.
 
-Mã nguồn đã sử dụng prepared statements của PDO để truy vấn dữ liệu dựa trên đầu vào của người dùng. Các thao tác thay đổi dữ liệu quan trọng được xử lý trong transaction, đặc biệt là đăng ký tài khoản, cập nhật giỏ hàng, tạo đơn hàng, hủy đơn và cập nhật tồn kho. Khi một giao dịch gặp lỗi, hệ thống rollback để tránh lưu một phần dữ liệu hoặc làm thay đổi tổng thể sản phẩm không nhất quán.
+Ở phía khách hàng, hệ thống đã triển khai đăng ký, đăng nhập bằng tài khoản website, đăng nhập hoặc liên kết tài khoản Google, cập nhật hồ sơ và sổ địa chỉ. Khách có thể tìm theo tên, lọc sản phẩm theo danh mục, thương hiệu, loại và khoảng giá, sắp xếp danh sách, xem chi tiết, quản lý giỏ hàng và áp dụng khuyến mãi hoặc voucher khi đặt hàng. Đơn hàng lưu thông tin nhận hàng và giá trị giảm tại thời điểm tạo; khách hàng có thể xem trạng thái và yêu cầu hủy khi đơn còn ở trạng thái Chờ xác nhận. Các bước kiểm tra giá, voucher và tồn kho được thực hiện lại ở phía máy chủ.
 
-Mật khẩu người dùng được lưu bằng cơ chế \texttt{password\_hash()} và kiểm tra bằng \texttt{password\_verify()}. Các biểu mẫu thay đổi dữ liệu sử dụng mã CSRF. Controller kiểm tra phiên đăng nhập, vai trò và trạng thái tài khoản trước khi cho truy cập các chức năng giỏ hàng, đặt hàng, tài khoản hoặc khu vực quản trị.
+Ở phía vận hành, nhân viên và quản trị viên có các chức năng phù hợp với vai trò để xử lý đơn và xem tồn kho; quản trị viên còn quản lý sản phẩm, danh mục, người dùng, nhân viên, kho, chương trình giảm giá, voucher và thống kê. Tồn kho được cập nhật cùng với việc tạo, hủy hoặc xử lý hàng hoàn của đơn, và lịch sử kho ghi nhận sản phẩm, lượng thay đổi, thao tác, người thực hiện và thời gian. Thống kê hiện tập trung vào số đơn theo trạng thái, doanh thu từ đơn hoàn thành, sản phẩm bán nhiều và sản phẩm sắp hết hàng; chưa có cơ sở để mô tả đây là báo cáo lợi nhuận.
 
-Cơ sở dữ liệu MySQL lưu các nhóm dữ liệu chính gồm người dùng, tài khoản, danh mục, sản phẩm, giỏ hàng, đơn hàng, địa chỉ nhận hàng, voucher, khuyến mãi, lịch sử kho và thông tin thanh toán. Các khóa chính, khóa ngoại và ràng buộc được sử dụng để liên kết dữ liệu và kiểm soát quan hệ nghiệp vụ.
+Một số biện pháp bảo vệ dữ liệu đã được triển khai trong mã nguồn: truy vấn tham số hóa bằng PDO, băm và kiểm tra mật khẩu, kiểm tra CSRF, xác thực phiên và vai trò ở controller, cùng transaction và khóa bản ghi cho một số nghiệp vụ như đặt hàng, cập nhật tồn kho, voucher và ghi nhận thanh toán. Luồng trực tuyến qua SePay có phần khởi tạo checkout và tiếp nhận IPN; mã xử lý kiểm tra thông tin xác thực, trạng thái, tiền tệ và số tiền trước khi cập nhật đơn. Tuy nhiên, đây là tích hợp Sandbox; việc có mã xử lý không tự chứng minh giao dịch đã được kiểm thử xuyên suốt với cấu hình thật hoặc sẵn sàng vận hành production.
 
-Hệ thống đã áp dụng một số quy tắc kinh doanh quan trọng:
-\begin{itemize}
-    \item Không cho thêm sản phẩm ngừng kinh doanh hoặc vượt quá số lượng tồn kho.
-    \item Tính lại giá khuyến mãi và voucher ở phía máy chủ; không sử dụng số tiền do trình duyệt gửi lên làm cơ sở tạo đơn.
-    \item Chỉ ghi nhận lượt sử dụng voucher khi đơn hàng được tạo thành công.
-    \item Chỉ khách hàng sở hữu đơn mới được xem và hủy đơn; chỉ hủy được đơn ở trạng thái Chờ xác nhận.
-    \item Doanh thu thống kê chỉ được tính từ đơn hàng ở trạng thái Hoàn thành.
-    \item Đơn hàng giữ lịch sử tổng tiền, địa chỉ nhận hàng và giá trị voucher tại thời điểm đặt hàng.
-\end{itemize}
+Về kiểm chứng, báo cáo có ảnh giao diện để minh họa các màn hình nhưng chưa có bảng ca kiểm thử, nhật ký hoặc kết quả chạy T\&T có thể xác minh. Vì vậy, không thể xác nhận tổng số ca đạt, không đạt hay chưa thực hiện, cũng không thể tính tỷ lệ đạt từ tài liệu hiện có. Chưa có căn cứ để kết luận về hiệu năng, an toàn trước tấn công, khả năng chịu tải hay độ ổn định khi vận hành dài hạn.
 
-\subsection{Đánh giá bước đầu}
+\subsection{Phạm vi đã hoàn thành và những nội dung còn giới hạn}
 
-Các thành phần chức năng đã được tích hợp thành luồng sử dụng liên tục thay vì xây dựng các trang giao diện độc lập. Người dùng có thể xem sản phẩm, quản lý giỏ hàng, đặt hàng, theo dõi đơn và thực hiện các thao tác liên quan đến tài khoản. Phía quản trị có thể xử lý đơn hàng và quản lý dữ liệu kinh doanh trong phạm vi website đã xây dựng.
+Trong phạm vi Đồ án 1, các chức năng cốt lõi đã hình thành một quy trình mua hàng có thể theo dõi từ tra cứu sản phẩm, quản lý giỏ và thông tin nhận hàng đến tạo đơn; phía quản trị có thể quản lý dữ liệu bán hàng, điều chỉnh tồn kho, xử lý trạng thái đơn và xem các thống kê cơ bản. Việc tính lại giá và voucher ở máy chủ, cập nhật tồn kho cùng đơn hàng trong transaction, và ghi lịch sử thay đổi giúp giảm nguy cơ dữ liệu đơn lẻ bị lệch khi một thao tác thất bại. Đây là mức hoàn thành phù hợp cho một hệ thống đồ án chạy trong môi trường phát triển.
 
-Các kết quả kiểm tra hiện tại chủ yếu dựa trên đối chiếu mã nguồn, cấu trúc route, controller, model và giao diện. Các luồng xử lý thành công và thất bại đã được tổ chức trong controller, có kiểm tra dữ liệu đầu vào.
+Một số nội dung chưa được triển khai đầy đủ. Mã nguồn chưa có tác vụ nền hoặc lịch chạy để tự hủy đơn khi thanh toán thất bại hoặc quá thời hạn; hiện có luồng khách hàng chủ động hủy đơn khi còn chờ xác nhận và luồng thanh toán trực tuyến thất bại giữ đơn ở trạng thái chưa thanh toán để khách thử lại. Vì vậy, tự hủy theo thời hạn là phần cần phát triển, không phải chức năng đã xác nhận hoạt động.
 
-\section{Hạn chế và hướng phát triển}
+Các trang hướng dẫn bảo hành, đổi trả và giao hàng hiện cung cấp nội dung thông tin; chưa thấy quy trình tạo, phân công và theo dõi yêu cầu bảo hành hoặc đổi trả của khách hàng. Trạng thái giao hàng được cập nhật trong quản trị, nhưng chưa thấy tích hợp hãng vận chuyển để đồng bộ mã vận đơn và hành trình. Tương tự, hệ thống có thống kê doanh thu, đơn hàng, sản phẩm bán chạy và tồn thấp nhưng chưa thấy mô hình dữ liệu giá vốn đủ để tính lợi nhuận. Những điểm này là giới hạn chức năng hiện tại, không nên diễn giải thành các nghiệp vụ đã hoàn thành.
 
-\subsection{Hạn chế hiện tại}
-Vẫn còn một số hạn chế mặc dù nhóm đã cố gắng hoàn thiện đồ án, nhưng do kiến thức và kinh nghiệm thực tế của sinh viên còn hạn chế nên đề tài vẫn còn một số khuyết điểm. Chưa tiến hành kiểm thử trực tiếp trên môi trường Apache và cơ sở dữ liệu MySQL với dữ liệu thực, nên kết quả của đồ án cần được xác nhận lại bằng các bài kiểm thử chạy hệ thống thực tế.
+Một giới hạn khác nằm ở mức xác nhận kết quả. Báo cáo chưa cung cấp nhật ký kiểm thử có thể đối chiếu, và chưa ghi nhận chạy kiểm thử tích hợp trên Apache/MySQL với dữ liệu thực. Google Identity và SePay phụ thuộc cấu hình, dịch vụ ngoài và điều kiện mạng; mã nguồn thể hiện các điểm tích hợp nhưng chưa có bằng chứng chạy thử đầy đủ trong tài liệu. Mã CSS có các breakpoint cho màn hình nhỏ, song chưa có ma trận kiểm tra trình duyệt và thiết bị để xác nhận trải nghiệm đồng nhất.
 
-\subsection{Hướng phát triển}
+Tại bước tạo đơn, mã nguồn cung cấp lựa chọn COD và lưu đơn với trạng thái Chưa thanh toán; chưa thấy thao tác ghi nhận thu tiền COD để chuyển đơn sang Đã thanh toán. Thanh toán trực tuyến có checkout và IPN SePay Sandbox, nhưng chưa có bằng chứng nghiệm thu production. Vì vậy, phạm vi hiện thực hóa là tạo đơn COD và một luồng thanh toán trực tuyến thử nghiệm, chưa phải quy trình thanh toán đầu-cuối đã được xác nhận. Nhìn chung, nhóm đã xây dựng phần lớn luồng mua hàng và quản trị cơ bản, nhưng còn thiếu bước hoàn tất thu COD, tác vụ tự hủy đơn theo hạn, quy trình sau bán hàng và kiểm chứng vận hành thực tế.
 
-% Trong thời gian tiếp theo, đồ án nên bổ sung bộ dữ liệu kiểm thử và xây dựng test case cho các luồng đăng ký, đăng nhập, giỏ hàng, đặt hàng, hủy đơn, thanh toán, quản lý kho và phân quyền. Đồng thời, cần tiến hành chạy thử thực tế trên XAMPP, kiểm tra dữ liệu sau khi tạo, sửa, hủy hoặc hoàn đơn và ghi lại kết quả dưới dạng log hoặc màn hình minh họa.
+\section{Hướng phát triển và kiến nghị}
 
-Hệ thống có thể được hoàn thiện bằng các hướng phát triển sau:
-\begin{itemize}
-    \item Bổ sung bộ lọc nâng cao, tìm kiếm toàn văn hoặc đánh chỉ mục cơ sở dữ liệu để cải thiện hiệu năng khi số lượng sản phẩm tăng.
-    \item Hoàn thiện giao diện trên các kích thước màn hình và trình duyệt phổ biến.
-    \item Hoàn thiện cấu hình, nhật ký và cơ chế giám sát thanh toán trực tuyến, đồng thời kiểm tra bảo mật callback/IPN trong môi trường production.
-    \item Bổ sung tự động hóa triển khai, sao lưu cơ sở dữ liệu và hướng dẫn cài đặt, import schema và migration.
-    \item Mở rộng báo cáo thống kê theo doanh thu, chi phí, lợi nhuận, tình trạng kho, hình thức thanh toán và từng khoảng thời gian.
-    \item Cải thiện xử lý ảnh sản phẩm, giới hạn dung lượng tải lên và quản lý hình ảnh tập trung nếu chức năng upload được phát triển.
-\end{itemize}
+\subsection{Hoàn thiện chức năng nghiệp vụ và trải nghiệm mua sắm}
 
-Tổng kết lại, đồ án đã đạt được mục tiêu ứng dụng các kiến thức đã học từ các môn học để xây dựng website thương mại điện tử có luồng mua hàng và khu vực quản trị cơ bản, đồng thời kết nối nghiệp vụ với cơ sở dữ liệu MySQL. Kết quả còn cần được hoàn thiện bằng kiểm thử chạy thực tế, xử lý dữ liệu kiểm thử và bổ sung các chức năng mở rộng để hệ thống có thể đáp ứng tốt hơn nhu cầu sử dụng thực tế.
+Danh mục hiện hỗ trợ tìm theo tên, lọc danh mục, thương hiệu, loại sản phẩm và khoảng giá, nhưng chưa có so sánh cấu hình giữa các mẫu hoặc tìm kiếm toàn văn trên thông số. Với máy tính và linh kiện, khách hàng thường cần đối chiếu CPU, GPU, bộ nhớ và khả năng tương thích; vì vậy có thể bổ sung bộ lọc theo thuộc tính kỹ thuật đã chuẩn hóa và chức năng so sánh một số sản phẩm trên cùng bảng. Cách này giúp khách đánh giá lựa chọn dựa trên thông số thay vì chỉ dựa vào tên và giá.
+
+Trang chi tiết đã cung cấp thông tin sản phẩm, nhưng mức hữu ích của trang phụ thuộc vào dữ liệu kỹ thuật được nhập đầy đủ và đồng nhất. Nhóm có thể xác định bộ thuộc tính theo từng loại sản phẩm, kiểm tra trường bắt buộc khi quản trị viên lưu sản phẩm, và trình bày thông số theo cấu trúc thống nhất. Sau đó, đánh giá hoặc nhận xét chỉ nên mở khi có cơ chế gắn với đơn đã mua, kiểm duyệt nội dung và xử lý báo cáo vi phạm; điều này giúp phản hồi có ngữ cảnh và hạn chế đánh giá không đáng tin cậy.
+
+Đơn hàng hiện được theo dõi bằng trạng thái nội bộ, còn thông tin bảo hành, đổi trả và giao hàng chủ yếu là các trang hướng dẫn. Hướng phát triển phù hợp là gắn từng yêu cầu sau bán hàng với mã đơn hoặc sản phẩm cụ thể, lưu lý do, người xử lý, thời điểm và kết quả; đồng thời bổ sung lịch sử trạng thái để khách biết yêu cầu đang ở bước nào. Khi có đơn vị vận chuyển phù hợp, có thể tích hợp mã vận đơn và cập nhật trạng thái giao nhận. Các giao diện hiện đã có CSS theo kích thước màn hình, nên cần kiểm tra thực tế các trang danh mục, giỏ và quản trị trên điện thoại, máy tính bảng và một số trình duyệt trước khi khẳng định khả năng tương thích.
+
+\subsection{Mở rộng quản lý và tích hợp dịch vụ}
+
+Trang thống kê hiện cung cấp số đơn, trạng thái đơn, doanh thu của đơn hoàn thành, sản phẩm bán chạy và danh sách tồn thấp. Để hỗ trợ quyết định nhập hàng và đánh giá hoạt động tốt hơn, có thể bổ sung xuất báo cáo theo khoảng thời gian và đối chiếu các chỉ tiêu với dữ liệu đơn hàng. Nếu cần tính lợi nhuận, trước hết phải xác định và lưu giá vốn đáng tin cậy theo từng lần nhập hoặc sản phẩm; chỉ lấy doanh thu trừ một con số ước tính sẽ tạo ra kết quả không đủ căn cứ.
+
+Quản trị kho đã có thao tác điều chỉnh và lịch sử thay đổi, nhưng chưa thấy chức năng kiểm kê để so sánh số lượng thực tế với số lượng ghi nhận. Có thể bổ sung phiên kiểm kê theo sản phẩm, lưu người kiểm, thời điểm, chênh lệch và lý do điều chỉnh; báo cáo đối chiếu sẽ giúp phát hiện sai lệch và truy nguyên thay đổi. Cùng với đó, cần hoàn thiện quy trình nhập liệu hoặc nhập danh sách sản phẩm có kiểm tra mã, danh mục và thuộc tính để giảm lỗi do thao tác thủ công.
+
+SePay hiện được cấu hình theo Sandbox. Trước khi cân nhắc sử dụng môi trường thật, cần kiểm thử các trường hợp callback/IPN lặp, sai chữ ký, sai số tiền, giao dịch đến muộn và đơn đã bị hủy; đồng thời đối chiếu bản ghi giao dịch với trạng thái đơn và có quy trình xử lý giao dịch chưa rõ kết quả. Việc ghi nhận giao dịch đã có trong schema và mã nguồn, nhưng vận hành thật còn cần cấu hình chính thức, giám sát lỗi và quy trình đối soát. Các bước này giúp hạn chế việc ghi nhận nhầm hoặc bỏ sót thanh toán.
+
+\subsection{Nâng cao bảo mật, hiệu năng và khả năng vận hành}
+
+Mã nguồn đã có prepared statements, CSRF, băm mật khẩu và kiểm tra vai trò ở phía máy chủ; các biện pháp này tạo nền tảng nhưng chưa thay thế một đợt rà soát bảo mật. Nên lập danh sách quyền theo từng route và vai trò, kiểm tra truy cập trực tiếp khi thiếu phiên hoặc sai quyền, rà soát việc mã hóa đầu ra tại view và cấu hình cookie phiên. Các khóa dịch vụ cần được lưu trong cấu hình triển khai riêng, không đưa vào kho mã nguồn; nhật ký cần ghi đủ sự kiện quan trọng mà không chứa thông tin xác thực nhạy cảm.
+
+Truy vấn danh mục hiện dùng điều kiện tìm theo tên, kết hợp bộ lọc và phép tính giá hiệu lực của khuyến mãi. Khi dữ liệu tăng, nhóm nên đo thời gian truy vấn trên dữ liệu có quy mô đại diện, xem kế hoạch truy vấn và chỉ mục cho các cột lọc, sau đó tối ưu các phép tìm kiếm hoặc tính giá có chi phí cao. Việc kiểm thử tải nên bao gồm nhiều khách đồng thời đặt cùng sản phẩm, cập nhật tồn kho và gửi lại IPN; tiêu chí quan trọng là không bán vượt tồn, không tạo giao dịch thanh toán trùng và không làm sai trạng thái đơn.
+
+Trước khi triển khai ngoài môi trường phát triển, cần dựng một môi trường thử nghiệm gần với máy chủ dự kiến, kiểm tra cấu hình PHP, Apache, MySQL, HTTPS và các tích hợp ngoài, rồi mới chuyển sang vận hành có giới hạn. Nhóm cũng nên thiết lập sao lưu cơ sở dữ liệu định kỳ và thực hành khôi phục trên bản sao để kiểm tra khả năng phục hồi, thay vì chỉ tạo tệp sao lưu mà chưa kiểm chứng. Cuối cùng, cần xây dựng bộ ca kiểm thử có dữ liệu đầu vào, kết quả mong đợi, kết quả thực tế và bằng chứng cho đăng nhập, phân quyền, đặt/hủy đơn, tồn kho, voucher, thanh toán và lỗi dịch vụ; khi đó mới có thể báo cáo tỷ lệ đạt một cách minh bạch.
+

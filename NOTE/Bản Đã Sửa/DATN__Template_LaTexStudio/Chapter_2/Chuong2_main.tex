@@ -3,13 +3,14 @@
 
 \section{Yêu cầu hệ thống}
 \subsection{Yêu cầu chức năng}
+\reporttablecaption{Yêu cầu chức năng của hệ thống}{tab:yeu-cau-chuc-nang}
 \begin{functionalrequirementtable}
     \textbf{UC01 --} & \textbf{Đăng ký:} & Người dùng chưa đăng nhập có thể tạo tài khoản mới; hệ thống kiểm tra tính đầy đủ, hợp lệ của thông tin trước khi lưu. \\ \hline
     \textbf{UC02 --} & \textbf{Đăng nhập:} & Người dùng cung cấp thông tin xác thực; hệ thống kiểm tra thông tin đăng nhập và trạng thái tài khoản trước khi cho phép truy cập. \\ \hline
-    \textbf{UC03 --} & \textbf{Xem, tìm kiếm và lọc sản phẩm:} & Người dùng có thể xem sản phẩm, tìm kiếm theo từ khóa, lọc theo danh mục, khoảng giá hoặc thương hiệu và xem thông tin chi tiết. \\ \hline
+    \textbf{UC03 --} & \textbf{Xem, tìm kiếm và lọc sản phẩm:} & Người dùng có thể xem sản phẩm, tìm kiếm theo từ khóa, lọc theo danh mục, loại sản phẩm, thương hiệu hoặc khoảng giá, sắp xếp kết quả và xem thông tin chi tiết. \\ \hline
     \textbf{UC04 --} & \textbf{Quản lý giỏ hàng:} & Khách hàng có thể thêm sản phẩm vào giỏ hàng, thay đổi số lượng hoặc xóa sản phẩm; giỏ hàng được quản lý theo tài khoản. \\ \hline
     \textbf{UC05 --} & \textbf{Đặt hàng:} & Khách hàng tạo đơn từ giỏ hàng, chọn địa chỉ nhận hàng, có thể áp dụng voucher và chọn phương thức thanh toán; hệ thống kiểm tra thông tin, ưu đãi và tồn kho trước khi tạo đơn. \\ \hline
-    \textbf{UC06 --} & \textbf{Thanh toán:} & Khách hàng thanh toán khi nhận hàng hoặc trực tuyến; với giao dịch trực tuyến, hệ thống gửi yêu cầu đến cổng thanh toán và cập nhật trạng thái theo kết quả. \\ \hline
+    \textbf{UC06 --} & \textbf{Thanh toán:} & Đơn COD được tạo với trạng thái Chưa thanh toán; luồng trực tuyến khởi tạo SePay Sandbox và chỉ ghi nhận đã thanh toán sau khi IPN hợp lệ được xác minh. \\ \hline
     \textbf{UC07 --} & \textbf{Theo dõi và hủy đơn hàng:} & Khách hàng xem đơn hàng, theo dõi trạng thái xử lý và thanh toán, đồng thời gửi yêu cầu hủy khi đơn còn ở trạng thái cho phép. \\ \hline
     \textbf{UC08 --} & \textbf{Quản lý tài khoản:} & Khách hàng xem và cập nhật thông tin cá nhân, thông tin liên hệ, mật khẩu và sổ địa chỉ giao hàng. \\ \hline
     \textbf{UC09 --} & \textbf{Quản lý đơn hàng:} & Nhân viên và quản trị viên xem, kiểm tra và xử lý đơn hàng theo quyền được cấp, từ xác nhận đơn đến cập nhật trạng thái xử lý. \\ \hline
@@ -17,23 +18,26 @@
     \textbf{UC11 --} & \textbf{Quản lý sản phẩm:} & Quản trị viên thêm, chỉnh sửa và cập nhật trạng thái sản phẩm, bao gồm thông tin mô tả, giá niêm yết, phân loại và thông số kỹ thuật. \\ \hline
     \textbf{UC12 --} & \textbf{Quản lý danh mục:} & Quản trị viên thêm, chỉnh sửa hoặc cập nhật trạng thái danh mục sản phẩm. \\ \hline
     \textbf{UC13 --} & \textbf{Quản lý người dùng:} & Quản trị viên tìm kiếm và quản lý tài khoản; có thể thêm hoặc cập nhật tài khoản nhân viên, cũng như xem và thay đổi trạng thái tài khoản khách hàng. \\ \hline
-    \textbf{UC14 --} & \textbf{Quản lý kho:} & Quản trị viên theo dõi tồn kho và nhập hoặc điều chỉnh số lượng sản phẩm; hệ thống kiểm tra dữ liệu để số lượng không nhỏ hơn 0. \\ \hline
+    \textbf{UC14 --} & \textbf{Quản lý kho:} & Quản trị viên theo dõi và điều chỉnh tăng hoặc giảm số lượng tồn được ghi nhận trên hệ thống; số lượng không được nhỏ hơn 0. Đây không phải quy trình kiểm kê thực tế hoặc quản lý nhiều kho. \\ \hline
     \textbf{UC15 --} & \textbf{Xem thống kê:} & Quản trị viên xem số liệu về doanh thu, đơn hàng và tình hình sản phẩm theo khoảng thời gian được chọn. \\ \hline
     \textbf{UC16 --} & \textbf{Quản lý chương trình giảm giá:} & Quản trị viên tạo, chỉnh sửa, kích hoạt hoặc kết thúc chương trình giảm giá, áp dụng cho toàn trang hoặc sản phẩm được chọn với mức giảm theo phần trăm hoặc số tiền. \\ \hline
     \textbf{UC17 --} & \textbf{Quản lý voucher:} & Quản trị viên tạo và quản lý voucher, gồm mã, mức giảm, thời hạn, giá trị đơn tối thiểu và các giới hạn sử dụng. \\ \hline
     \textbf{UC18 --} & \textbf{Áp dụng voucher khi đặt hàng:} & Khách hàng nhập mã voucher khi đặt hàng; hệ thống kiểm tra điều kiện và giới hạn sử dụng, tính lại tổng tiền và ghi nhận lượt sử dụng khi tạo đơn. \\ \hline
 \end{functionalrequirementtable}
 
+\input{Chapter_2/UseCases_Chuong2}
+
 \subsection{Yêu cầu phi chức năng}
 Thông tin đầu vào cần được kiểm tra trước khi xử lý; thao tác thay đổi dữ liệu cần được thực hiện qua các luồng có kiểm soát. Dữ liệu tài khoản và đơn hàng được lưu trong cơ sở dữ liệu MySQL. Giao diện cần trình bày các chức năng rõ ràng trên trình duyệt máy tính và có thể sử dụng các tương tác JavaScript hiện có.
 
 \section{Tác nhân và quy tắc nghiệp vụ}
 \subsection{Tác nhân}
+\reporttablecaption{Các tác nhân của hệ thống}{tab:tac-nhan-he-thong}
 \begin{usecasetable}
     \textbf{Khách vãng lai:} & Là người truy cập website nhưng chưa được xác thực đăng nhập vào hệ thống. Khách vãng lai có thể đã có hoặc chưa có tài khoản. Tác nhân này chỉ có quyền đăng ký, đăng nhập, xem, tìm kiếm và lọc sản phẩm. Nếu muốn thực hiện thao tác với giỏ hàng hoặc mua hàng, hệ thống sẽ yêu cầu Khách vãng lai phải đăng nhập để chuyển thành Khách hàng. \\ \hline
     \textbf{Khách hàng:} & Là người đã có tài khoản và đăng nhập vào hệ thống. Khách hàng có thể xem sản phẩm, quản lý giỏ hàng, đặt hàng, thanh toán, theo dõi và hủy đơn hàng theo điều kiện cho phép, đồng thời quản lý thông tin tài khoản \\ \hline
-    \textbf{Nhân viên:} & Hỗ trợ hoạt động bán hàng và xử lý đơn hàng trong phạm vi quyền được cấp và chỉ có thể kiểm trasố lượng tồn kho của sản phẩm. \\ \hline
-    \textbf{Quản trị viên:} & Là người có quyền quản lý và vận hành hệ thống. Quản trị viên có thể quản lý đơn hàng, sản phẩm, danh mục, người dùng, kho và xem các số liệu thống kê. \\ \hline
+    \textbf{Nhân viên:} & Hỗ trợ hoạt động bán hàng và xử lý đơn hàng trong phạm vi quyền được cấp; nhân viên có thể tra cứu số lượng tồn kho nhưng không được tự điều chỉnh tồn kho. \\ \hline
+    \textbf{Quản trị viên:} & Là người có quyền quản lý và vận hành hệ thống. Quản trị viên có thể quản lý đơn hàng, sản phẩm, danh mục, người dùng, số lượng tồn ghi nhận trong hệ thống và xem các số liệu thống kê. \\ \hline
     \textbf{Cổng thanh toán:} & Là hệ thống thanh toán bên ngoài được sử dụng để xử lý các giao dịch thanh toán trực tuyến và trả kết quả giao dịch về cho hệ thống. \\ \hline
     \textbf{Google Identity:} & Là dịch vụ xác thực của Google cho phép người dùng đăng nhập vào hệ thống bằng tài khoản Google của họ. \\ \hline
 \end{usecasetable}
@@ -46,14 +50,14 @@ Quy trình xử lý đơn hàng trong hệ thống được xác định như sa
 Chờ xác nhận $\rightarrow$ Đang chuẩn bị hàng $\rightarrow$ Đang giao hàng $\rightarrow$ Hoàn thành / Giao hàng thất bại
 \end{center}
 
-Ngoài luồng xử lý chính, đơn hàng có thể chuyển từ trạng thái \textbf{Chờ xác nhận} sang \textbf{Đã hủy} khi khách hàng thực hiện hủy đơn theo điều kiện cho phép, hoặc hệ thống tự động hủy do thanh toán không thành công hoặc quá thời gian thanh toán quy định.
+Ngoài luồng xử lý chính, khách hàng có thể hủy đơn khi đơn còn ở trạng thái \textbf{Chờ xác nhận} và chưa thanh toán. Mã nguồn hiện chưa có tác vụ nền tự động hủy đơn khi thanh toán thất bại hoặc quá hạn; quy tắc này là yêu cầu chưa triển khai.
 
 \subsection{Quy tắc chuyển trạng thái đơn hàng}
 
 \begin{itemize}
 \item \textbf{Chờ xác nhận $\rightarrow$ Đang chuẩn bị hàng:} Nhân viên hoặc Quản trị viên xác nhận đơn hàng sau khi kiểm tra thông tin hợp lệ.
 
-\item \textbf{Chờ xác nhận $\rightarrow$ Đã hủy:} Khách hàng được phép hủy đơn khi đơn hàng chưa được xác nhận; hệ thống tự động hủy đơn khi giao dịch thanh toán không thành công hoặc quá thời gian thanh toán quy định.
+\item \textbf{Chờ xác nhận $\rightarrow$ Đã hủy:} Khách hàng được phép hủy đơn khi đơn chưa được xác nhận và chưa thanh toán. Tự động hủy do giao dịch thất bại hoặc quá hạn chưa được triển khai.
 
 \item \textbf{Đang chuẩn bị hàng $\rightarrow$ Đang giao hàng:} Đơn hàng đã được chuẩn bị và chuyển sang quá trình giao hàng.
 
@@ -77,7 +81,7 @@ Ngoài luồng xử lý chính, đơn hàng có thể chuyển từ trạng thá
 \begin{itemize}
 \item Khi khách hàng đặt hàng thành công (tạo đơn hàng), hệ thống sẽ ngay lập tức \textbf{tạm trừ (giữ chỗ)} số lượng tồn kho của các sản phẩm tương ứng.
 \item Không cho phép tạo đơn hàng nếu số lượng tồn kho hiện tại không đủ đáp ứng số lượng trong giỏ hàng.
-\item Nếu đơn hàng chuyển sang trạng thái \textbf{Đã hủy} (do khách hàng hủy hoặc hệ thống tự động hủy do quá hạn thanh toán), hệ thống sẽ tự động \textbf{cộng trả lại} số lượng tồn kho đã tạm trừ.
+\item Khi khách hàng hủy đơn đủ điều kiện, hệ thống cộng trả số lượng đã trừ và ghi nhận thay đổi trong lịch sử kho trong cùng transaction. Tự động hủy quá hạn chưa được triển khai nên chưa phát sinh từ cơ chế này.
 \item Nếu đơn hàng chuyển sang trạng thái \textbf{Giao hàng thất bại}, hệ thống sẽ \textbf{cộng trả lại} số lượng tồn kho sau khi xác nhận hàng hoàn về kho.
 \item Việc kiểm tra và tạm trừ tồn kho ngay tại thời điểm khách hàng đặt hàng giúp tránh tình trạng nhiều khách hàng cùng đặt một sản phẩm trong khi số lượng tồn kho có hạn.
 \item Hệ thống không cho phép số lượng tồn kho nhỏ hơn 0.
@@ -86,12 +90,12 @@ Ngoài luồng xử lý chính, đơn hàng có thể chuyển từ trạng thá
 
 \subsection{Quy tắc thanh toán}
 
-Hệ thống hỗ trợ hai phương thức thanh toán cơ bản:
+Biểu mẫu đặt hàng và schema cho phép chọn COD hoặc thanh toán trực tuyến; mức độ xử lý hiện có của từng phương thức như sau:
 
 \begin{itemize}
-    \item \textbf{Thanh toán khi nhận hàng (COD):} Khi đơn hàng được tạo, trạng thái thanh toán được ghi nhận là \textbf{Chưa thanh toán}. Khách hàng thực hiện thanh toán khi nhận hàng. Khi giao dịch COD được hoàn tất thành công, trạng thái thanh toán của đơn hàng được cập nhật thành \textbf{Đã thanh toán}.
+    \item \textbf{Thanh toán khi nhận hàng (COD):} Khách hàng có thể chọn COD khi tạo đơn; đơn được lưu với trạng thái thanh toán \textbf{Chưa thanh toán}. Trong mã nguồn hiện chưa thấy thao tác ghi nhận thu tiền COD hoặc chuyển trạng thái COD sang \textbf{Đã thanh toán}; đây là phần quy trình chưa hoàn tất.
 
-    \item \textbf{Thanh toán trực tuyến:} Hệ thống gửi yêu cầu giao dịch đến Cổng thanh toán. Chỉ khi nhận được kết quả giao dịch hợp lệ và thành công, hệ thống mới cập nhật trạng thái thanh toán thành \textbf{Đã thanh toán}.
+    \item \textbf{Thanh toán trực tuyến:} Mã nguồn khởi tạo checkout với SePay Sandbox. Chỉ khi IPN hợp lệ được xác minh và khớp đơn, hệ thống mới ghi giao dịch vào \texttt{GiaoDichThanhToan} và cập nhật trạng thái đơn sang \textbf{Đã thanh toán}. Đây chưa phải bằng chứng tích hợp production.
 \end{itemize}
 
 Trạng thái thanh toán gồm:
@@ -104,7 +108,7 @@ Trạng thái thanh toán gồm:
 \subsection{Quy tắc xử lý thanh toán trực tuyến thất bại}
 
 \begin{itemize}
-    \item Nếu giao dịch trực tuyến thất bại hoặc bị khách hàng hủy, hệ thống giữ trạng thái thanh toán là \textbf{Chưa thanh toán} và thông báo kết quả cho khách hàng.
+    \item Nếu giao dịch trực tuyến thất bại hoặc bị khách hàng hủy, đơn hàng còn ở trạng thái \textbf{Chờ xác nhận}, trạng thái thanh toán vẫn là \textbf{Chưa thanh toán}; khách hàng có thể thử lại khi đơn còn hiệu lực. Hệ thống chưa tự động hủy đơn trong trường hợp này.
 
     \item Đối với đơn hàng vẫn còn hiệu lực và đang ở trạng thái chưa thanh toán, khách hàng được phép thực hiện lại thao tác thanh toán trực tuyến.
 
@@ -120,7 +124,16 @@ Trạng thái thanh toán gồm:
 Hệ thống được tổ chức quanh front controller và router. Router chuyển yêu cầu đến controller tương ứng; controller gọi model để thực hiện nghiệp vụ và lấy dữ liệu; view nhận dữ liệu để hiển thị trang. Các model kết nối MySQL thông qua PDO. Cấu trúc này giữ phần giao diện tách biệt tương đối với xử lý nghiệp vụ và truy vấn dữ liệu.
 
 \section{Thiết kế cơ sở dữ liệu}
-Cơ sở dữ liệu lưu trữ các nhóm thông tin chính: người dùng và tài khoản; danh mục và sản phẩm; giỏ hàng và chi tiết giỏ hàng; đơn hàng và chi tiết đơn hàng; lịch sử kho. Các bảng được liên kết bằng khóa chính, khóa ngoại và các ràng buộc phù hợp với quan hệ nghiệp vụ. Bảng giao dịch thanh toán có trong schema nhưng chưa được sử dụng trong luồng đặt hàng hiện tại.
+Cơ sở dữ liệu được định nghĩa trong \texttt{database/database.sql}. Các bảng nghiệp vụ chính và quan hệ của chúng được tóm tắt dưới đây.
+
+\begin{itemize}
+    \item \textbf{Đơn hàng:} \texttt{DonHang} lưu khách mua, nhân viên xử lý (nếu có), thông tin người nhận, tổng tiền, phương thức và trạng thái thanh toán, mã voucher cùng số tiền giảm. \texttt{ChiTietDonHang} liên kết đơn hàng với sản phẩm, đồng thời lưu số lượng và đơn giá tại thời điểm đặt; khóa ngoại bảo đảm mỗi chi tiết thuộc một đơn và một sản phẩm.
+    \item \textbf{Kho:} số lượng tồn được ghi nhận tại \texttt{SanPham.SoLuongTon}. \texttt{LichSuKho} tham chiếu sản phẩm và người thực hiện, ghi số lượng thay đổi, loại thao tác và thời gian. Khi tạo đơn, tồn được trừ trong transaction; khi khách hủy đơn hợp lệ hoặc nhân viên xác nhận hàng giao thất bại đã hoàn về, hệ thống cộng lại số lượng và ghi lịch sử. Quản trị viên có thể điều chỉnh số lượng trong hệ thống; chưa có quy trình kiểm kê thực tế, phiếu nhập kho hoặc quản lý nhiều kho.
+    \item \textbf{Voucher:} \texttt{Voucher} lưu mã, cách tính giảm, mức giảm, điều kiện tối thiểu, thời hạn, trạng thái và giới hạn lượt dùng. \texttt{VoucherSuDung} liên kết voucher, đơn hàng và khách hàng, lưu số tiền giảm; ràng buộc duy nhất trên cặp voucher--đơn ngăn ghi nhận lặp cho cùng một đơn. Đơn hàng cũng lưu mã và số tiền giảm để giữ lại giá trị áp dụng tại thời điểm mua.
+    \item \textbf{Giao dịch thanh toán:} \texttt{GiaoDichThanhToan} liên kết với \texttt{DonHang} qua \texttt{MaDH}; lưu mã giao dịch nội bộ, mã giao dịch cổng tại \texttt{MaGatewayTxn}, số tiền, trạng thái và thời điểm. Luồng IPN SePay xác minh dữ liệu nhận được, sau đó ghi bản ghi giao dịch và cập nhật trạng thái thanh toán trong transaction. Mã gateway có ràng buộc duy nhất để ngăn ghi nhận trùng. Bảng này được dùng cho luồng trực tuyến SePay Sandbox; COD được thể hiện bằng phương thức và trạng thái của đơn, không tạo giao dịch cổng SePay.
+\end{itemize}
+
+Các khóa chính định danh bản ghi; khóa ngoại duy trì liên kết giữa đơn và chi tiết, sản phẩm và lịch sử kho, cũng như voucher/lượt sử dụng. Các ràng buộc kiểm tra trong schema giới hạn giá trị trạng thái và số tiền ở những trường tương ứng.
 
 \section{Công cụ và môi trường}
 Ứng dụng được xây dựng bằng PHP, MySQL, HTML, CSS và JavaScript; PDO được dùng để kết nối cơ sở dữ liệu. Môi trường triển khai của dự án sử dụng máy chủ web Apache trong bộ XAMPP.
@@ -133,15 +146,15 @@ Cơ sở dữ liệu lưu trữ các nhóm thông tin chính: người dùng và
     \label{fig:use-case-tong-quan}
 \end{figure}
 
-\section{Sơ đồ cơ sở dữ liệu:}
+\section{Sơ đồ cơ sở dữ liệu}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth, keepaspectratio]{Chapter_2/images_c2/db.png}
+    \includegraphics[width=0.9\textwidth, keepaspectratio]{Chapter_2/Images_c2/db.png}
     \caption{Sơ đồ cơ sở dữ liệu}
     \label{fig:db-diagram}
 \end{figure}
 
-\section{Sơ đồ lớp:}
+\section{Sơ đồ lớp}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth, keepaspectratio]{Chapter_4/image/Sơ đồ class.png}

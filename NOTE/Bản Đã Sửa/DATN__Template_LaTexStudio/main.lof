@@ -1,13 +1,64 @@
 \acswitchoff 
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Sơ đồ Use Case tổng quát của hệ thống website T\&T Computer}}{9}{figure.caption.5}%
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Sơ đồ cơ sở dữ liệu}}{10}{figure.caption.6}%
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Sơ đồ lớp}}{11}{figure.caption.7}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Sơ đồ trình tự Usecase Đăng ký}}{11}{figure.caption.42}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Sơ đồ trình tự Usecase Đăng nhập}}{13}{figure.caption.52}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Sơ đồ trình tự Usecase Đăng nhập bằng Google}}{14}{figure.caption.53}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Sơ đồ trình tự UC03}}{16}{figure.caption.64}%
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Sơ đồ trình tự UC04}}{17}{figure.caption.72}%
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Sơ đồ trình tự UC05}}{19}{figure.caption.84}%
+\contentsline {figure}{\numberline {2.7}{\ignorespaces Sơ đồ trình tự Usecase Thanh toán}}{21}{figure.caption.93}%
+\contentsline {figure}{\numberline {2.8}{\ignorespaces Sơ đồ trình tự UC07}}{23}{figure.caption.102}%
+\contentsline {figure}{\numberline {2.9}{\ignorespaces Sơ đồ trình tự UC08 (phần 1)}}{24}{figure.caption.109}%
+\contentsline {figure}{\numberline {2.10}{\ignorespaces Sơ đồ trình tự UC08 (phần 2)}}{24}{figure.caption.110}%
+\contentsline {figure}{\numberline {2.11}{\ignorespaces Sơ đồ trình tự UC09}}{26}{figure.caption.122}%
+\contentsline {figure}{\numberline {2.12}{\ignorespaces Sơ đồ trình tự UC10}}{27}{figure.caption.128}%
+\contentsline {figure}{\numberline {2.13}{\ignorespaces Sơ đồ trình tự UC11}}{29}{figure.caption.139}%
+\contentsline {figure}{\numberline {2.14}{\ignorespaces Sơ đồ trình tự UC12 (phần 1)}}{31}{figure.caption.149}%
+\contentsline {figure}{\numberline {2.15}{\ignorespaces Sơ đồ trình tự UC12 (phần 2)}}{31}{figure.caption.150}%
+\contentsline {figure}{\numberline {2.16}{\ignorespaces Sơ đồ trình tự UC12 (phần 3)}}{32}{figure.caption.151}%
+\contentsline {figure}{\numberline {2.17}{\ignorespaces Sơ đồ trình tự UC13 (phần 1)}}{33}{figure.caption.159}%
+\contentsline {figure}{\numberline {2.18}{\ignorespaces Sơ đồ trình tự UC13 (phần 2)}}{34}{figure.caption.160}%
+\contentsline {figure}{\numberline {2.19}{\ignorespaces Sơ đồ trình tự UC13 (phần 3)}}{34}{figure.caption.161}%
+\contentsline {figure}{\numberline {2.20}{\ignorespaces Sơ đồ trình tự Usecase Quản lý kho}}{36}{figure.caption.169}%
+\contentsline {figure}{\numberline {2.21}{\ignorespaces Sơ đồ trình tự UC15}}{37}{figure.caption.175}%
+\contentsline {figure}{\numberline {2.22}{\ignorespaces Sơ đồ trình tự UC16 (phần 1)}}{38}{figure.caption.184}%
+\contentsline {figure}{\numberline {2.23}{\ignorespaces Sơ đồ trình tự UC16 (phần 2)}}{39}{figure.caption.185}%
+\contentsline {figure}{\numberline {2.24}{\ignorespaces Sơ đồ trình tự UC17}}{40}{figure.caption.193}%
+\contentsline {figure}{\numberline {2.25}{\ignorespaces Sơ đồ trình tự UC18}}{42}{figure.caption.201}%
+\contentsline {figure}{\numberline {2.26}{\ignorespaces Sơ đồ Use Case tổng quát của hệ thống website T\&T Computer}}{47}{figure.caption.216}%
+\contentsline {figure}{\numberline {2.27}{\ignorespaces Sơ đồ cơ sở dữ liệu}}{48}{figure.caption.218}%
+\contentsline {figure}{\numberline {2.28}{\ignorespaces Sơ đồ lớp}}{49}{figure.caption.220}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Sơ đồ trình tự Usecase Đăng ký}}{13}{figure.caption.8}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Sơ đồ trình tự Usecase Đăng nhập}}{15}{figure.caption.9}%
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Sơ đồ trình tự Usecase Đăng nhập bằng Google}}{15}{figure.caption.10}%
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Sơ đồ trình tự Usecase Thanh toán}}{20}{figure.caption.11}%
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Sơ đồ trình tự Usecase Quản lý kho}}{27}{figure.caption.12}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Giao diện trang chủ T\&T Computer}}{50}{figure.caption.224}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Danh sách sản phẩm}}{51}{figure.caption.227}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Tìm kiếm và lọc sản phẩm theo các tiêu chí hệ thống hỗ trợ}}{52}{figure.caption.228}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Trang chi tiết sản phẩm}}{52}{figure.caption.229}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Giao diện đăng ký tài khoản}}{53}{figure.caption.230}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Giao diện đăng nhập}}{53}{figure.caption.231}%
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Giỏ hàng khách hàng}}{54}{figure.caption.232}%
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Thông tin tài khoản khách hàng}}{54}{figure.caption.233}%
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Danh sách đơn hàng trong giao diện nhân viên}}{55}{figure.caption.235}%
+\contentsline {figure}{\numberline {3.10}{\ignorespaces Cập nhật trạng thái đơn hàng theo quyền nhân viên}}{55}{figure.caption.236}%
+\contentsline {figure}{\numberline {3.11}{\ignorespaces Tra cứu tồn kho trong giao diện nhân viên}}{56}{figure.caption.237}%
+\contentsline {figure}{\numberline {3.12}{\ignorespaces Bảng điều khiển quản trị}}{56}{figure.caption.239}%
+\contentsline {figure}{\numberline {3.13}{\ignorespaces Quản lý sản phẩm}}{57}{figure.caption.240}%
+\contentsline {figure}{\numberline {3.14}{\ignorespaces Biểu mẫu thêm hoặc cập nhật sản phẩm}}{57}{figure.caption.241}%
+\contentsline {figure}{\numberline {3.15}{\ignorespaces Quản lý danh mục sản phẩm}}{58}{figure.caption.242}%
+\contentsline {figure}{\numberline {3.16}{\ignorespaces Quản lý tài khoản người dùng}}{58}{figure.caption.243}%
+\contentsline {figure}{\numberline {3.17}{\ignorespaces Quản lý đơn hàng}}{59}{figure.caption.244}%
+\contentsline {figure}{\numberline {3.18}{\ignorespaces Chi tiết và thao tác xử lý đơn hàng của quản trị viên}}{59}{figure.caption.245}%
+\contentsline {figure}{\numberline {3.19}{\ignorespaces Quản lý tồn kho}}{60}{figure.caption.246}%
+\contentsline {figure}{\numberline {3.20}{\ignorespaces Thống kê quản trị}}{60}{figure.caption.247}%
+\contentsline {figure}{\numberline {3.21}{\ignorespaces Quản lý voucher và khuyến mãi}}{61}{figure.caption.248}%
+\contentsline {figure}{\numberline {3.22}{\ignorespaces Sơ đồ tuần tự tra cứu sản phẩm (UC03)}}{62}{figure.caption.252}%
+\contentsline {figure}{\numberline {3.23}{\ignorespaces Sơ đồ tuần tự tạo đơn, kiểm tra voucher và tồn kho (UC05)}}{62}{figure.caption.254}%
+\contentsline {figure}{\numberline {3.24}{\ignorespaces Màn hình checkout với thông tin giao hàng và lựa chọn COD}}{63}{figure.caption.255}%
+\contentsline {figure}{\numberline {3.25}{\ignorespaces Lựa chọn thanh toán SePay Sandbox tại checkout}}{63}{figure.caption.256}%
+\contentsline {figure}{\numberline {3.26}{\ignorespaces Trang xác nhận tạo đơn COD; đơn vẫn ở trạng thái chưa thanh toán}}{64}{figure.caption.257}%
+\contentsline {figure}{\numberline {3.27}{\ignorespaces Sơ đồ tuần tự theo dõi và yêu cầu hủy đơn (UC07)}}{64}{figure.caption.259}%
+\contentsline {figure}{\numberline {3.28}{\ignorespaces Lịch sử đơn hàng của khách hàng}}{65}{figure.caption.260}%
+\contentsline {figure}{\numberline {3.29}{\ignorespaces Chi tiết và trạng thái đơn hàng}}{65}{figure.caption.261}%
+\contentsline {figure}{\numberline {3.30}{\ignorespaces Hộp thoại xác nhận hủy đơn hàng chưa thanh toán}}{66}{figure.caption.262}%
+\contentsline {figure}{\numberline {3.31}{\ignorespaces Thông báo đơn hàng đã hủy và số lượng được hoàn lại kho}}{66}{figure.caption.263}%
 \addvspace {10\p@ }

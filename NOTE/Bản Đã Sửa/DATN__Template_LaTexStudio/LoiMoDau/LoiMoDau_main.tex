@@ -1,4 +1,3 @@
-\addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
 \chapter*{LỜI MỞ ĐẦU}\label{loimodau_intro}
 \addcontentsline{toc}{chapter}{LỜI MỞ ĐẦU}
 \vspace{-40pt}
@@ -6,50 +5,48 @@
 \renewcommand{\thesection}{\arabic{section}} % Loại bỏ số chương (0) phía trước, chỉ hiện số thứ tự section
 % ------------------------------------------
 \section{Lý do chọn đề tài}
-Máy tính và linh kiện máy tính là những sản phẩm có nhiều chủng loại, thông số kỹ thuật và mức giá khác nhau. Khi hoạt động kinh doanh chủ yếu dựa trên hình thức trực tiếp, khách hàng có thể mất thời gian tìm hiểu sản phẩm, còn cửa hàng gặp khó khăn trong việc giới thiệu thông tin và hỗ trợ quá trình đặt mua. Vì vậy, việc ứng dụng công nghệ thông tin để xây dựng một kênh bán hàng trực tuyến là cần thiết.
+Máy tính và linh kiện có nhiều chủng loại, mức giá và thông số kỹ thuật cần cân nhắc trước khi mua. Một kênh trực tuyến tập trung thông tin sản phẩm, chức năng tìm kiếm và lọc có thể giúp khách hàng tra cứu thuận tiện hơn; đồng thời hỗ trợ cửa hàng tiếp nhận đơn và quản lý các hoạt động bán hàng trên cùng hệ thống. Bài toán này đòi hỏi các chức năng sản phẩm, tài khoản, giỏ hàng, đơn hàng và tồn kho phối hợp nhất quán.
 
-Xuất phát từ nhu cầu đó, nhóm lựa chọn đề tài ``Xây dựng website thương mại điện tử bán máy tính và linh kiện máy tính'' cho T\&T Computer. Đề tài hướng đến việc xây dựng một website giúp khách hàng tra cứu sản phẩm, quản lý giỏ hàng và đặt hàng thuận tiện; đồng thời tạo nền tảng để cửa hàng quản lý một số hoạt động bán hàng trên hệ thống. Đây cũng là cơ hội để nhóm vận dụng kiến thức về phân tích, thiết kế cơ sở dữ liệu và phát triển ứng dụng web vào một bài toán cụ thể.
-\section{Mục tiêu}
-Mục tiêu của đồ án là phân tích, thiết kế và xây dựng website thương mại điện tử T\&T Computer phục vụ việc giới thiệu và bán máy tính, linh kiện máy tính. Website cần cung cấp thông tin sản phẩm và hỗ trợ khách hàng thực hiện các bước mua hàng trực tuyến cơ bản.
+Từ yêu cầu đó, nhóm lựa chọn đề tài ``Xây dựng website thương mại điện tử bán máy tính và linh kiện máy tính'' cho T\&T Computer. Đề tài vừa hướng đến quy trình mua hàng trực tuyến cơ bản, vừa tạo cơ hội vận dụng kiến thức phân tích yêu cầu, thiết kế cơ sở dữ liệu và xây dựng ứng dụng web vào một hệ thống cụ thể.
+\section{Mục tiêu của đề tài}
+\noindent\textbf{Mục tiêu tổng quát.} Phân tích, thiết kế và xây dựng website thương mại điện tử T\&T Computer để giới thiệu máy tính, linh kiện và hỗ trợ khách hàng thực hiện các bước mua hàng trực tuyến; đồng thời cung cấp một số công cụ quản trị sản phẩm, đơn hàng và dữ liệu bán hàng.
 
-Cụ thể, đồ án hướng đến các mục tiêu sau:
+\noindent\textbf{Mục tiêu cụ thể.} Đồ án tập trung vào các mục tiêu sau:
 \begin{itemize}
-    \item Vận dụng kiến thức các môn học liên quan để phân tích yêu cầu, thiết kế cơ sở dữ liệu và xây dựng ứng dụng web.
-    \item Xây dựng các chức năng xem danh mục, tìm kiếm và tra cứu thông tin sản phẩm.
-    \item Hỗ trợ khách hàng đăng ký, đăng nhập, quản lý hồ sơ, thêm sản phẩm vào giỏ hàng và đặt hàng theo hình thức thanh toán khi nhận hàng.
-    \item Hỗ trợ khách hàng theo dõi đơn hàng và gửi yêu cầu hủy đơn theo trạng thái phù hợp; xây dựng chức năng quản trị tài khoản nhân viên.
-    \item Tổ chức mã nguồn và cơ sở dữ liệu để các chức năng của website có thể phối hợp trong quy trình bán hàng.
+    \item Phân tích tác nhân, yêu cầu và quy tắc nghiệp vụ; thiết kế các sơ đồ Use Case, trình tự, lớp và cơ sở dữ liệu.
+    \item Xây dựng chức năng tra cứu, tìm kiếm và lọc sản phẩm, cùng các chức năng đăng ký, đăng nhập, quản lý hồ sơ, địa chỉ và giỏ hàng.
+    \item Kết nối quy trình đặt hàng với kiểm tra giá, khuyến mãi, voucher và tồn kho; hỗ trợ khách theo dõi đơn và hủy đơn theo điều kiện.
+    \item Xây dựng các chức năng quản trị sản phẩm, danh mục, người dùng, tồn kho, đơn hàng, ưu đãi và thống kê phù hợp với vai trò được cấp.
+    \item Tích hợp đăng nhập Google và xây dựng luồng thanh toán trực tuyến ở môi trường SePay Sandbox bên cạnh phương thức COD; đánh giá rõ phạm vi kiểm chứng của các tích hợp này.
 \end{itemize}
 \section{Đối tượng và phạm vi}
+\noindent\textbf{Đối tượng nghiên cứu.} Quy trình giới thiệu và bán máy tính, linh kiện qua website; các nhóm người dùng gồm khách vãng lai, khách hàng, nhân viên và quản trị viên; cùng cách tổ chức dữ liệu và xử lý nghiệp vụ cho ứng dụng web thương mại điện tử.
+
+\noindent\textbf{Phạm vi chức năng và triển khai.} Hệ thống tập trung vào danh mục và thông tin sản phẩm, tìm kiếm/lọc, tài khoản khách hàng, giỏ hàng, địa chỉ nhận hàng, khuyến mãi và voucher, đặt hàng với lựa chọn COD, theo dõi/hủy đơn, quản lý tồn kho và các chức năng quản trị liên quan. Mã nguồn có luồng thanh toán SePay Sandbox và đăng nhập Google; COD chưa có thao tác ghi nhận đã thu tiền, còn hai tích hợp bên ngoài phụ thuộc cấu hình và dịch vụ tương ứng. Website được xây dựng bằng PHP, MySQL và PDO, giao diện dùng HTML, CSS, JavaScript; báo cáo xác định môi trường chạy là Apache trong XAMPP.
+
+\noindent\textbf{Giới hạn của đề tài.} Đồ án chưa hướng đến vận hành thương mại chính thức. Biểu mẫu có lựa chọn COD nhưng mã nguồn chưa có bước ghi nhận đã thu tiền; thanh toán trực tuyến có luồng SePay Sandbox nhưng chưa được kiểm chứng vận hành production. Hệ thống chưa tích hợp hãng vận chuyển để đồng bộ hành trình giao hàng, cũng chưa có quy trình tiếp nhận và xử lý yêu cầu bảo hành/đổi trả của khách hàng. Thống kê hiện tập trung vào doanh thu, trạng thái đơn và tồn kho, chưa có dữ liệu giá vốn để tính lợi nhuận. Mã nguồn chưa có tác vụ tự động hủy đơn quá hạn; đây là yêu cầu chưa triển khai. Báo cáo hiện không có nhật ký kiểm thử hay số liệu ca đạt/không đạt, nên chưa thể kết luận về kiểm thử đầu cuối, hiệu năng hoặc độ ổn định khi vận hành thực tế.
+
+
+\section{Phương pháp thực hiện}
 \begin{itemize}
-    \item \textbf{Đối tượng}
-    
-    Quy trình bán máy tính và linh kiện máy tính trực tuyến; các chức năng của website thương mại điện tử dành cho khách hàng và hoạt động quản trị tài khoản nhân viên; cùng các kỹ thuật xây dựng ứng dụng web và tổ chức cơ sở dữ liệu liên quan.
-    \item \textbf{Phạm vi}
-    
-    Đồ án tập trung xây dựng website T\&T Computer với các chức năng tra cứu sản phẩm, quản lý tài khoản khách hàng, giỏ hàng, đặt hàng COD hoặc thanh toán trực tuyến qua Cổng thanh toán, theo dõi và hủy đơn hàng, cùng quản trị tài khoản nhân viên. Hệ thống được phát triển bằng PHP, sử dụng MySQL để lưu trữ dữ liệu và PDO để kết nối cơ sở dữ liệu; giao diện sử dụng HTML, CSS và JavaScript.
+    \item \textbf{Nghiên cứu và phân tích nghiệp vụ:} Tổng hợp yêu cầu từ bài toán và tài liệu hiện có, xác định người dùng, quyền hạn và các quy tắc liên quan đến sản phẩm, giỏ hàng, đơn hàng, thanh toán và tồn kho.
+    \item \textbf{Phân tích và thiết kế hệ thống:} Đặc tả chức năng bằng Use Case, mô tả các luồng xử lý bằng sơ đồ trình tự, xây dựng sơ đồ lớp và sơ đồ cơ sở dữ liệu, sau đó đối chiếu thiết kế với cấu trúc bảng hiện có.
+    \item \textbf{Xây dựng ứng dụng:} Phát triển các trang giao diện và xử lý nghiệp vụ bằng PHP, HTML, CSS và JavaScript; tổ chức mã nguồn theo front controller, router, controller, model và view; sử dụng PDO để làm việc với MySQL.
+    \item \textbf{Rà soát và kiểm tra:} Đối chiếu các route, controller, model, view và luồng dữ liệu cho những nghiệp vụ chính. Do báo cáo chưa có bộ ca kiểm thử cùng nhật ký kết quả, phần này không đưa ra số lượng ca hoặc tỷ lệ đạt và không thay thế kiểm thử tích hợp trên môi trường vận hành.
 \end{itemize}
 
 
-\section{Phương pháp}
+\section{Cấu trúc báo cáo}
 \begin{itemize}
-    \item \textbf{Phương pháp nghiên cứu tài liệu:} Tìm hiểu kiến thức về website thương mại điện tử, quy trình bán hàng trực tuyến, PHP, MySQL và các công nghệ liên quan để làm cơ sở xây dựng hệ thống.
-    \item \textbf{Phương pháp phân tích và thiết kế:} Khảo sát yêu cầu của bài toán, xác định các chức năng cần có, phân tích quy trình nghiệp vụ và thiết kế cơ sở dữ liệu phù hợp.
-    \item \textbf{Phương pháp xây dựng và kiểm thử:} Thực hiện website bằng PHP, HTML, CSS và JavaScript; kết nối cơ sở dữ liệu MySQL thông qua PDO; kiểm tra các chức năng theo những luồng sử dụng chính như đăng nhập, quản lý giỏ hàng, đặt hàng và xử lý đơn hàng.
-\end{itemize}
-
-
-\section{Cấu trúc tài liệu đồ án}
-\begin{itemize}
-    \item \textbf{Chương 1: Cơ sở lý thuyết và công nghệ} \\
-    Trình bày tổng quan về đề tài, các kiến thức và công nghệ liên quan đến website thương mại điện tử làm cơ sở cho quá trình xây dựng hệ thống.
+    \item \textbf{Chương 1: Tổng quan lý thuyết và cơ sở nghiên cứu} \\
+    Giới thiệu bài toán, website thương mại điện tử và các công nghệ, kiến trúc ứng dụng được sử dụng.
     
     \item \textbf{Chương 2: Phân tích và thiết kế hệ thống} \\
-    Trình bày phương pháp thực hiện, kết quả phân tích yêu cầu, thiết kế hệ thống và cơ sở dữ liệu, cùng các công cụ được sử dụng.
+    Trình bày yêu cầu, tác nhân, quy tắc nghiệp vụ, kiến trúc, cơ sở dữ liệu và các sơ đồ phân tích, thiết kế.
     
-    \item \textbf{Chương 3: Phân tích chức năng} \\
-    Trình bày các chức năng chính đã xây dựng và cách thức triển khai, cùng các luồng xử lý nghiệp vụ.
+    \item \textbf{Chương 3: Kết quả triển khai và đánh giá} \\
+    Trình bày chức năng theo vai trò, minh họa giao diện và quy trình nghiệp vụ, đồng thời thảo luận mức triển khai, giới hạn và những nội dung cần hoàn thiện. Đặc tả 18 Use Case được trình bày trong Chương 2.
     
-    \item \textbf{Chương 4: Tổng kết} \\
-    Tổng kết kết quả đạt được, nêu những hạn chế và đề xuất hướng phát triển tiếp theo.
+    \item \textbf{Chương 4: Kết luận và đề xuất} \\
+    Đánh giá kết quả và mức độ hoàn thành, chỉ ra các giới hạn đã xác định, đồng thời đề xuất hướng phát triển phù hợp.
 \end{itemize}

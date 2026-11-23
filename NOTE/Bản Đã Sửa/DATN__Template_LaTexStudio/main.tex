@@ -48,8 +48,9 @@
   \setlength{\LTpost}{6pt}%
   \setlength{\LTleft}{0pt}%
   \setlength{\LTright}{0pt}%
-  \begin{longtable}{|p{.18\textwidth}|p{\dimexpr\textwidth-.18\textwidth-4\tabcolsep-3\arrayrulewidth\relax}|}
+  \begin{longtable}{|>{\raggedright\arraybackslash}p{2.8cm}|>{\raggedright\arraybackslash}p{\dimexpr\textwidth-2.8cm-4\tabcolsep-3\arrayrulewidth\relax}|}
   \hline
+
 }{%
   \end{longtable}%
   \par\smallskip
@@ -65,8 +66,9 @@
   \setlength{\LTpost}{6pt}%
   \setlength{\LTleft}{0pt}%
   \setlength{\LTright}{0pt}%
-  \begin{longtable}{|p{.08\textwidth}|p{.27\textwidth}|p{\dimexpr\textwidth-.35\textwidth-6\tabcolsep-4\arrayrulewidth\relax}|}
+  \begin{longtable}{|>{\raggedright\arraybackslash}p{1.3cm}|>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{\dimexpr\textwidth-1.3cm-4cm-6\tabcolsep-4\arrayrulewidth\relax}|}
   \hline
+
 }{%
   \end{longtable}%
   \par\smallskip
@@ -131,16 +133,17 @@
 
 % --- ĐỊNH NGHĨA FONT CHO CAPTION (AN TOÀN, KHÔNG XUNG ĐỘT) ---
 \DeclareCaptionFont{myLabelFont}{\bfseries\fontsize{13pt}{15.6pt}\selectfont}
-\DeclareCaptionFont{myTextFont}{\itshape\fontsize{11pt}{13.2pt}\selectfont}
+\DeclareCaptionFont{myTextFont}{\bfseries\fontsize{13pt}{15.6pt}\selectfont}
 
 % Cấu hình cho Bảng (Table)
 \captionsetup[table]{
     labelfont=myLabelFont,
     textfont=myTextFont,
     labelsep=colon,
-    justification=centering,
+    justification=raggedright,
     singlelinecheck=false,
-    position=above
+    position=above,
+    hypcap=false
 }
 
 % Cấu hình cho Hình (Figure)
@@ -150,6 +153,13 @@
     labelsep=colon,
     justification=centering,
     position=below
+}
+
+% Caption cho longtable được đặt ngoài bảng để giữ đúng chiều rộng và điểm liên kết.
+\newcommand{\reporttablecaption}[2]{%
+  \noindent\begin{minipage}{\textwidth}%
+    \captionof{table}{#1}\label{#2}%
+  \end{minipage}\par
 }
 
 \makeatletter
@@ -169,14 +179,14 @@
 \pagestyle{fancy}
 \fancyhf{} % Xóa sạch cấu hình mặc định
 
-% 1. Cấu hình số trang lên ĐẦU cho các trang nội dung thông thường
-\fancyhead[C]{\fontsize{12pt}{14pt}\selectfont \thepage}
+% 1. Cấu hình số trang ở góc phải chân trang cho các trang thông thường
+\fancyfoot[R]{\fontsize{12pt}{14pt}\selectfont \thepage}
 \renewcommand{\headrulewidth}{0pt}
 
-% 2. ÉP số trang lên ĐẦU cho các trang bắt đầu Chương (\chapter)
+% 2. ÉP số trang xuống góc phải chân trang cho các trang bắt đầu Chương (\chapter)
 \fancypagestyle{plain}{
     \fancyhf{} % Xóa số trang ở cuối của mặc định plain
-    \fancyhead[C]{\fontsize{12pt}{14pt}\selectfont \thepage} % Đưa số trang lên giữa - trên
+    \fancyfoot[R]{\fontsize{12pt}{14pt}\selectfont \thepage} % Đặt số trang ở góc phải chân trang
     \renewcommand{\headrulewidth}{0pt}
 }
 
@@ -184,13 +194,14 @@
 \usepackage{indentfirst}
 \setlength{\parindent}{1cm}
 \setlength{\parskip}{6pt}
-%\renewcommand{\baselinestretch}{1.2}
-\setstretch{1.0}
+\setstretch{1.2}
 
 % ------------------- ĐỊNH DẠNG TIÊU ĐỀ MỤC (SECTIONS) -------------------
 \usepackage{titlesec}
 \usepackage{textcase}
-\setcounter{secnumdepth}{3}
+% Chương là cấp 1; section và subsection tạo tối đa ba cấp đánh số.
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
 
 \titlespacing*{\section}{0pt}{6pt}{6pt}
 \titleformat*{\section}{\fontsize{13pt}{16pt}\selectfont \bfseries \MakeUppercase}
@@ -215,6 +226,18 @@
 \renewcommand{\contentsname}{MỤC LỤC}
 \renewcommand{\cfttoctitlefont}{\hfill\fontsize{16pt}{19.2pt}\selectfont\bfseries}
 \renewcommand{\cftaftertoctitle}{\hfill}
+% Mọi cấp mục lục bắt đầu cùng lề; số trang và dấu chấm dẫn theo mặc định tocloft.
+\setlength{\cftchapindent}{0pt}
+\setlength{\cftsecindent}{0pt}
+\setlength{\cftsubsecindent}{0pt}
+\setlength{\cftsubsubsecindent}{0pt}
+\renewcommand{\cftchapfont}{\bfseries}
+\renewcommand{\cftsecfont}{\bfseries}
+\renewcommand{\cftsubsecfont}{\normalfont}
+\renewcommand{\cftsubsubsecfont}{\normalfont\itshape}
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsubsecleader}{\cftdotfill{\cftdotsep}}
 
 % Danh sách bảng
 % -------------- LIST OF TABLES -----------
@@ -243,6 +266,9 @@
 \newlength{\mylen}
 \settowidth{\mylen}{\bfseries{\detokenize{CHƯƠNG} 1:}}
 \addtolength{\cftchapnumwidth}{\mylen}
+% Căn phần tên mục cùng một cột sau nhãn chương.
+\setlength{\cftsecnumwidth}{\cftchapnumwidth}
+\setlength{\cftsubsecnumwidth}{\cftchapnumwidth}
 \renewcommand{\cftchappresnum}{CHƯƠNG }
 \renewcommand{\cftchapaftersnum}{:}
 
@@ -268,7 +294,7 @@
 
 %===========================================================================
 % ------------------- LIÊN KẾT & ĐIỀU HƯỚNG PDF -------------------
-\usepackage[hidelinks,unicode]{hyperref}
+\usepackage[hidelinks,unicode,hypertexnames=false]{hyperref}
 \hypersetup{
     colorlinks=false,
     citecolor=black,
@@ -304,5 +330,18 @@
 
 \input{Chapter_4/Chuong4_main}
 
-%tài liệu: \cite{tapchi} \cite{chuong} \cite{giaotrinh} \cite{luanvan} %\cite{hoithao} \cite{internet}
+\begin{thebibliography}{99}
+\sloppy
+\raggedright
+\addcontentsline{toc}{chapter}{TÀI LIỆU THAM KHẢO}
+\bibitem{fptshop-laptop} FPT Shop, ``Laptop -- Máy tính xách tay'', \url{https://fptshop.com.vn/may-tinh-xach-tay}, truy cập ngày 23/11/2026.
+\bibitem{tiki-components} Tiki, ``Linh kiện máy tính, phụ kiện máy tính'', \url{https://tiki.vn/linh-kien-may-tinh-phu-kien-may-tinh/c8129}, truy cập ngày 23/11/2026.
+\bibitem{php-pdo} PHP Documentation Group, ``PDO -- PHP Data Objects'', \url{https://www.php.net/manual/en/book.pdo.php}, truy cập ngày 23/11/2026.
+\bibitem{php-password-hash} PHP Documentation Group, ``password\_hash'', \url{https://www.php.net/manual/en/function.password-hash.php}, truy cập ngày 23/11/2026.
+\bibitem{owasp-csrf} OWASP Foundation, ``Cross-Site Request Forgery Prevention Cheat Sheet'', \url{https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html}, truy cập ngày 23/11/2026.
+\bibitem{mysql-transactions} Oracle, ``InnoDB Transaction Model'', MySQL 8.4 Reference Manual, \url{https://dev.mysql.com/doc/refman/8.4/en/innodb-autocommit-commit-rollback.html}, truy cập ngày 23/11/2026.
+\end{thebibliography}
+\clearpage
+\appendix
+\input{Appendix/PhuLuc_main}
 \end{document}
