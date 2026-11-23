@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1795436371.6824 "c:/xampp/htdocs/DoAn1CongThanhDucThinh/NOTE/Bản Đã Sửa/DATN__Template_LaTexStudio/main.tex" "main.pdf" "main" 1795436379.28382 2
+["pdflatex"] 1795443729.83488 "c:/xampp/htdocs/DoAn1CongThanhDucThinh/NOTE/Bản Đã Sửa/DATN__Template_LaTexStudio/main.tex" "main.pdf" "main" 1795443736.36472 0
   "C:/Users/PC/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1792572256.14438 89969 e95579120a3aa0ebc21d2737ca2ba701 ""
   "C:/Users/PC/AppData/Local/MiKTeX/fonts/tfm/public/rsfs/rsfs10.tfm" 1795424719.10186 688 37338d6ab346c2f1466b29e195316aa4 ""
   "C:/Users/PC/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1792572093.21819 13332036 521e3aa81e1b0b2e1258546738e6c4ff ""
@@ -151,20 +151,20 @@
   "Chapter_2/Chuong2_main.tex" 1795434458.51457 14842 9bf83358bc29b02022a80588992736f9 ""
   "Chapter_2/Images_c2/So_do_UC_tong_quan.png" 1795434204.72268 50965 1980bbf83e3d291093135d36926a673f ""
   "Chapter_2/images_c2/db.png" 1795434204.72569 124089 8b8b474464a5b7b892befdd707516282 ""
-  "Chapter_3/Chuong3_main.tex" 1795436361.45134 42883 21ce09e6aac3adcea3725d83a9e5f39d ""
+  "Chapter_3/Chuong3_main.tex" 1795443721.59158 42882 3eba232aad5327cc50cad29028e04f59 ""
   "Chapter_3/images_Usecase/Thanh_toán.png" 1795434204.72959 93468 5f388cd497a1bd97aea808a83c1992f5 ""
   "Chapter_3/images_Usecase/loginGoogle.png" 1795434204.73209 53479 a53f58469029cb0ee8a7e128e1ec0e8d ""
   "Chapter_3/images_Usecase/qlykho.png" 1795434204.73386 43179 c5e3faf2de531f39c9f1159d87cd399a ""
-  "Chapter_3/images_Usecase/Đăng_nhập .png" 0 -1 0 ""
+  "Chapter_3/images_Usecase/Đăng_nhập.png" 1795436037.04231 59711 c93a36a5b1036479917be9c38a43a7e6 ""
   "Chapter_3/images_Usecase/đăng ký.png" 1795434204.73686 117888 7d3d1eba01698e5e16f10d1ed52d724f ""
   "Chapter_4/Chuong4_main.tex" 1795434204.73886 7827 3cfc32750731fc88ecd099605910961b ""
   "Chapter_4/image/Sơ đồ class.png" 1795434204.74238 89982 99f41144ad73a8a3a9327434c4da86da ""
   "LoiMoDau/LoiMoDau_main.tex" 1795434204.74345 5669 7bc9db87f0debf6afa68916c9e4f91e2 ""
   "c:/xampp/htdocs/DoAn1CongThanhDucThinh/NOTE/Bản Đã Sửa/DATN__Template_LaTexStudio/main.tex" 1795434204.76314 10661 6242fa6448c954fef02f7d790121e5ff ""
-  "main.aux" 1795436378.37474 13026 f086c217c31816c919faa4356554770f "pdflatex"
-  "main.lof" 1795436378.38636 1086 c1e3457da335affbafcad62f72203e68 "pdflatex"
-  "main.out" 1795436378.38085 11219 cf53d5fc8f5d89d0cfd51601bbddacd6 "pdflatex"
-  "main.toc" 1795436378.38585 5512 bbaced8c4d2426587cac02f7419a37a8 "pdflatex"
+  "main.aux" 1795443735.80548 13026 dcc9a96512282bcf78f28ec5abb34432 "pdflatex"
+  "main.lof" 1795443735.81353 1086 0d342d1862f751d6a6197996d6b52f7d "pdflatex"
+  "main.out" 1795443735.81002 11219 cf53d5fc8f5d89d0cfd51601bbddacd6 "pdflatex"
+  "main.toc" 1795443735.81353 5512 e85b315183c85d0c6116feee6b884fb6 "pdflatex"
   (generated)
   "main.aux"
   "main.lof"

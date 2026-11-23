@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.10.21)  23 NOV 2026 19:19
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.10.21)  23 NOV 2026 21:22
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -909,11 +909,12 @@ Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
 \c@lstlisting=\count367
 Package hyperref Info: Link coloring OFF on input line 286.
+ (main.out) (main.out)
 \@outlinefile=\write3
 \openout3 = `main.out'.
 
  (Chapter_0/Chapter0_main.tex (Chapter_0/1_2_TrangBia.tex
-<Chapter_0/logo.png, id=3, 414.54875pt x 414.54875pt>
+<Chapter_0/logo.png, id=243, 414.54875pt x 414.54875pt>
 File: Chapter_0/logo.png Graphic file (type png)
 <use Chapter_0/logo.png>
 Package pdftex.def Info: Chapter_0/logo.png  used on input line 77.
@@ -971,17 +972,15 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.80008> not available
 
 ] (Chapter_0/6_TomTat.tex) [3
 
-]
-No file main.toc.
+] (main.toc [4])
 \tf@toc=\write4
 \openout4 = `main.toc'.
 
-[4]
-No file main.lof.
+ [5] (main.lof)
 \tf@lof=\write5
 \openout5 = `main.lof'.
 
-[5]) (LoiMoDau/LoiMoDau_main.tex
+ [6]) (LoiMoDau/LoiMoDau_main.tex
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 17.
  (C:\Users\PC\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
@@ -1111,19 +1110,19 @@ Underfull \hbox (badness 10000) in paragraph at lines 38--38
  []
 
 [5] [6] [7]
-<Chapter_2/Images_c2/So_do_UC_tong_quan.png, id=101, 917.4275pt x 1406.25375pt>
+<Chapter_2/Images_c2/So_do_UC_tong_quan.png, id=388, 917.4275pt x 1406.25375pt>
 File: Chapter_2/Images_c2/So_do_UC_tong_quan.png Graphic file (type png)
 <use Chapter_2/Images_c2/So_do_UC_tong_quan.png>
 Package pdftex.def Info: Chapter_2/Images_c2/So_do_UC_tong_quan.png  used on input line 131.
 (pdftex.def)             Requested size: 327.7763pt x 502.4315pt.
  [8]
-<Chapter_2/images_c2/db.png, id=108, 1260.71pt x 1804.7425pt>
+<Chapter_2/images_c2/db.png, id=393, 1260.71pt x 1804.7425pt>
 File: Chapter_2/images_c2/db.png Graphic file (type png)
 <use Chapter_2/images_c2/db.png>
 Package pdftex.def Info: Chapter_2/images_c2/db.png  used on input line 139.
 (pdftex.def)             Requested size: 409.71692pt x 586.50684pt.
  [9 <./Chapter_2/Images_c2/So_do_UC_tong_quan.png>]
-<Chapter_4/image/S∆° ƒë·ªì class.png, id=116, 2210.2575pt x 929.4725pt>
+<Chapter_4/image/S∆° ƒë·ªì class.png, id=399, 2210.2575pt x 929.4725pt>
 File: Chapter_4/image/S∆° ƒë·ªì class.png Graphic file (type png)
 <use Chapter_4/image/S∆° ƒë·ªì class.png>
 Package pdftex.def Info: Chapter_4/image/S∆° ƒë·ªì class.png  used on input line 147.
@@ -1145,7 +1144,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 26--26
 []|\T5/ptm/b/n/13 Quy t≠c
  []
 
-<Chapter_3/images_Usecase/ƒëƒÉng k√Ω.png, id=131, 642.60075pt x 413.74574pt>
+<Chapter_3/images_Usecase/ƒëƒÉng k√Ω.png, id=411, 642.60075pt x 413.74574pt>
 File: Chapter_3/images_Usecase/ƒëƒÉng k√Ω.png Graphic file (type png)
 <use Chapter_3/images_Usecase/ƒëƒÉng k√Ω.png>
 Package pdftex.def Info: Chapter_3/images_Usecase/ƒëƒÉng k√Ω.png  used on input line 34.
@@ -1169,31 +1168,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 65--65
 
 Chapter_3/Chuong3_main.tex:71: ignored error: Infinite glue shrinkage found in box being split [13 <./Chapter_3/images_Usecase/ƒëƒÉng k√Ω.png>]
 Chapter_3/Chuong3_main.tex:71: ignored error: Infinite glue shrinkage found in box being split [14]
-
-LaTeX Warning: File `Chapter_3/images_Usecase/ƒêƒÉng_nh·∫≠p .png' not found on input line 74.
-
-
-Chapter_3/Chuong3_main.tex:74: Package pdftex.def Error: File `Chapter_3/images_Usecase/ƒêƒÉng_nh·∫≠p .png' not found: using draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.74 ...apter_3/images_Usecase/ƒêƒÉng_nh·∫≠p .png}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-LaTeX Font Info:    Trying to load font information for T5+cmtt on input line 74.
-(C:\Users\PC\AppData\Local\Programs\MiKTeX\tex/latex/vntex\t5cmtt.fd
-File: t5cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
-)
-<Chapter_3/images_Usecase/loginGoogle.png, id=168, 725.71124pt x 374.5995pt>
+<Chapter_3/images_Usecase/ƒêƒÉng_nh·∫≠p.png, id=443, 696.201pt x 425.79076pt>
+File: Chapter_3/images_Usecase/ƒêƒÉng_nh·∫≠p.png Graphic file (type png)
+<use Chapter_3/images_Usecase/ƒêƒÉng_nh·∫≠p.png>
+Package pdftex.def Info: Chapter_3/images_Usecase/ƒêƒÉng_nh·∫≠p.png  used on input line 74.
+(pdftex.def)             Requested size: 409.71692pt x 250.57765pt.
+<Chapter_3/images_Usecase/loginGoogle.png, id=444, 725.71124pt x 374.5995pt>
 File: Chapter_3/images_Usecase/loginGoogle.png Graphic file (type png)
 <use Chapter_3/images_Usecase/loginGoogle.png>
 Package pdftex.def Info: Chapter_3/images_Usecase/loginGoogle.png  used on input line 81.
 (pdftex.def)             Requested size: 409.71692pt x 211.49478pt.
- [15]
+
 Underfull \hbox (badness 10000) in paragraph at lines 91--91
 []|\T5/ptm/b/n/13 ^^^i∑u kiªn
  []
@@ -1208,7 +1193,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 110--110
 []|\T5/ptm/b/n/13 Quy t≠c
  []
 
-Chapter_3/Chuong3_main.tex:115: ignored error: Infinite glue shrinkage found in box being split [16 <./Chapter_3/images_Usecase/loginGoogle.png>]
+[15 <./Chapter_3/images_Usecase/ƒêƒÉng_nh·∫≠p.png> <./Chapter_3/images_Usecase/loginGoogle.png>]
+Chapter_3/Chuong3_main.tex:115: ignored error: Infinite glue shrinkage found in box being split [16]
 Underfull \hbox (badness 10000) in paragraph at lines 122--122
 []|\T5/ptm/b/n/13 ^^^i∑u kiªn
  []
@@ -1223,7 +1209,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 140--140
 []|\T5/ptm/b/n/13 Quy t≠c
  []
 
-Chapter_3/Chuong3_main.tex:144: ignored error: Infinite glue shrinkage found in box being split [17]
+
 Underfull \hbox (badness 10000) in paragraph at lines 151--151
 []|\T5/ptm/b/n/13 ^^^i∑u kiªn
  []
@@ -1238,7 +1224,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 166--166
 []|\T5/ptm/b/n/13 Quy t≠c
  []
 
-Chapter_3/Chuong3_main.tex:173: ignored error: Infinite glue shrinkage found in box being split [18]
+[17]
 Underfull \hbox (badness 10000) in paragraph at lines 180--180
 []|\T5/ptm/b/n/13 ^^^i∑u kiªn
  []
@@ -1253,13 +1239,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 196--196
 []|\T5/ptm/b/n/13 Quy t≠c
  []
 
-Chapter_3/Chuong3_main.tex:201: ignored error: Infinite glue shrinkage found in box being split [19]
-<Chapter_3/images_Usecase/Thanh_to√°n.png, id=234, 1175.14032pt x 716.6775pt>
+[18]
+<Chapter_3/images_Usecase/Thanh_to√°n.png, id=492, 1175.14032pt x 716.6775pt>
 File: Chapter_3/images_Usecase/Thanh_to√°n.png Graphic file (type png)
 <use Chapter_3/images_Usecase/Thanh_to√°n.png>
 Package pdftex.def Info: Chapter_3/images_Usecase/Thanh_to√°n.png  used on input line 204.
 (pdftex.def)             Requested size: 409.71692pt x 249.86761pt.
-
+ [19]
 Underfull \hbox (badness 10000) in paragraph at lines 214--214
 []|\T5/ptm/b/n/13 ^^^i∑u kiªn
  []
@@ -1289,7 +1275,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 256--256
 []|\T5/ptm/b/n/13 Quy t≠c
  []
 
-Chapter_3/Chuong3_main.tex:257: ignored error: Infinite glue shrinkage found in box being split [21]
+
 Underfull \hbox (badness 10000) in paragraph at lines 268--268
 []|\T5/ptm/b/n/13 ^^^i∑u kiªn
  []
@@ -1304,6 +1290,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 288--288
 []|\T5/ptm/b/n/13 Quy t≠c
  []
 
+[21]
 Chapter_3/Chuong3_main.tex:294: ignored error: Infinite glue shrinkage found in box being split [22]
 Underfull \hbox (badness 10000) in paragraph at lines 301--301
 []|\T5/ptm/b/n/13 ^^^i∑u kiªn
@@ -1319,7 +1306,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 310--310
 []|\T5/ptm/b/n/13 Quy t≠c
  []
 
-Chapter_3/Chuong3_main.tex:311: ignored error: Infinite glue shrinkage found in box being split [23]
+
 Underfull \hbox (badness 10000) in paragraph at lines 318--318
 []|\T5/ptm/b/n/13 ^^^i∑u kiªn
  []
@@ -1334,7 +1321,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 337--337
 []|\T5/ptm/b/n/13 Quy t≠c
  []
 
-Chapter_3/Chuong3_main.tex:343: ignored error: Infinite glue shrinkage found in box being split [24]
+Chapter_3/Chuong3_main.tex:343: ignored error: Infinite glue shrinkage found in box being split [23]
 Underfull \hbox (badness 10000) in paragraph at lines 350--350
 []|\T5/ptm/b/n/13 ^^^i∑u kiªn
  []
@@ -1349,7 +1336,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 367--367
 []|\T5/ptm/b/n/13 Quy t≠c
  []
 
-Chapter_3/Chuong3_main.tex:372: ignored error: Infinite glue shrinkage found in box being split [25]
+Chapter_3/Chuong3_main.tex:372: ignored error: Infinite glue shrinkage found in box being split [24]
 Underfull \hbox (badness 10000) in paragraph at lines 379--379
 []|\T5/ptm/b/n/13 ^^^i∑u kiªn
  []
@@ -1364,7 +1351,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 390--390
 []|\T5/ptm/b/n/13 Quy t≠c
  []
 
-Chapter_3/Chuong3_main.tex:396: ignored error: Infinite glue shrinkage found in box being split [26]
+Chapter_3/Chuong3_main.tex:396: ignored error: Infinite glue shrinkage found in box being split [25]
 Underfull \hbox (badness 10000) in paragraph at lines 403--403
 []|\T5/ptm/b/n/13 ^^^i∑u kiªn
  []
@@ -1379,12 +1366,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 414--414
 []|\T5/ptm/b/n/13 Quy t≠c
  []
 
-<Chapter_3/images_Usecase/qlykho.png, id=329, 778.107pt x 313.77225pt>
+Chapter_3/Chuong3_main.tex:421: ignored error: Infinite glue shrinkage found in box being split [26]
+<Chapter_3/images_Usecase/qlykho.png, id=598, 778.107pt x 313.77225pt>
 File: Chapter_3/images_Usecase/qlykho.png Graphic file (type png)
 <use Chapter_3/images_Usecase/qlykho.png>
 Package pdftex.def Info: Chapter_3/images_Usecase/qlykho.png  used on input line 424.
 (pdftex.def)             Requested size: 409.71692pt x 165.21645pt.
-[27]
+
 Underfull \hbox (badness 10000) in paragraph at lines 434--434
 []|\T5/ptm/b/n/13 ^^^i∑u kiªn
  []
@@ -1399,7 +1387,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 443--443
 []|\T5/ptm/b/n/13 Quy t≠c
  []
 
-
+Chapter_3/Chuong3_main.tex:448: ignored error: Infinite glue shrinkage found in box being split [27 <./Chapter_3/images_Usecase/qlykho.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 455--455
 []|\T5/ptm/b/n/13 ^^^i∑u kiªn
  []
@@ -1414,7 +1402,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 471--471
 []|\T5/ptm/b/n/13 Quy t≠c
  []
 
-Chapter_3/Chuong3_main.tex:477: ignored error: Infinite glue shrinkage found in box being split [28 <./Chapter_3/images_Usecase/qlykho.png>]
+Chapter_3/Chuong3_main.tex:477: ignored error: Infinite glue shrinkage found in box being split [28]
 Underfull \hbox (badness 10000) in paragraph at lines 484--484
 []|\T5/ptm/b/n/13 ^^^i∑u kiªn
  []
@@ -1429,7 +1417,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 495--495
 []|\T5/ptm/b/n/13 Quy t≠c
  []
 
-[29]
+Chapter_3/Chuong3_main.tex:501: ignored error: Infinite glue shrinkage found in box being split [29]
 Underfull \hbox (badness 10000) in paragraph at lines 508--508
 []|\T5/ptm/b/n/13 ^^^i∑u kiªn
  []
@@ -1451,7 +1439,10 @@ Overfull \hbox (0.80359pt too wide) in paragraph at lines 17--18
 []\T5/ptm/m/n/13 Qu£n l˛ s£n ph©m, danh mˆc, ng˜Ìi dÚng, nh•n vi∂n, tÁn kho, khuy∏n m¢i, voucher,
  []
 
-[32
+LaTeX Font Info:    Trying to load font information for T5+cmtt on input line 26.
+(C:\Users\PC\AppData\Local\Programs\MiKTeX\tex/latex/vntex\t5cmtt.fd
+File: t5cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+) [32
 
 ] [33])
 
@@ -1463,31 +1454,21 @@ See the caption package documentation for explanation.
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
  ***********
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-
-Package rerunfilecheck Warning: File `main.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `main.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  CF53D5FC8F5D89D0CFD51601BBDDACD6;11219.
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: CF53D5FC8F5D89D0CFD51601BBDDACD6;11219.
  ) 
 Here is how much of TeX's memory you used:
- 22475 strings out of 467871
- 412790 string characters out of 5419827
- 840561 words of memory out of 5000000
- 50741 multiletter control sequences out of 15000+600000
- 675690 words of font info for 101 fonts, out of 8000000 for 9000
+ 22525 strings out of 467871
+ 412891 string characters out of 5419827
+ 844145 words of memory out of 5000000
+ 50782 multiletter control sequences out of 15000+600000
+ 675724 words of font info for 101 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 86i,13n,117p,839b,685s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 86i,13n,117p,839b,684s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/PC/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/PC/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/urwvn/utmb8v.pfb><C:/Users/PC/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/PC/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/urwvn/utmr8v.pfb><C:/Users/PC/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/urwvn/utmri8v.pfb><C:/Users/PC/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vntt12.pfb>
-Output written on main.pdf (41 pages, 716935 bytes).
+Output written on main.pdf (42 pages, 781312 bytes).
 PDF statistics:
- 497 PDF objects out of 1000 (max. 8388607)
- 257 named destinations out of 1000 (max. 500000)
- 41 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 747 PDF objects out of 1000 (max. 8388607)
+ 258 named destinations out of 1000 (max. 500000)
+ 526 words of extra memory for PDF output out of 10000 (max. 10000000)
 

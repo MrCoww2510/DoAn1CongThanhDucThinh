@@ -249,8 +249,14 @@ INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmr10.tfm
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\translations\dicts\translations-basic-dictionary-english.trsl
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\translations\dicts\translations-basic-dictionary-english.trsl
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\translations\dicts\translations-basic-dictionary-english.trsl
-OUTPUT main.out
+INPUT .\main.out
+INPUT .\main.out
+INPUT main.out
+INPUT main.out
 OUTPUT main.pdf
+INPUT .\main.out
+INPUT .\main.out
+OUTPUT main.out
 INPUT .\Chapter_0\Chapter0_main.tex
 INPUT .\Chapter_0\Chapter0_main.tex
 INPUT .\Chapter_0\Chapter0_main.tex
@@ -348,7 +354,13 @@ INPUT .\Chapter_0\6_TomTat.tex
 INPUT .\Chapter_0\6_TomTat.tex
 INPUT Chapter_0\6_TomTat.tex
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\fonts\tfm\vntex\urwvn\utmr8v.tfm
+INPUT .\main.toc
+INPUT .\main.toc
+INPUT main.toc
 OUTPUT main.toc
+INPUT .\main.lof
+INPUT .\main.lof
+INPUT main.lof
 OUTPUT main.lof
 INPUT .\LoiMoDau\LoiMoDau_main.tex
 INPUT .\LoiMoDau\LoiMoDau_main.tex
@@ -410,10 +422,13 @@ INPUT .\Chapter_3\images_Usecase\đăng ký.png
 INPUT .\Chapter_3\images_Usecase\đăng ký.png
 INPUT .\Chapter_3\images_Usecase\đăng ký.png
 INPUT .\Chapter_3\images_Usecase\đăng ký.png
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\vntex\t5cmtt.fd
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\vntex\t5cmtt.fd
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\vntex\t5cmtt.fd
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\fonts\tfm\vntex\vnr\vntt12.tfm
+INPUT .\Chapter_3\images_Usecase\Đăng_nhập.png
+INPUT .\Chapter_3\images_Usecase\Đăng_nhập.png
+INPUT .\Chapter_3\images_Usecase\Đăng_nhập.png
+INPUT .\Chapter_3\images_Usecase\Đăng_nhập.png
+INPUT .\Chapter_3\images_Usecase\Đăng_nhập.png
+INPUT .\Chapter_3\images_Usecase\Đăng_nhập.png
+INPUT .\Chapter_3\images_Usecase\Đăng_nhập.png
 INPUT .\Chapter_3\images_Usecase\loginGoogle.png
 INPUT .\Chapter_3\images_Usecase\loginGoogle.png
 INPUT .\Chapter_3\images_Usecase\loginGoogle.png
@@ -440,6 +455,10 @@ INPUT .\Chapter_4\Chuong4_main.tex
 INPUT .\Chapter_4\Chuong4_main.tex
 INPUT .\Chapter_4\Chuong4_main.tex
 INPUT Chapter_4\Chuong4_main.tex
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\vntex\t5cmtt.fd
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\vntex\t5cmtt.fd
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\tex\latex\vntex\t5cmtt.fd
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX\fonts\tfm\vntex\vnr\vntt12.tfm
 INPUT main.aux
 INPUT .\main.out
 INPUT .\main.out
