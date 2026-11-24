@@ -1,67 +1,67 @@
 \acswitchoff 
 \contentsline {chapter}{DANH MỤC CÁC TỪ VIẾT TẮT VÀ THUẬT NGỮ}{}{chapter*.4}%
 \contentsline {chapter}{LỜI MỞ ĐẦU}{1}{chapter*.5}%
-\contentsline {section}{\numberline {1}Lý do chọn đề tài}{1}{section*.6}%
-\contentsline {section}{\numberline {2}Mục tiêu của đề tài}{1}{section*.7}%
-\contentsline {section}{\numberline {3}Đối tượng và phạm vi}{1}{section*.8}%
-\contentsline {section}{\numberline {4}Phương pháp thực hiện}{2}{section*.9}%
-\contentsline {section}{\numberline {5}Cấu trúc báo cáo}{2}{section*.10}%
-\contentsline {chapter}{\numberline {1}TỔNG QUAN LÝ THUYẾT VÀ CƠ SỞ NGHIÊN CỨU}{4}{chapter*.11}%
-\contentsline {section}{\numberline {1.1}Tổng quan bài toán}{4}{section*.12}%
-\contentsline {subsection}{\numberline {1.1.1}Đặc điểm của bài toán}{4}{subsection*.13}%
-\contentsline {subsection}{\numberline {1.1.2}Vấn đề cần giải quyết}{4}{subsection*.14}%
-\contentsline {section}{\numberline {1.2}Các giải pháp và hệ thống liên quan}{4}{section*.15}%
-\contentsline {section}{\numberline {1.3}Cơ sở lý thuyết}{5}{section*.16}%
-\contentsline {subsection}{\numberline {1.3.1}Mô hình website thương mại điện tử}{5}{subsection*.17}%
-\contentsline {subsection}{\numberline {1.3.2}Cơ sở dữ liệu quan hệ và tính nhất quán}{5}{subsection*.18}%
-\contentsline {subsection}{\numberline {1.3.3}Xác thực, phân quyền và bảo vệ ứng dụng web}{5}{subsection*.19}%
-\contentsline {subsection}{\numberline {1.3.4}Giao dịch và xử lý thanh toán}{6}{subsection*.20}%
-\contentsline {section}{\numberline {1.4}Công nghệ sử dụng}{6}{section*.21}%
-\contentsline {subsection}{\numberline {1.4.1}PHP và tổ chức ứng dụng}{6}{subsection*.22}%
-\contentsline {subsection}{\numberline {1.4.2}MySQL và PDO}{6}{subsection*.23}%
-\contentsline {subsection}{\numberline {1.4.3}HTML, CSS và JavaScript}{6}{subsection*.24}%
-\contentsline {subsection}{\numberline {1.4.4}Môi trường và dịch vụ tích hợp}{7}{subsection*.25}%
-\contentsline {section}{\numberline {1.5}Giải pháp và kiến trúc tổng quan}{7}{section*.26}%
-\contentsline {section}{\numberline {1.6}Tổng kết chương}{7}{section*.27}%
-\contentsline {chapter}{\numberline {2}PHÂN TÍCH VÀ THIẾT KẾ HỆ THỐNG}{8}{chapter*.28}%
-\contentsline {section}{\numberline {2.1}Yêu cầu hệ thống}{8}{section*.29}%
-\contentsline {subsection}{\numberline {2.1.1}Yêu cầu chức năng}{8}{subsection*.30}%
-\contentsline {subsection}{\numberline {2.1.2}Đặc tả chi tiết các chức năng}{9}{subsection*.32}%
-\contentsline {subsection}{\numberline {2.1.3}Yêu cầu phi chức năng}{42}{subsection*.202}%
-\contentsline {section}{\numberline {2.2}Tác nhân và quy tắc nghiệp vụ}{43}{section*.203}%
-\contentsline {subsection}{\numberline {2.2.1}Tác nhân}{43}{subsection*.204}%
-\contentsline {subsection}{\numberline {2.2.2}Quy trình xử lý đơn hàng}{43}{subsection*.206}%
-\contentsline {subsection}{\numberline {2.2.3}Quy tắc chuyển trạng thái đơn hàng}{43}{subsection*.207}%
-\contentsline {subsection}{\numberline {2.2.4}Quy tắc hủy đơn hàng}{44}{subsection*.208}%
-\contentsline {subsection}{\numberline {2.2.5}Quy tắc quản lý tồn kho}{44}{subsection*.209}%
-\contentsline {subsection}{\numberline {2.2.6}Quy tắc thanh toán}{45}{subsection*.210}%
-\contentsline {subsection}{\numberline {2.2.7}Quy tắc xử lý thanh toán trực tuyến thất bại}{45}{subsection*.211}%
-\contentsline {section}{\numberline {2.3}Thiết kế kiến trúc}{45}{section*.212}%
-\contentsline {section}{\numberline {2.4}Thiết kế cơ sở dữ liệu}{46}{section*.213}%
-\contentsline {section}{\numberline {2.5}Công cụ và môi trường}{47}{section*.214}%
-\contentsline {section}{\numberline {2.6}Sơ đồ Use Case tổng quan}{47}{section*.215}%
-\contentsline {section}{\numberline {2.7}Sơ đồ cơ sở dữ liệu}{48}{section*.217}%
-\contentsline {section}{\numberline {2.8}Sơ đồ lớp}{49}{section*.219}%
-\contentsline {chapter}{\numberline {3}KẾT QUẢ TRIỂN KHAI VÀ ĐÁNH GIÁ}{50}{chapter*.221}%
-\contentsline {section}{\numberline {3.1}Sản phẩm phần mềm và môi trường vận hành}{50}{section*.222}%
-\contentsline {subsection}{\numberline {3.1.1}Công nghệ và cấu trúc vận hành}{50}{subsection*.223}%
-\contentsline {section}{\numberline {3.2}Kết quả triển khai chức năng}{51}{section*.225}%
-\contentsline {subsection}{\numberline {3.2.1}Chức năng dành cho khách hàng}{51}{subsection*.226}%
-\contentsline {subsection}{\numberline {3.2.2}Chức năng dành cho nhân viên}{54}{subsection*.234}%
-\contentsline {subsection}{\numberline {3.2.3}Chức năng dành cho quản trị viên}{56}{subsection*.238}%
-\contentsline {subsection}{\numberline {3.2.4}Tích hợp ngoài}{61}{subsection*.249}%
-\contentsline {section}{\numberline {3.3}Minh họa quy trình nghiệp vụ}{61}{section*.250}%
-\contentsline {subsection}{\numberline {3.3.1}Tra cứu sản phẩm}{62}{subsection*.251}%
-\contentsline {subsection}{\numberline {3.3.2}Đặt hàng và chọn phương thức thanh toán}{62}{subsection*.253}%
-\contentsline {subsection}{\numberline {3.3.3}Theo dõi và hủy đơn}{64}{subsection*.258}%
-\contentsline {section}{\numberline {3.4}Đánh giá và thảo luận}{66}{section*.264}%
-\contentsline {chapter}{\numberline {4}KẾT LUẬN VÀ ĐỀ XUẤT}{68}{chapter*.265}%
-\contentsline {section}{\numberline {4.1}Kết luận và mức độ hoàn thành đề tài}{68}{section*.266}%
-\contentsline {subsection}{\numberline {4.1.1}Tổng hợp kết quả đạt được so với mục tiêu}{68}{subsection*.267}%
-\contentsline {subsection}{\numberline {4.1.2}Phạm vi đã hoàn thành và những nội dung còn giới hạn}{69}{subsection*.268}%
-\contentsline {section}{\numberline {4.2}Hướng phát triển và kiến nghị}{70}{section*.269}%
-\contentsline {subsection}{\numberline {4.2.1}Hoàn thiện chức năng nghiệp vụ và trải nghiệm mua sắm}{70}{subsection*.270}%
-\contentsline {subsection}{\numberline {4.2.2}Mở rộng quản lý và tích hợp dịch vụ}{70}{subsection*.271}%
-\contentsline {subsection}{\numberline {4.2.3}Nâng cao bảo mật, hiệu năng và khả năng vận hành}{71}{subsection*.272}%
-\contentsline {chapter}{TÀI LIỆU THAM KHẢO}{72}{chapter*.273}%
-\contentsline {chapter}{PHỤ LỤC}{73}{appendix*.274}%
+\contentsline {section}{\numberline {1}Lý do chọn đề tài}{1}{section.6}%
+\contentsline {section}{\numberline {2}Mục tiêu của đề tài}{1}{section.7}%
+\contentsline {section}{\numberline {3}Đối tượng và phạm vi}{1}{section.8}%
+\contentsline {section}{\numberline {4}Phương pháp thực hiện}{2}{section.9}%
+\contentsline {section}{\numberline {5}Cấu trúc báo cáo}{2}{section.10}%
+\contentsline {chapter}{\numberline {1}TỔNG QUAN LÝ THUYẾT VÀ CƠ SỞ NGHIÊN CỨU}{4}{chapter.11}%
+\contentsline {section}{\numberline {1.1}Tổng quan bài toán}{4}{section.12}%
+\contentsline {subsection}{\numberline {1.1.1}Đặc điểm của bài toán}{4}{subsection.13}%
+\contentsline {subsection}{\numberline {1.1.2}Vấn đề cần giải quyết}{4}{subsection.14}%
+\contentsline {section}{\numberline {1.2}Các giải pháp và hệ thống liên quan}{4}{section.15}%
+\contentsline {section}{\numberline {1.3}Cơ sở lý thuyết}{5}{section.16}%
+\contentsline {subsection}{\numberline {1.3.1}Mô hình website thương mại điện tử}{5}{subsection.17}%
+\contentsline {subsection}{\numberline {1.3.2}Cơ sở dữ liệu quan hệ và tính nhất quán}{5}{subsection.18}%
+\contentsline {subsection}{\numberline {1.3.3}Xác thực, phân quyền và bảo vệ ứng dụng web}{5}{subsection.19}%
+\contentsline {subsection}{\numberline {1.3.4}Giao dịch và xử lý thanh toán}{6}{subsection.20}%
+\contentsline {section}{\numberline {1.4}Công nghệ sử dụng}{6}{section.21}%
+\contentsline {subsection}{\numberline {1.4.1}PHP và tổ chức ứng dụng}{6}{subsection.22}%
+\contentsline {subsection}{\numberline {1.4.2}MySQL và PDO}{6}{subsection.23}%
+\contentsline {subsection}{\numberline {1.4.3}HTML, CSS và JavaScript}{6}{subsection.24}%
+\contentsline {subsection}{\numberline {1.4.4}Môi trường và dịch vụ tích hợp}{7}{subsection.25}%
+\contentsline {section}{\numberline {1.5}Giải pháp và kiến trúc tổng quan}{7}{section.26}%
+\contentsline {section}{\numberline {1.6}Tổng kết chương}{7}{section.27}%
+\contentsline {chapter}{\numberline {2}PHÂN TÍCH VÀ THIẾT KẾ HỆ THỐNG}{8}{chapter.28}%
+\contentsline {section}{\numberline {2.1}Yêu cầu hệ thống}{8}{section.29}%
+\contentsline {subsection}{\numberline {2.1.1}Yêu cầu chức năng}{8}{subsection.30}%
+\contentsline {subsection}{\numberline {2.1.2}Đặc tả chi tiết các chức năng}{9}{subsection.32}%
+\contentsline {subsection}{\numberline {2.1.3}Yêu cầu phi chức năng}{42}{subsection.202}%
+\contentsline {section}{\numberline {2.2}Tác nhân và quy tắc nghiệp vụ}{43}{section.203}%
+\contentsline {subsection}{\numberline {2.2.1}Tác nhân}{43}{subsection.204}%
+\contentsline {subsection}{\numberline {2.2.2}Quy trình xử lý đơn hàng}{43}{subsection.206}%
+\contentsline {subsection}{\numberline {2.2.3}Quy tắc chuyển trạng thái đơn hàng}{43}{subsection.207}%
+\contentsline {subsection}{\numberline {2.2.4}Quy tắc hủy đơn hàng}{44}{subsection.208}%
+\contentsline {subsection}{\numberline {2.2.5}Quy tắc quản lý tồn kho}{44}{subsection.209}%
+\contentsline {subsection}{\numberline {2.2.6}Quy tắc thanh toán}{45}{subsection.210}%
+\contentsline {subsection}{\numberline {2.2.7}Quy tắc xử lý thanh toán trực tuyến thất bại}{45}{subsection.211}%
+\contentsline {section}{\numberline {2.3}Thiết kế kiến trúc}{45}{section.212}%
+\contentsline {section}{\numberline {2.4}Thiết kế cơ sở dữ liệu}{46}{section.213}%
+\contentsline {section}{\numberline {2.5}Công cụ và môi trường}{47}{section.214}%
+\contentsline {section}{\numberline {2.6}Sơ đồ Use Case tổng quan}{47}{section.215}%
+\contentsline {section}{\numberline {2.7}Sơ đồ cơ sở dữ liệu}{48}{section.217}%
+\contentsline {section}{\numberline {2.8}Sơ đồ lớp}{49}{section.219}%
+\contentsline {chapter}{\numberline {3}KẾT QUẢ TRIỂN KHAI VÀ ĐÁNH GIÁ}{50}{chapter.221}%
+\contentsline {section}{\numberline {3.1}Sản phẩm phần mềm và môi trường vận hành}{50}{section.222}%
+\contentsline {subsection}{\numberline {3.1.1}Công nghệ và cấu trúc vận hành}{50}{subsection.223}%
+\contentsline {section}{\numberline {3.2}Kết quả triển khai chức năng}{51}{section.225}%
+\contentsline {subsection}{\numberline {3.2.1}Chức năng dành cho khách hàng}{51}{subsection.226}%
+\contentsline {subsection}{\numberline {3.2.2}Chức năng dành cho nhân viên}{54}{subsection.234}%
+\contentsline {subsection}{\numberline {3.2.3}Chức năng dành cho quản trị viên}{56}{subsection.238}%
+\contentsline {subsection}{\numberline {3.2.4}Tích hợp ngoài}{61}{subsection.249}%
+\contentsline {section}{\numberline {3.3}Minh họa quy trình nghiệp vụ}{61}{section.250}%
+\contentsline {subsection}{\numberline {3.3.1}Tra cứu sản phẩm}{62}{subsection.251}%
+\contentsline {subsection}{\numberline {3.3.2}Đặt hàng và chọn phương thức thanh toán}{62}{subsection.253}%
+\contentsline {subsection}{\numberline {3.3.3}Theo dõi và hủy đơn}{65}{subsection.259}%
+\contentsline {section}{\numberline {3.4}Đánh giá và thảo luận}{67}{section.265}%
+\contentsline {chapter}{\numberline {4}KẾT LUẬN VÀ ĐỀ XUẤT}{68}{chapter.266}%
+\contentsline {section}{\numberline {4.1}Kết luận và mức độ hoàn thành đề tài}{68}{section.267}%
+\contentsline {subsection}{\numberline {4.1.1}Tổng hợp kết quả đạt được so với mục tiêu}{68}{subsection.268}%
+\contentsline {subsection}{\numberline {4.1.2}Phạm vi đã hoàn thành và những nội dung còn giới hạn}{69}{subsection.269}%
+\contentsline {section}{\numberline {4.2}Hướng phát triển và kiến nghị}{70}{section.270}%
+\contentsline {subsection}{\numberline {4.2.1}Hoàn thiện chức năng nghiệp vụ và trải nghiệm mua sắm}{70}{subsection.271}%
+\contentsline {subsection}{\numberline {4.2.2}Mở rộng quản lý và tích hợp dịch vụ}{70}{subsection.272}%
+\contentsline {subsection}{\numberline {4.2.3}Nâng cao bảo mật, hiệu năng và khả năng vận hành}{71}{subsection.273}%
+\contentsline {chapter}{TÀI LIỆU THAM KHẢO}{72}{chapter*.274}%
+\contentsline {chapter}{PHỤ LỤC}{73}{appendix*.275}%
