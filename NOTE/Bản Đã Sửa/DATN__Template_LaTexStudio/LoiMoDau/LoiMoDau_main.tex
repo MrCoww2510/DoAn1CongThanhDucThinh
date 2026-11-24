@@ -24,7 +24,7 @@ Từ yêu cầu đó, nhóm lựa chọn đề tài ``Xây dựng website thươ
 
 \noindent\textbf{Phạm vi chức năng và triển khai.} Hệ thống tập trung vào danh mục và thông tin sản phẩm, tìm kiếm/lọc, tài khoản khách hàng, giỏ hàng, địa chỉ nhận hàng, khuyến mãi và voucher, đặt hàng với lựa chọn COD, theo dõi/hủy đơn, quản lý tồn kho và các chức năng quản trị liên quan. Mã nguồn có luồng thanh toán SePay Sandbox và đăng nhập Google; COD chưa có thao tác ghi nhận đã thu tiền, còn hai tích hợp bên ngoài phụ thuộc cấu hình và dịch vụ tương ứng. Website được xây dựng bằng PHP, MySQL và PDO, giao diện dùng HTML, CSS, JavaScript; báo cáo xác định môi trường chạy là Apache trong XAMPP.
 
-\noindent\textbf{Giới hạn của đề tài.} Đồ án chưa hướng đến vận hành thương mại chính thức. Biểu mẫu có lựa chọn COD nhưng mã nguồn chưa có bước ghi nhận đã thu tiền; thanh toán trực tuyến có luồng SePay Sandbox nhưng chưa được kiểm chứng vận hành production. Hệ thống chưa tích hợp hãng vận chuyển để đồng bộ hành trình giao hàng, cũng chưa có quy trình tiếp nhận và xử lý yêu cầu bảo hành/đổi trả của khách hàng. Thống kê hiện tập trung vào doanh thu, trạng thái đơn và tồn kho, chưa có dữ liệu giá vốn để tính lợi nhuận. Mã nguồn chưa có tác vụ tự động hủy đơn quá hạn; đây là yêu cầu chưa triển khai. Báo cáo hiện không có nhật ký kiểm thử hay số liệu ca đạt/không đạt, nên chưa thể kết luận về kiểm thử đầu cuối, hiệu năng hoặc độ ổn định khi vận hành thực tế.
+\noindent\textbf{Giới hạn của đề tài.} Đồ án chưa hướng đến vận hành thương mại chính thức. Biểu mẫu có lựa chọn COD nhưng mã nguồn chưa có bước ghi nhận đã thu tiền; thanh toán trực tuyến có luồng SePay Sandbox nhưng chưa được kiểm chứng vận hành production. Hệ thống chưa tích hợp hãng vận chuyển để đồng bộ hành trình giao hàng, cũng chưa có quy trình tiếp nhận và xử lý yêu cầu bảo hành/đổi trả của khách hàng. Thống kê hiện tập trung vào doanh thu, trạng thái đơn và tồn kho, chưa có dữ liệu giá vốn để tính lợi nhuận.
 
 
 \section{Phương pháp thực hiện}
@@ -42,10 +42,10 @@ Từ yêu cầu đó, nhóm lựa chọn đề tài ``Xây dựng website thươ
     Giới thiệu bài toán, website thương mại điện tử và các công nghệ, kiến trúc ứng dụng được sử dụng.
     
     \item \textbf{Chương 2: Phân tích và thiết kế hệ thống} \\
-    Trình bày yêu cầu, tác nhân, quy tắc nghiệp vụ, kiến trúc, cơ sở dữ liệu và các sơ đồ phân tích, thiết kế.
+    Trình bày yêu cầu chức năng, đặc tả chức năng, tác nhân, quy tắc nghiệp vụ, kiến trúc, cơ sở dữ liệu và các sơ đồ phân tích, thiết kế.
     
     \item \textbf{Chương 3: Kết quả triển khai và đánh giá} \\
-    Trình bày chức năng theo vai trò, minh họa giao diện và quy trình nghiệp vụ, đồng thời thảo luận mức triển khai, giới hạn và những nội dung cần hoàn thiện. Đặc tả 18 Use Case được trình bày trong Chương 2.
+    Trình bày chức năng theo vai trò, minh họa giao diện và quy trình nghiệp vụ, đồng thời thảo luận mức triển khai, giới hạn và những nội dung cần hoàn thiện.
     
     \item \textbf{Chương 4: Kết luận và đề xuất} \\
     Đánh giá kết quả và mức độ hoàn thành, chỉ ra các giới hạn đã xác định, đồng thời đề xuất hướng phát triển phù hợp.

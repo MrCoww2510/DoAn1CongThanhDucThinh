@@ -59,9 +59,8 @@
 \contentsline {section}{\numberline {4.1}Kết luận và mức độ hoàn thành đề tài}{68}{section.267}%
 \contentsline {subsection}{\numberline {4.1.1}Tổng hợp kết quả đạt được so với mục tiêu}{68}{subsection.268}%
 \contentsline {subsection}{\numberline {4.1.2}Phạm vi đã hoàn thành và những nội dung còn giới hạn}{69}{subsection.269}%
-\contentsline {section}{\numberline {4.2}Hướng phát triển và kiến nghị}{70}{section.270}%
-\contentsline {subsection}{\numberline {4.2.1}Hoàn thiện chức năng nghiệp vụ và trải nghiệm mua sắm}{70}{subsection.271}%
+\contentsline {section}{\numberline {4.2}Hướng phát triển và kiến nghị}{69}{section.270}%
+\contentsline {subsection}{\numberline {4.2.1}Hoàn thiện chức năng nghiệp vụ và trải nghiệm mua sắm}{69}{subsection.271}%
 \contentsline {subsection}{\numberline {4.2.2}Mở rộng quản lý và tích hợp dịch vụ}{70}{subsection.272}%
-\contentsline {subsection}{\numberline {4.2.3}Nâng cao bảo mật, hiệu năng và khả năng vận hành}{71}{subsection.273}%
-\contentsline {chapter}{TÀI LIỆU THAM KHẢO}{72}{chapter*.274}%
-\contentsline {chapter}{PHỤ LỤC}{73}{appendix*.275}%
+\contentsline {chapter}{TÀI LIỆU THAM KHẢO}{71}{chapter*.273}%
+\contentsline {chapter}{PHỤ LỤC}{72}{appendix*.274}%

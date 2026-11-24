@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.10.21)  24 NOV 2026 12:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.10.21)  24 NOV 2026 19:02
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -911,7 +911,7 @@ Package hyperref Info: Link coloring OFF on input line 305.
 \openout3 = `main.out'.
 
  (Chapter_0/Chapter0_main.tex (Chapter_0/1_2_TrangBia.tex
-<Chapter_0/logo.png, id=267, 414.54875pt x 414.54875pt>
+<Chapter_0/logo.png, id=263, 414.54875pt x 414.54875pt>
 File: Chapter_0/logo.png Graphic file (type png)
 <use Chapter_0/logo.png>
 Package pdftex.def Info: Chapter_0/logo.png  used on input line 77.
@@ -995,7 +995,7 @@ Chapter_2/Chuong2_main.tex:26: ignored error: Infinite glue shrinkage found in b
 
 ] (Chapter_2/UseCases_Chuong2.tex
 Chapter_2/UseCases_Chuong2.tex:33: ignored error: Infinite glue shrinkage found in box being split [9]
-<Chapter_3/images_Usecase/đăng ký.png, id=607, 642.60075pt x 413.74574pt>
+<Chapter_3/images_Usecase/đăng ký.png, id=602, 642.60075pt x 413.74574pt>
 File: Chapter_3/images_Usecase/đăng ký.png Graphic file (type png)
 <use Chapter_3/images_Usecase/đăng ký.png>
 Package pdftex.def Info: Chapter_3/images_Usecase/đăng ký.png  used on input line 44.
@@ -1003,59 +1003,59 @@ Package pdftex.def Info: Chapter_3/images_Usecase/đăng ký.png  used on input 
  [10]
 Chapter_2/UseCases_Chuong2.tex:83: ignored error: Infinite glue shrinkage found in box being split [11 <./Chapter_3/images_Usecase/đăng ký.png>]
 Chapter_2/UseCases_Chuong2.tex:83: ignored error: Infinite glue shrinkage found in box being split [12]
-<Chapter_3/images_Usecase/Đăng_nhập.png, id=638, 696.201pt x 425.79076pt>
+<Chapter_3/images_Usecase/Đăng_nhập.png, id=633, 696.201pt x 425.79076pt>
 File: Chapter_3/images_Usecase/Đăng_nhập.png Graphic file (type png)
 <use Chapter_3/images_Usecase/Đăng_nhập.png>
 Package pdftex.def Info: Chapter_3/images_Usecase/Đăng_nhập.png  used on input line 86.
 (pdftex.def)             Requested size: 409.71692pt x 250.57765pt.
-<Chapter_3/images_Usecase/loginGoogle.png, id=639, 725.71124pt x 374.5995pt>
+<Chapter_3/images_Usecase/loginGoogle.png, id=634, 725.71124pt x 374.5995pt>
 File: Chapter_3/images_Usecase/loginGoogle.png Graphic file (type png)
 <use Chapter_3/images_Usecase/loginGoogle.png>
 Package pdftex.def Info: Chapter_3/images_Usecase/loginGoogle.png  used on input line 93.
 (pdftex.def)             Requested size: 409.71692pt x 211.49478pt.
  [13 <./Chapter_3/images_Usecase/Đăng_nhập.png>]
 Chapter_2/UseCases_Chuong2.tex:129: ignored error: Infinite glue shrinkage found in box being split [14 <./Chapter_3/images_Usecase/loginGoogle.png>]
-<Chapter_3/Images_sequence/TrinhTuUC03.png, id=652, 702.82574pt x 260.172pt>
+<Chapter_3/Images_sequence/TrinhTuUC03.png, id=647, 702.82574pt x 260.172pt>
 File: Chapter_3/Images_sequence/TrinhTuUC03.png Graphic file (type png)
 <use Chapter_3/Images_sequence/TrinhTuUC03.png>
 Package pdftex.def Info: Chapter_3/Images_sequence/TrinhTuUC03.png  used on input line 132.
 (pdftex.def)             Requested size: 446.13727pt x 165.15178pt.
  [15]
 Chapter_2/UseCases_Chuong2.tex:169: ignored error: Infinite glue shrinkage found in box being split [16 <./Chapter_3/Images_sequence/TrinhTuUC03.png>]
-<Chapter_3/Images_sequence/TrinhTuUC04.png, id=678, 766.062pt x 437.2335pt>
+<Chapter_3/Images_sequence/TrinhTuUC04.png, id=673, 766.062pt x 437.2335pt>
 File: Chapter_3/Images_sequence/TrinhTuUC04.png Graphic file (type png)
 <use Chapter_3/Images_sequence/TrinhTuUC04.png>
 Package pdftex.def Info: Chapter_3/Images_sequence/TrinhTuUC04.png  used on input line 172.
 (pdftex.def)             Requested size: 446.13727pt x 254.64305pt.
 
 Chapter_2/UseCases_Chuong2.tex:209: ignored error: Infinite glue shrinkage found in box being split [17 <./Chapter_3/Images_sequence/TrinhTuUC04.png>]
-<Chapter_3/Images_sequence/TrinhTuUC05.png, id=685, 894.34125pt x 519.1395pt>
+<Chapter_3/Images_sequence/TrinhTuUC05.png, id=680, 894.34125pt x 519.1395pt>
 File: Chapter_3/Images_sequence/TrinhTuUC05.png Graphic file (type png)
 <use Chapter_3/Images_sequence/TrinhTuUC05.png>
 Package pdftex.def Info: Chapter_3/Images_sequence/TrinhTuUC05.png  used on input line 212.
 (pdftex.def)             Requested size: 446.13727pt x 258.97499pt.
  [18]
 Chapter_2/UseCases_Chuong2.tex:249: ignored error: Infinite glue shrinkage found in box being split [19 <./Chapter_3/Images_sequence/TrinhTuUC05.png>]
-<Chapter_3/images_Usecase/Thanh_toán.png, id=707, 1175.14032pt x 716.6775pt>
+<Chapter_3/images_Usecase/Thanh_toán.png, id=702, 1175.14032pt x 716.6775pt>
 File: Chapter_3/images_Usecase/Thanh_toán.png Graphic file (type png)
 <use Chapter_3/images_Usecase/Thanh_toán.png>
 Package pdftex.def Info: Chapter_3/images_Usecase/Thanh_toán.png  used on input line 252.
 (pdftex.def)             Requested size: 409.71692pt x 249.86761pt.
  [20]
 Chapter_2/UseCases_Chuong2.tex:289: ignored error: Infinite glue shrinkage found in box being split [21 <./Chapter_3/images_Usecase/Thanh_toán.png>]
-<Chapter_3/Images_sequence/TrinhTuUC07.png, id=725, 712.46175pt x 344.487pt>
+<Chapter_3/Images_sequence/TrinhTuUC07.png, id=720, 712.46175pt x 344.487pt>
 File: Chapter_3/Images_sequence/TrinhTuUC07.png Graphic file (type png)
 <use Chapter_3/Images_sequence/TrinhTuUC07.png>
 Package pdftex.def Info: Chapter_3/Images_sequence/TrinhTuUC07.png  used on input line 292.
 (pdftex.def)             Requested size: 446.13727pt x 215.71909pt.
  [22]
 Chapter_2/UseCases_Chuong2.tex:318: ignored error: Infinite glue shrinkage found in box being split [23 <./Chapter_3/Images_sequence/TrinhTuUC07.png>]
-<Chapter_3/Images_sequence/TrinhTuUC08_1.png, id=748, 916.6245pt x 483.0045pt>
+<Chapter_3/Images_sequence/TrinhTuUC08_1.png, id=743, 916.6245pt x 483.0045pt>
 File: Chapter_3/Images_sequence/TrinhTuUC08_1.png Graphic file (type png)
 <use Chapter_3/Images_sequence/TrinhTuUC08_1.png>
 Package pdftex.def Info: Chapter_3/Images_sequence/TrinhTuUC08_1.png  used on input line 321.
 (pdftex.def)             Requested size: 446.13727pt x 235.0897pt.
-<Chapter_3/Images_sequence/TrinhTuUC08_2.png, id=749, 896.148pt x 404.712pt>
+<Chapter_3/Images_sequence/TrinhTuUC08_2.png, id=744, 896.148pt x 404.712pt>
 File: Chapter_3/Images_sequence/TrinhTuUC08_2.png Graphic file (type png)
 <use Chapter_3/Images_sequence/TrinhTuUC08_2.png>
 Package pdftex.def Info: Chapter_3/Images_sequence/TrinhTuUC08_2.png  used on input line 328.
@@ -1063,14 +1063,14 @@ Package pdftex.def Info: Chapter_3/Images_sequence/TrinhTuUC08_2.png  used on in
 
 Chapter_2/UseCases_Chuong2.tex:373: ignored error: Infinite glue shrinkage found in box being split [24 <./Chapter_3/Images_sequence/TrinhTuUC08_1.png> <./Chapter_3/Images_sequence/TrinhTuUC08_2.png>]
 Chapter_2/UseCases_Chuong2.tex:373: ignored error: Infinite glue shrinkage found in box being split [25]
-<Chapter_3/Images_sequence/TrinhTuUC09.png, id=772, 820.2645pt x 512.51476pt>
+<Chapter_3/Images_sequence/TrinhTuUC09.png, id=767, 820.2645pt x 512.51476pt>
 File: Chapter_3/Images_sequence/TrinhTuUC09.png Graphic file (type png)
 <use Chapter_3/Images_sequence/TrinhTuUC09.png>
 Package pdftex.def Info: Chapter_3/Images_sequence/TrinhTuUC09.png  used on input line 376.
 (pdftex.def)             Requested size: 446.13727pt x 278.75584pt.
 
 Chapter_2/UseCases_Chuong2.tex:401: ignored error: Infinite glue shrinkage found in box being split [26 <./Chapter_3/Images_sequence/TrinhTuUC09.png>]
-<Chapter_3/Images_sequence/TrinhTuUC10.png, id=779, 619.113pt x 383.63326pt>
+<Chapter_3/Images_sequence/TrinhTuUC10.png, id=774, 619.113pt x 383.63326pt>
 File: Chapter_3/Images_sequence/TrinhTuUC10.png Graphic file (type png)
 <use Chapter_3/Images_sequence/TrinhTuUC10.png>
 Package pdftex.def Info: Chapter_3/Images_sequence/TrinhTuUC10.png  used on input line 404.
@@ -1078,81 +1078,81 @@ Package pdftex.def Info: Chapter_3/Images_sequence/TrinhTuUC10.png  used on inpu
 
 Chapter_2/UseCases_Chuong2.tex:444: ignored error: Infinite glue shrinkage found in box being split [27 <./Chapter_3/Images_sequence/TrinhTuUC10.png>]
 Chapter_2/UseCases_Chuong2.tex:444: ignored error: Infinite glue shrinkage found in box being split [28]
-<Chapter_3/Images_sequence/TrinhTuUC11.png, id=803, 656.4525pt x 245.718pt>
+<Chapter_3/Images_sequence/TrinhTuUC11.png, id=798, 656.4525pt x 245.718pt>
 File: Chapter_3/Images_sequence/TrinhTuUC11.png Graphic file (type png)
 <use Chapter_3/Images_sequence/TrinhTuUC11.png>
 Package pdftex.def Info: Chapter_3/Images_sequence/TrinhTuUC11.png  used on input line 447.
 (pdftex.def)             Requested size: 446.13727pt x 166.99603pt.
 
 Chapter_2/UseCases_Chuong2.tex:484: ignored error: Infinite glue shrinkage found in box being split [29 <./Chapter_3/Images_sequence/TrinhTuUC11.png>]
-<Chapter_3/Images_sequence/TrinhTuUC12_1.png, id=810, 730.52925pt x 539.616pt>
+<Chapter_3/Images_sequence/TrinhTuUC12_1.png, id=805, 730.52925pt x 539.616pt>
 File: Chapter_3/Images_sequence/TrinhTuUC12_1.png Graphic file (type png)
 <use Chapter_3/Images_sequence/TrinhTuUC12_1.png>
 Package pdftex.def Info: Chapter_3/Images_sequence/TrinhTuUC12_1.png  used on input line 487.
 (pdftex.def)             Requested size: 446.13727pt x 329.55228pt.
  [30]
-<Chapter_3/Images_sequence/TrinhTuUC12_2.png, id=823, 696.80325pt x 290.2845pt>
+<Chapter_3/Images_sequence/TrinhTuUC12_2.png, id=818, 696.80325pt x 290.2845pt>
 File: Chapter_3/Images_sequence/TrinhTuUC12_2.png Graphic file (type png)
 <use Chapter_3/Images_sequence/TrinhTuUC12_2.png>
 Package pdftex.def Info: Chapter_3/Images_sequence/TrinhTuUC12_2.png  used on input line 494.
 (pdftex.def)             Requested size: 446.13727pt x 185.86116pt.
-<Chapter_3/Images_sequence/TrinhTuUC12_3.png, id=824, 709.4505pt x 392.667pt>
+<Chapter_3/Images_sequence/TrinhTuUC12_3.png, id=819, 709.4505pt x 392.667pt>
 File: Chapter_3/Images_sequence/TrinhTuUC12_3.png Graphic file (type png)
 <use Chapter_3/Images_sequence/TrinhTuUC12_3.png>
 Package pdftex.def Info: Chapter_3/Images_sequence/TrinhTuUC12_3.png  used on input line 501.
 (pdftex.def)             Requested size: 446.13727pt x 246.93214pt.
  [31 <./Chapter_3/Images_sequence/TrinhTuUC12_1.png> <./Chapter_3/Images_sequence/TrinhTuUC12_2.png>]
 Chapter_2/UseCases_Chuong2.tex:535: ignored error: Infinite glue shrinkage found in box being split [32 <./Chapter_3/Images_sequence/TrinhTuUC12_3.png>]
-<Chapter_3/Images_sequence/TrinhTuUC13_1.png, id=844, 781.11826pt x 621.522pt>
+<Chapter_3/Images_sequence/TrinhTuUC13_1.png, id=839, 781.11826pt x 621.522pt>
 File: Chapter_3/Images_sequence/TrinhTuUC13_1.png Graphic file (type png)
 <use Chapter_3/Images_sequence/TrinhTuUC13_1.png>
 Package pdftex.def Info: Chapter_3/Images_sequence/TrinhTuUC13_1.png  used on input line 538.
 (pdftex.def)             Requested size: 446.13727pt x 354.99199pt.
-<Chapter_3/Images_sequence/TrinhTuUC13_2.png, id=845, 763.05075pt x 390.258pt>
+<Chapter_3/Images_sequence/TrinhTuUC13_2.png, id=840, 763.05075pt x 390.258pt>
 File: Chapter_3/Images_sequence/TrinhTuUC13_2.png Graphic file (type png)
 <use Chapter_3/Images_sequence/TrinhTuUC13_2.png>
 Package pdftex.def Info: Chapter_3/Images_sequence/TrinhTuUC13_2.png  used on input line 545.
 (pdftex.def)             Requested size: 446.13727pt x 228.17793pt.
  [33 <./Chapter_3/Images_sequence/TrinhTuUC13_1.png>]
-<Chapter_3/Images_sequence/TrinhTuUC13_3.png, id=851, 758.835pt x 413.1435pt>
+<Chapter_3/Images_sequence/TrinhTuUC13_3.png, id=846, 758.835pt x 413.1435pt>
 File: Chapter_3/Images_sequence/TrinhTuUC13_3.png Graphic file (type png)
 <use Chapter_3/Images_sequence/TrinhTuUC13_3.png>
 Package pdftex.def Info: Chapter_3/Images_sequence/TrinhTuUC13_3.png  used on input line 552.
 (pdftex.def)             Requested size: 446.13727pt x 242.90149pt.
 
 Chapter_2/UseCases_Chuong2.tex:587: ignored error: Infinite glue shrinkage found in box being split [34 <./Chapter_3/Images_sequence/TrinhTuUC13_2.png> <./Chapter_3/Images_sequence/TrinhTuUC13_3.png>]
-<Chapter_3/images_Usecase/qlykho.png, id=859, 778.107pt x 313.77225pt>
+<Chapter_3/images_Usecase/qlykho.png, id=854, 778.107pt x 313.77225pt>
 File: Chapter_3/images_Usecase/qlykho.png Graphic file (type png)
 <use Chapter_3/images_Usecase/qlykho.png>
 Package pdftex.def Info: Chapter_3/images_Usecase/qlykho.png  used on input line 590.
 (pdftex.def)             Requested size: 409.71692pt x 165.21645pt.
  [35]
-<Chapter_3/Images_sequence/TrinhTuUC15.png, id=870, 585.387pt x 245.11575pt>
+<Chapter_3/Images_sequence/TrinhTuUC15.png, id=865, 585.387pt x 245.11575pt>
 File: Chapter_3/Images_sequence/TrinhTuUC15.png Graphic file (type png)
 <use Chapter_3/Images_sequence/TrinhTuUC15.png>
 Package pdftex.def Info: Chapter_3/Images_sequence/TrinhTuUC15.png  used on input line 619.
 (pdftex.def)             Requested size: 446.13727pt x 186.80978pt.
  [36 <./Chapter_3/images_Usecase/qlykho.png>]
 Chapter_2/UseCases_Chuong2.tex:656: ignored error: Infinite glue shrinkage found in box being split [37 <./Chapter_3/Images_sequence/TrinhTuUC15.png>]
-<Chapter_3/Images_sequence/TrinhTuUC16_1.png, id=895, 805.20825pt x 380.622pt>
+<Chapter_3/Images_sequence/TrinhTuUC16_1.png, id=890, 805.20825pt x 380.622pt>
 File: Chapter_3/Images_sequence/TrinhTuUC16_1.png Graphic file (type png)
 <use Chapter_3/Images_sequence/TrinhTuUC16_1.png>
 Package pdftex.def Info: Chapter_3/Images_sequence/TrinhTuUC16_1.png  used on input line 659.
 (pdftex.def)             Requested size: 446.13727pt x 210.89342pt.
-<Chapter_3/Images_sequence/TrinhTuUC16_2.png, id=896, 796.1745pt x 543.83176pt>
+<Chapter_3/Images_sequence/TrinhTuUC16_2.png, id=891, 796.1745pt x 543.83176pt>
 File: Chapter_3/Images_sequence/TrinhTuUC16_2.png Graphic file (type png)
 <use Chapter_3/Images_sequence/TrinhTuUC16_2.png>
 Package pdftex.def Info: Chapter_3/Images_sequence/TrinhTuUC16_2.png  used on input line 666.
 (pdftex.def)             Requested size: 446.13727pt x 304.74286pt.
  [38 <./Chapter_3/Images_sequence/TrinhTuUC16_1.png>]
 Chapter_2/UseCases_Chuong2.tex:698: ignored error: Infinite glue shrinkage found in box being split [39 <./Chapter_3/Images_sequence/TrinhTuUC16_2.png>]
-<Chapter_3/Images_sequence/TrinhTuUC17.png, id=908, 916.6245pt x 286.671pt>
+<Chapter_3/Images_sequence/TrinhTuUC17.png, id=903, 916.6245pt x 286.671pt>
 File: Chapter_3/Images_sequence/TrinhTuUC17.png Graphic file (type png)
 <use Chapter_3/Images_sequence/TrinhTuUC17.png>
 Package pdftex.def Info: Chapter_3/Images_sequence/TrinhTuUC17.png  used on input line 701.
 (pdftex.def)             Requested size: 446.13727pt x 139.52954pt.
  [40 <./Chapter_3/Images_sequence/TrinhTuUC17.png>]
-<Chapter_3/Images_sequence/TrinhTuUC18.png, id=920, 699.21225pt x 305.34074pt>
+<Chapter_3/Images_sequence/TrinhTuUC18.png, id=915, 699.21225pt x 305.34074pt>
 File: Chapter_3/Images_sequence/TrinhTuUC18.png Graphic file (type png)
 <use Chapter_3/Images_sequence/TrinhTuUC18.png>
 Package pdftex.def Info: Chapter_3/Images_sequence/TrinhTuUC18.png  used on input line 739.
@@ -1162,25 +1162,25 @@ LaTeX Font Info:    Trying to load font information for T5+cmtt on input line 10
  (C:\Users\PC\AppData\Local\Programs\MiKTeX\tex/latex/vntex\t5cmtt.fd
 File: t5cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 ) [45] [46]
-<Chapter_2/Images_c2/UMLTONGQUAT.png, id=957, 885.3075pt x 1455.4375pt>
+<Chapter_2/Images_c2/UMLTONGQUAT.png, id=952, 885.3075pt x 1455.4375pt>
 File: Chapter_2/Images_c2/UMLTONGQUAT.png Graphic file (type png)
 <use Chapter_2/Images_c2/UMLTONGQUAT.png>
 Package pdftex.def Info: Chapter_2/Images_c2/UMLTONGQUAT.png  used on input line 155.
 (pdftex.def)             Requested size: 327.7763pt x 538.85878pt.
-<Chapter_2/Images_c2/db.png, id=958, 1260.71pt x 1804.7425pt>
+<Chapter_2/Images_c2/db.png, id=953, 1260.71pt x 1804.7425pt>
 File: Chapter_2/Images_c2/db.png Graphic file (type png)
 <use Chapter_2/Images_c2/db.png>
 Package pdftex.def Info: Chapter_2/Images_c2/db.png  used on input line 163.
 (pdftex.def)             Requested size: 409.71692pt x 586.50684pt.
  [47 <./Chapter_2/Images_c2/UMLTONGQUAT.png (PNG copy)>]
-<Chapter_4/image/Sơ đồ class.png, id=963, 2210.2575pt x 929.4725pt>
+<Chapter_4/image/Sơ đồ class.png, id=958, 2210.2575pt x 929.4725pt>
 File: Chapter_4/image/Sơ đồ class.png Graphic file (type png)
 <use Chapter_4/image/Sơ đồ class.png>
 Package pdftex.def Info: Chapter_4/image/Sơ đồ class.png  used on input line 171.
 (pdftex.def)             Requested size: 409.71692pt x 172.2901pt.
 ) [48 <./Chapter_2/Images_c2/db.png>] [49 <./Chapter_4/image/Sơ đồ class.png>] (Chapter_3/Chuong3_main.tex
 Ch\uhorn \ohorn ng 3.
-<TaiLieu/AnhChuong3/IMG01_trang_chu.png, id=975, 1433.355pt x 810.77907pt>
+<TaiLieu/AnhChuong3/IMG01_trang_chu.png, id=970, 1433.355pt x 810.77907pt>
 File: TaiLieu/AnhChuong3/IMG01_trang_chu.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG01_trang_chu.png>
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG01_trang_chu.png  used on input line 15.
@@ -1188,111 +1188,111 @@ Package pdftex.def Info: TaiLieu/AnhChuong3/IMG01_trang_chu.png  used on input l
 [50
 
  <./TaiLieu/AnhChuong3/IMG01_trang_chu.png>]
-<TaiLieu/AnhChuong3/IMG02_danh_sach_san_pham.png, id=981, 1395.71437pt x 739.26187pt>
+<TaiLieu/AnhChuong3/IMG02_danh_sach_san_pham.png, id=976, 1395.71437pt x 739.26187pt>
 File: TaiLieu/AnhChuong3/IMG02_danh_sach_san_pham.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG02_danh_sach_san_pham.png>
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG02_danh_sach_san_pham.png  used on input line 28.
 (pdftex.def)             Requested size: 432.47531pt x 229.06728pt.
-<TaiLieu/AnhChuong3/IMG03_tim_kiem_loc_san_pham.png, id=982, 1396.4672pt x 741.52031pt>
+<TaiLieu/AnhChuong3/IMG03_tim_kiem_loc_san_pham.png, id=977, 1396.4672pt x 741.52031pt>
 File: TaiLieu/AnhChuong3/IMG03_tim_kiem_loc_san_pham.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG03_tim_kiem_loc_san_pham.png>
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG03_tim_kiem_loc_san_pham.png  used on input line 34.
 (pdftex.def)             Requested size: 432.4742pt x 229.64262pt.
-<TaiLieu/AnhChuong3/IMG04_chi_tiet_san_pham.png, id=983, 1396.4672pt x 740.7675pt>
+<TaiLieu/AnhChuong3/IMG04_chi_tiet_san_pham.png, id=978, 1396.4672pt x 740.7675pt>
 File: TaiLieu/AnhChuong3/IMG04_chi_tiet_san_pham.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG04_chi_tiet_san_pham.png>
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG04_chi_tiet_san_pham.png  used on input line 40.
 (pdftex.def)             Requested size: 432.4742pt x 229.40948pt.
  [51 <./TaiLieu/AnhChuong3/IMG02_danh_sach_san_pham.png>]
-<TaiLieu/AnhChuong3/IMG05_dang_ky_tai_khoan.png, id=989, 1860.9525pt x 987.69pt>
+<TaiLieu/AnhChuong3/IMG05_dang_ky_tai_khoan.png, id=984, 1860.9525pt x 987.69pt>
 File: TaiLieu/AnhChuong3/IMG05_dang_ky_tai_khoan.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG05_dang_ky_tai_khoan.png>
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG05_dang_ky_tai_khoan.png  used on input line 46.
 (pdftex.def)             Requested size: 386.94972pt x 205.37137pt.
-<TaiLieu/AnhChuong3/IMG06_dang_nhap.png, id=990, 1395.71437pt x 739.26187pt>
+<TaiLieu/AnhChuong3/IMG06_dang_nhap.png, id=985, 1395.71437pt x 739.26187pt>
 File: TaiLieu/AnhChuong3/IMG06_dang_nhap.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG06_dang_nhap.png>
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG06_dang_nhap.png  used on input line 52.
 (pdftex.def)             Requested size: 386.96393pt x 204.96147pt.
  [52 <./TaiLieu/AnhChuong3/IMG03_tim_kiem_loc_san_pham.png> <./TaiLieu/AnhChuong3/IMG04_chi_tiet_san_pham.png>]
-<TaiLieu/AnhChuong3/IMG07_gio_hang.png, id=997, 1396.4672pt x 743.02594pt>
+<TaiLieu/AnhChuong3/IMG07_gio_hang.png, id=992, 1396.4672pt x 743.02594pt>
 File: TaiLieu/AnhChuong3/IMG07_gio_hang.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG07_gio_hang.png>
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG07_gio_hang.png  used on input line 58.
 (pdftex.def)             Requested size: 432.4742pt x 230.1089pt.
-<TaiLieu/AnhChuong3/IMG08_thong_tin_tai_khoan.png, id=998, 1396.4672pt x 740.0147pt>
+<TaiLieu/AnhChuong3/IMG08_thong_tin_tai_khoan.png, id=993, 1396.4672pt x 740.0147pt>
 File: TaiLieu/AnhChuong3/IMG08_thong_tin_tai_khoan.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG08_thong_tin_tai_khoan.png>
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG08_thong_tin_tai_khoan.png  used on input line 64.
 (pdftex.def)             Requested size: 432.4742pt x 229.17635pt.
  [53 <./TaiLieu/AnhChuong3/IMG05_dang_ky_tai_khoan.png (PNG copy)> <./TaiLieu/AnhChuong3/IMG06_dang_nhap.png>]
-<TaiLieu/AnhChuong3/IMG16_nhan_vien_danh_sach_don.png, id=1004, 1396.4672pt x 741.52031pt>
+<TaiLieu/AnhChuong3/IMG16_nhan_vien_danh_sach_don.png, id=999, 1396.4672pt x 741.52031pt>
 File: TaiLieu/AnhChuong3/IMG16_nhan_vien_danh_sach_don.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG16_nhan_vien_danh_sach_don.png>
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG16_nhan_vien_danh_sach_don.png  used on input line 74.
 (pdftex.def)             Requested size: 432.4742pt x 229.64262pt.
-<TaiLieu/AnhChuong3/IMG17_nhan_vien_cap_nhat_trang_thai_don.png, id=1005, 1394.96156pt x 740.0147pt>
+<TaiLieu/AnhChuong3/IMG17_nhan_vien_cap_nhat_trang_thai_don.png, id=1000, 1394.96156pt x 740.0147pt>
 File: TaiLieu/AnhChuong3/IMG17_nhan_vien_cap_nhat_trang_thai_don.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG17_nhan_vien_cap_nhat_trang_thai_don.png>
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG17_nhan_vien_cap_nhat_trang_thai_don.png  used on input line 80.
 (pdftex.def)             Requested size: 432.4762pt x 229.42476pt.
  [54 <./TaiLieu/AnhChuong3/IMG07_gio_hang.png> <./TaiLieu/AnhChuong3/IMG08_thong_tin_tai_khoan.png>]
-<TaiLieu/AnhChuong3/IMG18_nhan_vien_xem_ton_kho.png, id=1012, 1394.96156pt x 740.0147pt>
+<TaiLieu/AnhChuong3/IMG18_nhan_vien_xem_ton_kho.png, id=1007, 1394.96156pt x 740.0147pt>
 File: TaiLieu/AnhChuong3/IMG18_nhan_vien_xem_ton_kho.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG18_nhan_vien_xem_ton_kho.png>
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG18_nhan_vien_xem_ton_kho.png  used on input line 86.
 (pdftex.def)             Requested size: 432.4762pt x 229.42476pt.
  [55 <./TaiLieu/AnhChuong3/IMG16_nhan_vien_danh_sach_don.png> <./TaiLieu/AnhChuong3/IMG17_nhan_vien_cap_nhat_trang_thai_don.png>]
-<TaiLieu/AnhChuong3/IMG19_admin_dashboard.png, id=1020, 1397.22pt x 742.27313pt>
+<TaiLieu/AnhChuong3/IMG19_admin_dashboard.png, id=1015, 1397.22pt x 742.27313pt>
 File: TaiLieu/AnhChuong3/IMG19_admin_dashboard.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG19_admin_dashboard.png>
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG19_admin_dashboard.png  used on input line 96.
 (pdftex.def)             Requested size: 432.47282pt x 229.75117pt.
-<TaiLieu/AnhChuong3/IMG20_admin_quan_ly_san_pham.png, id=1021, 1396.4672pt x 740.7675pt>
+<TaiLieu/AnhChuong3/IMG20_admin_quan_ly_san_pham.png, id=1016, 1396.4672pt x 740.7675pt>
 File: TaiLieu/AnhChuong3/IMG20_admin_quan_ly_san_pham.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG20_admin_quan_ly_san_pham.png>
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG20_admin_quan_ly_san_pham.png  used on input line 102.
 (pdftex.def)             Requested size: 432.4742pt x 229.40948pt.
-<TaiLieu/AnhChuong3/IMG21_admin_them_sua_san_pham.png, id=1022, 1394.96156pt x 739.26187pt>
+<TaiLieu/AnhChuong3/IMG21_admin_them_sua_san_pham.png, id=1017, 1394.96156pt x 739.26187pt>
 File: TaiLieu/AnhChuong3/IMG21_admin_them_sua_san_pham.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG21_admin_them_sua_san_pham.png>
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG21_admin_them_sua_san_pham.png  used on input line 108.
 (pdftex.def)             Requested size: 432.4762pt x 229.19136pt.
  [56 <./TaiLieu/AnhChuong3/IMG18_nhan_vien_xem_ton_kho.png> <./TaiLieu/AnhChuong3/IMG19_admin_dashboard.png>]
-<TaiLieu/AnhChuong3/IMG22_admin_quan_ly_danh_muc.png, id=1029, 1395.71437pt x 741.52031pt>
+<TaiLieu/AnhChuong3/IMG22_admin_quan_ly_danh_muc.png, id=1024, 1395.71437pt x 741.52031pt>
 File: TaiLieu/AnhChuong3/IMG22_admin_quan_ly_danh_muc.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG22_admin_quan_ly_danh_muc.png>
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG22_admin_quan_ly_danh_muc.png  used on input line 114.
 (pdftex.def)             Requested size: 432.47531pt x 229.76709pt.
-<TaiLieu/AnhChuong3/IMG23_admin_quan_ly_nguoi_dung.png, id=1030, 1395.71437pt x 740.0147pt>
+<TaiLieu/AnhChuong3/IMG23_admin_quan_ly_nguoi_dung.png, id=1025, 1395.71437pt x 740.0147pt>
 File: TaiLieu/AnhChuong3/IMG23_admin_quan_ly_nguoi_dung.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG23_admin_quan_ly_nguoi_dung.png>
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG23_admin_quan_ly_nguoi_dung.png  used on input line 120.
 (pdftex.def)             Requested size: 432.47531pt x 229.30055pt.
  [57 <./TaiLieu/AnhChuong3/IMG20_admin_quan_ly_san_pham.png> <./TaiLieu/AnhChuong3/IMG21_admin_them_sua_san_pham.png>]
-<TaiLieu/AnhChuong3/IMG24_admin_quan_ly_don_hang.png, id=1037, 1394.96156pt x 740.7675pt>
+<TaiLieu/AnhChuong3/IMG24_admin_quan_ly_don_hang.png, id=1032, 1394.96156pt x 740.7675pt>
 File: TaiLieu/AnhChuong3/IMG24_admin_quan_ly_don_hang.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG24_admin_quan_ly_don_hang.png>
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG24_admin_quan_ly_don_hang.png  used on input line 126.
 (pdftex.def)             Requested size: 432.4762pt x 229.65816pt.
-<TaiLieu/AnhChuong3/IMG25_admin_chi_tiet_cap_nhat_don.png, id=1038, 1394.96156pt x 740.7675pt>
+<TaiLieu/AnhChuong3/IMG25_admin_chi_tiet_cap_nhat_don.png, id=1033, 1394.96156pt x 740.7675pt>
 File: TaiLieu/AnhChuong3/IMG25_admin_chi_tiet_cap_nhat_don.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG25_admin_chi_tiet_cap_nhat_don.png>
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG25_admin_chi_tiet_cap_nhat_don.png  used on input line 132.
 (pdftex.def)             Requested size: 432.4762pt x 229.65816pt.
  [58 <./TaiLieu/AnhChuong3/IMG22_admin_quan_ly_danh_muc.png> <./TaiLieu/AnhChuong3/IMG23_admin_quan_ly_nguoi_dung.png>]
-<TaiLieu/AnhChuong3/IMG26_admin_quan_ly_ton_kho.png, id=1045, 1394.20876pt x 740.0147pt>
+<TaiLieu/AnhChuong3/IMG26_admin_quan_ly_ton_kho.png, id=1040, 1394.20876pt x 740.0147pt>
 File: TaiLieu/AnhChuong3/IMG26_admin_quan_ly_ton_kho.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG26_admin_quan_ly_ton_kho.png>
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG26_admin_quan_ly_ton_kho.png  used on input line 138.
 (pdftex.def)             Requested size: 432.4768pt x 229.54898pt.
-<TaiLieu/AnhChuong3/IMG27_admin_thong_ke.png, id=1046, 1394.96156pt x 740.0147pt>
+<TaiLieu/AnhChuong3/IMG27_admin_thong_ke.png, id=1041, 1394.96156pt x 740.0147pt>
 File: TaiLieu/AnhChuong3/IMG27_admin_thong_ke.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG27_admin_thong_ke.png>
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG27_admin_thong_ke.png  used on input line 144.
 (pdftex.def)             Requested size: 432.4762pt x 229.42476pt.
  [59 <./TaiLieu/AnhChuong3/IMG24_admin_quan_ly_don_hang.png> <./TaiLieu/AnhChuong3/IMG25_admin_chi_tiet_cap_nhat_don.png>]
-<TaiLieu/AnhChuong3/IMG28_admin_quan_ly_voucher.png, id=1053, 1394.20876pt x 740.0147pt>
+<TaiLieu/AnhChuong3/IMG28_admin_quan_ly_voucher.png, id=1048, 1394.20876pt x 740.0147pt>
 File: TaiLieu/AnhChuong3/IMG28_admin_quan_ly_voucher.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG28_admin_quan_ly_voucher.png>
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG28_admin_quan_ly_voucher.png  used on input line 150.
@@ -1307,24 +1307,24 @@ File: Chapter_3/Images_sequence/TrinhTuUC05.png Graphic file (type png)
 <use Chapter_3/Images_sequence/TrinhTuUC05.png>
 Package pdftex.def Info: Chapter_3/Images_sequence/TrinhTuUC05.png  used on input line 172.
 (pdftex.def)             Requested size: 446.13727pt x 258.97499pt.
-<TaiLieu/AnhChuong3/IMG09_checkout_thong_tin_giao_hang_IMG10_checkout_chon_cod.png, id=1066, 1394.96156pt x 740.0147pt>
+<TaiLieu/AnhChuong3/IMG09_checkout_thong_tin_giao_hang_IMG10_checkout_chon_cod.png, id=1061, 1394.96156pt x 740.0147pt>
 File: TaiLieu/AnhChuong3/IMG09_checkout_thong_tin_giao_hang_IMG10_checkout_chon_cod.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG09_checkout_thong_tin_giao_hang_IMG10_checkout_chon_cod.png>
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG09_checkout_thong_tin_giao_hang_IMG10_checkout_chon_cod.png  used on input line 180.
 (pdftex.def)             Requested size: 432.4762pt x 229.42476pt.
-<TaiLieu/AnhChuong3/IMG11_checkout_chon_sepay_sandbox.png, id=1067, 1860.9525pt x 986.68625pt>
+<TaiLieu/AnhChuong3/IMG11_checkout_chon_sepay_sandbox.png, id=1062, 1860.9525pt x 986.68625pt>
 File: TaiLieu/AnhChuong3/IMG11_checkout_chon_sepay_sandbox.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG11_checkout_chon_sepay_sandbox.png>
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG11_checkout_chon_sepay_sandbox.png  used on input line 186.
 (pdftex.def)             Requested size: 432.46822pt x 229.29678pt.
  [62]
-<TaiLieu/AnhChuong3/IMG12_dat_hang_thanh_cong_cod.png, id=1072, 1394.96156pt x 740.0147pt>
+<TaiLieu/AnhChuong3/IMG12_dat_hang_thanh_cong_cod.png, id=1067, 1394.96156pt x 740.0147pt>
 File: TaiLieu/AnhChuong3/IMG12_dat_hang_thanh_cong_cod.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG12_dat_hang_thanh_cong_cod.png>
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG12_dat_hang_thanh_cong_cod.png  used on input line 192.
 (pdftex.def)             Requested size: 432.4762pt x 229.42476pt.
  [63 <./TaiLieu/AnhChuong3/IMG09_checkout_thong_tin_giao_hang_IMG10_checkout_chon_cod.png> <./TaiLieu/AnhChuong3/IMG11_checkout_chon_sepay_sandbox.png (PNG copy)>]
-<TaiLieu/AnhChuong3/IMG12_dat_hang_thanh_cong_Sepay.png, id=1078, 796.77675pt x 437.83575pt>
+<TaiLieu/AnhChuong3/IMG12_dat_hang_thanh_cong_Sepay.png, id=1073, 796.77675pt x 437.83575pt>
 File: TaiLieu/AnhChuong3/IMG12_dat_hang_thanh_cong_Sepay.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG12_dat_hang_thanh_cong_Sepay.png>
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG12_dat_hang_thanh_cong_Sepay.png  used on input line 199.
@@ -1334,23 +1334,23 @@ File: Chapter_3/Images_sequence/TrinhTuUC07.png Graphic file (type png)
 Package pdftex.def Info: Chapter_3/Images_sequence/TrinhTuUC07.png  used on input line 207.
 (pdftex.def)             Requested size: 446.13727pt x 215.71909pt.
  [64 <./TaiLieu/AnhChuong3/IMG12_dat_hang_thanh_cong_cod.png> <./TaiLieu/AnhChuong3/IMG12_dat_hang_thanh_cong_Sepay.png>]
-<TaiLieu/AnhChuong3/IMG13_lich_su_don_hang.png, id=1085, 1394.96156pt x 742.27313pt>
+<TaiLieu/AnhChuong3/IMG13_lich_su_don_hang.png, id=1080, 1394.96156pt x 742.27313pt>
 File: TaiLieu/AnhChuong3/IMG13_lich_su_don_hang.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG13_lich_su_don_hang.png>
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG13_lich_su_don_hang.png  used on input line 215.
 (pdftex.def)             Requested size: 432.4762pt x 230.12494pt.
-<TaiLieu/AnhChuong3/IMG14_chi_tiet_theo_doi_don_hang.png, id=1086, 1394.20876pt x 742.27313pt>
+<TaiLieu/AnhChuong3/IMG14_chi_tiet_theo_doi_don_hang.png, id=1081, 1394.20876pt x 742.27313pt>
 File: TaiLieu/AnhChuong3/IMG14_chi_tiet_theo_doi_don_hang.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG14_chi_tiet_theo_doi_don_hang.png>
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG14_chi_tiet_theo_doi_don_hang.png  used on input line 221.
 (pdftex.def)             Requested size: 432.4768pt x 230.24953pt.
-<TaiLieu/AnhChuong3/IMG15_huy_don_chua_thanh_toan_01.png, id=1087, 882.29625pt x 486.31688pt>
+<TaiLieu/AnhChuong3/IMG15_huy_don_chua_thanh_toan_01.png, id=1082, 882.29625pt x 486.31688pt>
 File: TaiLieu/AnhChuong3/IMG15_huy_don_chua_thanh_toan_01.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG15_huy_don_chua_thanh_toan_01.png>
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG15_huy_don_chua_thanh_toan_01.png  used on input line 227.
 (pdftex.def)             Requested size: 432.47704pt x 238.37898pt.
  [65 <./TaiLieu/AnhChuong3/IMG13_lich_su_don_hang.png>]
-<TaiLieu/AnhChuong3/IMG15_huy_don_chua_thanh_toan_02.png, id=1093, 882.29625pt x 514.17094pt>
+<TaiLieu/AnhChuong3/IMG15_huy_don_chua_thanh_toan_02.png, id=1088, 882.29625pt x 514.17094pt>
 File: TaiLieu/AnhChuong3/IMG15_huy_don_chua_thanh_toan_02.png Graphic file (type png)
 <use TaiLieu/AnhChuong3/IMG15_huy_don_chua_thanh_toan_02.png>
 Package pdftex.def Info: TaiLieu/AnhChuong3/IMG15_huy_don_chua_thanh_toan_02.png  used on input line 233.
@@ -1359,9 +1359,9 @@ Package pdftex.def Info: TaiLieu/AnhChuong3/IMG15_huy_don_chua_thanh_toan_02.png
 Ch\uhorn \ohorn ng 4.
 [68
 
-] [69] [70]) [71] [72
+] [69]) [70] [71
 
-] (Appendix/PhuLuc_main.tex) [73
+] (Appendix/PhuLuc_main.tex) [72
 
 
 ] (main.aux)
@@ -1370,20 +1370,20 @@ LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 5374595C45A799753012D9BAC091765D;14383.
+(rerunfilecheck)             Checksum: 8F9CA3C3513BFAA4578A3AF0C7C406F8;14023.
  ) 
 Here is how much of TeX's memory you used:
- 22850 strings out of 467871
- 425271 string characters out of 5419827
+ 22847 strings out of 467871
+ 425234 string characters out of 5419827
  846472 words of memory out of 5000000
- 50965 multiletter control sequences out of 15000+600000
- 674920 words of font info for 98 fonts, out of 8000000 for 9000
+ 50964 multiletter control sequences out of 15000+600000
+ 674919 words of font info for 98 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 86i,13n,117p,1177b,686s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 86i,13n,117p,1133b,686s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/PC/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/PC/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/urwvn/utmb8v.pfb><C:/Users/PC/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/urwvn/utmbi8v.pfb><C:/Users/PC/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/PC/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/urwvn/utmr8v.pfb><C:/Users/PC/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/urwvn/utmri8v.pfb><C:/Users/PC/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vntt12.pfb>
-Output written on main.pdf (85 pages, 4569172 bytes).
+Output written on main.pdf (84 pages, 4563089 bytes).
 PDF statistics:
- 1255 PDF objects out of 1440 (max. 8388607)
- 388 named destinations out of 1000 (max. 500000)
- 819 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1245 PDF objects out of 1440 (max. 8388607)
+ 386 named destinations out of 1000 (max. 500000)
+ 811 words of extra memory for PDF output out of 10000 (max. 10000000)
 
