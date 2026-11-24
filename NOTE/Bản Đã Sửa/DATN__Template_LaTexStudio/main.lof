@@ -55,8 +55,8 @@
 \contentsline {figure}{\numberline {3.23}{\ignorespaces Sơ đồ tuần tự tạo đơn, kiểm tra voucher và tồn kho (UC05)}}{62}{figure.caption.254}%
 \contentsline {figure}{\numberline {3.24}{\ignorespaces Màn hình checkout với thông tin giao hàng và lựa chọn COD}}{63}{figure.caption.255}%
 \contentsline {figure}{\numberline {3.25}{\ignorespaces Lựa chọn thanh toán SePay Sandbox tại checkout}}{63}{figure.caption.256}%
-\contentsline {figure}{\numberline {3.26}{\ignorespaces Trang xác nhận tạo đơn COD; đơn vẫn ở trạng thái chưa thanh toán}}{64}{figure.caption.257}%
-\contentsline {figure}{\numberline {3.27}{\ignorespaces Trang xác nhận tạo đơn SePay; đơn ở trạng thái đã thanh toán}}{64}{figure.caption.258}%
+\contentsline {figure}{\numberline {3.26}{\ignorespaces Trang xác nhận tạo đơn COD}}{64}{figure.caption.257}%
+\contentsline {figure}{\numberline {3.27}{\ignorespaces Trang xác nhận tạo đơn SePay}}{64}{figure.caption.258}%
 \contentsline {figure}{\numberline {3.28}{\ignorespaces Sơ đồ tuần tự theo dõi và yêu cầu hủy đơn (UC07)}}{65}{figure.caption.260}%
 \contentsline {figure}{\numberline {3.29}{\ignorespaces Lịch sử đơn hàng của khách hàng}}{65}{figure.caption.261}%
 \contentsline {figure}{\numberline {3.30}{\ignorespaces Chi tiết và trạng thái đơn hàng}}{66}{figure.caption.262}%
